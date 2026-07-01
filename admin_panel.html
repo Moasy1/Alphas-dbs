@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alphas Admin Panel & CRM</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Boxicons for Icons -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="admin_panel.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <i class='bx bx-cube-alt logo-icon'></i>
+            <span class="logo-text">Alphas Admin</span>
+        </div>
+
+        <ul class="nav-links">
+            <li>
+                <a href="#" class="active" data-target="dashboard">
+                    <i class='bx bx-grid-alt' ></i>
+                    <span class="link-name">Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" data-target="crm">
+                    <i class='bx bx-message-square-detail' ></i>
+                    <span class="link-name">CRM Forms</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" data-target="analytics">
+                    <i class='bx bx-line-chart' ></i>
+                    <span class="link-name">Analytics</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" data-target="settings">
+                    <i class='bx bx-cog' ></i>
+                    <span class="link-name">Settings</span>
+                </a>
+            </li>
+        </ul>
+
+        <div class="profile-content">
+            <div class="profile">
+                <div class="profile-details">
+                    <img src="https://ui-avatars.com/api/?name=Admin+User&background=6366f1&color=fff" alt="profileImg">
+                    <div class="name-job">
+                        <div class="name">Admin User</div>
+                        <div class="job">Superadmin</div>
+                    </div>
+                </div>
+                <i class='bx bx-log-out' id="log_out" ></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <section class="main-content">
+        <div class="top-bar">
+            <div class="search-box">
+                <i class='bx bx-search'></i>
+                <input type="text" placeholder="Search...">
+            </div>
+            <div class="top-actions">
+                <button class="notification-btn">
+                    <i class='bx bx-bell'></i>
+                    <span class="badge">3</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Dashboard View -->
+        <div id="dashboard" class="view-section active">
+            <div class="overview-header">
+                <h2>Overview</h2>
+                <div class="date-filter">
+                    <span>Last 30 Days <i class='bx bx-chevron-down'></i></span>
+                </div>
+            </div>
+
+            <div class="kpi-cards">
+                <div class="card">
+                    <div class="card-icon blue"><i class='bx bx-envelope'></i></div>
+                    <div class="card-info">
+                        <h3>Total Submissions</h3>
+                        <p class="number">1,284</p>
+                        <span class="trend up"><i class='bx bx-trending-up'></i> +12.5%</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon pink"><i class='bx bx-time-five'></i></div>
+                    <div class="card-info">
+                        <h3>Pending Review</h3>
+                        <p class="number">42</p>
+                        <span class="trend down"><i class='bx bx-trending-down'></i> -5.2%</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon green"><i class='bx bx-check-circle'></i></div>
+                    <div class="card-info">
+                        <h3>Resolved</h3>
+                        <p class="number">1,150</p>
+                        <span class="trend up"><i class='bx bx-trending-up'></i> +8.1%</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon purple"><i class='bx bx-star'></i></div>
+                    <div class="card-info">
+                        <h3>Conversion Rate</h3>
+                        <p class="number">24.8%</p>
+                        <span class="trend up"><i class='bx bx-trending-up'></i> +2.4%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="charts-container">
+                <div class="chart-box">
+                    <h3 class="chart-title">Submission Activity</h3>
+                    <div class="mock-chart-area">
+                        <!-- Mock chart visual -->
+                        <div class="bar" style="height: 40%"></div>
+                        <div class="bar" style="height: 60%"></div>
+                        <div class="bar" style="height: 30%"></div>
+                        <div class="bar" style="height: 80%"></div>
+                        <div class="bar" style="height: 50%"></div>
+                        <div class="bar" style="height: 90%"></div>
+                        <div class="bar" style="height: 70%"></div>
+                    </div>
+                </div>
+                <div class="chart-box recent-activity">
+                    <h3 class="chart-title">Recent Submissions</h3>
+                    <ul class="activity-list" id="dashboard-recent-list">
+                        <!-- Populated by JS -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- CRM View -->
+        <div id="crm" class="view-section">
+            <div class="overview-header">
+                <h2>CRM - Form Submissions</h2>
+                <button class="btn-primary"><i class='bx bx-export'></i> Export CSV</button>
+            </div>
+
+            <div class="table-container">
+                <div class="table-actions">
+                    <div class="filter-group">
+                        <select id="status-filter">
+                            <option value="all">All Statuses</option>
+                            <option value="pending">Pending</option>
+                            <option value="in-progress">In Progress</option>
+                            <option value="resolved">Resolved</option>
+                        </select>
+                    </div>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Service Requested</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="crm-table-body">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+                <div class="pagination">
+                    <span>Showing 1 to 10 of 1,284 entries</span>
+                    <div class="page-controls">
+                        <button class="page-btn disabled"><i class='bx bx-chevron-left'></i></button>
+                        <button class="page-btn active">1</button>
+                        <button class="page-btn">2</button>
+                        <button class="page-btn">3</button>
+                        <button class="page-btn"><i class='bx bx-chevron-right'></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Other views placeholders -->
+        <div id="analytics" class="view-section">
+            <div class="overview-header"><h2>Analytics (Coming Soon)</h2></div>
+        </div>
+        <div id="settings" class="view-section">
+            <div class="overview-header"><h2>Settings (Coming Soon)</h2></div>
+        </div>
+
+    </section>
+
+    <!-- Modal for viewing form details -->
+    <div id="view-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Submission Details</h2>
+                <span class="close-btn">&times;</span>
+            </div>
+            <div class="modal-body" id="modal-details">
+                <!-- Populated by JS -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary close-modal-btn">Close</button>
+                <button class="btn-primary" id="mark-resolved-btn">Mark as Resolved</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="admin_panel.js"></script>
+</body>
+</html>

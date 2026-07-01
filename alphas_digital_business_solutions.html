@@ -1,0 +1,2720 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALPHAS - Digital Business Solutions | Premium Web & SMM Strategy</title>
+
+    <!-- SEO & Social OpenGraph Tags -->
+    <meta name="description"
+        content="ALPHAS empowers ambitious companies with custom high-performance e-commerce, digital brand solutions, media buying, and scalable architectures.">
+    <meta property="og:title" content="ALPHAS - Digital Business Solutions">
+    <meta property="og:description"
+        content="Scale digital operations with premium website engineering, data-driven SMM, and conversion-focused systems.">
+    <meta property="og:image" content="Logo.png">
+    <meta property="og:type" content="website">
+
+    <!-- JSON-LD Corporation Schema Markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "ALPHAS Digital Business Solutions",
+      "image": "Logo.png",
+      "description": "Premium e-commerce websites, custom e-learning platforms, and outcome-oriented social media marketing services.",
+      "url": "https://alphas.agency",
+      "sameAs": [
+        "https://www.facebook.com/alphasagency",
+        "https://www.linkedin.com/company/alphasagency"
+      ],
+      "priceRange": "$$",
+      "areaServed": "Egypt & Middle East"
+    }
+    </script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        alphas: {
+                            navy: '#0a1122',
+                            dark: '#060a14',
+                            accent: '#e59b58',
+                            accentHover: '#c97e3a',
+                            goldLight: '#f5d6b8',
+                            glass: 'rgba(255, 255, 255, 0.04)',
+                            glassBorder: 'rgba(255, 255, 255, 0.09)'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Cairo', 'sans-serif'],
+                        display: ['Cairo', 'sans-serif']
+                    },
+                    boxShadow: {
+                        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
+                        'gold-glow': '0 0 20px rgba(229, 155, 88, 0.25)',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- GSAP & ScrollTrigger Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        body {
+            background-color: #060a14;
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+
+        /* Custom Glassmorphism Utility Card Style */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+        }
+
+        .glass-card:hover {
+            border-color: rgba(229, 155, 88, 0.3);
+            box-shadow: 0 12px 40px 0 rgba(229, 155, 88, 0.08);
+            transform: translateY(-5px);
+        }
+
+        .glass-nav {
+            background: rgba(6, 10, 20, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        /* Custom scrollbar configurations */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #060a14;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(229, 155, 88, 0.3);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(229, 155, 88, 0.6);
+        }
+
+        /* Grid wireframe wave decoration mimicking slides */
+        .grid-wave {
+            background-image: radial-gradient(rgba(229, 155, 88, 0.15) 1px, transparent 0);
+            background-size: 24px 24px;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% {
+                background-position: 0 0;
+            }
+
+            100% {
+                background-position: 24px 24px;
+            }
+        }
+
+        /* Floating animation for hero visual elements */
+        .float-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        /* Glow pulse animations */
+        .glow-pulse {
+            animation: glowPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(229, 155, 88, 0.25);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(229, 155, 88, 0.5);
+            }
+        }
+
+        /* 3D Browser Mockup Styles */
+        .mockup-perspective-wrapper {
+            perspective: 1200px;
+            transform-style: preserve-3d;
+        }
+
+        .browser-mockup {
+            transform: rotateY(-14deg) rotateX(7deg) rotateZ(-1deg);
+            transform-style: preserve-3d;
+            transition: transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        /* Interactive element shine */
+        .shine-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, 0.06) 50%, rgba(255, 255, 255, 0) 70%);
+            transform: translateX(-100%);
+            pointer-events: none;
+            transition: transform 0.1s ease;
+        }
+
+        /* Dynamic interactive styles for calendar booking system */
+        .date-cell {
+            transition: all 0.25s ease;
+            cursor: pointer;
+        }
+
+        .date-cell:not(.disabled):hover {
+            background: rgba(229, 155, 88, 0.15);
+            border-color: rgba(229, 155, 88, 0.4);
+            color: #ffffff;
+        }
+
+        .date-cell.selected {
+            background: #e59b58 !important;
+            border-color: #e59b58 !important;
+            color: #060a14 !important;
+            font-weight: 700;
+        }
+
+        .time-slot {
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .time-slot:hover {
+            background: rgba(229, 155, 88, 0.2);
+            border-color: rgba(229, 155, 88, 0.5);
+            color: white;
+        }
+
+        .time-slot.selected {
+            background: #e59b58 !important;
+            border-color: #e59b58 !important;
+            color: #060a14 !important;
+            font-weight: bold;
+        }
+
+        /* Multi-step Quiz Option cards */
+        .quiz-opt-card {
+            transition: all 0.3s ease;
+        }
+
+        .quiz-opt-card:hover {
+            border-color: rgba(229, 155, 88, 0.4);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .quiz-opt-card.selected {
+            border-color: #e59b58;
+            background: rgba(229, 155, 88, 0.1);
+            box-shadow: 0 0 15px rgba(229, 155, 88, 0.15);
+        }
+
+        /* Case Study Modal open state animations */
+        #case-study-modal.open .modal-box {
+            transform: scale(1);
+            opacity: 1;
+        }
+    </style>
+
+    <!-- Language Switcher styling -->
+    <style>
+        html[lang="en"] .lang-ar {
+            display: none !important;
+        }
+
+        html[lang="ar"] .lang-en {
+            display: none !important;
+        }
+
+        /* Smooth language transition fade */
+        .lang-en,
+        .lang-ar {
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+
+</head>
+
+<body class="font-sans antialiased selection:bg-alphas-accent selection:text-white">
+    <!-- Ambient Blur Background Gradients -->
+    <div class="fixed top-0 left-0 w-full h-full pointer-events-none -z-50 overflow-hidden">
+        <div class="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-blue-900/10 blur-[150px] animate-pulse"
+            style="animation-duration: 8s;"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[60vw] h-[60vw] rounded-full bg-alphas-accent/5 blur-[180px] animate-pulse"
+            style="animation-duration: 12s;"></div>
+        <div class="absolute top-[40%] right-[10%] w-[35vw] h-[35vw] rounded-full bg-indigo-900/10 blur-[130px]"></div>
+    </div>
+
+    <!-- Header Navigation -->
+    <header class="fixed top-0 left-0 w-full z-50 glass-nav" id="main-header">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between" id="header-container">
+            <!-- ALPHAS Brand Logo with sun icon element -->
+            <a href="#hero" class="flex items-center gap-3 group" id="logo-link">
+                <div class="relative w-12 h-12 flex items-center justify-center">
+                    <img src="Logo.png" alt="ALPHAS Logo" class="w-full h-full object-contain">
+                </div>
+                <div class="flex flex-col leading-none" id="logo-text">
+                    <span class="text-xl font-bold font-display tracking-widest text-white uppercase group-hover:text-alphas-accent transition">ALPHAS</span>
+                    <span class="text-[9px] tracking-[0.25em] text-gray-400" data-i18n="header.tagline">DIGITAL BUSINESS SOLUTIONS</span>
+                </div>
+            </a>
+
+            <!-- Desktop Menu -->
+            <nav class="hidden lg:flex items-center gap-8" id="desktop-nav">
+                <a href="#about" class="text-sm font-medium text-gray-300 hover:text-alphas-accent transition-colors" data-i18n="nav.about">About</a>
+                <a href="#services" class="text-sm font-medium text-gray-300 hover:text-alphas-accent transition-colors" data-i18n="nav.services">Services</a>
+                <a href="#workflow" class="text-sm font-medium text-gray-300 hover:text-alphas-accent transition-colors" data-i18n="nav.workflow">Workflow</a>
+                <a href="#approach" class="text-sm font-medium text-gray-300 hover:text-alphas-accent transition-colors" data-i18n="nav.approach">Our Approach</a>
+                <a href="#showcase" class="text-sm font-medium text-gray-300 hover:text-alphas-accent transition-colors" data-i18n="nav.showcase">Showcase</a>
+                <a href="#whyus" class="text-sm font-medium text-gray-300 hover:text-alphas-accent transition-colors" data-i18n="nav.whyus">Why us</a>
+                <a href="#success" class="text-sm font-medium text-gray-300 hover:text-alphas-accent transition-colors" data-i18n="nav.success">Success</a>
+                <!-- Language Switcher -->
+                <button onclick="switchLanguage('ar')"
+                    class="lang-switch-btn px-4 py-2 rounded-full text-xs font-semibold bg-white/5 border border-white/10 text-white hover:bg-alphas-accent hover:text-alphas-dark transition-all">العربية</button>
+            </nav>
+
+            <!-- Actions -->
+            <div class="flex items-center gap-4" id="header-actions">
+                <button onclick="toggleConsultation(true)"
+                    class="hidden sm:inline-flex items-center gap-2 bg-gradient-to-r from-alphas-accent to-alphas-accentHover text-white px-5 py-2.5 rounded-full font-medium text-sm transition hover:shadow-gold-glow">
+                    <span class="flex items-center gap-2" data-i18n="header.consultation">Free Consultation <i class="fa-solid fa-arrow-right text-xs"></i></span>
+                </button>
+                <button onclick="toggleMobileMenu()"
+                    class="lg:hidden text-white hover:text-alphas-accent transition text-2xl focus:outline-none">
+                    <i id="mobile-menu-icon" class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Panel Drawer -->
+    <div id="mobile-menu"
+        class="fixed inset-y-0 right-0 z-40 w-full max-w-sm glass-card bg-alphas-dark/95 backdrop-blur-2xl p-8 transform translate-x-full transition-transform duration-300 ease-in-out lg:hidden pt-28">
+        <nav class="flex flex-col gap-6">
+            <a onclick="toggleMobileMenu()" href="#about" class="text-xl font-semibold text-gray-200 hover:text-alphas-accent transition" data-i18n="nav.about">About</a>
+            <a onclick="toggleMobileMenu()" href="#services" class="text-xl font-semibold text-gray-200 hover:text-alphas-accent transition" data-i18n="nav.services">Services</a>
+            <a onclick="toggleMobileMenu()" href="#workflow" class="text-xl font-semibold text-gray-200 hover:text-alphas-accent transition" data-i18n="nav.workflow">Workflow</a>
+            <a onclick="toggleMobileMenu()" href="#approach" class="text-xl font-semibold text-gray-200 hover:text-alphas-accent transition" data-i18n="nav.approach">Our Approach</a>
+            <a onclick="toggleMobileMenu()" href="#showcase" class="text-xl font-semibold text-gray-200 hover:text-alphas-accent transition" data-i18n="nav.showcase">Showcase</a>
+            <a onclick="toggleMobileMenu()" href="#whyus" class="text-xl font-semibold text-gray-200 hover:text-alphas-accent transition" data-i18n="nav.whyAlphas">Why Alphas</a>
+            <a onclick="toggleMobileMenu()" href="#success" class="text-xl font-semibold text-gray-200 hover:text-alphas-accent transition" data-i18n="nav.successStories">Success Stories</a>
+            
+            <!-- Language Switcher -->
+            <button onclick="toggleMobileMenu(); switchLanguage('ar')"
+                class="lang-switch-btn w-full px-4 py-3 rounded-full text-sm font-semibold bg-white/5 border border-white/10 text-white hover:bg-alphas-accent hover:text-alphas-dark transition-all">العربية</button>
+            <button onclick="toggleMobileMenu(); toggleConsultation(true);"
+                class="w-full mt-6 bg-alphas-accent text-white py-3.5 rounded-full font-medium transition hover:shadow-gold-glow">
+                <span class="flex items-center justify-center gap-2" data-i18n="header.consultationMobile">Free Consultation <i class="fa-solid fa-arrow-right text-xs"></i></span>
+            </button>
+        </nav>
+    </div>
+
+    <!-- HERO SECTION (Page 1 & 2 content combined) -->
+    <section id="hero" class="relative min-h-screen flex items-center pt-32 pb-20 overflow-hidden">
+        <!-- Interactive Particle Canvas Overlay -->
+        <canvas id="particle-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
+
+        <!-- Geometric facets background overlay mimicking the design image -->
+        <div class="absolute inset-0 w-full h-full pointer-events-none -z-20 overflow-hidden opacity-30">
+            <svg class="w-full h-full object-cover" viewBox="0 0 1440 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="0,0 600,0 300,400" fill="url(#facet-grad-1)" stroke="rgba(255,255,255,0.05)" stroke-width="1" />
+                <polygon points="600,0 1200,0 750,450 300,400" fill="url(#facet-grad-2)" stroke="rgba(255,255,255,0.05)" stroke-width="1" />
+                <polygon points="1200,0 1440,0 1440,500 750,450" fill="url(#facet-grad-3)" stroke="rgba(255,255,255,0.05)" stroke-width="1" />
+                <polygon points="0,0 300,400 0,600" fill="url(#facet-grad-4)" stroke="rgba(255,255,255,0.04)" stroke-width="1" />
+                <polygon points="0,600 300,400 750,450 450,900 0,900" fill="url(#facet-grad-5)" stroke="rgba(255,255,255,0.03)" stroke-width="1" />
+                <polygon points="750,450 1440,500 1440,900 450,900" fill="url(#facet-grad-6)" stroke="rgba(255,255,255,0.04)" stroke-width="1" />
+
+                <defs>
+                    <linearGradient id="facet-grad-1" x1="0" y1="0" x2="300" y2="400" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#0a122c" />
+                        <stop offset="100%" stop-color="#050a18" />
+                    </linearGradient>
+                    <linearGradient id="facet-grad-2" x1="600" y1="0" x2="750" y2="450" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#0c1737" />
+                        <stop offset="100%" stop-color="#040813" />
+                    </linearGradient>
+                    <linearGradient id="facet-grad-3" x1="1200" y1="0" x2="750" y2="450" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#0b1430" />
+                        <stop offset="100%" stop-color="#03060f" />
+                    </linearGradient>
+                    <linearGradient id="facet-grad-4" x1="0" y1="0" x2="150" y2="500" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#060c1d" />
+                        <stop offset="100%" stop-color="#02040a" />
+                    </linearGradient>
+                    <linearGradient id="facet-grad-5" x1="300" y1="400" x2="225" y2="650" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#080f25" />
+                        <stop offset="100%" stop-color="#03060e" />
+                    </linearGradient>
+                    <linearGradient id="facet-grad-6" x1="1095" y1="675" x2="945" y2="900" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#0d193d" />
+                        <stop offset="100%" stop-color="#050a18" />
+                    </linearGradient>
+                </defs>
+            </svg>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 w-full relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <!-- Left copy column -->
+            <div class="lg:col-span-7 flex flex-col items-start text-left hero-text">
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-alphas-accent/10 border border-alphas-accent/20 text-alphas-accent text-xs font-semibold uppercase tracking-wider mb-6 hover:bg-alphas-accent/20 transition-all cursor-default">
+                    <span class="w-2 h-2 rounded-full bg-alphas-accent animate-pulse"></span>
+                    <span data-i18n="hero.badge">Alpha Level Strategy</span>
+                </div>
+                <h1 class="text-4xl md:text-6xl lg:text-[72px] font-black font-display leading-[1.05] text-white uppercase tracking-tight mb-6" data-i18n="hero.title">
+                    WE SCALE <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-alphas-accent via-alphas-goldLight to-alphas-accent drop-shadow-[0_0_35px_rgba(229,155,88,0.25)] tracking-wide">
+                        DIGITAL REVENUES
+                    </span><br>
+                    FOR AMBITIOUS BRANDS.
+                </h1>
+                <p class="text-lg md:text-xl font-display font-semibold tracking-wider text-white uppercase mb-3" data-i18n="hero.subtitle">
+                    300+ SUCCESSFUL PROJECTS & 95% CLIENT GROWTH RATE.
+                </p>
+                <p class="text-xs md:text-sm text-gray-400 font-medium tracking-wide mb-8" data-i18n="hero.desc">
+                    High-Performance UI/UX <span class="text-alphas-accent/60 mx-1.5">|</span> Advanced Automation
+                    <span class="text-alphas-accent/60 mx-1.5">|</span> Seamless Workflows.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto hero-actions">
+                    <button onclick="toggleConsultation(true)"
+                        class="text-center bg-alphas-accent hover:bg-alphas-accentHover text-white font-medium px-8 py-4 rounded-full transition-all duration-300 shadow-gold-glow flex items-center justify-center gap-3">
+                        <span data-i18n="hero.cta">Book Free Consultation & Audit <i class="fa-solid fa-arrow-right text-xs"></i></span>
+                    </button>
+                    <a href="#about"
+                        class="text-center px-8 py-4 rounded-full border border-white/20 text-gray-300 hover:text-white hover:border-alphas-accent/80 hover:shadow-gold-glow transition-all duration-300 flex items-center justify-center" data-i18n="hero.learnMore">Learn More
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right Column: 3D Interactive Browser Mockup -->
+            <div class="lg:col-span-5 relative flex justify-center hero-visual">
+                <!-- Glow behind the mockup -->
+                <div class="absolute w-80 h-80 rounded-full bg-alphas-accent/20 blur-[80px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 animate-pulse"
+                    style="animation-duration: 4s;"></div>
+
+                <!-- Stars and Sparkles around the mockup -->
+                <div class="absolute -top-10 -left-6 text-alphas-accent/40 animate-pulse text-lg" style="animation-duration: 3s;"><i class="fa-solid fa-sparkles"></i></div>
+                <div class="absolute -bottom-6 -right-6 text-alphas-accent/40 animate-pulse text-lg" style="animation-duration: 5s;"><i class="fa-solid fa-star"></i></div>
+                <div class="absolute top-[80%] -left-12 text-white/20 text-xs"><i class="fa-solid fa-sparkles"></i></div>
+
+                <!-- 3D Perspective Wrapper -->
+                <div class="mockup-perspective-wrapper w-full max-w-lg" id="mockup-parallax-trigger">
+                    <div class="browser-mockup glass-card w-full rounded-2xl border border-white/10 overflow-hidden shadow-2xl backdrop-blur-xl relative">
+                        <!-- Dynamic mouse shine reflection -->
+                        <div class="shine-overlay" id="mockup-shine"></div>
+
+                        <!-- Browser Top Bar -->
+                        <div class="bg-alphas-navy/80 border-b border-white/5 px-4 py-3 flex items-center gap-3">
+                            <div class="flex items-center gap-1.5">
+                                <span class="w-3 h-3 rounded-full bg-[#ff5f56]/90"></span>
+                                <span class="w-3 h-3 rounded-full bg-[#ffbd2e]/90"></span>
+                                <span class="w-3 h-3 rounded-full bg-[#27c93f]/90"></span>
+                            </div>
+                            <div class="flex-grow max-w-xs mx-auto bg-alphas-dark/60 border border-white/5 rounded-md px-3 py-1 flex items-center justify-between text-[10px] text-gray-400">
+                                <span class="flex items-center gap-1"><i class="fa-solid fa-lock text-[8px] text-alphas-accent/80"></i> alphas.agency/platform</span>
+                                <i class="fa-solid fa-arrows-rotate text-[8px]"></i>
+                            </div>
+                        </div>
+
+                        <!-- Browser Body Content -->
+                        <div class="p-6 bg-gradient-to-b from-[#0c1328]/90 to-alphas-dark/95 relative overflow-hidden">
+                            <div class="absolute w-48 h-48 rounded-full bg-alphas-accent/10 blur-[40px] top-[-10%] right-[-10%] pointer-events-none"></div>
+
+                            <div class="relative z-10 text-start">
+                                <!-- Inner Header -->
+                                <div class="flex items-center justify-between mb-6 pb-3 border-b border-white/5">
+                                    <div class="flex items-center gap-1.5">
+                                        <div class="w-4 h-4 rounded-full bg-alphas-accent/20 flex items-center justify-center">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-alphas-accent"></span>
+                                        </div>
+                                        <span class="text-[9px] font-bold tracking-widest text-white">ALPHAS</span>
+                                    </div>
+                                    <div class="flex gap-2">
+                                        <span class="w-8 h-1.5 rounded-full bg-white/5"></span>
+                                        <span class="w-6 h-1.5 rounded-full bg-alphas-accent/20"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Inner Banner Hero Grid -->
+                                <div class="grid grid-cols-12 gap-4 items-center mb-6">
+                                    <div class="col-span-7">
+                                        <h4 class="text-sm font-extrabold font-display leading-[1.2] text-white uppercase tracking-tight mb-2" data-i18n="mockup.title">
+                                            High-Performance <br>
+                                            <span class="text-alphas-accent">Website</span>
+                                        </h4>
+                                        <p class="text-[8px] text-gray-400 leading-normal mb-3" data-i18n="mockup.desc">
+                                            Fully custom coded framework. Built for maximum speed, security, and organic search indexation.
+                                        </p>
+                                        <div class="inline-flex items-center gap-1.5 px-2 py-1 rounded bg-alphas-accent/15 border border-alphas-accent/25 text-[8px] text-white font-semibold" data-i18n="mockup.badge">
+                                            Live Audit Score: 100%
+                                        </div>
+                                    </div>
+
+                                    <div class="col-span-5 relative flex justify-center">
+                                        <div class="absolute w-20 h-20 rounded-full bg-alphas-accent/15 blur-[15px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
+                                        <div class="w-24 h-16 bg-[#16223f] border border-white/15 rounded-lg p-1 relative shadow-lg flex flex-col justify-between">
+                                            <div class="flex-grow flex flex-col justify-center items-center">
+                                                <div class="w-8 h-8 rounded-full border border-alphas-accent/30 flex items-center justify-center">
+                                                    <i class="fa-solid fa-chart-simple text-[10px] text-alphas-accent"></i>
+                                                </div>
+                                                <div class="w-12 h-1 bg-white/10 rounded mt-2"></div>
+                                            </div>
+                                            <div class="absolute bottom-[-10px] left-1/2 -translate-x-1/2 w-4 h-2 bg-white/20 border border-white/10"></div>
+                                            <div class="absolute bottom-[-12px] left-1/2 -translate-x-1/2 w-8 h-1 bg-white/30 rounded-full"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Inner Stat Cards Row -->
+                                <div class="grid grid-cols-3 gap-2.5 border-t border-white/5 pt-4">
+                                    <div class="bg-white/5 border border-white/5 rounded-xl p-2.5 text-center">
+                                        <span class="text-[7px] text-gray-400 uppercase tracking-wider block" data-i18n="mockup.stat1">Page Speed</span>
+                                        <span class="text-xs font-bold text-white block mt-0.5" data-i18n="mockup.stat1val">100 / 100</span>
+                                    </div>
+                                    <div class="bg-white/5 border border-white/5 rounded-xl p-2.5 text-center border-l border-white/5">
+                                        <span class="text-[7px] text-gray-400 uppercase tracking-wider block" data-i18n="mockup.stat2">SEO Health</span>
+                                        <span class="text-xs font-bold text-alphas-accent block mt-0.5" data-i18n="mockup.stat2val">Perfect</span>
+                                    </div>
+                                    <div class="bg-white/5 border border-white/5 rounded-xl p-2.5 text-center">
+                                        <span class="text-[7px] text-gray-400 uppercase tracking-wider block" data-i18n="mockup.stat3">Bounce Rate</span>
+                                        <span class="text-xs font-bold text-white block mt-0.5" data-i18n="mockup.stat3val">-34.2%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION (Page 2) -->
+    <section id="about" class="py-24 relative overflow-hidden bg-alphas-navy/30">
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <!-- Left Column with illustrations -->
+                <div class="lg:col-span-5 relative about-left">
+                    <div class="glass-card rounded-3xl p-6 border border-white/10 max-w-sm mx-auto relative text-start">
+                        <div class="absolute -bottom-6 -left-6 w-24 h-24 bg-alphas-accent/15 rounded-full blur-xl pointer-events-none"></div>
+                        <span class="text-sm font-semibold text-alphas-accent uppercase tracking-widest mb-2 block" data-i18n="about.pitchLabel">Company Pitch</span>
+                        <h3 class="text-xl font-bold text-white mb-4 uppercase" data-i18n="about.pitchTitle">Alpha Business Growth</h3>
+                        <p class="text-sm text-gray-300 leading-relaxed" data-i18n="about.pitchDesc">
+                            "Ambitious companies looking to take their success to the next level need more than standard tactics. They require structural transformation based on market-tested formulas."
+                        </p>
+                        <div class="flex items-center gap-3 mt-6">
+                            <div class="w-10 h-10 rounded-full bg-alphas-accent flex items-center justify-center text-white"><i class="fa-solid fa-bullseye"></i></div>
+                            <div>
+                                <h4 class="text-xs font-bold text-white uppercase" data-i18n="about.profitStrategy">Profitable Strategy</h4>
+                                <p class="text-[11px] text-gray-400" data-i18n="about.profitDesc">Custom tailored execution pathways.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Copy Column -->
+                <div class="lg:col-span-7 about-right text-start">
+                    <div class="flex items-center gap-2 text-alphas-accent text-sm font-semibold uppercase mb-4">
+                        <span class="w-6 h-0.5 bg-alphas-accent"></span><span data-i18n="about.whoLabel"> Who is Alphas?</span>
+                    </div>
+                    <h2 class="text-3xl md:text-5xl font-extrabold font-display text-white uppercase mb-6 leading-tight" data-i18n="about.title">
+                        We build highly scalable <br>digital operations
+                    </h2>
+                    <p class="text-gray-300 text-lg leading-relaxed mb-6" data-i18n="about.desc1">
+                        Alphas is the perfect solution for ambitious companies looking to take their success to the next level. With over <strong class="text-alphas-accent">300 successful projects</strong> spanning 5+ years of operational excellence, our unified team of certified professionals has the background required to define, develop, and scale profitable business blueprints.
+                    </p>
+                    <p class="text-gray-400 text-base leading-relaxed mb-8" data-i18n="about.desc2">
+                        Whether starting from a brand refresh, shifting target cohorts, or establishing robust customized e-commerce systems, we handle the technical design layers so you can focus entirely on operations.
+                    </p>
+                    <div class="flex flex-wrap gap-6 items-center">
+                        <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-circle-check text-alphas-accent"></i>
+                            <span class="font-semibold text-sm text-gray-200" data-i18n="about.check1">Continuous 24/7 Monitoring</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-circle-check text-alphas-accent"></i>
+                            <span class="font-semibold text-sm text-gray-200" data-i18n="about.check2">Flexible Frameworks</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-circle-check text-alphas-accent"></i>
+                            <span class="font-semibold text-sm text-gray-200" data-i18n="about.check3">KPI Oriented Reports</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES SECTION (Page 3, 4, 7, 8 content) -->
+    <section id="services" class="py-24 relative overflow-hidden">
+        <div class="absolute top-[20%] left-[-10%] w-[500px] h-[500px] rounded-full bg-alphas-accent/5 blur-[120px] pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+
+            <div class="text-center max-w-3xl mx-auto mb-16 services-header">
+                <span class="text-alphas-accent text-sm font-semibold uppercase tracking-wider" data-i18n="services.label">Expert Deliverables</span>
+                <h2 class="text-3xl md:text-5xl font-extrabold font-display text-white uppercase mt-2 mb-4" data-i18n="services.title">Core Digital Verticals</h2>
+                <p class="text-gray-400" data-i18n="services.desc">Marketing, branding, systems architecture, and comprehensive tracking services aimed at growing your bottom-line budget efficiently.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 services-grid">
+                <!-- Vertical 1: Marketing & Social Media (Page 4 content) -->
+                <div class="glass-card p-8 rounded-3xl flex flex-col justify-between h-full group border border-white/5 hover:border-alphas-accent/35 text-start">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-alphas-accent/10 flex items-center justify-center text-alphas-accent mb-6 group-hover:scale-110 transition duration-300">
+                            <i class="fa-solid fa-share-nodes text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white uppercase mb-4" data-i18n="services.smm.title">Social Media & Marketing</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6" data-i18n="services.smm.desc">Comprehensive management and optimization across networks that boost online presence and maximize budget.</p>
+                        
+                        <!-- SMM Pills (Localized) -->
+                        <div class="flex flex-wrap gap-2 mb-8">
+                            <span class="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10 text-gray-300" data-i18n="services.smm.tag1">Graphic Designs</span>
+                            <span class="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10 text-gray-300" data-i18n="services.smm.tag2">Content Creation</span>
+                            <span class="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10 text-gray-300" data-i18n="services.smm.tag3">Ads Management</span>
+                            <span class="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10 text-gray-300" data-i18n="services.smm.tag4">Moderation</span>
+                            <span class="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10 text-gray-300" data-i18n="services.smm.tag5">SEO / Google Ads</span>
+                        </div>
+                    </div>
+                    <a href="#showcase" class="inline-flex items-center gap-2 text-alphas-accent hover:text-white font-semibold text-sm transition-colors mt-auto" data-i18n="services.smm.link">
+                        View active layouts <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
+
+                <!-- Vertical 2: Website Services & Online Stores (Page 8 content) -->
+                <div class="glass-card p-8 rounded-3xl flex flex-col justify-between h-full group border border-white/5 hover:border-alphas-accent/35 text-start">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-alphas-accent/10 flex items-center justify-center text-alphas-accent mb-6 group-hover:scale-110 transition duration-300">
+                            <i class="fa-solid fa-store text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white uppercase mb-4" data-i18n="services.web.title">Web Design & E-Commerce</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6" data-i18n="services.web.desc">Fast, easily managed website systems and online stores designed to retain customers and capture conversions seamlessly.</p>
+                        
+                        <!-- E-Commerce Pills (Localized) -->
+                        <div class="flex flex-wrap gap-2 mb-8">
+                            <span class="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10 text-gray-300" data-i18n="services.web.tag1">E-Commerce</span>
+                            <span class="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10 text-gray-300" data-i18n="services.web.tag2">Landing Pages</span>
+                            <span class="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10 text-gray-300" data-i18n="services.web.tag3">Booking Systems</span>
+                            <span class="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10 text-gray-300" data-i18n="services.web.tag4">Blogs & Articles</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4 text-gray-500 text-lg mb-4 mt-auto">
+                        <i class="fa-brands fa-shopify hover:text-alphas-accent transition" title="Shopify"></i>
+                        <i class="fa-brands fa-wordpress hover:text-alphas-accent transition" title="WordPress"></i>
+                        <i class="fa-brands fa-wix hover:text-alphas-accent transition" title="Wix"></i>
+                        <i class="fa-brands fa-joomla hover:text-alphas-accent transition" title="Joomla"></i>
+                    </div>
+                </div>
+
+                <!-- Vertical 3: Media Buying Service (Page 7 content) -->
+                <div class="glass-card p-8 rounded-3xl flex flex-col justify-between h-full group border border-white/5 hover:border-alphas-accent/35 text-start">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-alphas-accent/10 flex items-center justify-center text-alphas-accent mb-6 group-hover:scale-110 transition duration-300">
+                            <i class="fa-solid fa-chart-pie text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white uppercase mb-4" data-i18n="services.media.title">Media Buying Service</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6" data-i18n="services.media.desc">Meticulous demographic research, exceptionally precise keywords, and constant tracking designed to boost ROI.</p>
+                        
+                        <div class="flex flex-col gap-3 mb-8">
+                            <div class="flex items-start gap-2.5 text-xs text-gray-300">
+                                <i class="fa-solid fa-database text-alphas-accent mt-0.5"></i>
+                                <span data-i18n="services.media.item1"><strong>A Data Obsession:</strong> Driving conversions with real numbers.</span>
+                            </div>
+                            <div class="flex items-start gap-2.5 text-xs text-gray-300">
+                                <i class="fa-solid fa-paintbrush text-alphas-accent mt-0.5"></i>
+                                <span data-i18n="services.media.item2"><strong>Focused Creative:</strong> Functional visual ideas instead of chaos.</span>
+                            </div>
+                            <div class="flex items-start gap-2.5 text-xs text-gray-300">
+                                <i class="fa-solid fa-shuffle text-alphas-accent mt-0.5"></i>
+                                <span data-i18n="services.media.item3"><strong>Ability to Shift:</strong> Agile pivoting for sub-par lists.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="toggleConsultation(true)"
+                        class="inline-flex items-center gap-2 text-alphas-accent hover:text-white font-semibold text-sm transition-colors mt-auto text-start" data-i18n="services.media.cta">
+                        Configure Media Budgets <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WORKFLOW PROCESS SECTION (Page 5: Social Media Work Flow) -->
+    <section id="workflow" class="py-24 relative overflow-hidden bg-alphas-dark/50">
+        <div class="absolute inset-0 grid-wave opacity-10 pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-alphas-accent text-sm font-semibold uppercase tracking-wider" data-i18n="workflow.label">How We Achieve Scale</span>
+                <h2 class="text-3xl md:text-5xl font-extrabold font-display text-white uppercase mt-2 mb-4" data-i18n="workflow.title">Unified Strategic Workflow</h2>
+                <p class="text-gray-400" data-i18n="workflow.desc">Our structured method allows for digital agility with clear, actionable steps.</p>
+            </div>
+
+            <!-- Workflow Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-start">
+                <!-- Step 1 -->
+                <div class="glass-card p-6 rounded-2xl border border-white/5 hover:border-alphas-accent/30 transition">
+                    <div class="w-12 h-12 rounded-xl bg-alphas-accent/10 flex items-center justify-center text-alphas-accent mb-4">
+                        <i class="fa-solid fa-palette text-xl"></i>
+                    </div>
+                    <h4 class="font-bold text-white uppercase text-sm mb-2" data-i18n="workflow.step1">01. Branding</h4>
+                    <p class="text-xs text-gray-400 leading-relaxed" data-i18n="workflow.step1desc">Platform Style Guides - Defining unique visual design markers and target guidelines.</p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="glass-card p-6 rounded-2xl border border-white/5 hover:border-alphas-accent/30 transition">
+                    <div class="w-12 h-12 rounded-xl bg-alphas-accent/10 flex items-center justify-center text-alphas-accent mb-4">
+                        <i class="fa-solid fa-users-rectangle text-xl"></i>
+                    </div>
+                    <h4 class="font-bold text-white uppercase text-sm mb-2" data-i18n="workflow.step2">02. Customer Data</h4>
+                    <p class="text-xs text-gray-400 leading-relaxed" data-i18n="workflow.step2desc">Target Audience Profiling - Gathering demographic, search-intent, and past behavior.</p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="glass-card p-6 rounded-2xl border border-white/5 hover:border-alphas-accent/30 transition">
+                    <div class="w-12 h-12 rounded-xl bg-alphas-accent/10 flex items-center justify-center text-alphas-accent mb-4">
+                        <i class="fa-solid fa-triangle-exclamation text-xl"></i>
+                    </div>
+                    <h4 class="font-bold text-white uppercase text-sm mb-2" data-i18n="workflow.step3">03. Problem Analysis</h4>
+                    <p class="text-xs text-gray-400 leading-relaxed" data-i18n="workflow.step3desc">Determine Solutions - Locating systemic drop-offs in customer journeys.</p>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="glass-card p-6 rounded-2xl border border-white/5 hover:border-alphas-accent/30 transition">
+                    <div class="w-12 h-12 rounded-xl bg-alphas-accent/10 flex items-center justify-center text-alphas-accent mb-4">
+                        <i class="fa-solid fa-file-contract text-xl"></i>
+                    </div>
+                    <h4 class="font-bold text-white uppercase text-sm mb-2" data-i18n="workflow.step4">04. Decisions & Goals</h4>
+                    <p class="text-xs text-gray-400 leading-relaxed" data-i18n="workflow.step4desc">Execution Contracting - Building measurable goals and scheduling implementation.</p>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="glass-card p-6 rounded-2xl border border-white/5 hover:border-alphas-accent/30 transition">
+                    <div class="w-12 h-12 rounded-xl bg-alphas-accent/10 flex items-center justify-center text-alphas-accent mb-4">
+                        <i class="fa-solid fa-gear text-xl"></i>
+                    </div>
+                    <h4 class="font-bold text-white uppercase text-sm mb-2" data-i18n="workflow.step5">05. Active Execution</h4>
+                    <p class="text-xs text-gray-400 leading-relaxed" data-i18n="workflow.step5desc">Campaign Launch - Executing the core digital transformation and campaigns.</p>
+                </div>
+
+                <!-- Step 6 -->
+                <div class="glass-card p-6 rounded-2xl border border-white/5 hover:border-alphas-accent/30 transition">
+                    <div class="w-12 h-12 rounded-xl bg-alphas-accent/10 flex items-center justify-center text-alphas-accent mb-4">
+                        <i class="fa-solid fa-chart-pie text-xl"></i>
+                    </div>
+                    <h4 class="font-bold text-white uppercase text-sm mb-2" data-i18n="workflow.step6">06. Reports & Reviews</h4>
+                    <p class="text-xs text-gray-400 leading-relaxed" data-i18n="workflow.step6desc">Ongoing Iterations - Preparing deep reports and growth summaries.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- OUR APPROACH SECTION (Page 6) -->
+    <section id="approach" class="py-24 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-alphas-accent text-sm font-semibold uppercase tracking-wider" data-i18n="approach.label">How We Work</span>
+                <h2 class="text-3xl md:text-5xl font-extrabold font-display text-white uppercase mt-2 mb-4" data-i18n="approach.title">Our Core Pillars</h2>
+                <p class="text-gray-400" data-i18n="approach.desc">Our strategic pillars ensure every single brand project gets delivered at premium levels.</p>
+            </div>
+
+            <!-- Pillars Grid Layout styled matching Slide 6 cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 approach-grid text-start">
+                <!-- Pillar 1 -->
+                <div class="glass-card p-6 rounded-2xl border border-white/5 hover:scale-[1.02] duration-300">
+                    <span class="text-xs font-bold text-alphas-accent uppercase tracking-widest" data-i18n="approach.p1label">Pillar 01</span>
+                    <h3 class="text-xl font-bold text-white mt-2 mb-3 uppercase" data-i18n="approach.p1title">Right Segment</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed" data-i18n="approach.p1desc">Hitting the precise client demographics and purchase segments to produce better operational conversion margins.</p>
+                </div>
+
+                <!-- Pillar 2 -->
+                <div class="glass-card p-6 rounded-2xl border border-white/5 hover:scale-[1.02] duration-300">
+                    <span class="text-xs font-bold text-alphas-accent uppercase tracking-widest" data-i18n="approach.p2label">Pillar 02</span>
+                    <h3 class="text-xl font-bold text-white mt-2 mb-3 uppercase" data-i18n="approach.p2title">Good Reach & Engagement</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed" data-i18n="approach.p2desc">Publishing highly shareable material that drives attention, increases audience footprints, and builds lasting memory.</p>
+                </div>
+
+                <!-- Pillar 3 -->
+                <div class="glass-card p-6 rounded-2xl border border-white/5 hover:scale-[1.02] duration-300">
+                    <span class="text-xs font-bold text-alphas-accent uppercase tracking-widest" data-i18n="approach.p3label">Pillar 03</span>
+                    <h3 class="text-xl font-bold text-white mt-2 mb-3 uppercase" data-i18n="approach.p3title">Posting Calendar</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed" data-i18n="approach.p3desc">A clear, planned posting layout that maintains consistent brand activity without gap periods or delays.</p>
+                </div>
+
+                <!-- Pillar 4 -->
+                <div class="glass-card p-6 rounded-2xl border border-white/5 hover:scale-[1.02] duration-300">
+                    <span class="text-xs font-bold text-alphas-accent uppercase tracking-widest" data-i18n="approach.p4label">Pillar 04</span>
+                    <h3 class="text-xl font-bold text-white mt-2 mb-3 uppercase" data-i18n="approach.p4title">Boom Branding</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed" data-i18n="approach.p4desc">Creating unique, unexpected layout concepts that distinguish your product within cluttered, noisy categories.</p>
+                </div>
+
+                <!-- Pillar 5 -->
+                <div class="glass-card p-6 rounded-2xl border border-white/5 hover:scale-[1.02] duration-300">
+                    <span class="text-xs font-bold text-alphas-accent uppercase tracking-widest" data-i18n="approach.p5label">Pillar 05</span>
+                    <h3 class="text-xl font-bold text-white mt-2 mb-3 uppercase" data-i18n="approach.p5title">Ads Budget Optimization</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed" data-i18n="approach.p5desc">Extremely efficient allocation of social spend across custom audiences to guarantee maximum digital ROI.</p>
+                </div>
+
+                <!-- Pillar 6 -->
+                <div class="glass-card p-6 rounded-2xl border border-white/5 hover:scale-[1.02] duration-300">
+                    <span class="text-xs font-bold text-alphas-accent uppercase tracking-widest" data-i18n="approach.p6label">Pillar 06</span>
+                    <h3 class="text-xl font-bold text-white mt-2 mb-3 uppercase" data-i18n="approach.p6title">Offline Sync Activity</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed" data-i18n="approach.p6desc">Pairing digital branding directly with in-person traffic conversions, event coordination, and store networks.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PORTFOLIO / CLIENT SHOWCASE SECTION -->
+    <section id="showcase" class="py-24 relative overflow-hidden bg-alphas-navy/30">
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
+                <div class="text-start">
+                    <span class="text-alphas-accent text-sm font-semibold uppercase tracking-wider" data-i18n="showcase.label">Client Proof</span>
+                    <h2 class="text-3xl md:text-5xl font-extrabold font-display text-white uppercase mt-2" data-i18n="showcase.title">Active Success Proof</h2>
+                </div>
+                <!-- Interactive Filter Tabs -->
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="filterPortfolio('all')" id="tab-all"
+                        class="portfolio-tab px-5 py-2 rounded-full text-xs font-semibold bg-alphas-accent text-white transition-all" data-i18n="showcase.tabAll">All Projects</button>
+                    <button onclick="filterPortfolio('design')" id="tab-design"
+                        class="portfolio-tab px-5 py-2 rounded-full text-xs font-semibold bg-white/5 text-gray-400 hover:text-white transition-all" data-i18n="showcase.tabDesign">Designs & SMM</button>
+                    <button onclick="filterPortfolio('web')" id="tab-web"
+                        class="portfolio-tab px-5 py-2 rounded-full text-xs font-semibold bg-white/5 text-gray-400 hover:text-white transition-all" data-i18n="showcase.tabWeb">Online Stores</button>
+                    <button onclick="filterPortfolio('academy')" id="tab-academy"
+                        class="portfolio-tab px-5 py-2 rounded-full text-xs font-semibold bg-white/5 text-gray-400 hover:text-white transition-all" data-i18n="showcase.tabAcademy">Corporate & Academies</button>
+                </div>
+            </div>
+
+            <!-- Portfolio Grid -->
+            <div id="portfolio-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-start">
+
+                <!-- Item 1: Arabia Furniture -->
+                <div onclick="openCaseStudy('arabia')"
+                    class="portfolio-item show-all design glass-card rounded-3xl overflow-hidden group border border-white/5 cursor-pointer">
+                    <div class="relative h-64 overflow-hidden bg-slate-950">
+                        <img src="showcase_images/page_15_img_2.jpeg" alt="Arabia Furniture" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute top-4 left-4 bg-alphas-accent text-white text-[10px] uppercase font-bold tracking-widest px-3 py-1 rounded-full shadow-md" data-i18n="portfolio.arabia.badge">
+                            FURNITURE CO
+                        </div>
+                        <div class="absolute inset-0 bg-alphas-dark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="px-5 py-2.5 rounded-full bg-alphas-accent text-white text-xs font-bold uppercase tracking-wider shadow-lg" data-i18n="showcase.readCase">Read Case Study</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold text-white uppercase mb-2 group-hover:text-alphas-accent transition">Arabia Furniture</h4>
+                        <p class="text-xs text-gray-400 leading-relaxed mb-4 text-start" data-i18n="portfolio.arabia.desc">"Wild Sale Up to 50% Off" SMM Campaign design, luxury master bedroom catalog styling, and modular layouts.</p>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] bg-white/5 px-2.5 py-1 rounded-md text-gray-400 uppercase font-semibold" data-i18n="portfolio.arabia.tag1">Render Asset</span>
+                            <span class="text-[10px] bg-white/5 px-2.5 py-1 rounded-md text-gray-400 uppercase font-semibold" data-i18n="portfolio.arabia.tag2">Posting Calendar</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 2: Modern Motors -->
+                <div onclick="openCaseStudy('modern')"
+                    class="portfolio-item show-all design glass-card rounded-3xl overflow-hidden group border border-white/5 cursor-pointer">
+                    <div class="relative h-64 overflow-hidden bg-slate-950">
+                        <img src="showcase_images/modern_motors.png" alt="Modern Motors" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute top-4 left-4 bg-alphas-accent text-white text-[10px] uppercase font-bold tracking-widest px-3 py-1 rounded-full shadow-md" data-i18n="portfolio.modern.badge">
+                            AUTOMOTIVE
+                        </div>
+                        <div class="absolute inset-0 bg-alphas-dark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="px-5 py-2.5 rounded-full bg-alphas-accent text-white text-xs font-bold uppercase tracking-wider shadow-lg" data-i18n="showcase.readCase">Read Case Study</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold text-white uppercase mb-2 group-hover:text-alphas-accent transition">Modern Motors</h4>
+                        <p class="text-xs text-gray-400 leading-relaxed mb-4 text-start" data-i18n="portfolio.modern.desc">"43 Years Experience" brand social campaigns & delivery vectors, managing complex cross-Egypt outreach graphics.</p>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] bg-white/5 px-2.5 py-1 rounded-md text-gray-400 uppercase font-semibold" data-i18n="portfolio.modern.tag1">SMM Strategy</span>
+                            <span class="text-[10px] bg-white/5 px-2.5 py-1 rounded-md text-gray-400 uppercase font-semibold" data-i18n="portfolio.modern.tag2">Geo-Targeting</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 3: Penduline SMM -->
+                <div onclick="openCaseStudy('penduline')"
+                    class="portfolio-item show-all design glass-card rounded-3xl overflow-hidden group border border-white/5 cursor-pointer">
+                    <div class="relative h-64 overflow-hidden bg-slate-950">
+                        <img src="showcase_images/penduline_kids.png" alt="Penduline" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute top-4 left-4 bg-alphas-accent text-white text-[10px] uppercase font-bold tracking-widest px-3 py-1 rounded-full shadow-md" data-i18n="portfolio.penduline.badge">
+                            COSMETICS
+                        </div>
+                        <div class="absolute inset-0 bg-alphas-dark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="px-5 py-2.5 rounded-full bg-alphas-accent text-white text-xs font-bold uppercase tracking-wider shadow-lg" data-i18n="showcase.readCase">Read Case Study</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold text-white uppercase mb-2 group-hover:text-alphas-accent transition">Penduline Kids</h4>
+                        <p class="text-xs text-gray-400 leading-relaxed mb-4 text-start" data-i18n="portfolio.penduline.desc">"Super Hero character layouts." Beautiful content creations for anti-tear shampoo ranges, capturing kids' cartoon narratives.</p>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] bg-white/5 px-2.5 py-1 rounded-md text-gray-400 uppercase font-semibold" data-i18n="portfolio.penduline.tag1">Branding Theme</span>
+                            <span class="text-[10px] bg-white/5 px-2.5 py-1 rounded-md text-gray-400 uppercase font-semibold" data-i18n="portfolio.penduline.tag2">Creative</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 4: Koshary Masr SMM -->
+                <div onclick="openCaseStudy('koshary')"
+                    class="portfolio-item show-all design glass-card rounded-3xl overflow-hidden group border border-white/5 cursor-pointer">
+                    <div class="relative h-64 overflow-hidden bg-slate-950">
+                        <img src="showcase_images/page_15_img_4.jpeg" alt="Koshary Masr" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute top-4 left-4 bg-alphas-accent text-white text-[10px] uppercase font-bold tracking-widest px-3 py-1 rounded-full shadow-md" data-i18n="portfolio.koshary.badge">
+                            FOOD INDUSTRY
+                        </div>
+                        <div class="absolute inset-0 bg-alphas-dark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="px-5 py-2.5 rounded-full bg-alphas-accent text-white text-xs font-bold uppercase tracking-wider shadow-lg" data-i18n="showcase.readCase">Read Case Study</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold text-white uppercase mb-2 group-hover:text-alphas-accent transition">Koshary Masr</h4>
+                        <p class="text-xs text-gray-400 leading-relaxed mb-4 text-start" data-i18n="portfolio.koshary.desc">Creating high-retention food catalogs & launch graphics ("Taste that makes you fly") for restaurant franchises.</p>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] bg-white/5 px-2.5 py-1 rounded-md text-gray-400 uppercase font-semibold" data-i18n="portfolio.koshary.tag1">Viral Promos</span>
+                            <span class="text-[10px] bg-white/5 px-2.5 py-1 rounded-md text-gray-400 uppercase font-semibold" data-i18n="portfolio.koshary.tag2">Ads Creative</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 5: Dr Nutrition JNP Store -->
+                <div onclick="openCaseStudy('drnutrition')"
+                    class="portfolio-item show-all web glass-card rounded-3xl overflow-hidden group border border-white/5 cursor-pointer">
+                    <div class="relative h-64 overflow-hidden bg-slate-950">
+                        <img src="showcase_images/dr_nutrition_store.png" alt="Dr Nutrition JNP" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute top-4 left-4 bg-alphas-accent text-white text-[10px] uppercase font-bold tracking-widest px-3 py-1 rounded-full shadow-md" data-i18n="portfolio.drnutrition.badge">
+                            E-COMMERCE
+                        </div>
+                        <div class="absolute inset-0 bg-alphas-dark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="px-5 py-2.5 rounded-full bg-alphas-accent text-white text-xs font-bold uppercase tracking-wider shadow-lg" data-i18n="showcase.readCase">Read Case Study</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold text-white uppercase mb-2 group-hover:text-alphas-accent transition">Dr Nutrition (JNP)</h4>
+                        <p class="text-xs text-gray-400 leading-relaxed mb-4 text-start" data-i18n="portfolio.drnutrition.desc">Complete deployment of a fast Shopify-based multi-currency online store specializing in health & nutrition supplements.</p>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] bg-white/5 px-2.5 py-1 rounded-md text-gray-400 uppercase font-semibold" data-i18n="portfolio.drnutrition.tag1">Shopify Engine</span>
+                            <span class="text-[10px] bg-white/5 px-2.5 py-1 rounded-md text-gray-400 uppercase font-semibold" data-i18n="portfolio.drnutrition.tag2">Payment API</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 6: LIA London Innovation Academy -->
+                <div onclick="openCaseStudy('lia')"
+                    class="portfolio-item show-all academy glass-card rounded-3xl overflow-hidden group border border-white/5 cursor-pointer">
+                    <div class="relative h-64 overflow-hidden bg-slate-950">
+                        <img src="showcase_images/lia_academy.png" alt="London Innovation Academy" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute top-4 left-4 bg-alphas-accent text-white text-[10px] uppercase font-bold tracking-widest px-3 py-1 rounded-full shadow-md" data-i18n="portfolio.lia.badge">
+                            EDUCATION
+                        </div>
+                        <div class="absolute inset-0 bg-alphas-dark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="px-5 py-2.5 rounded-full bg-alphas-accent text-white text-xs font-bold uppercase tracking-wider shadow-lg" data-i18n="showcase.readCase">Read Case Study</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold text-white uppercase mb-2 group-hover:text-alphas-accent transition">London Innovation Academy</h4>
+                        <p class="text-xs text-gray-400 leading-relaxed mb-4 text-start" data-i18n="portfolio.lia.desc">E-learning content system, custom member dashboards, and secure backend credential tracking systems.</p>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] bg-white/5 px-2.5 py-1 rounded-md text-gray-400 uppercase font-semibold" data-i18n="portfolio.lia.tag1">Web Portal</span>
+                            <span class="text-[10px] bg-white/5 px-2.5 py-1 rounded-md text-gray-400 uppercase font-semibold" data-i18n="portfolio.lia.tag2">LMS Integration</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 7: 4U Gift Shop -->
+                <div onclick="openCaseStudy('giftshop4u')"
+                    class="portfolio-item show-all web glass-card rounded-3xl overflow-hidden group border border-white/5 cursor-pointer">
+                    <div class="relative h-64 overflow-hidden bg-slate-950">
+                        <img src="showcase_images/4u_giftshop.png" alt="4U Gift Shop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute top-4 left-4 bg-alphas-accent text-white text-[10px] uppercase font-bold tracking-widest px-3 py-1 rounded-full shadow-md" data-i18n="portfolio.giftshop.badge">
+                            E-COMMERCE
+                        </div>
+                        <div class="absolute inset-0 bg-alphas-dark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="px-5 py-2.5 rounded-full bg-alphas-accent text-white text-xs font-bold uppercase tracking-wider shadow-lg" data-i18n="showcase.readCase">Read Case Study</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold text-white uppercase mb-2 group-hover:text-alphas-accent transition">4U Gift Shop</h4>
+                        <p class="text-xs text-gray-400 leading-relaxed mb-4 text-start" data-i18n="portfolio.giftshop.desc">Premium luxury accessories e-commerce store featuring designer wallets, belts, and gift items with mobile-first shopping experience.</p>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] bg-white/5 px-2.5 py-1 rounded-md text-gray-400 uppercase font-semibold" data-i18n="portfolio.giftshop.tag1">Shopify Store</span>
+                            <span class="text-[10px] bg-white/5 px-2.5 py-1 rounded-md text-gray-400 uppercase font-semibold" data-i18n="portfolio.giftshop.tag2">Mobile UX</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 8: Éclat Store -->
+                <div onclick="openCaseStudy('eclat')"
+                    class="portfolio-item show-all web glass-card rounded-3xl overflow-hidden group border border-white/5 cursor-pointer">
+                    <div class="relative h-64 overflow-hidden bg-slate-950">
+                        <img src="showcase_images/eclat_store.png" alt="Éclat Store" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute top-4 left-4 bg-alphas-accent text-white text-[10px] uppercase font-bold tracking-widest px-3 py-1 rounded-full shadow-md" data-i18n="portfolio.eclat.badge">
+                            BEAUTY & SKINCARE
+                        </div>
+                        <div class="absolute inset-0 bg-alphas-dark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="px-5 py-2.5 rounded-full bg-alphas-accent text-white text-xs font-bold uppercase tracking-wider shadow-lg" data-i18n="showcase.readCase">Read Case Study</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold text-white uppercase mb-2 group-hover:text-alphas-accent transition">Éclat Store</h4>
+                        <p class="text-xs text-gray-400 leading-relaxed mb-4 text-start" data-i18n="portfolio.eclat.desc">Elegant beauty & cosmetics e-commerce platform with premium skincare product lines, free shipping promotions, and wishlist functionality.</p>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] bg-white/5 px-2.5 py-1 rounded-md text-gray-400 uppercase font-semibold" data-i18n="portfolio.eclat.tag1">E-Commerce</span>
+                            <span class="text-[10px] bg-white/5 px-2.5 py-1 rounded-md text-gray-400 uppercase font-semibold" data-i18n="portfolio.eclat.tag2">Beauty Brand</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 9: Laperva -->
+                <div onclick="openCaseStudy('laperva')"
+                    class="portfolio-item show-all web glass-card rounded-3xl overflow-hidden group border border-white/5 cursor-pointer">
+                    <div class="relative h-64 overflow-hidden bg-slate-950">
+                        <img src="showcase_images/laperva_store.png" alt="Laperva" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute top-4 left-4 bg-alphas-accent text-white text-[10px] uppercase font-bold tracking-widest px-3 py-1 rounded-full shadow-md" data-i18n="portfolio.laperva.badge">
+                            FITNESS & NUTRITION
+                        </div>
+                        <div class="absolute inset-0 bg-alphas-dark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="px-5 py-2.5 rounded-full bg-alphas-accent text-white text-xs font-bold uppercase tracking-wider shadow-lg" data-i18n="showcase.readCase">Read Case Study</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold text-white uppercase mb-2 group-hover:text-alphas-accent transition">Laperva</h4>
+                        <p class="text-xs text-gray-400 leading-relaxed mb-4 text-start" data-i18n="portfolio.laperva.desc">High-performance fitness supplements e-commerce platform with bold branding, product range management, and sports nutrition content strategy.</p>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] bg-white/5 px-2.5 py-1 rounded-md text-gray-400 uppercase font-semibold" data-i18n="portfolio.laperva.tag1">Brand Store</span>
+                            <span class="text-[10px] bg-white/5 px-2.5 py-1 rounded-md text-gray-400 uppercase font-semibold" data-i18n="portfolio.laperva.tag2">Performance UX</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 10: Natpro Pharmaceuticals -->
+                <div onclick="openCaseStudy('natpro')"
+                    class="portfolio-item show-all academy glass-card rounded-3xl overflow-hidden group border border-white/5 cursor-pointer">
+                    <div class="relative h-64 overflow-hidden bg-slate-950">
+                        <img src="showcase_images/natpro_pharma.png" alt="Natpro Pharmaceuticals" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute top-4 left-4 bg-alphas-accent text-white text-[10px] uppercase font-bold tracking-widest px-3 py-1 rounded-full shadow-md" data-i18n="portfolio.natpro.badge">
+                            PHARMACEUTICALS
+                        </div>
+                        <div class="absolute inset-0 bg-alphas-dark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="px-5 py-2.5 rounded-full bg-alphas-accent text-white text-xs font-bold uppercase tracking-wider shadow-lg" data-i18n="showcase.readCase">Read Case Study</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold text-white uppercase mb-2 group-hover:text-alphas-accent transition">Natpro Pharmaceuticals</h4>
+                        <p class="text-xs text-gray-400 leading-relaxed mb-4 text-start" data-i18n="portfolio.natpro.desc">Science-led cosmeceutical group corporate website with Vitova brand showcase, investor relations portal, and global expansion presence.</p>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] bg-white/5 px-2.5 py-1 rounded-md text-gray-400 uppercase font-semibold" data-i18n="portfolio.natpro.tag1">Corporate Web</span>
+                            <span class="text-[10px] bg-white/5 px-2.5 py-1 rounded-md text-gray-400 uppercase font-semibold" data-i18n="portfolio.natpro.tag2">Pharma Brand</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 11: Smart City IT -->
+                <div onclick="openCaseStudy('scit')"
+                    class="portfolio-item show-all design glass-card rounded-3xl overflow-hidden group border border-white/5 cursor-pointer">
+                    <div class="relative h-64 overflow-hidden bg-slate-950">
+                        <img src="showcase_images/scit_showcase.png" alt="Smart City IT" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute top-4 left-4 bg-alphas-accent text-white text-[10px] uppercase font-bold tracking-widest px-3 py-1 rounded-full shadow-md" data-i18n="portfolio.scit.badge">
+                            IT & NETWORKING
+                        </div>
+                        <div class="absolute inset-0 bg-alphas-dark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="px-5 py-2.5 rounded-full bg-alphas-accent text-white text-xs font-bold uppercase tracking-wider shadow-lg" data-i18n="showcase.readCase">Read Case Study</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold text-white uppercase mb-2 group-hover:text-alphas-accent transition">Smart City IT (SCIT)</h4>
+                        <p class="text-xs text-gray-400 leading-relaxed mb-4 text-start" data-i18n="portfolio.scit.desc">Huawei eKit authorized trust SMM campaigns, network infrastructure solutions creative displays, and customer reviews showcases.</p>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] bg-white/5 px-2.5 py-1 rounded-md text-gray-400 uppercase font-semibold" data-i18n="portfolio.scit.tag1">IT SMM</span>
+                            <span class="text-[10px] bg-white/5 px-2.5 py-1 rounded-md text-gray-400 uppercase font-semibold" data-i18n="portfolio.scit.tag2">Infographics</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 12: Sculptor Aesthetics -->
+                <div onclick="openCaseStudy('sculptor')"
+                    class="portfolio-item show-all design glass-card rounded-3xl overflow-hidden group border border-white/5 cursor-pointer">
+                    <div class="relative h-64 overflow-hidden bg-slate-950">
+                        <img src="showcase_images/sculptor_showcase.png" alt="Sculptor Aesthetics" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute top-4 left-4 bg-alphas-accent text-white text-[10px] uppercase font-bold tracking-widest px-3 py-1 rounded-full shadow-md" data-i18n="portfolio.sculptor.badge">
+                            BEAUTY & CLINICS
+                        </div>
+                        <div class="absolute inset-0 bg-alphas-dark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="px-5 py-2.5 rounded-full bg-alphas-accent text-white text-xs font-bold uppercase tracking-wider shadow-lg" data-i18n="showcase.readCase">Read Case Study</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold text-white uppercase mb-2 group-hover:text-alphas-accent transition">Sculptor Aesthetics</h4>
+                        <p class="text-xs text-gray-400 leading-relaxed mb-4 text-start" data-i18n="portfolio.sculptor.desc">Elegant aesthetic clinic campaign designs including body shaping promo grids, laser hair removal packages, and seasonal offers.</p>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] bg-white/5 px-2.5 py-1 rounded-md text-gray-400 uppercase font-semibold" data-i18n="portfolio.sculptor.tag1">Clinic Branding</span>
+                            <span class="text-[10px] bg-white/5 px-2.5 py-1 rounded-md text-gray-400 uppercase font-semibold" data-i18n="portfolio.sculptor.tag2">SMM Creative</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHY ALPHAS SECTION (Page 9: Packages & Core Values) -->
+    <section id="whyus" class="py-24 relative overflow-hidden">
+        <div class="absolute top-[30%] right-[-10%] w-[500px] h-[500px] rounded-full bg-alphas-accent/5 blur-[120px] pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-16">
+                <div class="lg:col-span-6 text-start">
+                    <span class="text-alphas-accent text-sm font-semibold uppercase tracking-wider" data-i18n="whyus.label">Our Operational Ethics</span>
+                    <h2 class="text-3xl md:text-5xl font-extrabold font-display text-white uppercase mt-2 mb-4" data-i18n="whyus.title">Why Partner with Alphas?</h2>
+                    <p class="text-gray-400 leading-relaxed" data-i18n="whyus.desc">We understand that marketing spends must lead directly to bottom-line security. Our values reflect transparent, flexible solutions built dynamically around your schedule.</p>
+                </div>
+                <div class="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-4 text-start">
+                    <div class="glass-card p-6 rounded-2xl border border-white/5">
+                        <i class="fa-solid fa-coins text-alphas-accent text-xl mb-3"></i>
+                        <h4 class="text-white font-bold uppercase mb-1.5" data-i18n="whyus.affordable">Affordable</h4>
+                        <p class="text-xs text-gray-400" data-i18n="whyus.affordableDesc">Our dynamic 'hours' package models mean you decide exactly what budgets make sense for current stages.</p>
+                    </div>
+                    <div class="glass-card p-6 rounded-2xl border border-white/5">
+                        <i class="fa-solid fa-eye text-alphas-accent text-xl mb-3"></i>
+                        <h4 class="text-white font-bold uppercase mb-1.5" data-i18n="whyus.transparent">Transparent</h4>
+                        <p class="text-xs text-gray-400" data-i18n="whyus.transparentDesc">Open logs down to the exact minutes spent on SMM, graphic designs, updates, or ad listings.</p>
+                    </div>
+                    <div class="glass-card p-6 rounded-2xl border border-white/5">
+                        <i class="fa-solid fa-user-astronaut text-alphas-accent text-xl mb-3"></i>
+                        <h4 class="text-white font-bold uppercase mb-1.5" data-i18n="whyus.proactive">Proactive</h4>
+                        <p class="text-xs text-gray-400" data-i18n="whyus.proactiveDesc">Assigned expert planners who understand scaling goals. We offer ongoing active feedback before requests are made.</p>
+                    </div>
+                    <div class="glass-card p-6 rounded-2xl border border-white/5">
+                        <i class="fa-solid fa-recycle text-alphas-accent text-xl mb-3"></i>
+                        <h4 class="text-white font-bold uppercase mb-1.5" data-i18n="whyus.flexible">Flexible</h4>
+                        <p class="text-xs text-gray-400" data-i18n="whyus.flexibleDesc">Easily shift campaign variables, assets, or SMM volumes as target seasonal needs scale up or down.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Dynamic Packages Simulator -->
+            <div class="glass-card rounded-3xl p-8 lg:p-12 border border-white/10 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-[40%] h-full bg-alphas-accent/5 -skew-x-12 pointer-events-none"></div>
+                <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center text-start">
+                    <div class="lg:col-span-7">
+                        <span class="text-xs font-bold text-alphas-accent uppercase tracking-widest block mb-2" data-i18n="calc.label">Interactive Calculator</span>
+                        <h3 class="text-2xl md:text-3xl font-bold text-white uppercase mb-4" data-i18n="calc.title">Design your customized hourly operational block</h3>
+                        <p class="text-sm text-gray-400 leading-relaxed mb-6" data-i18n="calc.desc">Select the ideal monthly hours package to fuel your graphic designs, updates, code deployment, and media buying. Scale hourly usage freely based on product schedules.</p>
+
+                        <!-- Range Slider component -->
+                        <div class="mb-6 text-start">
+                            <div class="flex items-center justify-between text-sm text-white font-semibold uppercase mb-2">
+                                <span data-i18n="calc.hoursLabel">Planned Operational Hours</span>
+                                <span id="hours-display" class="text-alphas-accent font-extrabold text-lg">50 Hours/mo</span>
+                            </div>
+                            <input oninput="updatePackageHours(this.value)" type="range" min="20" max="150" value="50"
+                                class="w-full h-2 bg-white/10 rounded-lg appearance-none cursor-pointer accent-alphas-accent focus:outline-none">
+                            <div class="flex justify-between text-[10px] text-gray-500 mt-1 uppercase">
+                                <span data-i18n="calc.startup">20 Hours (Startup)</span>
+                                <span data-i18n="calc.growth">80 Hours (Growth)</span>
+                                <span data-i18n="calc.alpha">150 Hours (Alpha Scale)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-5 bg-alphas-navy/60 p-8 rounded-2xl border border-white/5 text-center">
+                        <h4 class="text-sm text-gray-400 uppercase tracking-widest font-bold mb-1" data-i18n="calc.budgetLabel">Estimated Package Budget</h4>
+                        <div class="text-5xl font-black text-white font-display my-4">
+                            EGP <span id="price-display">35,000</span> <span class="text-xs text-gray-500 uppercase font-bold tracking-normal" data-i18n="calc.perMonth">/ month</span>
+                        </div>
+                        <ul class="text-left text-xs text-gray-300 space-y-2 mb-6 border-y border-white/10 py-4 max-w-xs mx-auto">
+                            <li><i class="fa-solid fa-check text-alphas-accent mr-2"></i> <span data-i18n="calc.feat1">Dedicated SMM Campaign Expert</span></li>
+                            <li><i class="fa-solid fa-check text-alphas-accent mr-2"></i> <span data-i18n="calc.feat2">Transparent Time-Logs</span></li>
+                            <li><i class="fa-solid fa-check text-alphas-accent mr-2"></i> <span data-i18n="calc.feat3">Agile Pivots on SMM Assets</span></li>
+                        </ul>
+                        <button onclick="toggleConsultation(true)"
+                            class="w-full bg-alphas-accent hover:bg-alphas-accentHover text-white py-3 rounded-full font-bold text-sm transition-all shadow-gold-glow uppercase tracking-wider" data-i18n="calc.cta">Claim hours package
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SUCCESS STORIES SECTION (Page 34, 35 content with interactive custom SVG chart) -->
+    <section id="success" class="py-24 relative overflow-hidden bg-alphas-navy/30">
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+
+                <!-- Left: Big Metric Numbers -->
+                <div class="lg:col-span-5 text-start">
+                    <span class="text-alphas-accent text-sm font-semibold uppercase tracking-wider" data-i18n="success.label">Operational Growth</span>
+                    <h2 class="text-3xl md:text-5xl font-extrabold font-display text-white uppercase mt-2 mb-6" data-i18n="success.title">A Proven Record of Scaled Success</h2>
+                    <p class="text-gray-300 leading-relaxed mb-6" data-i18n="success.desc">Our team features operational experts with combined decades of expertise. By monitoring and reacting to real customer habits, <strong class="text-alphas-accent">95%</strong> of Alphas client operations report significant digital volume scaling inside 90 days.</p>
+
+                    <div class="grid grid-cols-2 gap-4 border-t border-white/10 pt-6">
+                        <div class="glass-card p-4 rounded-xl">
+                            <h3 class="text-4xl font-extrabold text-alphas-accent font-display">95%</h3>
+                            <p class="text-xs text-gray-400 uppercase mt-1" data-i18n="success.stat1">Sustained Business Growths</p>
+                        </div>
+                        <div class="glass-card p-4 rounded-xl">
+                            <h3 class="text-4xl font-extrabold text-alphas-accent font-display">&lt; 3%</h3>
+                            <p class="text-xs text-gray-400 uppercase mt-1" data-i18n="success.stat2">Churn Rate Across Campaigns</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Custom Simulated Interactive Graph Card -->
+                <div class="lg:col-span-7">
+                    <div class="glass-card rounded-3xl p-8 border border-white/10 relative overflow-hidden">
+                        <div class="flex items-center justify-between mb-8">
+                            <div class="text-start">
+                                <h4 class="text-white font-bold uppercase text-sm" data-i18n="success.chartTitle">Monthly Conversions Trend</h4>
+                                <p class="text-[11px] text-gray-400" data-i18n="success.chartSub">Simulated average across active client lists</p>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="inline-flex items-center gap-1.5 text-xs text-alphas-accent font-semibold"><span class="w-2.5 h-2.5 bg-alphas-accent rounded-full"></span> <span data-i18n="success.alphasStrategy">Alphas Strategy</span></span>
+                                <span class="inline-flex items-center gap-1.5 text-xs text-gray-500 font-semibold"><span class="w-2.5 h-2.5 bg-gray-600 rounded-full"></span> <span data-i18n="success.industryBase">Industry Baseline</span></span>
+                            </div>
+                        </div>
+
+                        <!-- GSAP Animated SVG Chart -->
+                        <div class="w-full h-64 relative">
+                            <svg viewBox="0 0 500 200" class="w-full h-full overflow-visible">
+                                <line x1="0" y1="180" x2="500" y2="180" stroke="rgba(255,255,255,0.05)" stroke-width="1" />
+                                <line x1="0" y1="120" x2="500" y2="120" stroke="rgba(255,255,255,0.05)" stroke-width="1" />
+                                <line x1="0" y1="60" x2="500" y2="60" stroke="rgba(255,255,255,0.05)" stroke-width="1" />
+                                <line x1="0" y1="10" x2="500" y2="10" stroke="rgba(255,255,255,0.05)" stroke-width="1" />
+
+                                <path d="M0,160 Q100,150 200,155 T400,150 T500,145 L500,200 L0,200 Z" fill="rgba(255,255,255,0.02)" />
+                                <path d="M0,160 Q100,150 200,155 T400,150 T500,145" fill="none" stroke="#4b5563" stroke-width="2" stroke-dasharray="4" />
+
+                                <path d="M0,170 Q100,130 200,90 T400,40 T500,20 L500,200 L0,200 Z" fill="url(#alphas-gradient)" opacity="0.15" />
+                                <path id="active-success-path" d="M0,170 Q100,130 200,90 T400,40 T500,20" fill="none" stroke="#e59b58" stroke-width="4.5" stroke-linecap="round" />
+
+                                <circle cx="200" cy="90" r="5" fill="#e59b58" />
+                                <circle cx="400" cy="40" r="5" fill="#e59b58" />
+                                <circle cx="500" cy="20" r="5" fill="#e59b58" />
+
+                                <defs>
+                                    <linearGradient id="alphas-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" stop-color="#e59b58" />
+                                        <stop offset="100%" stop-color="#e59b58" stop-opacity="0" />
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                        </div>
+
+                        <div class="flex justify-between text-[10px] text-gray-500 mt-4 uppercase tracking-widest font-bold">
+                            <span data-i18n="success.q1">Q1 Launch</span>
+                            <span data-i18n="success.q2">Q2 Optimizations</span>
+                            <span data-i18n="success.q3">Q3 Alpha Scale</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION (Page 36) -->
+    <section id="contact" class="py-24 relative overflow-hidden bg-alphas-dark">
+        <div class="absolute inset-0 grid-wave opacity-15 pointer-events-none"></div>
+        <div class="max-w-4xl mx-auto px-6 relative z-10 text-center">
+
+            <div class="mb-12">
+                <span class="text-alphas-accent text-sm font-semibold uppercase tracking-wider" data-i18n="contact.label">Free Consultation Call</span>
+                <h2 class="text-3xl md:text-5xl font-extrabold font-display text-white uppercase mt-2 mb-4" data-i18n="contact.title">Let's Drive Your Journey Forward</h2>
+                <p class="text-gray-400 max-w-xl mx-auto" data-i18n="contact.desc">Tell us about your brand metrics, active budgets, and operational targets. Our team will review your systems completely for free.</p>
+            </div>
+
+            <!-- Beautiful Inline Glass Form -->
+            <div class="glass-card rounded-3xl p-8 md:p-12 border border-white/10 text-left relative overflow-hidden">
+                <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-alphas-accent/10 rounded-full blur-2xl"></div>
+
+                <form id="landing-contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST"
+                    onsubmit="handleFormSubmit(event)" class="space-y-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2 text-start" data-i18n="contact.companyName">Company Name</label>
+                            <input required type="text" placeholder="e.g. Arabia Furniture" data-i18n-placeholder="contact.companyPlaceholder"
+                                class="w-full bg-white/5 border border-white/10 focus:border-alphas-accent/50 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:ring-1 focus:ring-alphas-accent/30 transition">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2 text-start" data-i18n="contact.email">Primary Email Address</label>
+                            <input required type="email" placeholder="e.g. contact@business.com" data-i18n-placeholder="contact.emailPlaceholder"
+                                class="w-full bg-white/5 border border-white/10 focus:border-alphas-accent/50 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:ring-1 focus:ring-alphas-accent/30 transition">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2 text-start" data-i18n="contact.services">Required Services</label>
+                            <select class="w-full bg-white/5 border border-white/10 focus:border-alphas-accent/50 rounded-xl px-4 py-3 text-sm text-gray-400 focus:outline-none focus:ring-1 focus:ring-alphas-accent/30 transition">
+                                <option value="social" class="bg-alphas-dark text-white" data-i18n-option="contact.optSocial">Social Media & Branding</option>
+                                <option value="web" class="bg-alphas-dark text-white" data-i18n-option="contact.optWeb">E-Commerce & Portals</option>
+                                <option value="ads" class="bg-alphas-dark text-white" data-i18n-option="contact.optAds">Media Buying & Campaigns</option>
+                                <option value="all" class="bg-alphas-dark text-white" data-i18n-option="contact.optAll">Full Alpha Transform Block</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2 text-start" data-i18n="contact.budget">Active Monthly Budget</label>
+                            <select class="w-full bg-white/5 border border-white/10 focus:border-alphas-accent/50 rounded-xl px-4 py-3 text-sm text-gray-400 focus:outline-none focus:ring-1 focus:ring-alphas-accent/30 transition">
+                                <option value="budget1" class="bg-alphas-dark text-white" data-i18n-option="contact.budget1">Under 10,000 EGP / mo</option>
+                                <option value="budget2" class="bg-alphas-dark text-white" data-i18n-option="contact.budget2">10,000 - 30,000 EGP / mo</option>
+                                <option value="budget3" class="bg-alphas-dark text-white" data-i18n-option="contact.budget3">Over 30,000 EGP / mo</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2 text-start" data-i18n="contact.scope">Operational Scope Detail</label>
+                        <textarea required rows="4" data-i18n-placeholder="contact.scopePlaceholder"
+                            placeholder="Briefly describe your targets or systemic bottlenecks (e.g., lower store traffic, weak SMM conversions...)"
+                            class="w-full bg-white/5 border border-white/10 focus:border-alphas-accent/50 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:ring-1 focus:ring-alphas-accent/30 transition resize-none"></textarea>
+                    </div>
+
+                    <button type="submit"
+                        class="w-full bg-alphas-accent hover:bg-alphas-accentHover text-white py-4 rounded-xl font-bold text-sm tracking-widest uppercase transition-all shadow-gold-glow" data-i18n="contact.submit">
+                        Schedule Initial Roadmap Review
+                    </button>
+                </form>
+
+                <!-- Custom Inline Success Message Box -->
+                <div id="form-success-box"
+                    class="hidden absolute inset-0 bg-alphas-dark/95 backdrop-blur-md flex flex-col items-center justify-center text-center p-8">
+                    <div class="w-16 h-16 rounded-full bg-alphas-accent/10 border border-alphas-accent text-alphas-accent flex items-center justify-center text-2xl mb-4 animate-bounce">
+                        <i class="fa-solid fa-check"></i>
+                    </div>
+                    <h4 class="text-2xl font-bold text-white uppercase mb-2" data-i18n="contact.successTitle">Review Form Received!</h4>
+                    <p class="text-sm text-gray-400 max-w-sm" data-i18n="contact.successDesc">An Alphas platform specialist will analyze your company information and email your roadmap layout within 24 hours.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER (Slide 37) -->
+    <footer class="bg-alphas-dark border-t border-white/5 py-12 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 relative z-10 flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left">
+
+            <div class="flex items-center gap-3">
+                <img src="Logo.png" alt="ALPHAS Logo" class="w-10 h-10 object-contain">
+                <div class="flex flex-col leading-none text-start">
+                    <span class="text-lg font-bold font-display tracking-widest text-white uppercase">ALPHAS</span>
+                    <span class="text-[8px] tracking-[0.25em] text-gray-400" data-i18n="header.tagline">DIGITAL BUSINESS SOLUTIONS</span>
+                </div>
+            </div>
+
+            <div class="text-sm text-gray-500" data-i18n="footer.copyright">
+                &copy; 2026 ALPHAS Digital Business Solutions. All rights reserved.
+            </div>
+
+            <div class="flex items-center gap-4">
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:text-alphas-accent hover:bg-alphas-accent/10 transition"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:text-alphas-accent hover:bg-alphas-accent/10 transition"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:text-alphas-accent hover:bg-alphas-accent/10 transition"><i class="fa-brands fa-behance"></i></a>
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:text-alphas-accent hover:bg-alphas-accent/10 transition"><i class="fa-solid fa-globe"></i></a>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- DYNAMIC SLIDEOUT CONSULTATION DRAWER PANEL -->
+    <div id="consultation-drawer"
+        class="fixed inset-y-0 right-0 z-50 w-full max-w-md bg-alphas-dark/95 backdrop-blur-3xl border-l border-white/10 p-8 shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out overflow-y-auto">
+        <div class="flex items-center justify-between mb-6">
+            <div class="flex flex-col text-start">
+                <h3 class="text-lg font-bold text-white uppercase tracking-wider" data-i18n="drawer.title">Alpha Roadmap Audit</h3>
+                <span class="text-[10px] text-gray-400 uppercase tracking-widest font-semibold mt-0.5" data-i18n="drawer.subtitle">Free Growth Diagnostic</span>
+            </div>
+            <button onclick="toggleConsultation(false)" class="text-gray-400 hover:text-alphas-accent transition text-xl focus:outline-none"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+
+        <!-- Progress Steps Tracker -->
+        <div class="mb-8 bg-white/5 rounded-full h-1.5 overflow-hidden">
+            <div id="quiz-progress-bar" class="bg-alphas-accent h-full w-1/3 transition-all duration-300"></div>
+        </div>
+
+        <!-- Multi-step Form Container -->
+        <form id="multi-step-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="space-y-6">
+            <input type="hidden" id="form-selected-bottleneck" name="bottleneck" value="">
+            <input type="hidden" id="form-selected-hours" name="hours_package" value="50 Hours/mo">
+            <input type="hidden" id="form-selected-date" name="scheduled_date" value="">
+            <input type="hidden" id="form-selected-time" name="scheduled_time" value="">
+
+            <!-- STEP 1: CHOOSE BOTTLENECK -->
+            <div id="quiz-step-1" class="space-y-4">
+                <h4 class="text-xs font-bold text-white uppercase tracking-widest mb-4 text-start" data-i18n="drawer.step1title">Step 1: What is your primary bottleneck?</h4>
+
+                <div onclick="selectBottleneck('smm', this)" class="quiz-opt-card glass-card p-4 rounded-xl border border-white/5 cursor-pointer flex items-center gap-4 text-start">
+                    <div class="w-10 h-10 rounded-lg bg-alphas-accent/10 text-alphas-accent flex items-center justify-center text-lg shrink-0">
+                        <i class="fa-solid fa-share-nodes"></i>
+                    </div>
+                    <div>
+                        <h5 class="text-xs font-bold text-white uppercase" data-i18n="drawer.opt1title">Weak SMM & Visual Brand</h5>
+                        <p class="text-[10px] text-gray-400 mt-0.5" data-i18n="drawer.opt1desc">Low engagement, poor posting layout design</p>
+                    </div>
+                </div>
+
+                <div onclick="selectBottleneck('store', this)" class="quiz-opt-card glass-card p-4 rounded-xl border border-white/5 cursor-pointer flex items-center gap-4 text-start">
+                    <div class="w-10 h-10 rounded-lg bg-alphas-accent/10 text-alphas-accent flex items-center justify-center text-lg shrink-0">
+                        <i class="fa-solid fa-store"></i>
+                    </div>
+                    <div>
+                        <h5 class="text-xs font-bold text-white uppercase" data-i18n="drawer.opt2title">E-Commerce & Speeds</h5>
+                        <p class="text-[10px] text-gray-400 mt-0.5" data-i18n="drawer.opt2desc">Slow online storefronts, cart drop-offs</p>
+                    </div>
+                </div>
+
+                <div onclick="selectBottleneck('ads', this)" class="quiz-opt-card glass-card p-4 rounded-xl border border-white/5 cursor-pointer flex items-center gap-4 text-start">
+                    <div class="w-10 h-10 rounded-lg bg-alphas-accent/10 text-alphas-accent flex items-center justify-center text-lg shrink-0">
+                        <i class="fa-solid fa-chart-pie"></i>
+                    </div>
+                    <div>
+                        <h5 class="text-xs font-bold text-white uppercase" data-i18n="drawer.opt3title">High Ad Spend / Low ROI</h5>
+                        <p class="text-[10px] text-gray-400 mt-0.5" data-i18n="drawer.opt3desc">Inefficient ads budget, weak tracking setup</p>
+                    </div>
+                </div>
+
+                <div onclick="selectBottleneck('all', this)" class="quiz-opt-card glass-card p-4 rounded-xl border border-white/5 cursor-pointer flex items-center gap-4 text-start">
+                    <div class="w-10 h-10 rounded-lg bg-alphas-accent/10 text-alphas-accent flex items-center justify-center text-lg shrink-0">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <div>
+                        <h5 class="text-xs font-bold text-white uppercase" data-i18n="drawer.opt4title">Full Alpha Infrastructure</h5>
+                        <p class="text-[10px] text-gray-400 mt-0.5" data-i18n="drawer.opt4desc">Needs complete design and workflow blocks</p>
+                    </div>
+                </div>
+
+                <div class="pt-4">
+                    <button type="button" onclick="goToStep(2)" class="w-full bg-alphas-accent hover:bg-alphas-accentHover text-white py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition-all" data-i18n="drawer.continue">
+                        Continue to Details
+                    </button>
+                </div>
+            </div>
+
+            <!-- STEP 2: COMPANY DETAILS & HOURS -->
+            <div id="quiz-step-2" class="hidden space-y-4 text-start">
+                <h4 class="text-xs font-bold text-white uppercase tracking-widest mb-4" data-i18n="drawer.step2title">Step 2: Operational Target Profile</h4>
+
+                <div>
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2" data-i18n="drawer.companyName">Company Name</label>
+                    <input id="quiz-company-name" required type="text" placeholder="e.g. Arabia Furniture" data-i18n-placeholder="contact.companyPlaceholder"
+                        class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-alphas-accent/50 transition">
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2" data-i18n="drawer.email">Primary Email Address</label>
+                    <input id="quiz-email" required type="email" placeholder="e.g. contact@company.com" data-i18n-placeholder="contact.emailPlaceholder"
+                        class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-alphas-accent/50 transition">
+                </div>
+
+                <div class="bg-white/5 rounded-xl p-4 border border-white/5">
+                    <span class="text-[10px] font-bold text-gray-400 uppercase block mb-1" data-i18n="drawer.hoursLabel">Selected Hours Allocation</span>
+                    <div class="flex items-center justify-between text-xs mt-1">
+                        <span id="quiz-hours-display" class="font-bold text-white">50 Hours/mo</span>
+                        <span id="quiz-price-display" class="text-alphas-accent font-extrabold">$950/mo</span>
+                    </div>
+                </div>
+
+                <div class="flex gap-4 pt-4">
+                    <button type="button" onclick="goToStep(1)" class="w-1/3 border border-white/10 text-gray-300 hover:text-white py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition-all text-center" data-i18n="drawer.back">
+                        Back
+                    </button>
+                    <button type="button" onclick="validateStep2AndProceed()" class="w-2/3 bg-alphas-accent hover:bg-alphas-accentHover text-white py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition-all text-center" data-i18n="drawer.scheduleCall">
+                        Schedule Call
+                    </button>
+                </div>
+            </div>
+
+            <!-- STEP 3: INTERACTIVE CALENDAR BOOKING -->
+            <div id="quiz-step-3" class="hidden space-y-4 text-start">
+                <h4 class="text-xs font-bold text-white uppercase tracking-widest mb-2" data-i18n="drawer.step3title">Step 3: Pick roadmap review call slot</h4>
+                <p class="text-[10px] text-gray-400 mb-4" data-i18n="drawer.step3desc">Choose a date and time for your free visual audit review meeting.</p>
+
+                <!-- Mini Calendar Mockup -->
+                <div class="border border-white/5 rounded-xl p-3 bg-alphas-navy/40">
+                    <div class="flex justify-between items-center text-xs font-bold text-white uppercase tracking-widest mb-3 border-b border-white/5 pb-2">
+                        <span>July 2026</span>
+                        <i class="fa-solid fa-calendar-days text-alphas-accent text-xs"></i>
+                    </div>
+                    <div class="grid grid-cols-7 gap-1 text-center text-[9px] font-semibold text-gray-500 uppercase mb-2">
+                        <span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span><span>Su</span>
+                    </div>
+                    <div class="grid grid-cols-7 gap-1" id="calendar-days-grid">
+                        <!-- Days dynamically rendered below via JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Selectable Time Slots -->
+                <div class="space-y-2">
+                    <span class="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2" data-i18n="drawer.timeSlotsLabel">Available Time Slots (Egypt Time)</span>
+                    <div class="grid grid-cols-3 gap-2" id="time-slots-container">
+                        <div onclick="selectTimeSlot('10:00 AM', this)" class="time-slot border border-white/5 bg-white/5 rounded-lg py-2 text-center text-xs text-gray-300">10:00 AM</div>
+                        <div onclick="selectTimeSlot('11:30 AM', this)" class="time-slot border border-white/5 bg-white/5 rounded-lg py-2 text-center text-xs text-gray-300">11:30 AM</div>
+                        <div onclick="selectTimeSlot('02:00 PM', this)" class="time-slot border border-white/5 bg-white/5 rounded-lg py-2 text-center text-xs text-gray-300">02:00 PM</div>
+                        <div onclick="selectTimeSlot('03:30 PM', this)" class="time-slot border border-white/5 bg-white/5 rounded-lg py-2 text-center text-xs text-gray-300">03:30 PM</div>
+                        <div onclick="selectTimeSlot('05:00 PM', this)" class="time-slot border border-white/5 bg-white/5 rounded-lg py-2 text-center text-xs text-gray-300">05:00 PM</div>
+                        <div onclick="selectTimeSlot('06:30 PM', this)" class="time-slot border border-white/5 bg-white/5 rounded-lg py-2 text-center text-xs text-gray-300">06:30 PM</div>
+                    </div>
+                </div>
+
+                <div class="flex gap-4 pt-4">
+                    <button type="button" onclick="goToStep(2)" class="w-1/3 border border-white/10 text-gray-300 hover:text-white py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition-all text-center" data-i18n="drawer.back">
+                        Back
+                    </button>
+                    <button type="submit" class="w-2/3 bg-alphas-accent hover:bg-alphas-accentHover text-white py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition-all shadow-gold-glow text-center" data-i18n="drawer.confirm">
+                        Confirm & Book Call
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        <!-- Dynamic success drawer box -->
+        <div id="drawer-success-box"
+            class="hidden absolute inset-0 bg-alphas-dark/95 backdrop-blur-md flex flex-col items-center justify-center text-center p-8 z-10">
+            <div class="w-16 h-16 rounded-full bg-alphas-accent/10 border border-alphas-accent text-alphas-accent flex items-center justify-center text-2xl mb-6 animate-bounce">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <h4 class="text-2xl font-bold text-white uppercase mb-2" data-i18n="drawer.successTitle">Roadmap Secured!</h4>
+            <p class="text-xs text-gray-400 leading-relaxed"><span data-i18n="drawer.successDesc">Your free visual audit review is scheduled for</span> 
+                <strong id="success-date-time" class="text-white"></strong>.</p>
+            <p class="text-[10px] text-alphas-accent font-semibold mt-4" data-i18n="drawer.successNote">We will send Google Meet details to your inbox.</p>
+            <button onclick="toggleConsultation(false)" class="mt-8 border border-white/10 text-xs text-gray-300 hover:text-white px-6 py-2.5 rounded-full uppercase font-bold tracking-wider transition" data-i18n="drawer.close">Close panel</button>
+        </div>
+    </div>
+
+    <!-- DYNAMIC CASE STUDY OVERLAY MODAL -->
+    <div id="case-study-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+        <div onclick="closeCaseStudy()" class="absolute inset-0 bg-alphas-dark/90 backdrop-blur-md cursor-pointer"></div>
+        <div class="modal-box relative w-full max-w-3xl glass-card bg-[#0b1224]/95 rounded-3xl border border-white/10 p-6 md:p-10 shadow-2xl overflow-y-auto max-h-[90vh] z-10 transform scale-95 opacity-0 transition-all duration-300">
+            <button onclick="closeCaseStudy()" class="absolute top-6 right-6 text-gray-400 hover:text-alphas-accent transition text-2xl focus:outline-none">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div id="modal-content-container"></div>
+        </div>
+    </div>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+        ScrollTrigger.refresh();
+
+        // === Toast Notification System Utility (Replaces native alerts safely) ===
+        function showToast(message) {
+            let toast = document.getElementById('custom-toast');
+            if (!toast) {
+                toast = document.createElement('div');
+                toast.id = 'custom-toast';
+                toast.className = 'fixed bottom-5 right-5 z-[100] glass-card border border-alphas-accent/30 px-6 py-4 rounded-xl text-white text-xs font-bold tracking-wide shadow-lg translate-y-10 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-3';
+                toast.innerHTML = `<i class="fa-solid fa-circle-exclamation text-alphas-accent text-sm"></i> <span id="toast-text"></span>`;
+                document.body.appendChild(toast);
+            }
+            document.getElementById('toast-text').innerText = message;
+            toast.classList.remove('translate-y-10', 'opacity-0', 'pointer-events-none');
+            toast.classList.add('translate-y-0', 'opacity-100');
+            setTimeout(() => {
+                toast.classList.add('translate-y-10', 'opacity-0', 'pointer-events-none');
+                toast.classList.remove('translate-y-0', 'opacity-100');
+            }, 4000);
+        }
+
+        // === i18n Translations Dictionary ===
+        const i18n = {
+            en: {
+                "nav.about": "About",
+                "nav.services": "Services",
+                "nav.workflow": "Workflow",
+                "nav.approach": "Our Approach",
+                "nav.showcase": "Showcase",
+                "nav.whyus": "Why us",
+                "nav.success": "Success",
+                "nav.whyAlphas": "Why Alphas",
+                "nav.successStories": "Success Stories",
+                "header.tagline": "DIGITAL BUSINESS SOLUTIONS",
+                "header.consultation": 'Free Consultation <i class="fa-solid fa-arrow-right text-xs"></i>',
+                "header.consultationMobile": 'Free Consultation <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>',
+                "hero.badge": "Alpha Level Strategy",
+                "hero.title": 'WE SCALE <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-alphas-accent via-alphas-goldLight to-alphas-accent drop-shadow-[0_0_35px_rgba(229,155,88,0.25)] tracking-wide">DIGITAL REVENUES</span><br>FOR AMBITIOUS BRANDS.',
+                "hero.subtitle": "300+ SUCCESSFUL PROJECTS & 95% CLIENT GROWTH RATE.",
+                "hero.desc": 'High-Performance UI/UX <span class="text-alphas-accent/60 mx-1.5">|</span> Advanced Automation <span class="text-alphas-accent/60 mx-1.5">|</span> Seamless Workflows.',
+                "hero.cta": 'Book Free Consultation & Audit <i class="fa-solid fa-arrow-right text-xs"></i>',
+                "hero.learnMore": "Learn More",
+                "mockup.title": 'High-Performance <br><span class="text-alphas-accent">Website</span>',
+                "mockup.desc": "Fully custom coded framework. Built for maximum speed, security, and organic search indexation.",
+                "mockup.badge": "Live Audit Score: 100%",
+                "mockup.stat1": "Page Speed",
+                "mockup.stat1val": "100 / 100",
+                "mockup.stat2": "SEO Health",
+                "mockup.stat2val": "Perfect",
+                "mockup.stat3": "Bounce Rate",
+                "mockup.stat3val": "-34.2%",
+                "about.pitchLabel": "Company Pitch",
+                "about.pitchTitle": "Alpha Business Growth",
+                "about.pitchDesc": '"Ambitious companies looking to take their success to the next level need more than standard tactics. They require structural transformation based on market-tested formulas."',
+                "about.profitStrategy": "Profitable Strategy",
+                "about.profitDesc": "Custom tailored execution pathways.",
+                "about.whoLabel": "Who is Alphas?",
+                "about.title": "We build highly scalable <br>digital operations",
+                "about.desc1": 'Alphas is the perfect solution for ambitious companies looking to take their success to the next level. With over <strong class="text-alphas-accent">300 successful projects</strong> spanning 5+ years of operational excellence, our unified team of certified professionals has the background required to define, develop, and scale profitable business blueprints.',
+                "about.desc2": "Whether starting from a brand refresh, shifting target cohorts, or establishing robust customized e-commerce systems, we handle the technical design layers so you can focus entirely on operations.",
+                "about.check1": "Continuous 24/7 Monitoring",
+                "about.check2": "Flexible Frameworks",
+                "about.check3": "KPI Oriented Reports",
+                "services.label": "Expert Deliverables",
+                "services.title": "Core Digital Verticals",
+                "services.desc": "Marketing, branding, systems architecture, and comprehensive tracking services aimed at growing your bottom-line budget efficiently.",
+                "services.smm.title": "Social Media & Marketing",
+                "services.smm.desc": "Comprehensive management and optimization across networks that boost online presence and maximize budget.",
+                "services.smm.tag1": "Graphic Designs",
+                "services.smm.tag2": "Content Creation",
+                "services.smm.tag3": "Ads Management",
+                "services.smm.tag4": "Moderation",
+                "services.smm.tag5": "SEO / Google Ads",
+                "services.smm.link": 'View active layouts <i class="fa-solid fa-arrow-right text-xs"></i>',
+                "services.web.title": "Web Design & E-Commerce",
+                "services.web.desc": "Fast, easily managed website systems and online stores designed to retain customers and capture conversions seamlessly.",
+                "services.web.tag1": "E-Commerce",
+                "services.web.tag2": "Landing Pages",
+                "services.web.tag3": "Booking Systems",
+                "services.web.tag4": "Blogs & Articles",
+                "services.media.title": "Media Buying Service",
+                "services.media.desc": "Meticulous demographic research, exceptionally precise keywords, and constant tracking designed to boost ROI.",
+                "services.media.item1": '<strong>A Data Obsession:</strong> Driving conversions with real numbers.',
+                "services.media.item2": '<strong>Focused Creative:</strong> Functional visual ideas instead of chaos.',
+                "services.media.item3": '<strong>Ability to Shift:</strong> Agile pivoting for sub-par lists.',
+                "services.media.cta": 'Configure Media Budgets <i class="fa-solid fa-arrow-right text-xs"></i>',
+                "workflow.label": "How We Achieve Scale",
+                "workflow.title": "Unified Strategic Workflow",
+                "workflow.desc": "Our structured method allows for digital agility with clear, actionable steps.",
+                "workflow.step1": "01. Branding",
+                "workflow.step1desc": "Platform Style Guides - Defining unique visual design markers and target guidelines.",
+                "workflow.step2": "02. Customer Data",
+                "workflow.step2desc": "Target Audience Profiling - Gathering demographic, search-intent, and past behavior.",
+                "workflow.step3": "03. Problem Analysis",
+                "workflow.step3desc": "Determine Solutions - Locating systemic drop-offs in customer journeys.",
+                "workflow.step4": "04. Decisions & Goals",
+                "workflow.step4desc": "Execution Contracting - Building measurable goals and scheduling implementation.",
+                "workflow.step5": "05. Active Execution",
+                "workflow.step5desc": "Campaign Launch - Executing the core digital transformation and campaigns.",
+                "workflow.step6": "06. Reports & Reviews",
+                "workflow.step6desc": "Ongoing Iterations - Preparing deep reports and growth summaries.",
+                "approach.label": "How We Work",
+                "approach.title": "Our Core Pillars",
+                "approach.desc": "Our strategic pillars ensure every single brand project gets delivered at premium levels.",
+                "approach.p1label": "Pillar 01",
+                "approach.p1title": "Right Segment",
+                "approach.p1desc": "Hitting the precise client demographics and purchase segments to produce better operational conversion margins.",
+                "approach.p2label": "Pillar 02",
+                "approach.p2title": "Good Reach & Engagement",
+                "approach.p2desc": "Publishing highly shareable material that drives attention, increases audience footprints, and builds lasting memory.",
+                "approach.p3label": "Pillar 03",
+                "approach.p3title": "Posting Calendar",
+                "approach.p3desc": "A clear, planned posting layout that maintains consistent brand activity without gap periods or delays.",
+                "approach.p4label": "Pillar 04",
+                "approach.p4title": "Boom Branding",
+                "approach.p4desc": "Creating unique, unexpected layout concepts that distinguish your product within cluttered, noisy categories.",
+                "approach.p5label": "Pillar 05",
+                "approach.p5title": "Ads Budget Optimization",
+                "approach.p5desc": "Extremely efficient allocation of social spend across custom audiences to guarantee maximum digital ROI.",
+                "approach.p6label": "Pillar 06",
+                "approach.p6title": "Offline Sync Activity",
+                "approach.p6desc": "Pairing digital branding directly with in-person traffic conversions, event coordination, and store networks.",
+                "showcase.label": "Client Proof",
+                "showcase.title": "Active Success Proof",
+                "showcase.tabAll": "All Projects",
+                "showcase.tabDesign": "Designs & SMM",
+                "showcase.tabWeb": "Online Stores",
+                "showcase.tabAcademy": "Corporate & Academies",
+                "showcase.readCase": "Read Case Study",
+                "portfolio.arabia.badge": "FURNITURE CO",
+                "portfolio.arabia.desc": '"Wild Sale Up to 50% Off" SMM Campaign design, luxury master bedroom catalog styling, and modular layouts.',
+                "portfolio.arabia.tag1": "Render Asset",
+                "portfolio.arabia.tag2": "Posting Calendar",
+                "portfolio.modern.badge": "AUTOMOTIVE",
+                "portfolio.modern.desc": '"43 Years Experience" brand social campaigns & delivery vectors, managing complex cross-Egypt outreach graphics.',
+                "portfolio.modern.tag1": "SMM Strategy",
+                "portfolio.modern.tag2": "Geo-Targeting",
+                "portfolio.penduline.badge": "COSMETICS",
+                "portfolio.penduline.desc": '"Super Hero character layouts." Beautiful content creations for anti-tear shampoo ranges, capturing kids\' cartoon narratives.',
+                "portfolio.penduline.tag1": "Branding Theme",
+                "portfolio.penduline.tag2": "Creative",
+                "portfolio.koshary.badge": "FOOD INDUSTRY",
+                "portfolio.koshary.desc": 'Creating high-retention food catalogs & launch graphics ("Taste that makes you fly") for restaurant franchises.',
+                "portfolio.koshary.tag1": "Viral Promos",
+                "portfolio.koshary.tag2": "Ads Creative",
+                "portfolio.drnutrition.badge": "E-COMMERCE",
+                "portfolio.drnutrition.desc": "Complete deployment of a fast Shopify-based multi-currency online store specializing in health & nutrition supplements.",
+                "portfolio.drnutrition.tag1": "Shopify Engine",
+                "portfolio.drnutrition.tag2": "Payment API",
+                "portfolio.lia.badge": "EDUCATION",
+                "portfolio.lia.desc": "E-learning content system, custom member dashboards, and secure backend credential tracking systems.",
+                "portfolio.lia.tag1": "Web Portal",
+                "portfolio.lia.tag2": "LMS Integration",
+                "portfolio.giftshop.badge": "E-COMMERCE",
+                "portfolio.giftshop.desc": "Premium luxury accessories e-commerce store featuring designer wallets, belts, and gift items with mobile-first shopping experience.",
+                "portfolio.giftshop.tag1": "Shopify Store",
+                "portfolio.giftshop.tag2": "Mobile UX",
+                "portfolio.eclat.badge": "BEAUTY & SKINCARE",
+                "portfolio.eclat.desc": "Elegant beauty & cosmetics e-commerce platform with premium skincare product lines, free shipping promotions, and wishlist functionality.",
+                "portfolio.eclat.tag1": "E-Commerce",
+                "portfolio.eclat.tag2": "Beauty Brand",
+                "portfolio.laperva.badge": "FITNESS & NUTRITION",
+                "portfolio.laperva.desc": "High-performance fitness supplements e-commerce platform with bold branding, product range management, and sports nutrition content strategy.",
+                "portfolio.laperva.tag1": "Brand Store",
+                "portfolio.laperva.tag2": "Performance UX",
+                "portfolio.natpro.badge": "PHARMACEUTICALS",
+                "portfolio.natpro.desc": "Science-led cosmeceutical group corporate website with Vitova brand showcase, investor relations portal, and global expansion presence.",
+                "portfolio.natpro.tag1": "Corporate Web",
+                "portfolio.natpro.tag2": "Pharma Brand",
+                "portfolio.scit.badge": "IT & NETWORKING",
+                "portfolio.scit.desc": "Huawei eKit authorized trust SMM campaigns, network infrastructure solutions creative displays, and customer reviews showcases.",
+                "portfolio.scit.tag1": "IT SMM",
+                "portfolio.scit.tag2": "Infographics",
+                "portfolio.sculptor.badge": "BEAUTY & CLINICS",
+                "portfolio.sculptor.desc": "Elegant aesthetic clinic campaign designs including body shaping promo grids, laser hair removal packages, and seasonal offers.",
+                "portfolio.sculptor.tag1": "Clinic Branding",
+                "portfolio.sculptor.tag2": "SMM Creative",
+                "whyus.label": "Our Operational Ethics",
+                "whyus.title": "Why Partner with Alphas?",
+                "whyus.desc": "We understand that marketing spends must lead directly to bottom-line security. Our values reflect transparent, flexible solutions built dynamically around your schedule.",
+                "whyus.affordable": "Affordable",
+                "whyus.affordableDesc": "Our dynamic 'hours' package models mean you decide exactly what budgets make sense for current stages.",
+                "whyus.transparent": "Transparent",
+                "whyus.transparentDesc": "Open logs down to the exact minutes spent on SMM, graphic designs, updates, or ad listings.",
+                "whyus.proactive": "Proactive",
+                "whyus.proactiveDesc": "Assigned expert planners who understand scaling goals. We offer ongoing active feedback before requests are made.",
+                "whyus.flexible": "Flexible",
+                "whyus.flexibleDesc": "Easily shift campaign variables, assets, or SMM volumes as target seasonal needs scale up or down.",
+                "calc.label": "Interactive Calculator",
+                "calc.title": "Design your customized hourly operational block",
+                "calc.desc": "Select the ideal monthly hours package to fuel your graphic designs, updates, code deployment, and media buying. Scale hourly usage freely based on product schedules.",
+                "calc.hoursLabel": "Planned Operational Hours",
+                "calc.hoursUnit": "Hours/mo",
+                "calc.startup": "20 Hours (Startup)",
+                "calc.growth": "80 Hours (Growth)",
+                "calc.alpha": "150 Hours (Alpha Scale)",
+                "calc.budgetLabel": "Estimated Package Budget",
+                "calc.perMonth": "/ month",
+                "calc.feat1": "Dedicated SMM Campaign Expert",
+                "calc.feat2": "Transparent Time-Logs",
+                "calc.feat3": "Agile Pivots on SMM Assets",
+                "calc.cta": "Claim hours package",
+                "success.label": "Operational Growth",
+                "success.title": "A Proven Record of Scaled Success",
+                "success.desc": "Our team features operational experts with combined decades of expertise. By monitoring and reacting to real customer habits, 95% of Alphas client operations report significant digital volume scaling inside 90 days.",
+                "success.stat1": "Sustained Business Growths",
+                "success.stat2": "Churn Rate Across Campaigns",
+                "success.chartTitle": "Monthly Conversions Trend",
+                "success.chartSub": "Simulated average across active client lists",
+                "success.alphasStrategy": "Alphas Strategy",
+                "success.industryBase": "Industry Baseline",
+                "success.q1": "Q1 Launch",
+                "success.q2": "Q2 Optimizations",
+                "success.q3": "Q3 Alpha Scale",
+                "contact.label": "Free Consultation Call",
+                "contact.title": "Let's Drive Your Journey Forward",
+                "contact.desc": "Tell us about your brand metrics, active budgets, and operational targets. Our team will review your systems completely for free.",
+                "contact.companyName": "Company Name",
+                "contact.companyPlaceholder": "e.g. Arabia Furniture",
+                "contact.email": "Primary Email Address",
+                "contact.emailPlaceholder": "e.g. contact@business.com",
+                "contact.services": "Required Services",
+                "contact.optSocial": "Social Media & Branding",
+                "contact.optWeb": "E-Commerce & Portals",
+                "contact.optAds": "Media Buying & Campaigns",
+                "contact.optAll": "Full Alpha Transform Block",
+                "contact.budget": "Active Monthly Budget",
+                "contact.budget1": "Under 10,000 EGP / mo",
+                "contact.budget2": "10,000 - 30,000 EGP / mo",
+                "contact.budget3": "Over 30,000 EGP / mo",
+                "contact.scope": "Operational Scope Detail",
+                "contact.scopePlaceholder": "Briefly describe your targets or systemic bottlenecks (e.g., lower store traffic, weak SMM conversions...)",
+                "contact.submit": "Schedule Initial Roadmap Review",
+                "contact.successTitle": "Review Form Received!",
+                "contact.successDesc": "An Alphas platform specialist will analyze your company information and email your roadmap layout within 24 hours.",
+                "footer.copyright": "&copy; 2026 ALPHAS Digital Business Solutions. All rights reserved.",
+                "drawer.title": "Alpha Roadmap Audit",
+                "drawer.subtitle": "Free Growth Diagnostic",
+                "drawer.step1title": "Step 1: What is your primary bottleneck?",
+                "drawer.opt1title": "Weak SMM & Visual Brand",
+                "drawer.opt1desc": "Low engagement, poor posting layout design",
+                "drawer.opt2title": "E-Commerce & Speeds",
+                "drawer.opt2desc": "Slow online storefronts, cart drop-offs",
+                "drawer.opt3title": "High Ad Spend / Low ROI",
+                "drawer.opt3desc": "Inefficient ads budget, weak tracking setup",
+                "drawer.opt4title": "Full Alpha Infrastructure",
+                "drawer.opt4desc": "Needs complete design and workflow blocks",
+                "drawer.continue": "Continue to Details",
+                "drawer.step2title": "Step 2: Operational Target Profile",
+                "drawer.companyName": "Company Name",
+                "drawer.email": "Primary Email Address",
+                "drawer.hoursLabel": "Selected Hours Allocation",
+                "drawer.back": "Back",
+                "drawer.scheduleCall": "Schedule Call",
+                "drawer.step3title": "Step 3: Pick roadmap review call slot",
+                "drawer.step3desc": "Choose a date and time for your free visual audit review meeting.",
+                "drawer.timeSlotsLabel": "Available Time Slots (Egypt Time)",
+                "drawer.confirm": "Confirm & Book Call",
+                "drawer.successTitle": "Roadmap Secured!",
+                "drawer.successDesc": "Your free visual audit review is scheduled for",
+                "drawer.successNote": "We will send Google Meet details to your inbox.",
+                "drawer.close": "Close panel",
+                "modal.caseStudy": "Case Study",
+                "modal.challenge": "The Challenge",
+                "modal.implementation": "Strategic Implementation",
+                "modal.outcome": "Verified Outcome",
+                "validation.nameEmail": "Please fill out your Company Name and Email Address.",
+                "validation.dateTime": "Please select a date and a time slot for your meeting."
+            },
+            ar: {
+                "nav.about": "عنّا",
+                "nav.services": "خدماتنا",
+                "nav.workflow": "طريقتنا في الشغل",
+                "nav.approach": "إزاي بنفكر؟",
+                "nav.showcase": "شغل حقيقي نجح",
+                "nav.whyus": "ليه ALPHAS بالذات؟",
+                "nav.success": "أرقام ونمو",
+                "nav.whyAlphas": "ليه ALPHAS بالذات؟",
+                "nav.successStories": "أرقام ونمو",
+                "header.tagline": "DIGITAL BUSINESS SOLUTIONS",
+                "header.consultation": 'استشارة مجانية <i class="fa-solid fa-arrow-left text-xs mr-1"></i>',
+                "header.consultationMobile": 'احجز مكالمة مجانية <i class="fa-solid fa-arrow-left mr-2 text-xs"></i>',
+                "hero.badge": "شغل بيكبر أرقامك بجد",
+                "hero.title": 'بنزود مبيعات <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-alphas-accent via-alphas-goldLight to-alphas-accent drop-shadow-[0_0_35px_rgba(229,155,88,0.25)] tracking-wide">الشركات والبراندات</span><br>إللي عايزة تبيع أكتر أونلاين.',
+                "hero.subtitle": "عملنا أكتر من 300 مشروع كسبان، وبنساعد عملائنا يحققوا نمو مستمر بأرقام مبيعات حقيقية.",
+                "hero.desc": 'متاجر إلكترونية ومواقع سريعة وسهلة <span class="text-alphas-accent/60 mx-1.5">|</span> صفحات سوشيال ميديا تشد زباينك <span class="text-alphas-accent/60 mx-1.5">|</span> إعلانات ممولة مدروسة بالقرش.',
+                "hero.cta": 'احجز مكالمة استشارة وفحص مجاني لشغلك <i class="fa-solid fa-arrow-left text-xs"></i>',
+                "hero.learnMore": "احكيلي أكتر",
+                "mockup.title": 'متجر ويب ذكي <br><span class="text-alphas-accent">سريع وسهل جداً</span>',
+                "mockup.desc": "متفصل ومبرمج عشان يضمنلك تصفح سريع للعملاء، وتجربة تخليهم يشتروا بسهولة من غير تشتيت.",
+                "mockup.badge": "سرعة التحميل: 100%",
+                "mockup.stat1": "سرعة الـ Page",
+                "mockup.stat1val": "ممتازة",
+                "mockup.stat2": "سيو وجوجل",
+                "mockup.stat2val": "الأول",
+                "mockup.stat3": "خروج الزباين",
+                "mockup.stat3val": "-34.2%",
+                "about.pitchLabel": "إزاي بنفكر؟",
+                "about.pitchTitle": "المبيعات هي الأهم",
+                "about.pitchDesc": '"الشركات إللي عايزة مبيعات حقيقية على الأرض محتاجة أكتر من مجرد بوستات حلوة على فيسبوك؛ محتاجة متجر سريع يفتح النفس، وإعلانات معمولة بمزاج بتخاطب العميل الصح."',
+                "about.profitStrategy": "مبيعات دايمة",
+                "about.profitDesc": "خطوات بيع واضحة لمنتجاتك وخدماتك.",
+                "about.whoLabel": "مين إحنا؟",
+                "about.title": "بنبني السيستم التسويقي والتقني <br>إللي يخليك تبيع وأنت مرتاح",
+                "about.desc1": 'فريقنا في ALPHAS هو الشريك إللي هيريحك من مشاكل التسويق والتكنولوجيا. بقالنا 5 سنين في السوق المصري، ونفذنا أكتر من 300 مشروع ناجح. فريقنا عارف بالظبط إزاي يصمم متجرك، ويظبط صفحاتك، ويعملك إعلانات تجيب همها وتكسبك فعلاً.',
+                "about.desc2": "بدل ما تتعب نفسك وتتشتت بين شركات برمجة وشركات تسويق، إحنا بنستلم منك الليلة كلها؛ بنعملك الديزاينات، بنبرمج موقعك، وبندير حملاتك الإعلانية بالكامل.. عشان تركز أنت بس في تشغيل وتطوير البزنس بتاعك.",
+                "about.check1": "متابعة دقيقة لكل مليم بتصرفه 24/7",
+                "about.check2": "متاجر مرنة وسهلة التعديل والتحكم",
+                "about.check3": "تقارير مبيعات وأرقام واضحة ومفهومة",
+                "services.label": "شغلنا إللي هيفيدك",
+                "services.title": "بنقدم إيه للبزنس بتاعك؟",
+                "services.desc": "بنظبطلك الـ 3 حاجات الأساسيين لأي شركة عايزة تنجح وتبيع أونلاين اليومين دول:",
+                "services.smm.title": "إدارة وتنسيق السوشيال ميديا",
+                "services.smm.desc": "بنستلم صفحات فيسبوك، إنستجرام، وتيك توك.. بنعمل ديزاينات مميزة، وبنكتب كلام يشد الزباين ويزود ثقتهم فيك.",
+                "services.smm.tag1": "تصميمات جرافيك شيك جداً",
+                "services.smm.tag2": "كتابة بوستات تسويقية",
+                "services.smm.tag3": "إدارة تفاعل وموديريشن",
+                "services.smm.tag4": "تصوير وإخراج فيديوهات",
+                "services.smm.tag5": "سيو وإعلانات جوجل",
+                "services.smm.link": 'شوف شغلنا في السوق <i class="fa-solid fa-arrow-left text-xs mr-1"></i>',
+                "services.web.title": "المواقع والمتاجر الإلكترونية",
+                "services.web.desc": "بنبنيلك موقع أو متجر سريع جداً وسهل الاستخدام، عشان العميل يقدر يشوف منتجاتك ويطلب أوردره في ثواني بدون أي تعقيد.",
+                "services.web.tag1": "متاجر شوبيفاي وووردبريس",
+                "services.web.tag2": "صفحات هبوط (Landing Pages)",
+                "services.web.tag3": "ربط بوابات الدفع والشحن",
+                "services.web.tag4": "سيستم حجز ومواعيد",
+                "services.media.title": "إعلانات ممولة بتجيب همها",
+                "services.media.desc": "بنستهدف الناس المهتمة والجاهزة تشتري منتجك فعلاً. بنوزع الميزانية بذكاء عشان نضمنلك أعلى مبيعات بأقل تكلفة وصرف.",
+                "services.media.item1": '<strong>استهداف زباين بجد:</strong> بنستهدف الناس إللي مهتمة بمنتجك ومعاها تشتري فعلياً.',
+                "services.media.item2": '<strong>تصاميم إعلانات جذابة:</strong> بنعمل إعلانات بتلفت الانتباه وتخليه يضغط ويشتري.',
+                "services.media.item3": '<strong>تطوير فوري:</strong> بنراقب أرقام الإعلان يوم بيوم وبنظبطه عشان مفيش مليم يضيع في الهوا.',
+                "services.media.cta": 'اضبط ميزانية إعلاناتك <i class="fa-solid fa-arrow-left text-xs mr-1"></i>',
+                "workflow.label": "سكة النجاح معانا",
+                "workflow.title": "خطوات شغلنا معاك بالبساطة دي:",
+                "workflow.desc": "مفيش تعقيد.. خطوات واضحة ومحددة تضمنلك نمو ومبيعات لشركتك:",
+                "workflow.step1": "01. دراسة وفهم براندك",
+                "workflow.step1desc": "بنقعد معاك نفهم طبيعة منتجك، ومين زبونك بالظبط، وعايز توضح إيه للناس.",
+                "workflow.step2": "02. دراسة السوق ومنافسينك",
+                "workflow.step2desc": "بنشوف المنافسين بيعملوا إيه في السوق، وبندور على الأفكار إللي تخليك مميز عنهم.",
+                "workflow.step3": "03. حل المشاكل التقنية",
+                "workflow.step3desc": "بنشوف لو موقعك القديم بطيء أو صفحاتك فيها مشاكل تمنع العملاء من الشراء وبنصلحها فوراً.",
+                "workflow.step4": "04. وضع الأهداف والاتفاق",
+                "workflow.step4desc": "بنتفق على أرقام واضحة (زي زيادة مبيعات معينة أو عدد عملاء مهتمين) وبنحط خطة تشغيل.",
+                "workflow.step5": "05. التشغيل والانطلاق",
+                "workflow.step5desc": "بننزل الديزاينات، بنبرمج ونشغل متجرك، وبنبدأ حملات الإعلانات الممولة فوراً.",
+                "workflow.step6": "06. Mالمتابعة وتكبير الأرقام",
+                "workflow.step6desc": "بنقدم تقارير مبيعات دورية مفهومة، وبنطور في الحملات عشان نكبر أرقامك أكتر وأكتر.",
+                "approach.label": "سياستنا في الشغل",
+                "approach.title": "ليه بنجيب نتائج ممتازة؟",
+                "approach.desc": "لأننا بنعتمد على قواعد بسيطة ومهمة بتخلي الشغل يطلع مظبوط مفيش فيه غلطة:",
+                "approach.p1label": "المبدأ 01",
+                "approach.p1title": "العميل الصح",
+                "approach.p1desc": "بنخاطب ونستهدف الفئات والناس إللي معاها تشتري منتجك ومحتاجاه فعلاً، وده بيكسبك فلوس أكتر.",
+                "approach.p2label": "المبدأ 02",
+                "approach.p2title": "بوستات وأفكار حقيقية",
+                "approach.p2desc": "بنعمل محتوى تفاعلي مميز زباينك يحبوه ويشاركوه مع معارفهم، عشان اسمك يتعرف ويثبت في عقولهم.",
+                "approach.p3label": "المبدأ 03",
+                "approach.p3title": "شغل شغال علطول",
+                "approach.p3desc": "بنظبطلك جدول نشر واضح ومستمر عشان صفحاتك تكون دايماً نشطة قدام الزباين من غير انقطاع.",
+                "approach.p4label": "المبدأ 04",
+                "approach.p4title": "براندنج ينور",
+                "approach.p4desc": "بنعمل تصاميم وأشكال شيك ومميزة تخلي براندك ينور ويظهر بقوة وسط المنافسين في مجالك.",
+                "approach.p5label": "المبدأ 05",
+                "approach.p5title": "تحسين الإعلانات",
+                "approach.p5desc": "بنوزع الميزانية الإعلانية بحرص شديد وبنحسن الاستهداف عشان نجيبلك أعلى أوردرات ومبيعات.",
+                "approach.p6label": "المبدأ 06",
+                "approach.p6title": "ربط أونلاين وأوفلاين",
+                "approach.p6desc": "بنربط الدعاية والتسويق أونلاين بزيادة عدد الزباين إللي بيزوروا فروعك أو معارضك على أرض الواقع.",
+                "showcase.label": "سابقة أعمالنا",
+                "showcase.title": "شركات كبرت مبيعاتها معانا",
+                "showcase.tabAll": "كل المشاريع",
+                "showcase.tabDesign": "سوشيال ميديا وديزاين",
+                "showcase.tabWeb": "متاجر إلكترونية",
+                "showcase.tabAcademy": "شركات وأكاديميات",
+                "showcase.readCase": "تفاصيل قصة النجاح",
+                "portfolio.arabia.badge": "معرض أثاث وموبيليا",
+                "portfolio.arabia.desc": "تصميم كتالوج مودرن للموبيليا، وحملة عروض خصومات 50% مع إعلانات جغرافية للمناطق الراقية.",
+                "portfolio.arabia.tag1": "تصميم كتالوج شيك",
+                "portfolio.arabia.tag2": "إعلانات لزيارة المعرض",
+                "portfolio.modern.badge": "توكيل سيارات",
+                "portfolio.modern.desc": "إدارة صفحات توكيل السيارات الأكبر، وحملات تسويقية وتصاميم توضح أنظمة التقسيط والخدمات.",
+                "portfolio.modern.tag1": "تسويق سيارات",
+                "portfolio.modern.tag2": "إعلانات ممولة",
+                "portfolio.penduline.badge": "براند تجميل وعناية",
+                "portfolio.penduline.desc": "أفكار ديزاينات كرتونية وسوبر هيرو لمنتجات شامبو الأطفال ضد الدموع لزيادة ارتباط الأمهات بالبراند.",
+                "portfolio.penduline.tag1": "ثيم ديزاين مميز",
+                "portfolio.penduline.tag2": "صناعة إبداعية",
+                "portfolio.koshary.badge": "مطاعم ومأكولات",
+                "portfolio.koshary.desc": "فيديوهات قصيرة وتصاميم تفتح النفس لسلسلة الفروع والمطاعم لزيادة طلبات الدليفري والديليفري السريع.",
+                "portfolio.koshary.tag1": "فيديوهات قصيرة",
+                "portfolio.koshary.tag2": "أوردرات دليفري",
+                "portfolio.drnutrition.badge": "متجر مكملات غذائية",
+                "portfolio.drnutrition.desc": "بناء متجر شوبيفاي سريع جداً لبيع المكملات الغذائية، مع تفعيل الدفع السريع والربط بالشحن والدفع الفوري.",
+                "portfolio.drnutrition.tag1": "متجر شوبيفاي",
+                "portfolio.drnutrition.tag2": "دفع إلكتروني",
+                "portfolio.lia.badge": "منصات وأكاديميات",
+                "portfolio.lia.desc": "بناء منصة كورسات وشرح إلكتروني كاملة للطلاب، مع سيستم أوتوماتيكي لاستخراج وطباعة الشهادات المعتمدة.",
+                "portfolio.lia.tag1": "بوابة ويب مخصصة",
+                "portfolio.lia.tag2": "منصة كورسات",
+                "portfolio.giftshop.badge": "متجر هدايا",
+                "portfolio.giftshop.desc": "متجر لبيع الساعات والمحافظ والشنط الفخمة، مجهز بتجربة شراء سريعة وسلسة من الموبايل لزيادة المبيعات.",
+                "portfolio.giftshop.tag1": "متجر شوبيفاي",
+                "portfolio.giftshop.tag2": "تسهيل خطوات الدفع",
+                "portfolio.eclat.badge": "متجر مستحضرات تجميل",
+                "portfolio.eclat.desc": "متجر لمنتجات العناية بالبشرة والمكياج الراقي، مع تفعيل الشحن المجاني التلقائي وقسائم الهدايا لتشجيع العميل على شراء أكتر من قطعة.",
+                "portfolio.eclat.tag1": "تجارة إلكترونية",
+                "portfolio.eclat.tag2": "براند تجميل",
+                "portfolio.laperva.badge": "صحة ومكملات رياضية",
+                "portfolio.laperva.desc": "منصة بيع مكملات اللياقة والرياضة بتصميم يتماشى مع هوية البراند وتتحمل أعلى ضغط من الزيارات أوقات الخصومات الكبيرة.",
+                "portfolio.laperva.tag1": "بنية برمجية قوية",
+                "portfolio.laperva.tag2": "تحمل ضغط السيرفر",
+                "portfolio.natpro.badge": "موقع شركات ومصانع",
+                "portfolio.natpro.desc": "موقع للتعريف بالشركة ومجموعة منتجات فايتوفا الطبية التجميلية لجذب الموزعين والوكلاء الإقليميين والدوليين.",
+                "portfolio.natpro.tag1": "موقع تعريفي للشركات",
+                "portfolio.natpro.tag2": "جذب وكلاء ومستثمرين",
+                "portfolio.scit.badge": "شركات شبكات وحلول تقنية",
+                "portfolio.scit.desc": "إدارة صفحات وحملات سوشيال ميديا كشريك معتمد لـ Huawei eKit، وتصميم بوستات تقنية لبناء الثقة والاعتمادية.",
+                "portfolio.scit.tag1": "براندنج B2B",
+                "portfolio.scit.tag2": "محتوى تقني سهل",
+                "portfolio.sculptor.badge": "عيادات تجميل وليزر",
+                "portfolio.sculptor.desc": "تصميم باقات لعروض جلسات الليزر وتنسيق القوام بأسلوب بصرى شيك وراقي يزود عدد الحجوزات المباشرة.",
+                "portfolio.sculptor.tag1": "براندنج عيادات",
+                "portfolio.sculptor.tag2": "إعلانات لزيادة الحجز",
+                "whyus.label": "سياستنا وأمانتك معاك",
+                "whyus.title": "ليه تشتغل وتكبر براندك مع ALPHAS بالذات؟",
+                "whyus.desc": "لأننا مش بنحكيلك كلام تسويق معقد؛ إحنا بنقعد معاك وبنتكلم لغة البزنس والمبيعات والـ ROI. هدفنا الأول والأخير إن كل مليم بتصرفه في الماركتنج يرجعلك مبيعات ومكاسب تانية حقيقية لشركتك.",
+                "whyus.affordable": "أسعار مناسبة ومرنة",
+                "whyus.affordableDesc": "بنوفر نظام حزم ساعات مرن ومناسب ليك، عشان تدفع بالظبط حسب احتياج ومرحلة شغلك الحالية من غير ميزانيات عملاقة.",
+                "whyus.transparent": "أمانة وشفافية كاملة",
+                "whyus.transparentDesc": "بنقدملك تقارير وسجلات دقيقة بالدقيقة بكل ساعة شغل اتعملت على موقعك، تصميماتك، أو إعلاناتك الممولة.",
+                "whyus.proactive": "فريق بيفكر معاك",
+                "whyus.proactiveDesc": "إحنا مش مجرد بنفذ وخلاص؛ إحنا بنفحص البزنس وننصحك بأحسن أفكار وحلول إعلانية تزود أرباحك بناءً على أرقام السوق.",
+                "whyus.flexible": "سهولة وسرعة تعديل",
+                "whyus.flexibleDesc": "تقدر تغير خطة الشغل، حجم التصميمات، أو ميزانيات إعلاناتك بسهولة وبسرعة تماشياً مع مواسم البزنس بتاعتك.",
+                "calc.label": "حاسبة تفاعلية بسيطة",
+                "calc.title": "فصل باقة الساعات إللي تريح ميزانيتك",
+                "calc.desc": "اختار حزمة الساعات الشهرية إللي تريحك ونغطي بيها تصاميم السوشيال ميديا، الأكواد، تعديلات موقعك، أو إدارة إعلاناتك الممولة. وتقدر توسع أو تصغر الباقة دي براحتك حسب مبيعاتك ومواسم شغلك.",
+                "calc.hoursLabel": "ساعات التشغيل الشهرية المطلوبة",
+                "calc.hoursUnit": "ساعة / شهر",
+                "calc.startup": "20 ساعة (بداية تشغيل)",
+                "calc.growth": "80 ساعة (نمو سريع)",
+                "calc.alpha": "150 ساعة (سكيل كامل)",
+                "calc.budgetLabel": "الميزانية التقريبية للباقة",
+                "calc.perMonth": "/ شهرياً",
+                "calc.feat1": "خبير سوشيال ميديا مخصص لبراندك",
+                "calc.feat2": "سجل ساعات شغل شفاف ودقيق بالدقيقة",
+                "calc.feat3": "تعديلات ومرونة سريعة حسب مبيعاتك",
+                "calc.cta": "اطلب الباقة دي لحسابك",
+                "success.label": "النمو الحقيقي للبزنس",
+                "success.title": "معادلة سكيل قوية ومجربة",
+                "success.desc": "فريقنا بيضم نخبة من خبراء الـ Digital Operations والـ Marketing. من خلال مراقبة وفهم عادات العميل الفعلية في السوق، **95%** من الشركات إللي شغالين معاها بتسجل نمو مبيعات ملحوظ خلال أول 90 يوم بس.",
+                "success.stat1": "معدل نمو الشركات معانا",
+                "success.stat2": "نسبة إلغاء أو توقف الحملات",
+                "success.chartTitle": "مخطط متوسط نمو مبيعات عملائنا",
+                "success.chartSub": "متوسط أداء الشركات إللي شغالة تحت إشرافنا",
+                "success.alphasStrategy": "مع ALPHAS",
+                "success.industryBase": "الأداء الطبيعي في السوق",
+                "success.q1": "الربع الأول: الانطلاق",
+                "success.q2": "الربع الثاني: تظبيط وتحسين الحملات",
+                "success.q3": "الربع الثالث: مرحلة السكيل الكامل",
+                "contact.label": "طلب فحص ومكالمة مجانية",
+                "contact.title": "ابعتلنا تفاصيل وهنكلمك فوراً",
+                "contact.desc": "اكتبلنا باختصار طبيعة شغلك، والميزانية المتوفرة عندك. خبير من فريق ALPHAS هيتواصل معاك ويشرحلك خطة الشغل المناسبة ليك بالكامل مجاناً.",
+                "contact.companyName": "اسم شركتك أو براندك",
+                "contact.companyPlaceholder": "مثال: عربية فرنيتشر",
+                "contact.email": "البريد الإلكتروني الأساسي",
+                "contact.emailPlaceholder": "e.g. contact@business.com",
+                "contact.services": "الخدمات إللي محتاجها بالظبط",
+                "contact.optSocial": "إدارة صفحات السوشيال ميديا والديكورشن",
+                "contact.optWeb": "تصميم موقع أو متجر إلكتروني",
+                "contact.optAds": "ميديا باينج وإعلانات ممولة بذكاء",
+                "contact.optAll": "تطوير رقمي وتسويقي شامل (الكل مع بعض)",
+                "contact.budget": "ميزانيتك الشهرية للإعلانات",
+                "contact.budget1": "أقل من 10,000 ج.م شهرياً",
+                "contact.budget2": "من 10,000 ج.م لـ 30,000 ج.م شهرياً",
+                "contact.budget3": "أكتر من 30,000 ج.م شهرياً",
+                "contact.scope": "احكيلنا باختصار عن مشكلتك أو الأهداف إللي عايزها",
+                "contact.scopePlaceholder": "مثال: مبيعات المحل قليلة ومحتاج زباين، أو المتجر القديم بطيء والناس بتسيبه وتمشي...",
+                "contact.submit": "ابعت وهنرد عليك بخطة العمل خلال 24 ساعة",
+                "contact.successTitle": "تم استلام طلبك بنجاح!",
+                "contact.successDesc": "خبير مبيعات من فريق ALPHAS هيحلل معلومات شركتك فوراً وهنبعتلك خطة الـ Roadmap الشاملة على الإيميل خلال 24 ساعة.",
+                "footer.copyright": "&copy; 2026 ALPHAS Digital Business Solutions. All rights reserved.",
+                "drawer.title": "مكالمة فحص مجانية للبزنس",
+                "drawer.subtitle": "مكالمة فحص مجانية بالكامل",
+                "drawer.step1title": "الخطوة 1: إيه أكبر وجع دماغ ومشكلة بتواجهك حالياً؟",
+                "drawer.opt1title": "السوشيال ميديا وشكل الصفحة ضعيف",
+                "drawer.opt1desc": "التفاعل قليل جداً، وتصاميم المنتجات شكلها مش احترافي.",
+                "drawer.opt2title": "عايز متجر إلكتروني سريع وسهل",
+                "drawer.opt2desc": "الموقع القديم بطيء، أو محتاج متجر جديد وسهل عشان الزباين تشتري علطول.",
+                "drawer.opt3title": "بصرف كتير في الإعلانات ومفيش مبيعات",
+                "drawer.opt3desc": "الفلوس بتخلص على الفاضي ومفيش أوردرات كفاية بتغطي المصاريف.",
+                "drawer.opt4title": "عايز تسويق وسيستم رقمي كامل وشامل",
+                "drawer.opt4desc": "محتاجين نربط كل حاجة ببعض ونعمل انطلاقة تسويقية كبيرة تبيع بجد.",
+                "drawer.continue": "التالي: بيانات شركتك",
+                "drawer.step2title": "الخطوة 2: معلومات تهمنا لتنظيم المكالمة",
+                "drawer.companyName": "اسم براندك أو شركتك",
+                "drawer.email": "البريد الإلكتروني للتواصل",
+                "drawer.hoursLabel": "باقة الساعات المحددة مبدئياً",
+                "drawer.back": "رجوع",
+                "drawer.scheduleCall": "التالي: ميعاد المكالمة",
+                "drawer.step3title": "الخطوة 3: حدد ميعاد مكالمة الفحص المجانية",
+                "drawer.step3desc": "اختار اليوم والوقت المناسبين ليك ونقعد معاك نفحص مشاكلك ونقترح عليك حلول مجانية تماماً.",
+                "drawer.timeSlotsLabel": "الوقت المتاح (بتوقيت مصر)",
+                "drawer.confirm": "تأكيد وحجز المكالمة",
+                "drawer.successTitle": "تم الحجز بنجاح!",
+                "drawer.successDesc": "مكالمة الفحص والاستشارة تم حجزها يوم",
+                "drawer.successNote": "هنبعتلك تفاصيل لينك المكالمة على الإيميل بتاعك علطول.",
+                "drawer.close": "قفل اللوحة",
+                "modal.caseStudy": "قصة نجاح",
+                "modal.challenge": "المشكلة",
+                "modal.implementation": "الحل الاستراتيجي",
+                "modal.outcome": "النتائج المحققة",
+                "validation.nameEmail": "من فضلك اكتب اسم شركتك والإيميل بتاعك.",
+                "validation.dateTime": "من فضلك اختار تاريخ ووقت المكالمة."
+            }
+        };
+
+        window.onload = function () {
+            // Animate hero text contents staggered
+            gsap.from(".hero-text > *", {
+                opacity: 0,
+                y: 30,
+                stagger: 0.15,
+                duration: 1.0,
+                ease: "power3.out"
+            });
+
+            // Animate hero visual mockup reveal
+            gsap.from(".hero-visual", {
+                opacity: 0,
+                scale: 0.95,
+                y: 40,
+                duration: 1.5,
+                delay: 0.4,
+                ease: "power2.out"
+            });
+
+            // Trigger statistics counter numerical climb
+            const counters = document.querySelectorAll('.counter-val');
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                let current = 0;
+                const increment = target / 50;
+                const updateCounter = () => {
+                    current += increment;
+                    if (current < target) {
+                        counter.innerText = Math.ceil(current);
+                        setTimeout(updateCounter, 25);
+                    } else {
+                        counter.innerText = target;
+                    }
+                };
+                updateCounter();
+            });
+
+            // Reveal scroll triggers for core services
+            gsap.from(".services-grid > div", {
+                scrollTrigger: {
+                    trigger: ".services-grid",
+                    start: "top 80%",
+                },
+                opacity: 0,
+                y: 60,
+                stagger: 0.2,
+                duration: 1,
+                ease: "power3.out"
+            });
+
+            // About section animations
+            gsap.from(".about-left", {
+                scrollTrigger: {
+                    trigger: "#about",
+                    start: "top 70%",
+                },
+                opacity: 0,
+                x: -50,
+                duration: 1,
+                ease: "power3.out"
+            });
+            gsap.from(".about-right", {
+                scrollTrigger: {
+                    trigger: "#about",
+                    start: "top 70%",
+                },
+                opacity: 0,
+                x: 50,
+                duration: 1,
+                delay: 0.2,
+                ease: "power3.out"
+            });
+
+            // Services header animation
+            gsap.from(".services-header", {
+                scrollTrigger: {
+                    trigger: ".services-header",
+                    start: "top 80%",
+                },
+                opacity: 0,
+                y: 40,
+                duration: 0.8,
+                ease: "power3.out"
+            });
+
+            // Workflow section simple animation
+            gsap.from("#workflow .glass-card", {
+                scrollTrigger: {
+                    trigger: "#workflow",
+                    start: "top 85%",
+                    toggleActions: "play none none reverse"
+                },
+                opacity: 0,
+                y: 30,
+                stagger: 0.1,
+                duration: 0.6,
+                ease: "power2.out"
+            });
+
+            // Approach pillars animation
+            gsap.from(".approach-grid > div", {
+                scrollTrigger: {
+                    trigger: ".approach-grid",
+                    start: "top 75%",
+                },
+                opacity: 0,
+                y: 40,
+                stagger: 0.1,
+                duration: 0.7,
+                ease: "power3.out"
+            });
+
+            // Portfolio items animation
+            gsap.from(".portfolio-item", {
+                scrollTrigger: {
+                    trigger: "#showcase",
+                    start: "top 70%",
+                },
+                opacity: 0,
+                y: 50,
+                stagger: 0.15,
+                duration: 0.8,
+                ease: "power3.out"
+            });
+
+            // Why us section animation
+            gsap.from("#whyus .glass-card", {
+                scrollTrigger: {
+                    trigger: "#whyus",
+                    start: "top 70%",
+                },
+                opacity: 0,
+                y: 30,
+                stagger: 0.1,
+                duration: 0.7,
+                ease: "power3.out"
+            });
+
+            // Success section animation
+            gsap.from("#success .lg\\:col-span-5", {
+                scrollTrigger: {
+                    trigger: "#success",
+                    start: "top 70%",
+                },
+                opacity: 0,
+                x: -50,
+                duration: 1,
+                ease: "power3.out"
+            });
+            gsap.from("#success .lg\\:col-span-7", {
+                scrollTrigger: {
+                    trigger: "#success",
+                    start: "top 70%",
+                },
+                opacity: 0,
+                x: 50,
+                duration: 1,
+                delay: 0.2,
+                ease: "power3.out"
+            });
+
+            // Contact section animation
+            gsap.from("#contact .glass-card", {
+                scrollTrigger: {
+                    trigger: "#contact",
+                    start: "top 70%",
+                },
+                opacity: 0,
+                y: 40,
+                scale: 0.95,
+                duration: 0.9,
+                ease: "power3.out"
+            });
+
+            // Animated graph line drawing effect on scroll
+            const path = document.querySelector('#active-success-path');
+            const pathLength = path.getTotalLength();
+            path.style.strokeDasharray = pathLength + ' ' + pathLength;
+            path.style.strokeDashoffset = pathLength;
+
+            gsap.to(path, {
+                scrollTrigger: {
+                    trigger: "#success",
+                    start: "top 75%",
+                },
+                strokeDashoffset: 0,
+                duration: 2.2,
+                ease: "power2.out"
+            });
+        };
+
+        // Filter Portfolio Categories Actions
+        function filterPortfolio(category) {
+            document.querySelectorAll('.portfolio-tab').forEach(tab => {
+                tab.classList.remove('bg-alphas-accent', 'text-white');
+                tab.classList.add('bg-white/5', 'text-gray-400', 'hover:text-white');
+            });
+            document.getElementById(`tab-${category}`).classList.add('bg-alphas-accent', 'text-white');
+            document.getElementById(`tab-${category}`).classList.remove('bg-white/5', 'text-gray-400', 'hover:text-white');
+
+            const items = document.querySelectorAll('.portfolio-item');
+            gsap.to(items, {
+                scale: 0.9,
+                opacity: 0,
+                duration: 0.25,
+                onComplete: () => {
+                    items.forEach(item => {
+                        if (category === 'all' || item.classList.contains(category)) {
+                            item.style.display = 'block';
+                            gsap.to(item, { scale: 1, opacity: 1, duration: 0.35 });
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                }
+            });
+        }
+
+        // Package Pricing Hourly blocks updates
+        function updatePackageHours(hours) {
+            const price = Math.round(hours * 700).toLocaleString('en-US');
+            document.getElementById('hours-display').innerText = `${hours} ${t('calc.hoursUnit')}`;
+            document.getElementById('price-display').innerText = price;
+
+            // Sync with Consultation Drawer
+            document.getElementById('form-selected-hours').value = `${hours} ${t('calc.hoursUnit')}`;
+            document.getElementById('quiz-hours-display').innerText = `${hours} ${t('calc.hoursUnit')}`;
+            document.getElementById('quiz-price-display').innerText = `EGP ${price}${t('calc.perMonth')}`;
+        }
+
+        // Toggle Right slide side consultation drawer
+        function toggleConsultation(open) {
+            const drawer = document.getElementById('consultation-drawer');
+            if (open) {
+                drawer.classList.remove('translate-x-full');
+                const hoursVal = document.getElementById('hours-display').innerText;
+                const priceVal = document.getElementById('price-display').innerText;
+                document.getElementById('form-selected-hours').value = hoursVal;
+                document.getElementById('quiz-hours-display').innerText = hoursVal;
+                document.getElementById('quiz-price-display').innerText = `EGP ${priceVal}${t('calc.perMonth')}`;
+
+                goToStep(1);
+                renderCalendarDays();
+            } else {
+                drawer.classList.add('translate-x-full');
+                document.getElementById('drawer-success-box').classList.add('hidden');
+            }
+        }
+
+        // Mobile dropdown navigation toggle controls
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('mobile-menu-icon');
+            if (menu.classList.contains('translate-x-full')) {
+                menu.classList.remove('translate-x-full');
+                icon.classList.replace('fa-bars', 'fa-xmark');
+            } else {
+                menu.classList.add('translate-x-full');
+                icon.classList.replace('fa-xmark', 'fa-bars');
+            }
+        }
+
+        // Submit landing page consultation form
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const box = document.getElementById('form-success-box');
+            box.classList.remove('hidden');
+            gsap.from(box, { opacity: 0, scale: 0.95, duration: 0.3 });
+            e.target.reset();
+        }
+
+        let currentLang = 'en';
+
+        function t(key) {
+            return (i18n[currentLang] && i18n[currentLang][key]) || (i18n.en[key]) || key;
+        }
+
+        function switchLanguage(lang) {
+            if (currentLang === lang) return;
+            currentLang = lang;
+            localStorage.setItem('alphas_lang', lang);
+            document.documentElement.setAttribute('lang', lang);
+            document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+
+            // Handle header layout for RTL
+            const headerContainer = document.getElementById('header-container');
+            const logoLink = document.getElementById('logo-link');
+            const logoText = document.getElementById('logo-text');
+            const desktopNav = document.getElementById('desktop-nav');
+            const headerActions = document.getElementById('header-actions');
+
+            if (lang === 'ar') {
+                headerContainer.classList.add('flex-row-reverse');
+                logoLink.classList.add('flex-row-reverse');
+                logoText.classList.add('items-end');
+                desktopNav.classList.add('flex-row-reverse');
+                headerActions.classList.add('flex-row-reverse');
+            } else {
+                headerContainer.classList.remove('flex-row-reverse');
+                logoLink.classList.remove('flex-row-reverse');
+                logoText.classList.remove('items-end');
+                desktopNav.classList.remove('flex-row-reverse');
+                headerActions.classList.remove('flex-row-reverse');
+            }
+
+            // Update all data-i18n elements
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                const val = t(key);
+                if (val !== key) el.innerHTML = val;
+            });
+
+            // Update data-i18n-placeholder elements
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                const val = t(key);
+                if (val !== key) el.placeholder = val;
+            });
+
+            // Update data-i18n-option elements
+            document.querySelectorAll('[data-i18n-option]').forEach(el => {
+                const key = el.getAttribute('data-i18n-option');
+                const val = t(key);
+                if (val !== key) el.textContent = val;
+            });
+
+            // Update language switcher buttons
+            document.querySelectorAll('.lang-switch-btn').forEach(btn => {
+                btn.textContent = lang === 'ar' ? 'English' : 'العربية';
+                btn.setAttribute('onclick', btn.closest('#mobile-menu') 
+                    ? `toggleMobileMenu(); switchLanguage('${lang === 'ar' ? 'en' : 'ar'}')`
+                    : `switchLanguage('${lang === 'ar' ? 'en' : 'ar'}')`);
+            });
+
+            updatePortfolioTabs();
+            updatePackageDisplay();
+
+            // Re-render modal if open
+            const modal = document.getElementById('case-study-modal');
+            if (modal && !modal.classList.contains('hidden') && currentOpenProject) {
+                openCaseStudy(currentOpenProject);
+            }
+        }
+
+        function updatePortfolioTabs() {
+            const tabAll = document.getElementById('tab-all');
+            const tabDesign = document.getElementById('tab-design');
+            const tabWeb = document.getElementById('tab-web');
+            const tabAcademy = document.getElementById('tab-academy');
+            if (tabAll) tabAll.innerHTML = t('showcase.tabAll');
+            if (tabDesign) tabDesign.innerHTML = t('showcase.tabDesign');
+            if (tabWeb) tabWeb.innerHTML = t('showcase.tabWeb');
+            if (tabAcademy) tabAcademy.innerHTML = t('showcase.tabAcademy');
+        }
+
+        function updatePackageDisplay() {
+            const hoursEl = document.getElementById('hours-display');
+            if (hoursEl) {
+                const val = hoursEl.textContent.match(/\d+/);
+                if (val) {
+                    const hours = val[0];
+                    hoursEl.textContent = `${hours} ${t('calc.hoursUnit')}`;
+                }
+            }
+        }
+
+        // Track the currently open project for live modal translation
+        let currentOpenProject = null;
+
+        // Open Case Study Modal
+        function openCaseStudy(projectId) {
+            currentOpenProject = projectId;
+            const data = currentLang === 'ar' ? caseStudyDbAr[projectId] : caseStudyDbEn[projectId];
+            if (!data) return;
+
+            const container = document.getElementById('modal-content-container');
+            container.innerHTML = `
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    <!-- Left: Project Visuals & Stats -->
+                    <div class="lg:col-span-5 space-y-6">
+                        <div class="rounded-2xl overflow-hidden border border-white/10 relative">
+                            <img src="${projectId === 'arabia' ? 'showcase_images/page_15_img_2.jpeg' :
+                                projectId === 'modern' ? 'showcase_images/modern_motors.png' :
+                                    projectId === 'penduline' ? 'showcase_images/penduline_kids.png' :
+                                        projectId === 'koshary' ? 'showcase_images/page_15_img_4.jpeg' :
+                                            projectId === 'drnutrition' ? 'showcase_images/dr_nutrition_store.png' :
+                                                projectId === 'giftshop4u' ? 'showcase_images/4u_giftshop.png' :
+                                                    projectId === 'eclat' ? 'showcase_images/eclat_store.png' :
+                                                        projectId === 'laperva' ? 'showcase_images/laperva_store.png' :
+                                                            projectId === 'natpro' ? 'showcase_images/natpro_pharma.png' :
+                                                                projectId === 'scit' ? 'showcase_images/scit_showcase.png' :
+                                                                    projectId === 'sculptor' ? 'showcase_images/sculptor_showcase.png' :
+                                                                        'showcase_images/lia_academy.png'}" 
+                                 alt="${data.title}" class="w-full h-auto object-cover">
+                            <span class="absolute top-4 left-4 ${data.badgeColor} text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow-lg">
+                                ${data.category}
+                            </span>
+                        </div>
+
+                        <!-- Highlights metrics -->
+                        <div class="grid grid-cols-3 gap-3">
+                            <div class="bg-white/5 border border-white/5 rounded-xl p-3 text-center">
+                                <span class="text-[8px] text-gray-400 uppercase tracking-wider block">${data.metric1}</span>
+                                <span class="text-sm font-bold text-alphas-accent block mt-1">${data.metric1val}</span>
+                            </div>
+                            <div class="bg-white/5 border border-white/5 rounded-xl p-3 text-center">
+                                <span class="text-[8px] text-gray-400 uppercase tracking-wider block">${data.metric2}</span>
+                                <span class="text-sm font-bold text-white block mt-1">${data.metric2val}</span>
+                            </div>
+                            <div class="bg-white/5 border border-white/5 rounded-xl p-3 text-center">
+                                <span class="text-[8px] text-gray-400 uppercase tracking-wider block">${data.metric3}</span>
+                                <span class="text-sm font-bold text-alphas-accent block mt-1">${data.metric3val}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Narrative content -->
+                    <div class="lg:col-span-7 space-y-6">
+                        <div class="text-start">
+                            <span class="text-alphas-accent text-xs font-bold uppercase tracking-widest block mb-1" data-i18n="modal.caseStudy">Case Study</span>
+                            <h2 class="text-2xl md:text-3xl font-bold text-white uppercase tracking-tight">${data.title}</h2>
+                            <p class="text-sm text-gray-400 font-semibold mt-1">${data.subtitle}</p>
+                        </div>
+
+                        <div class="space-y-4 border-t border-white/5 pt-4 text-start">
+                            <div>
+                                <h4 class="text-xs font-bold text-alphas-accent uppercase tracking-wider flex items-center gap-2" data-i18n="modal.challenge"><i class="fa-solid fa-triangle-exclamation text-[10px]"></i> The Challenge</h4>
+                                <p class="text-xs text-gray-300 leading-relaxed mt-1.5">${data.problem}</p>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2" data-i18n="modal.implementation"><i class="fa-solid fa-gears text-[10px] text-alphas-accent"></i> Strategic Implementation</h4>
+                                <p class="text-xs text-gray-300 leading-relaxed mt-1.5">${data.solution}</p>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2" data-i18n="modal.outcome"><i class="fa-solid fa-chart-line text-[10px] text-alphas-accent"></i> Verified Outcome</h4>
+                                <p class="text-xs text-gray-300 leading-relaxed mt-1.5">${data.result}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            const modal = document.getElementById('case-study-modal');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.add('open');
+                modal.querySelector('.modal-box').classList.remove('scale-95', 'opacity-0');
+                modal.querySelector('.modal-box').classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        // Close Case Study Modal
+        function closeCaseStudy() {
+            currentOpenProject = null;
+            const modal = document.getElementById('case-study-modal');
+            modal.querySelector('.modal-box').classList.remove('scale-100', 'opacity-100');
+            modal.querySelector('.modal-box').classList.add('scale-95', 'opacity-0');
+            modal.classList.remove('open');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        /* DYNAMIC DRAWER MULTI-STEP STATE MACHINE */
+        let currentStep = 1;
+        let selectedBottleneck = '';
+        let selectedDate = '';
+        let selectedTime = '';
+
+        function goToStep(step) {
+            currentStep = step;
+
+            document.getElementById('quiz-step-1').classList.add('hidden');
+            document.getElementById('quiz-step-2').classList.add('hidden');
+            document.getElementById('quiz-step-3').classList.add('hidden');
+            document.getElementById(`quiz-step-${step}`).classList.remove('hidden');
+
+            const progressVal = (step / 3) * 100;
+            document.getElementById('quiz-progress-bar').style.width = `${progressVal}%`;
+        }
+
+        function selectBottleneck(type, cardEl) {
+            selectedBottleneck = type;
+            document.getElementById('form-selected-bottleneck').value = type;
+
+            document.querySelectorAll('.quiz-opt-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            cardEl.classList.add('selected');
+        }
+
+        function validateStep2AndProceed() {
+            const name = document.getElementById('quiz-company-name').value.trim();
+            const email = document.getElementById('quiz-email').value.trim();
+
+            if (!name || !email) {
+                showToast(t('validation.nameEmail'));
+                return;
+            }
+            goToStep(3);
+        }
+
+        function renderCalendarDays() {
+            const grid = document.getElementById('calendar-days-grid');
+            grid.innerHTML = '';
+
+            const today = new Date();
+
+            for (let i = 1; i <= 14; i++) {
+                const nextDate = new Date();
+                nextDate.setDate(today.getDate() + i);
+
+                const isWeekend = nextDate.getDay() === 5 || nextDate.getDay() === 6; // Friday & Saturday Weekend
+                const dateStr = nextDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                const fullDateStr = nextDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+
+                const cell = document.createElement('div');
+                cell.className = `date-cell border border-white/5 bg-white/5 rounded-lg py-2 text-center text-[10px] text-gray-300 uppercase ${isWeekend ? 'opacity-30 disabled cursor-not-allowed' : ''}`;
+                cell.innerHTML = `
+                    <span class="block font-semibold text-[8px] opacity-60">${nextDate.toLocaleDateString('en-US', { weekday: 'short' })}</span>
+                    <span class="block text-xs font-bold text-white mt-0.5">${nextDate.getDate()}</span>
+                `;
+
+                if (!isWeekend) {
+                    cell.onclick = () => {
+                        document.querySelectorAll('.date-cell').forEach(c => c.classList.remove('selected'));
+                        cell.classList.add('selected');
+                        selectedDate = fullDateStr;
+                        document.getElementById('form-selected-date').value = fullDateStr;
+                    };
+                }
+                grid.appendChild(cell);
+            }
+        }
+
+        function selectTimeSlot(time, timeEl) {
+            selectedTime = time;
+            document.getElementById('form-selected-time').value = time;
+
+            document.querySelectorAll('.time-slot').forEach(t => t.classList.remove('selected'));
+            timeEl.classList.add('selected');
+        }
+
+        document.getElementById('multi-step-form').onsubmit = function (e) {
+            e.preventDefault();
+
+            if (!selectedDate || !selectedTime) {
+                showToast(t('validation.dateTime'));
+                return;
+            }
+
+            document.getElementById('success-date-time').innerText = `${selectedDate} at ${selectedTime}`;
+
+            const box = document.getElementById('drawer-success-box');
+            box.classList.remove('hidden');
+            gsap.from(box, { opacity: 0, scale: 0.95, duration: 0.3 });
+            e.target.reset();
+        };
+
+        /* INTERACTIVE 3D PARALLAX AND SHINE IN THE HERO SECTION */
+        const trigger = document.getElementById('mockup-parallax-trigger');
+        const mockup = document.querySelector('.browser-mockup');
+        const shine = document.getElementById('mockup-shine');
+
+        if (trigger && mockup) {
+            trigger.addEventListener('mousemove', (e) => {
+                const rect = trigger.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const percentX = (x / rect.width) * 100;
+                const percentY = (y / rect.height) * 100;
+
+                const rotateY = -14 + ((x / rect.width) * 20);
+                const rotateX = 7 - ((y / rect.height) * 14);
+
+                mockup.style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg) rotateZ(-1deg) scale(1.02)`;
+
+                if (shine) {
+                    shine.style.transform = `translateX(${percentX * 2 - 100}%)`;
+                }
+            });
+
+            trigger.addEventListener('mouseleave', () => {
+                mockup.style.transform = `rotateY(-14deg) rotateX(7deg) rotateZ(-1deg) scale(1)`;
+                if (shine) {
+                    shine.style.transform = `translateX(-100%)`;
+                }
+            });
+        }
+
+        /* LIGHTWEIGHT CANVAS PARTICLE RENDERER */
+        const canvas = document.getElementById('particle-canvas');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            let width = canvas.width = canvas.offsetWidth;
+            let height = canvas.height = canvas.offsetHeight;
+
+            window.addEventListener('resize', () => {
+                width = canvas.width = canvas.offsetWidth;
+                height = canvas.height = canvas.offsetHeight;
+            });
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.vx = (Math.random() - 0.5) * 0.3;
+                    this.vy = (Math.random() - 0.5) * 0.3;
+                    this.r = Math.random() * 2 + 1;
+                }
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    if (this.x < 0 || this.x > width) this.vx *= -1;
+                    if (this.y < 0 || this.y > height) this.vy *= -1;
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(229, 155, 88, 0.25)';
+                    ctx.fill();
+                }
+            }
+
+            for (let i = 0; i < 40; i++) {
+                particles.push(new Particle());
+            }
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, width, height);
+
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dist = Math.hypot(particles[i].x - particles[j].x, particles[i].y - particles[j].y);
+                        if (dist < 120) {
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.strokeStyle = `rgba(229, 155, 88, ${0.08 * (1 - dist / 120)})`;
+                            ctx.stroke();
+                        }
+                    }
+                }
+
+                particles.forEach(p => {
+                    p.update();
+                    p.draw();
+                });
+
+                requestAnimationFrame(animateParticles);
+            }
+            animateParticles();
+        }
+
+        const savedLang = localStorage.getItem('alphas_lang');
+        if (savedLang && savedLang !== 'en') {
+            switchLanguage(savedLang);
+        }
+    </script>
+</body>
+
+</html>

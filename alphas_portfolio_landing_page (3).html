@@ -1,0 +1,2094 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALPHAS - حلول رقمية متكاملة للشركات | تصميم مواقع وإستراتيجيات ميديا باينج</title>
+    
+    <!-- SEO & Social OpenGraph Tags -->
+    <meta name="description" content="بنكبر مبيعات الشركات الطموحة من خلال متاجر إلكترونية سريعة وسهلة، وإعلانات ممولة ذكية بتجيب زباين حقيقية تشتري فعلاً.">
+    <meta property="og:title" content="ALPHAS - شريكك في زيادة مبيعاتك أونلاين">
+    <meta property="og:description" content="بنعملك متجر إلكتروني سهل، وبندير صفحات السوشيال ميديا، وبنعمل إعلانات ممولة مدروسة عشان نضمنلك أعلى مكسب ومبيعات للبزنس بتاعك.">
+    <meta property="og:image" content="Logo.png">
+    <meta property="og:type" content="website">
+    
+    <!-- JSON-LD Corporation Schema Markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "ALPHAS Digital Business Solutions",
+      "image": "Logo.png",
+      "description": "Premium e-commerce websites, custom e-learning platforms, and outcome-oriented social media marketing services.",
+      "url": "https://alphas.agency",
+      "sameAs": [
+        "https://www.facebook.com/alphasagency",
+        "https://www.linkedin.com/company/alphasagency"
+      ],
+      "priceRange": "EGP",
+      "areaServed": "Egypt & Middle East"
+    }
+    </script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Custom Tailwind Configuration featuring Cairo Font -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        alphas: {
+                            navy: '#0a1122',
+                            dark: '#060a14',
+                            accent: '#e59b58',
+                            accentHover: '#c97e3a',
+                            goldLight: '#f5d6b8',
+                            glass: 'rgba(255, 255, 255, 0.04)',
+                            glassBorder: 'rgba(255, 255, 255, 0.09)'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Cairo', 'sans-serif'],
+                        display: ['Cairo', 'sans-serif']
+                    },
+                    boxShadow: {
+                        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
+                        'gold-glow': '0 0 20px rgba(229, 155, 88, 0.25)',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts - Cairo Font Integration -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- GSAP & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <style>
+        body {
+            background-color: #060a14;
+            color: #e2e8f0;
+            overflow-x: hidden;
+            font-family: 'Cairo', sans-serif;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+        }
+        .glass-card:hover {
+            border-color: rgba(229, 155, 88, 0.3);
+            box-shadow: 0 12px 40px 0 rgba(229, 155, 88, 0.08);
+            transform: translateY(-5px);
+        }
+        .glass-nav {
+            background: rgba(6, 10, 20, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #060a14;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(229, 155, 88, 0.3);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(229, 155, 88, 0.6);
+        }
+        .grid-wave {
+            background-image: radial-gradient(rgba(229, 155, 88, 0.15) 1px, transparent 0);
+            background-size: 24px 24px;
+            animation: gridMove 20s linear infinite;
+        }
+        @keyframes gridMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 24px 24px; }
+        }
+        .float-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        .glow-pulse {
+            animation: glowPulse 3s ease-in-out infinite;
+        }
+        @keyframes glowPulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(229, 155, 88, 0.25); }
+            50% { box-shadow: 0 0 40px rgba(229, 155, 88, 0.5); }
+        }
+        .mockup-perspective-wrapper {
+            perspective: 1200px;
+            transform-style: preserve-3d;
+        }
+        .browser-mockup {
+            transform: rotateY(-14deg) rotateX(7deg) rotateZ(-1deg);
+            transform-style: preserve-3d;
+            transition: transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        .shine-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0) 70%);
+            transform: translateX(-100%);
+            pointer-events: none;
+            transition: transform 0.1s ease;
+        }
+        .date-cell {
+            transition: all 0.25s ease;
+            cursor: pointer;
+        }
+        .date-cell:not(.disabled):hover {
+            background: rgba(229, 155, 88, 0.15);
+            border-color: rgba(229, 155, 88, 0.4);
+            color: #ffffff;
+        }
+        .date-cell.selected {
+            background: #e59b58 !important;
+            border-color: #e59b58 !important;
+            color: #060a14 !important;
+            font-weight: 700;
+        }
+        .time-slot {
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .time-slot:hover {
+            background: rgba(229, 155, 88, 0.2);
+            border-color: rgba(229, 155, 88, 0.5);
+            color: white;
+        }
+        .time-slot.selected {
+            background: #e59b58 !important;
+            border-color: #e59b58 !important;
+            color: #060a14 !important;
+            font-weight: bold;
+        }
+        .quiz-opt-card {
+            transition: all 0.3s ease;
+        }
+        .quiz-opt-card:hover {
+            border-color: rgba(229, 155, 88, 0.4);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .quiz-opt-card.selected {
+            border-color: #e59b58;
+            background: rgba(229, 155, 88, 0.1);
+            box-shadow: 0 0 15px rgba(229, 155, 88, 0.15);
+        }
+        #case-study-modal.open .modal-box {
+            transform: scale(1);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased selection:bg-alphas-accent selection:text-white text-right">
+
+    <!-- Ambient Blur Background Gradients -->
+    <div class="fixed top-0 left-0 w-full h-full pointer-events-none -z-50 overflow-hidden">
+        <div class="absolute top[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-blue-900/10 blur-[150px] animate-pulse" style="animation-duration: 8s;"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[60vw] h-[60vw] rounded-full bg-alphas-accent/5 blur-[180px] animate-pulse" style="animation-duration: 12s;"></div>
+        <div class="absolute top-[40%] right-[10%] w-[35vw] h-[35vw] rounded-full bg-indigo-900/10 blur-[130px]"></div>
+    </div>
+
+    <!-- Header Navigation -->
+    <header class="fixed top-0 left-0 w-full z-50 glass-nav">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between flex-row-reverse">
+            <!-- ALPHAS Brand Logo -->
+            <a href="#hero" class="flex items-center gap-3 group flex-row-reverse">
+                <div class="relative w-12 h-12 flex items-center justify-center">
+                    <img src="Logo.png" alt="ALPHAS Logo" class="w-full h-full object-contain">
+                </div>
+                <div class="flex flex-col leading-none items-end">
+                    <span class="text-xl font-bold font-display tracking-widest text-white uppercase group-hover:text-alphas-accent transition">ALPHAS</span>
+                    <span class="text-[9px] tracking-[0.25em] text-gray-400">DIGITAL BUSINESS SOLUTIONS</span>
+                </div>
+            </a>
+
+            <!-- Desktop Menu -->
+            <nav class="hidden lg:flex items-center gap-8 flex-row-reverse">
+                <a href="#about" class="text-sm font-medium text-gray-300 hover:text-alphas-accent transition-colors">عنّا</a>
+                <a href="#services" class="text-sm font-medium text-gray-300 hover:text-alphas-accent transition-colors">خدماتنا</a>
+                <a href="#workflow" class="text-sm font-medium text-gray-300 hover:text-alphas-accent transition-colors">طريقتنا في الشغل</a>
+                <a href="#approach" class="text-sm font-medium text-gray-300 hover:text-alphas-accent transition-colors">إزاي بنفكر؟</a>
+                <a href="#showcase" class="text-sm font-medium text-gray-300 hover:text-alphas-accent transition-colors">شغل حقيقي نجح</a>
+                <a href="#whyus" class="text-sm font-medium text-gray-300 hover:text-alphas-accent transition-colors">ليه ALPHAS بالذات؟</a>
+                <a href="#success" class="text-sm font-medium text-gray-300 hover:text-alphas-accent transition-colors">أرقام ونمو</a>
+            </nav>
+
+            <!-- Actions -->
+            <div class="flex items-center gap-4 flex-row-reverse">
+                <button onclick="toggleConsultation(true)" class="hidden sm:inline-flex items-center gap-2 bg-gradient-to-r from-alphas-accent to-alphas-accentHover text-white px-5 py-2.5 rounded-full font-medium text-sm transition hover:shadow-gold-glow">
+                     استشارة مجانية <i class="fa-solid fa-arrow-left text-xs mr-1"></i>
+                </button>
+                <button onclick="toggleMobileMenu()" class="lg:hidden text-white hover:text-alphas-accent transition text-2xl focus:outline-none">
+                    <i id="mobile-menu-icon" class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Panel Drawer -->
+    <div id="mobile-menu" class="fixed inset-y-0 right-0 z-40 w-full max-w-sm glass-card bg-alphas-dark/95 backdrop-blur-2xl p-8 transform translate-x-full transition-transform duration-300 ease-in-out lg:hidden pt-28 text-right">
+        <nav class="flex flex-col gap-6">
+            <a onclick="toggleMobileMenu()" href="#about" class="text-xl font-semibold text-gray-200 hover:text-alphas-accent transition">عنّا</a>
+            <a onclick="toggleMobileMenu()" href="#services" class="text-xl font-semibold text-gray-200 hover:text-alphas-accent transition">خدماتنا</a>
+            <a onclick="toggleMobileMenu()" href="#workflow" class="text-xl font-semibold text-gray-200 hover:text-alphas-accent transition">طريقتنا في الشغل</a>
+            <a onclick="toggleMobileMenu()" href="#approach" class="text-xl font-semibold text-gray-200 hover:text-alphas-accent transition">إزاي بنفكر؟</a>
+            <a onclick="toggleMobileMenu()" href="#showcase" class="text-xl font-semibold text-gray-200 hover:text-alphas-accent transition">شغل حقيقي نجح</a>
+            <a onclick="toggleMobileMenu()" href="#whyus" class="text-xl font-semibold text-gray-200 hover:text-alphas-accent transition">ليه ALPHAS بالذات؟</a>
+            <a onclick="toggleMobileMenu()" href="#success" class="text-xl font-semibold text-gray-200 hover:text-alphas-accent transition">أرقام ونمو</a>
+            <button onclick="toggleMobileMenu(); toggleConsultation(true);" class="w-full mt-6 bg-alphas-accent text-white py-3.5 rounded-full font-medium transition hover:shadow-gold-glow">
+                احجز مكالمة مجانية <i class="fa-solid fa-arrow-left mr-2 text-xs"></i>
+            </button>
+        </nav>
+    </div>
+
+    <!-- HERO SECTION -->
+    <section id="hero" class="relative min-h-screen flex items-center pt-32 pb-20 overflow-hidden">
+        <canvas id="particle-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
+        
+        <div class="absolute inset-0 w-full h-full pointer-events-none -z-20 overflow-hidden opacity-30">
+            <svg class="w-full h-full object-cover" viewBox="0 0 1440 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="0,0 600,0 300,400" fill="url(#facet-grad-1)" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+                <polygon points="600,0 1200,0 750,450 300,400" fill="url(#facet-grad-2)" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+                <polygon points="1200,0 1440,0 1440,500 750,450" fill="url(#facet-grad-3)" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+                <polygon points="0,0 300,400 0,600" fill="url(#facet-grad-4)" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+                <polygon points="0,600 300,400 750,450 450,900 0,900" fill="url(#facet-grad-5)" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+                <polygon points="750,450 1440,500 1440,900 450,900" fill="url(#facet-grad-6)" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+                <defs>
+                    <linearGradient id="facet-grad-1" x1="0" y1="0" x2="300" y2="400" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#0a122c"/><stop offset="100%" stop-color="#050a18"/></linearGradient>
+                    <linearGradient id="facet-grad-2" x1="600" y1="0" x2="750" y2="450" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#0c1737"/><stop offset="100%" stop-color="#040813"/></linearGradient>
+                    <linearGradient id="facet-grad-3" x1="1200" y1="0" x2="750" y2="450" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#0b1430"/><stop offset="100%" stop-color="#03060f"/></linearGradient>
+                    <linearGradient id="facet-grad-4" x1="0" y1="0" x2="150" y2="500" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#060c1d"/><stop offset="100%" stop-color="#02040a"/></linearGradient>
+                    <linearGradient id="facet-grad-5" x1="300" y1="400" x2="225" y2="650" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#080f25"/><stop offset="100%" stop-color="#03060e"/></linearGradient>
+                    <linearGradient id="facet-grad-6" x1="1095" y1="675" x2="945" y2="900" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#0d193d"/><stop offset="100%" stop-color="#050a18"/></linearGradient>
+                </defs>
+            </svg>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 w-full relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <!-- Left copy column -->
+            <div class="lg:col-span-7 flex flex-col items-start text-right lg:items-start hero-text">
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-alphas-accent/10 border border-alphas-accent/20 text-alphas-accent text-xs font-semibold uppercase tracking-wider mb-6 hover:bg-alphas-accent/20 transition-all cursor-default flex-row-reverse">
+                    <span class="w-2 h-2 rounded-full bg-alphas-accent animate-pulse"></span> شغل بيكبر أرقامك بجد
+                </div>
+                <h1 class="text-4xl md:text-5xl lg:text-[58px] font-black font-display leading-[1.15] text-white uppercase tracking-tight mb-6">
+                    بنزود مبيعات <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-alphas-accent via-alphas-goldLight to-alphas-accent drop-shadow-[0_0_35px_rgba(229,155,88,0.25)] tracking-wide">
+                        الشركات والبراندات
+                    </span><br>
+                    إللي عايزة تبيع أكتر أونلاين.
+                </h1>
+                <p class="text-base md:text-lg font-medium text-gray-300 mb-3">
+                    عملنا أكتر من 300 مشروع كسبان، وبنساعد عملائنا يحققوا نمو مستمر بأرقام مبيعات حقيقية.
+                </p>
+                <p class="text-xs md:text-sm text-gray-400 font-medium tracking-wide mb-8">
+                    متاجر إلكترونية ومواقع سريعة وسهلة <span class="text-alphas-accent/60 mx-1.5">|</span> صفحات سوشيال ميديا تشد زباينك <span class="text-alphas-accent/60 mx-1.5">|</span> إعلانات ممولة مدروسة بالقرش.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto hero-actions flex-row-reverse">
+                    <button onclick="toggleConsultation(true)" class="text-center bg-alphas-accent hover:bg-alphas-accentHover text-white font-medium px-8 py-4 rounded-full transition-all duration-300 shadow-gold-glow flex items-center justify-center gap-3 flex-row-reverse">
+                        احجز مكالمة استشارة وفحص مجاني لشغلك <i class="fa-solid fa-arrow-left text-xs"></i>
+                    </button>
+                    <a href="#about" class="text-center px-8 py-4 rounded-full border border-white/20 text-gray-300 hover:text-white hover:border-alphas-accent/80 hover:shadow-gold-glow transition-all duration-300 flex items-center justify-center">
+                        احكيلي أكتر
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right Column: 3D Interactive Browser Mockup -->
+            <div class="lg:col-span-5 relative flex justify-center hero-visual">
+                <div class="absolute w-80 h-80 rounded-full bg-alphas-accent/20 blur-[80px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 animate-pulse" style="animation-duration: 4s;"></div>
+                
+                <div class="absolute -top-10 -left-6 text-alphas-accent/40 animate-pulse text-lg" style="animation-duration: 3s;"><i class="fa-solid fa-sparkles"></i></div>
+                <div class="absolute -bottom-6 -right-6 text-alphas-accent/40 animate-pulse text-lg" style="animation-duration: 5s;"><i class="fa-solid fa-star"></i></div>
+
+                <div class="mockup-perspective-wrapper w-full max-w-lg" id="mockup-parallax-trigger">
+                    <div class="browser-mockup glass-card w-full rounded-2xl border border-white/10 overflow-hidden shadow-2xl backdrop-blur-xl relative">
+                        <div class="shine-overlay" id="mockup-shine"></div>
+                        
+                        <div class="bg-alphas-navy/80 border-b border-white/5 px-4 py-3 flex items-center gap-3 flex-row-reverse">
+                            <div class="flex items-center gap-1.5 flex-row-reverse">
+                                <span class="w-3 h-3 rounded-full bg-[#ff5f56]/90"></span>
+                                <span class="w-3 h-3 rounded-full bg-[#ffbd2e]/90"></span>
+                                <span class="w-3 h-3 rounded-full bg-[#27c93f]/90"></span>
+                            </div>
+                            <div class="flex-grow max-w-xs mx-auto bg-alphas-dark/60 border border-white/5 rounded-md px-3 py-1 flex items-center justify-between text-[10px] text-gray-400 flex-row-reverse">
+                                <span class="flex items-center gap-1 flex-row-reverse"><i class="fa-solid fa-lock text-[8px] text-alphas-accent/80"></i> alphas.agency/platform</span>
+                                <i class="fa-solid fa-arrows-rotate text-[8px]"></i>
+                            </div>
+                        </div>
+
+                        <div class="p-6 bg-gradient-to-b from-[#0c1328]/90 to-alphas-dark/95 relative overflow-hidden text-right">
+                            <div class="absolute w-48 h-48 rounded-full bg-alphas-accent/10 blur-[40px] top-[-10%] right-[-10%] pointer-events-none"></div>
+                            
+                            <div class="relative z-10">
+                                <div class="flex items-center justify-between mb-6 pb-3 border-b border-white/5 flex-row-reverse">
+                                    <div class="flex items-center gap-1.5 flex-row-reverse">
+                                        <div class="w-4 h-4 rounded-full bg-alphas-accent/20 flex items-center justify-center"><span class="w-1.5 h-1.5 rounded-full bg-alphas-accent"></span></div>
+                                        <span class="text-[9px] font-bold tracking-widest text-white">ALPHAS</span>
+                                    </div>
+                                    <div class="flex gap-2">
+                                        <span class="w-8 h-1.5 rounded-full bg-white/5"></span>
+                                        <span class="w-6 h-1.5 rounded-full bg-alphas-accent/20"></span>
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-12 gap-4 items-center mb-6">
+                                    <div class="col-span-7">
+                                        <h4 class="text-sm font-extrabold font-display leading-[1.2] text-white uppercase tracking-tight mb-2">
+                                            متجر ويب ذكي <br>
+                                            <span class="text-alphas-accent">سريع وسهل جداً</span>
+                                        </h4>
+                                        <p class="text-[11px] text-gray-400 leading-normal mb-3">
+                                            متفصل ومبرمج عشان يضمنلك تصفح سريع للعملاء، وتجربة تخليهم يشتروا بسهولة من غير تشتيت.
+                                        </p>
+                                        <div class="inline-flex items-center gap-1.5 px-2 py-1 rounded bg-alphas-accent/15 border border-alphas-accent/25 text-[10px] text-white font-semibold">
+                                            سرعة التحميل: 100%
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-span-5 relative flex justify-center">
+                                        <div class="absolute w-20 h-20 rounded-full bg-alphas-accent/15 blur-[15px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
+                                        <div class="w-24 h-16 bg-[#16223f] border border-white/15 rounded-lg p-1 relative shadow-lg flex flex-col justify-between">
+                                            <div class="flex-grow flex flex-col justify-center items-center">
+                                                <div class="w-8 h-8 rounded-full border border-alphas-accent/30 flex items-center justify-center">
+                                                     <i class="fa-solid fa-chart-simple text-[10px] text-alphas-accent"></i>
+                                                </div>
+                                                <div class="w-12 h-1 bg-white/10 rounded mt-2"></div>
+                                            </div>
+                                            <div class="absolute bottom-[-10px] left-1/2 -translate-x-1/2 w-4 h-2 bg-white/20 border border-white/10"></div>
+                                            <div class="absolute bottom-[-12px] left-1/2 -translate-x-1/2 w-8 h-1 bg-white/30 rounded-full"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-3 gap-2.5 border-t border-white/5 pt-4">
+                                    <div class="bg-white/5 border border-white/5 rounded-xl p-2.5 text-center">
+                                        <span class="text-[8px] text-gray-400 uppercase tracking-wider block">سرعة الـ Page</span>
+                                        <span class="text-xs font-bold text-white block mt-0.5">ممتازة</span>
+                                    </div>
+                                    <div class="bg-white/5 border border-white/5 rounded-xl p-2.5 text-center border-l border-white/5">
+                                        <span class="text-[8px] text-gray-400 uppercase tracking-wider block">سيو وجوجل</span>
+                                        <span class="text-xs font-bold text-alphas-accent block mt-0.5">الأول</span>
+                                    </div>
+                                    <div class="bg-white/5 border border-white/5 rounded-xl p-2.5 text-center">
+                                        <span class="text-[8px] text-gray-400 uppercase tracking-wider block">خروج الزباين</span>
+                                        <span class="text-xs font-bold text-white block mt-0.5">-34.2%</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="py-24 relative overflow-hidden bg-alphas-navy/30">
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <!-- Left Column with illustrations -->
+                <div class="lg:col-span-5 relative about-left">
+                    <div class="glass-card rounded-3xl p-6 border border-white/10 max-w-sm mx-auto relative text-right">
+                        <div class="absolute -bottom-6 -left-6 w-24 h-24 bg-alphas-accent/15 rounded-full blur-xl pointer-events-none"></div>
+                        <span class="text-sm font-semibold text-alphas-accent uppercase tracking-widest mb-2 block">إزاي بنفكر؟</span>
+                        <h3 class="text-xl font-bold text-white mb-4 uppercase">المبيعات هي الأهم</h3>
+                        <p class="text-sm text-gray-300 leading-relaxed">
+                            "الشركات إللي عايزة مبيعات حقيقية على الأرض محتاجة أكتر من مجرد بوستات حلوة على فيسبوك؛ محتاجة متجر سريع يفتح النفس، وإعلانات معمولة بمزاج بتخاطب العميل الصح."
+                        </p>
+                        <div class="flex items-center gap-3 mt-6 flex-row-reverse">
+                            <div class="w-10 h-10 rounded-full bg-alphas-accent flex items-center justify-center text-white"><i class="fa-solid fa-bullseye"></i></div>
+                            <div class="text-right">
+                                <h4 class="text-xs font-bold text-white uppercase">مبيعات دايمة</h4>
+                                <p class="text-[11px] text-gray-400">خطوات بيع واضحة لمنتجاتك وخدماتك.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Copy Column -->
+                <div class="lg:col-span-7 about-right text-right">
+                    <div class="flex items-center gap-2 text-alphas-accent text-sm font-semibold uppercase mb-4 justify-end">
+                         مين إحنا؟ <span class="w-6 h-0.5 bg-alphas-accent"></span>
+                    </div>
+                    <h2 class="text-2xl md:text-4xl font-extrabold font-display text-white uppercase mb-6 leading-tight">
+                        بنبني السيستم التسويقي والتقني <br>إللي يخليك تبيع وأنت مرتاح
+                    </h2>
+                    <p class="text-gray-300 text-lg leading-relaxed mb-6">
+                        فريقنا في ALPHAS هو الشريك إللي هيريحك من مشاكل التسويق والتكنولوجيا. بقالنا 5 سنين في السوق المصري، ونفذنا أكتر من 300 مشروع ناجح. فريقنا عارف بالظبط إزاي يصمم متجرك، ويظبط صفحاتك، ويعملك إعلانات تجيب همها وتكسبك فعلاً.
+                    </p>
+                    <p class="text-gray-400 text-base leading-relaxed mb-8">
+                        بدل ما تتعب نفسك وتتشتت بين شركات برمجة وشركات تسويق، إحنا بنستلم منك الليلة كلها؛ بنعملك الديزاينات، بنبرمج موقعك، وبندير حملاتك الإعلانية بالكامل.. عشان تركز أنت بس في تشغيل وتطوير البزنس بتاعك.
+                    </p>
+                    <div class="flex flex-wrap gap-6 items-center justify-end">
+                        <div class="flex items-center gap-3 flex-row-reverse">
+                            <i class="fa-solid fa-circle-check text-alphas-accent"></i>
+                            <span class="font-semibold text-sm text-gray-200">متابعة دقيقة لكل مليم بتصرفه 24/7</span>
+                        </div>
+                        <div class="flex items-center gap-3 flex-row-reverse">
+                            <i class="fa-solid fa-circle-check text-alphas-accent"></i>
+                            <span class="font-semibold text-sm text-gray-200">متاجر مرنة وسهلة التعديل والتحكم</span>
+                        </div>
+                        <div class="flex items-center gap-3 flex-row-reverse">
+                            <i class="fa-solid fa-circle-check text-alphas-accent"></i>
+                            <span class="font-semibold text-sm text-gray-200">تقارير مبيعات وأرقام واضحة ومفهومة</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES SECTION -->
+    <section id="services" class="py-24 relative overflow-hidden">
+        <div class="absolute top-[20%] left-[-10%] w-[500px] h-[500px] rounded-full bg-alphas-accent/5 blur-[120px] pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16 services-header">
+                <span class="text-alphas-accent text-sm font-semibold uppercase tracking-wider">شغلنا إللي هيفيدك</span>
+                <h2 class="text-3xl md:text-5xl font-extrabold font-display text-white uppercase mt-2 mb-4">بنقدم إيه للبزنس بتاعك؟</h2>
+                <p class="text-gray-400">بنظبطلك الـ 3 حاجات الأساسيين لأي شركة عايزة تنجح وتبيع أونلاين اليومين دول:</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 services-grid">
+                <!-- Vertical 1: Marketing & Social Media -->
+                <div class="glass-card p-8 rounded-3xl flex flex-col justify-between h-full group border border-white/5 hover:border-alphas-accent/35 text-right">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-alphas-accent/10 flex items-center justify-center text-alphas-accent mb-6 mr-0 ml-auto group-hover:scale-110 transition duration-300">
+                            <i class="fa-solid fa-share-nodes text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white uppercase mb-4">إدارة وتنسيق السوشيال ميديا</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">بنستلم صفحات فيسبوك، إنستجرام، وتيك توك.. بنعمل ديزاينات مميزة، وبنكتب كلام يشد الزباين ويزود ثقتهم فيك.</p>
+                        <div class="flex flex-wrap gap-2 mb-8 justify-start flex-row-reverse">
+                            <span class="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10 text-gray-300">تصميمات جرافيك شيك جداً</span>
+                            <span class="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10 text-gray-300">كتابة بوستات تسويقية</span>
+                            <span class="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10 text-gray-300">إدارة تفاعل وموديريشن</span>
+                            <span class="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10 text-gray-300">تصوير وإخراج فيديوهات</span>
+                        </div>
+                    </div>
+                    <a href="#showcase" class="inline-flex items-center gap-2 text-alphas-accent hover:text-white font-semibold text-sm transition-colors mt-auto justify-end">
+                         شوف شغلنا في السوق <i class="fa-solid fa-arrow-left text-xs mr-1"></i>
+                    </a>
+                </div>
+
+                <!-- Vertical 2: Website Services & Online Stores -->
+                <div class="glass-card p-8 rounded-3xl flex flex-col justify-between h-full group border border-white/5 hover:border-alphas-accent/35 text-right">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-alphas-accent/10 flex items-center justify-center text-alphas-accent mb-6 mr-0 ml-auto group-hover:scale-110 transition duration-300">
+                            <i class="fa-solid fa-store text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white uppercase mb-4">المواقع والمتاجر الإلكترونية</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">بنبنيلك موقع أو متجر سريع جداً وسهل الاستخدام، عشان العميل يقدر يشوف منتجاتك ويطلب أوردره في ثواني بدون أي تعقيد.</p>
+                        <div class="flex flex-wrap gap-2 mb-8 justify-start flex-row-reverse">
+                            <span class="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10 text-gray-300">متاجر شوبيفاي وووردبريس</span>
+                            <span class="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10 text-gray-300">صفحات هبوط (Landing Pages)</span>
+                            <span class="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10 text-gray-300">ربط بوابات الدفع والشحن</span>
+                            <span class="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10 text-gray-300">سيستم حجز ومواعيد</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4 text-gray-500 text-lg mb-4 mt-auto justify-end">
+                        <i class="fa-brands fa-shopify hover:text-alphas-accent transition" title="Shopify"></i>
+                        <i class="fa-brands fa-wordpress hover:text-alphas-accent transition" title="WordPress"></i>
+                        <i class="fa-brands fa-wix hover:text-alphas-accent transition" title="Wix"></i>
+                    </div>
+                </div>
+
+                <!-- Vertical 3: Media Buying Service -->
+                <div class="glass-card p-8 rounded-3xl flex flex-col justify-between h-full group border border-white/5 hover:border-alphas-accent/35 text-right">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-alphas-accent/10 flex items-center justify-center text-alphas-accent mb-6 mr-0 ml-auto group-hover:scale-110 transition duration-300">
+                            <i class="fa-solid fa-chart-pie text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white uppercase mb-4">إعلانات ممولة بتجيب همها</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">بنستهدف الناس المهتمة والجاهزة تشتري منتجك فعلاً. بنوزع الميزانية بذكاء عشان نضمنلك أعلى مبيعات بأقل تكلفة وصرف.</p>
+                        <div class="flex flex-col gap-3 mb-8">
+                            <div class="flex items-start gap-2.5 text-xs text-gray-300 flex-row-reverse">
+                                <i class="fa-solid fa-database text-alphas-accent mt-0.5 ml-2"></i>
+                                <span><strong>استهداف زباين بجد:</strong> بنستهدف الناس إللي مهتمة بمنتجك ومعاها تشتري فعلياً.</span>
+                            </div>
+                            <div class="flex items-start gap-2.5 text-xs text-gray-300 flex-row-reverse">
+                                <i class="fa-solid fa-paintbrush text-alphas-accent mt-0.5 ml-2"></i>
+                                <span><strong>تصاميم إعلانات جذابة:</strong> بنعمل إعلانات بتلفت الانتباه وتخليه يضغط ويشتري.</span>
+                            </div>
+                            <div class="flex items-start gap-2.5 text-xs text-gray-300 flex-row-reverse">
+                                <i class="fa-solid fa-shuffle text-alphas-accent mt-0.5 ml-2"></i>
+                                <span><strong>تطوير فوري:</strong> بنراقب أرقام الإعلان يوم بيوم وبنظبطه عشان مفيش مليم يضيع في الهوا.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="toggleConsultation(true)" class="inline-flex items-center gap-2 text-alphas-accent hover:text-white font-semibold text-sm transition-colors mt-auto justify-end">
+                        اضبط ميزانية إعلاناتك <i class="fa-solid fa-arrow-left text-xs mr-1"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WORKFLOW PROCESS SECTION -->
+    <section id="workflow" class="py-24 relative overflow-hidden bg-alphas-dark/50">
+        <div class="absolute inset-0 grid-wave opacity-10 pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-alphas-accent text-sm font-semibold uppercase tracking-wider">سكة النجاح معانا</span>
+                <h2 class="text-3xl md:text-5xl font-extrabold font-display text-white uppercase mt-2 mb-4">خطوات شغلنا معاك بالبساطة دي:</h2>
+                <p class="text-gray-400">مفيش تعقيد.. خطوات واضحة ومحددة تضمنلك نمو ومبيعات لشركتك:</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-right">
+                <!-- Step 1 -->
+                <div class="glass-card p-6 rounded-2xl border border-white/5 hover:border-alphas-accent/30 transition">
+                    <div class="w-12 h-12 rounded-xl bg-alphas-accent/10 flex items-center justify-center text-alphas-accent mb-4 mr-0 ml-auto">
+                        <i class="fa-solid fa-palette text-xl"></i>
+                    </div>
+                    <h4 class="font-bold text-white uppercase text-sm mb-2">01. دراسة وفهم براندك</h4>
+                    <p class="text-xs text-gray-400 leading-relaxed">بنقعد معاك نفهم طبيعة منتجك، ومين زبونك بالظبط، وعايز توضح إيه للناس.</p>
+                </div>
+                <!-- Step 2 -->
+                <div class="glass-card p-6 rounded-2xl border border-white/5 hover:border-alphas-accent/30 transition">
+                    <div class="w-12 h-12 rounded-xl bg-alphas-accent/10 flex items-center justify-center text-alphas-accent mb-4 mr-0 ml-auto">
+                        <i class="fa-solid fa-users-rectangle text-xl"></i>
+                    </div>
+                    <h4 class="font-bold text-white uppercase text-sm mb-2">02. دراسة السوق ومنافسينك</h4>
+                    <p class="text-xs text-gray-400 leading-relaxed">بنشوف المنافسين بيعملوا إيه في السوق، وبندور على الأفكار إللي تخليك مميز عنهم.</p>
+                </div>
+                <!-- Step 3 -->
+                <div class="glass-card p-6 rounded-2xl border border-white/5 hover:border-alphas-accent/30 transition">
+                    <div class="w-12 h-12 rounded-xl bg-alphas-accent/10 flex items-center justify-center text-alphas-accent mb-4 mr-0 ml-auto">
+                        <i class="fa-solid fa-triangle-exclamation text-xl"></i>
+                    </div>
+                    <h4 class="font-bold text-white uppercase text-sm mb-2">03. حل المشاكل التقنية</h4>
+                    <p class="text-xs text-gray-400 leading-relaxed">بنشوف لو موقعك القديم بطيء أو صفحاتك فيها مشاكل تمنع العملاء من الشراء وبنصلحها فوراً.</p>
+                </div>
+                <!-- Step 4 -->
+                <div class="glass-card p-6 rounded-2xl border border-white/5 hover:border-alphas-accent/30 transition">
+                    <div class="w-12 h-12 rounded-xl bg-alphas-accent/10 flex items-center justify-center text-alphas-accent mb-4 mr-0 ml-auto">
+                        <i class="fa-solid fa-file-contract text-xl"></i>
+                    </div>
+                    <h4 class="font-bold text-white uppercase text-sm mb-2">04. وضع الأهداف والاتفاق</h4>
+                    <p class="text-xs text-gray-400 leading-relaxed">بنتفق على أرقام واضحة (زي زيادة مبيعات معينة أو عدد عملاء مهتمين) وبنحط خطة تشغيل.</p>
+                </div>
+                <!-- Step 5 -->
+                <div class="glass-card p-6 rounded-2xl border border-white/5 hover:border-alphas-accent/30 transition">
+                    <div class="w-12 h-12 rounded-xl bg-alphas-accent/10 flex items-center justify-center text-alphas-accent mb-4 mr-0 ml-auto">
+                        <i class="fa-solid fa-gear text-xl"></i>
+                    </div>
+                    <h4 class="font-bold text-white uppercase text-sm mb-2">05. التشغيل والانطلاق</h4>
+                    <p class="text-xs text-gray-400 leading-relaxed">بننزل الديزاينات، بنبرمج ونشغل متجرك، وبنبدأ حملات الإعلانات الممولة فوراً.</p>
+                </div>
+                <!-- Step 6 -->
+                <div class="glass-card p-6 rounded-2xl border border-white/5 hover:border-alphas-accent/30 transition">
+                    <div class="w-12 h-12 rounded-xl bg-alphas-accent/10 flex items-center justify-center text-alphas-accent mb-4 mr-0 ml-auto">
+                        <i class="fa-solid fa-chart-pie text-xl"></i>
+                    </div>
+                    <h4 class="font-bold text-white uppercase text-sm mb-2">06. المتابعة وتكبير الأرقام</h4>
+                    <p class="text-xs text-gray-400 leading-relaxed">بنقدم تقارير مبيعات دورية مفهومة، وبنطور في الحملات عشان نكبر أرقامك أكتر وأكتر.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- OUR APPROACH SECTION -->
+    <section id="approach" class="py-24 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-alphas-accent text-sm font-semibold uppercase tracking-wider">سياستنا في الشغل</span>
+                <h2 class="text-3xl md:text-5xl font-extrabold font-display text-white uppercase mt-2 mb-4">ليه بنجيب نتائج ممتازة؟</h2>
+                <p class="text-gray-400">لأننا بنعتمد على قواعد بسيطة ومهمة بتخلي الشغل يطلع مظبوط مفيش فيه غلطة:</p>
+            </div>
+
+            <!-- Pillars Grid Layout styled matching Slide 6 cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 approach-grid text-right">
+                <!-- Pillar 1 -->
+                <div class="glass-card p-6 rounded-2xl border border-white/5 hover:scale-[1.02] duration-300">
+                    <span class="text-xs font-bold text-alphas-accent uppercase tracking-widest">المبدأ 01</span>
+                    <h3 class="text-xl font-bold text-white mt-2 mb-3 uppercase">العميل الصح</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">بنخاطب ونستهدف الفئات والناس إللي معاها تشتري منتجك ومحتاجاه فعلاً، وده بيكسبك فلوس أكتر.</p>
+                </div>
+                <!-- Pillar 2 -->
+                <div class="glass-card p-6 rounded-2xl border border-white/5 hover:scale-[1.02] duration-300">
+                    <span class="text-xs font-bold text-alphas-accent uppercase tracking-widest">المبدأ 02</span>
+                    <h3 class="text-xl font-bold text-white mt-2 mb-3 uppercase">بوستات وأفكار حقيقية</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">بنعمل محتوى تفاعلي مميز زباينك يحبوه ويشاركوه مع معارفهم، عشان اسمك يتعرف ويثبت في عقولهم.</p>
+                </div>
+                <!-- Pillar 3 -->
+                <div class="glass-card p-6 rounded-2xl border border-white/5 hover:scale-[1.02] duration-300">
+                    <span class="text-xs font-bold text-alphas-accent uppercase tracking-widest">المبدأ 03</span>
+                    <h3 class="text-xl font-bold text-white mt-2 mb-3 uppercase">شغل شغال علطول</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">بنظبطلك جدول نشر واضح ومستمر عشان صفحاتك تكون دايماً نشطة قدام الزباين من غير انقطاع.</p>
+                </div>
+                <!-- Pillar 4 -->
+                <div class="glass-card p-6 rounded-2xl border border-white/5 hover:scale-[1.02] duration-300">
+                    <span class="text-xs font-bold text-alphas-accent uppercase tracking-widest">المبدأ 04</span>
+                    <h3 class="text-xl font-bold text-white mt-2 mb-3 uppercase">براندنج ينور</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">بنعمل تصاميم وأشكال شيك ومميزة تخلي براندك ينور ويظهر بقوة وسط المنافسين في مجالك.</p>
+                </div>
+                <!-- Pillar 5 -->
+                <div class="glass-card p-6 rounded-2xl border border-white/5 hover:scale-[1.02] duration-300">
+                    <span class="text-xs font-bold text-alphas-accent uppercase tracking-widest">المبدأ 05</span>
+                    <h3 class="text-xl font-bold text-white mt-2 mb-3 uppercase">تحسين الإعلانات</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">بنوزع الميزانية الإعلانية بحرص شديد وبنحسن الاستهداف عشان نجيبلك أعلى أوردرات ومبيعات.</p>
+                </div>
+                <!-- Pillar 6 -->
+                <div class="glass-card p-6 rounded-2xl border border-white/5 hover:scale-[1.02] duration-300">
+                    <span class="text-xs font-bold text-alphas-accent uppercase tracking-widest">المبدأ 06</span>
+                    <h3 class="text-xl font-bold text-white mt-2 mb-3 uppercase">ربط أونلاين وأوفلاين</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">بنربط الدعاية والتسويق أونلاين بزيادة عدد الزباين إللي بيزوروا فروعك أو معارضك على أرض الواقع.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- PORTFOLIO / CLIENT SHOWCASE SECTION -->
+    <section id="showcase" class="py-24 relative overflow-hidden bg-alphas-navy/30">
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            
+            <div class="flex flex-col md:flex-row-reverse md:items-end justify-between mb-16 gap-4 text-right">
+                <div>
+                    <span class="text-alphas-accent text-sm font-semibold uppercase tracking-wider">سابقة أعمالنا</span>
+                    <h2 class="text-3xl md:text-5xl font-extrabold font-display text-white uppercase mt-2">شركات كبرت مبيعاتها معانا</h2>
+                </div>
+                <!-- Interactive Filter Tabs -->
+                <div class="flex flex-wrap gap-2 justify-end flex-row-reverse">
+                    <button onclick="filterPortfolio('all')" id="tab-all" class="portfolio-tab px-5 py-2 rounded-full text-xs font-semibold bg-alphas-accent text-white transition-all">كل المشاريع</button>
+                    <button onclick="filterPortfolio('design')" id="tab-design" class="portfolio-tab px-5 py-2 rounded-full text-xs font-semibold bg-white/5 text-gray-400 hover:text-white transition-all">سوشيال ميديا وديزاين</button>
+                    <button onclick="filterPortfolio('web')" id="tab-web" class="portfolio-tab px-5 py-2 rounded-full text-xs font-semibold bg-white/5 text-gray-400 hover:text-white transition-all">متاجر إلكترونية</button>
+                    <button onclick="filterPortfolio('academy')" id="tab-academy" class="portfolio-tab px-5 py-2 rounded-full text-xs font-semibold bg-white/5 text-gray-400 hover:text-white transition-all">شركات وأكاديميات</button>
+                </div>
+            </div>
+
+            <!-- Portfolio Grid -->
+            <div id="portfolio-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-right">
+                
+                <!-- Item 1: Arabia Furniture -->
+                <div onclick="openCaseStudy('arabia')" class="portfolio-item show-all design glass-card rounded-3xl overflow-hidden group border border-white/5 cursor-pointer">
+                    <div class="relative h-64 overflow-hidden bg-slate-950">
+                        <img src="showcase_images/page_15_img_2.jpeg" alt="Arabia Furniture" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute top-4 right-4 left-auto bg-alphas-accent text-white text-[10px] uppercase font-bold tracking-widest px-3 py-1 rounded-full">
+                            معرض أثاث وموبيليا
+                        </div>
+                        <div class="absolute inset-0 bg-alphas-dark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="px-5 py-2.5 rounded-full bg-alphas-accent text-white text-xs font-bold uppercase tracking-wider shadow-lg">تفاصيل قصة النجاح</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold text-white uppercase mb-2 group-hover:text-alphas-accent transition">Arabia Furniture</h4>
+                        <p class="text-xs text-gray-400 leading-relaxed mb-4">تصميم كتالوج مودرن للموبيليا، وحملة عروض خصومات 50% مع إعلانات جغرافية للمناطق الراقية.</p>
+                        <div class="flex items-center gap-2 flex-row-reverse justify-end">
+                            <span class="text-[10px] bg-white/5 px-2.5 py-1 rounded-md text-gray-400 uppercase font-semibold">تصميم كتالوج شيك</span>
+                            <span class="text-[10px] bg-white/5 px-2.5 py-1 rounded-md text-gray-400 uppercase font-semibold">إعلانات لزيارة المعرض</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 2: Modern Motors -->
+                <div onclick="openCaseStudy('modern')" class="portfolio-item show-all design glass-card rounded-3xl overflow-hidden group border border-white/5 cursor-pointer">
+                    <div class="relative h-64 overflow-hidden bg-slate-950">
+                        <img src="showcase_images/modern_motors.png" alt="Modern Motors" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute top-4 right-4 left-auto bg-alphas-accent text-white text-[10px] uppercase font-bold tracking-widest px-3 py-1 rounded-full">
+                            توكيل سيارات
+                        </div>
+                        <div class="absolute inset-0 bg-alphas-dark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="px-5 py-2.5 rounded-full bg-alphas-accent text-white text-xs font-bold uppercase tracking-wider shadow-lg">تفاصيل قصة النجاح</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold text-white uppercase mb-2 group-hover:text-alphas-accent transition">Modern Motors</h4>
+                        <p class="text-xs text-gray-400 leading-relaxed mb-4">إدارة صفحات توكيل السيارات الأكبر، وحملات تسويقية وتصاميم توضح أنظمة التقسيط والخدمات.</p>
+                        <div class="flex items-center gap-2 flex-row-reverse justify-end">
+                            <span class="text-[10px] bg-white/5 px-2.5 py-1 rounded-md text-gray-400 uppercase font-semibold">تسويق سيارات</span>
+                            <span class="text-[10px] bg-white/5 px-2.5 py-1 rounded-md text-gray-400 uppercase font-semibold">إعلانات ممولة</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 3: Penduline Kids -->
+                <div onclick="openCaseStudy('penduline')" class="portfolio-item show-all design glass-card rounded-3xl overflow-hidden group border border-white/5 cursor-pointer">
+                    <div class="relative h-64 overflow-hidden bg-slate-950">
+                        <img src="showcase_images/penduline_kids.png" alt="Penduline" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute top-4 right-4 left-auto bg-alphas-accent text-white text-[10px] uppercase font-bold tracking-widest px-3 py-1 rounded-full">
+                            براند تجميل وعناية
+                        </div>
+                        <div class="absolute inset-0 bg-alphas-dark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="px-5 py-2.5 rounded-full bg-alphas-accent text-white text-xs font-bold uppercase tracking-wider shadow-lg">تفاصيل قصة النجاح</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold text-white uppercase mb-2 group-hover:text-alphas-accent transition">Penduline Kids</h4>
+                        <p class="text-xs text-gray-400 leading-relaxed mb-4">أفكار ديزاينات كرتونية وسوبر هيرو لمنتجات شامبو الأطفال ضد الدموع لزيادة ارتباط الأمهات بالبراند.</p>
+                        <div class="flex items-center gap-2 flex-row-reverse justify-end">
+                            <span class="text-[10px] bg-white/5 px-2.5 py-1 rounded-md text-gray-400 uppercase font-semibold">ثيم ديزاين مميز</span>
+                            <span class="text-[10px] bg-white/5 px-2.5 py-1 rounded-md text-gray-400 uppercase font-semibold">صناعة إبداعية</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 4: Koshary Masr -->
+                <div onclick="openCaseStudy('koshary')" class="portfolio-item show-all design glass-card rounded-3xl overflow-hidden group border border-white/5 cursor-pointer">
+                    <div class="relative h-64 overflow-hidden bg-slate-950">
+                        <img src="showcase_images/page_15_img_4.jpeg" alt="Koshary Masr" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute top-4 right-4 left-auto bg-alphas-accent text-white text-[10px] uppercase font-bold tracking-widest px-3 py-1 rounded-full">
+                            مطاعم ومأكولات
+                        </div>
+                        <div class="absolute inset-0 bg-alphas-dark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="px-5 py-2.5 rounded-full bg-alphas-accent text-white text-xs font-bold uppercase tracking-wider shadow-lg">تفاصيل قصة النجاح</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold text-white uppercase mb-2 group-hover:text-alphas-accent transition">Koshary Masr</h4>
+                        <p class="text-xs text-gray-400 leading-relaxed mb-4">فيديوهات قصيرة وتصاميم تفتح النفس لسلسلة الفروع والمطاعم لزيادة طلبات الدليفري والديليفري السريع.</p>
+                        <div class="flex items-center gap-2 flex-row-reverse justify-end">
+                            <span class="text-[10px] bg-white/5 px-2.5 py-1 rounded-md text-gray-400 uppercase font-semibold">فيديوهات قصيرة</span>
+                            <span class="text-[10px] bg-white/5 px-2.5 py-1 rounded-md text-gray-400 uppercase font-semibold">أوردرات دليفري</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 5: Dr Nutrition -->
+                <div onclick="openCaseStudy('drnutrition')" class="portfolio-item show-all web glass-card rounded-3xl overflow-hidden group border border-white/5 cursor-pointer">
+                    <div class="relative h-64 overflow-hidden bg-slate-950">
+                        <img src="showcase_images/dr_nutrition_store.png" alt="Dr Nutrition" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute top-4 right-4 left-auto bg-alphas-accent text-white text-[10px] uppercase font-bold tracking-widest px-3 py-1 rounded-full">
+                            متجر مكملات غذائية
+                        </div>
+                        <div class="absolute inset-0 bg-alphas-dark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="px-5 py-2.5 rounded-full bg-alphas-accent text-white text-xs font-bold uppercase tracking-wider shadow-lg">تفاصيل قصة النجاح</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold text-white uppercase mb-2 group-hover:text-alphas-accent transition">Dr Nutrition</h4>
+                        <p class="text-xs text-gray-400 leading-relaxed mb-4">بناء متجر شوبيفاي سريع جداً لبيع المكملات الغذائية، مع تفعيل الدفع السريع والربط بالشحن والدفع الفوري.</p>
+                        <div class="flex items-center gap-2 flex-row-reverse justify-end">
+                            <span class="text-[10px] bg-white/5 px-2.5 py-1 rounded-md text-gray-400 uppercase font-semibold">متجر شوبيفاي</span>
+                            <span class="text-[10px] bg-white/5 px-2.5 py-1 rounded-md text-gray-400 uppercase font-semibold">دفع إلكتروني</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 6: London Innovation Academy -->
+                <div onclick="openCaseStudy('lia')" class="portfolio-item show-all academy glass-card rounded-3xl overflow-hidden group border border-white/5 cursor-pointer">
+                    <div class="relative h-64 overflow-hidden bg-slate-950">
+                        <img src="showcase_images/lia_academy.png" alt="London Innovation Academy" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute top-4 right-4 left-auto bg-alphas-accent text-white text-[10px] uppercase font-bold tracking-widest px-3 py-1 rounded-full">
+                            منصات وأكاديميات
+                        </div>
+                        <div class="absolute inset-0 bg-alphas-dark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="px-5 py-2.5 rounded-full bg-alphas-accent text-white text-xs font-bold uppercase tracking-wider shadow-lg">تفاصيل قصة النجاح</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold text-white uppercase mb-2 group-hover:text-alphas-accent transition">London Innovation Academy</h4>
+                        <p class="text-xs text-gray-400 leading-relaxed mb-4">بناء منصة كورسات وشرح إلكتروني كاملة للطلاب، مع سيستم أوتوماتيكي لاستخراج وطباعة الشهادات المعتمدة.</p>
+                        <div class="flex items-center gap-2 flex-row-reverse justify-end">
+                            <span class="text-[10px] bg-white/5 px-2.5 py-1 rounded-md text-gray-400 uppercase font-semibold">بوابة ويب مخصصة</span>
+                            <span class="text-[10px] bg-white/5 px-2.5 py-1 rounded-md text-gray-400 uppercase font-semibold">منصة كورسات</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 7: 4U Gift Shop -->
+                <div onclick="openCaseStudy('giftshop4u')" class="portfolio-item show-all web glass-card rounded-3xl overflow-hidden group border border-white/5 cursor-pointer">
+                    <div class="relative h-64 overflow-hidden bg-slate-950">
+                        <img src="showcase_images/4u_giftshop.png" alt="4U Gift Shop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute top-4 right-4 left-auto bg-alphas-accent text-white text-[10px] uppercase font-bold tracking-widest px-3 py-1 rounded-full">
+                            متجر هدايا
+                        </div>
+                        <div class="absolute inset-0 bg-alphas-dark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="px-5 py-2.5 rounded-full bg-alphas-accent text-white text-xs font-bold uppercase tracking-wider shadow-lg">تفاصيل قصة النجاح</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold text-white uppercase mb-2 group-hover:text-alphas-accent transition">4U Gift Shop</h4>
+                        <p class="text-xs text-gray-400 leading-relaxed mb-4">متجر لبيع الساعات والمحافظ والشنط الفخمة، مجهز بتجربة شراء سريعة وسلسة من الموبايل لزيادة المبيعات.</p>
+                        <div class="flex items-center gap-2 flex-row-reverse justify-end">
+                            <span class="text-[10px] bg-white/5 px-2.5 py-1 rounded-md text-gray-400 uppercase font-semibold">متجر شوبيفاي</span>
+                            <span class="text-[10px] bg-white/5 px-2.5 py-1 rounded-md text-gray-400 uppercase font-semibold">تسهيل خطوات الدفع</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 8: Éclat Store -->
+                <div onclick="openCaseStudy('eclat')" class="portfolio-item show-all web glass-card rounded-3xl overflow-hidden group border border-white/5 cursor-pointer">
+                    <div class="relative h-64 overflow-hidden bg-slate-950">
+                        <img src="showcase_images/eclat_store.png" alt="Éclat Store" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute top-4 right-4 left-auto bg-alphas-accent text-white text-[10px] uppercase font-bold tracking-widest px-3 py-1 rounded-full">
+                            متجر مستحضرات تجميل
+                        </div>
+                        <div class="absolute inset-0 bg-alphas-dark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="px-5 py-2.5 rounded-full bg-alphas-accent text-white text-xs font-bold uppercase tracking-wider shadow-lg">تفاصيل قصة النجاح</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold text-white uppercase mb-2 group-hover:text-alphas-accent transition">Éclat Store</h4>
+                        <p class="text-xs text-gray-400 leading-relaxed mb-4">متجر لمنتجات العناية بالبشرة والمكياج الراقي، مع تفعيل الشحن المجاني التلقائي وقسائم الهدايا لتشجيع العميل على شراء أكتر من قطعة.</p>
+                        <div class="flex items-center gap-2 flex-row-reverse justify-end">
+                            <span class="text-[10px] bg-white/5 px-2.5 py-1 rounded-md text-gray-400 uppercase font-semibold">تجارة إلكترونية</span>
+                            <span class="text-[10px] bg-white/5 px-2.5 py-1 rounded-md text-gray-400 uppercase font-semibold">براند تجميل</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 9: Laperva -->
+                <div onclick="openCaseStudy('laperva')" class="portfolio-item show-all web glass-card rounded-3xl overflow-hidden group border border-white/5 cursor-pointer">
+                    <div class="relative h-64 overflow-hidden bg-slate-950">
+                        <img src="showcase_images/laperva_store.png" alt="Laperva" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute top-4 right-4 left-auto bg-alphas-accent text-white text-[10px] uppercase font-bold tracking-widest px-3 py-1 rounded-full">
+                            صحة ومكملات رياضية
+                        </div>
+                        <div class="absolute inset-0 bg-alphas-dark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="px-5 py-2.5 rounded-full bg-alphas-accent text-white text-xs font-bold uppercase tracking-wider shadow-lg">تفاصيل قصة النجاح</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold text-white uppercase mb-2 group-hover:text-alphas-accent transition">Laperva</h4>
+                        <p class="text-xs text-gray-400 leading-relaxed mb-4">منصة بيع مكملات اللياقة والرياضة بتصميم يتماشى مع هوية البراند وتتحمل أعلى ضغط من الزيارات أوقات الخصومات الكبيرة.</p>
+                        <div class="flex items-center gap-2 flex-row-reverse justify-end">
+                            <span class="text-[10px] bg-white/5 px-2.5 py-1 rounded-md text-gray-400 uppercase font-semibold">بنية برمجية قوية</span>
+                            <span class="text-[10px] bg-white/5 px-2.5 py-1 rounded-md text-gray-400 uppercase font-semibold">تحمل ضغط السيرفر</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 10: Natpro Pharmaceuticals -->
+                <div onclick="openCaseStudy('natpro')" class="portfolio-item show-all academy glass-card rounded-3xl overflow-hidden group border border-white/5 cursor-pointer">
+                    <div class="relative h-64 overflow-hidden bg-slate-950">
+                        <img src="showcase_images/natpro_pharma.png" alt="Natpro Pharmaceuticals" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute top-4 right-4 left-auto bg-alphas-accent text-white text-[10px] uppercase font-bold tracking-widest px-3 py-1 rounded-full">
+                            موقع شركات ومصانع
+                        </div>
+                        <div class="absolute inset-0 bg-alphas-dark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="px-5 py-2.5 rounded-full bg-alphas-accent text-white text-xs font-bold uppercase tracking-wider shadow-lg">تفاصيل قصة النجاح</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold text-white uppercase mb-2 group-hover:text-alphas-accent transition">Natpro Pharmaceuticals</h4>
+                        <p class="text-xs text-gray-400 leading-relaxed mb-4">موقع للتعريف بالشركة ومجموعة منتجات فايتوفا الطبية التجميلية لجذب الموزعين والوكلاء الإقليميين والدوليين.</p>
+                        <div class="flex items-center gap-2 flex-row-reverse justify-end">
+                            <span class="text-[10px] bg-white/5 px-2.5 py-1 rounded-md text-gray-400 uppercase font-semibold">موقع تعريفي للشركات</span>
+                            <span class="text-[10px] bg-white/5 px-2.5 py-1 rounded-md text-gray-400 uppercase font-semibold">جذب وكلاء ومستثمرين</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 11: Smart City IT -->
+                <div onclick="openCaseStudy('scit')" class="portfolio-item show-all design glass-card rounded-3xl overflow-hidden group border border-white/5 cursor-pointer">
+                    <div class="relative h-64 overflow-hidden bg-slate-950">
+                        <img src="showcase_images/scit_showcase.png" alt="Smart City IT" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute top-4 right-4 left-auto bg-alphas-accent text-white text-[10px] uppercase font-bold tracking-widest px-3 py-1 rounded-full">
+                            شركات شبكات وحلول تقنية
+                        </div>
+                        <div class="absolute inset-0 bg-alphas-dark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="px-5 py-2.5 rounded-full bg-alphas-accent text-white text-xs font-bold uppercase tracking-wider shadow-lg">تفاصيل قصة النجاح</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold text-white uppercase mb-2 group-hover:text-alphas-accent transition">Smart City IT</h4>
+                        <p class="text-xs text-gray-400 leading-relaxed mb-4">إدارة صفحات وحملات سوشيال ميديا كشريك معتمد لـ Huawei eKit، وتصميم بوستات تقنية لبناء الثقة والاعتمادية.</p>
+                        <div class="flex items-center gap-2 flex-row-reverse justify-end">
+                            <span class="text-[10px] bg-white/5 px-2.5 py-1 rounded-md text-gray-400 uppercase font-semibold">براندنج B2B</span>
+                            <span class="text-[10px] bg-white/5 px-2.5 py-1 rounded-md text-gray-400 uppercase font-semibold">محتوى تقني سهل</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 12: Sculptor Aesthetics -->
+                <div onclick="openCaseStudy('sculptor')" class="portfolio-item show-all design glass-card rounded-3xl overflow-hidden group border border-white/5 cursor-pointer">
+                    <div class="relative h-64 overflow-hidden bg-slate-950">
+                        <img src="showcase_images/sculptor_showcase.png" alt="Sculptor Aesthetics" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute top-4 right-4 left-auto bg-alphas-accent text-white text-[10px] uppercase font-bold tracking-widest px-3 py-1 rounded-full">
+                            عيادات تجميل وليزر
+                        </div>
+                        <div class="absolute inset-0 bg-alphas-dark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="px-5 py-2.5 rounded-full bg-alphas-accent text-white text-xs font-bold uppercase tracking-wider shadow-lg">تفاصيل قصة النجاح</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold text-white uppercase mb-2 group-hover:text-alphas-accent transition">Sculptor Aesthetics</h4>
+                        <p class="text-xs text-gray-400 leading-relaxed mb-4">تصميم باقات لعروض جلسات الليزر وتنسيق القوام بأسلوب بصرى شيك وراقي يزود عدد الحجوزات المباشرة.</p>
+                        <div class="flex items-center gap-2 flex-row-reverse justify-end">
+                            <span class="text-[10px] bg-white/5 px-2.5 py-1 rounded-md text-gray-400 uppercase font-semibold">براندنج عيادات</span>
+                            <span class="text-[10px] bg-white/5 px-2.5 py-1 rounded-md text-gray-400 uppercase font-semibold">إعلانات لزيادة الحجز</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- WHY ALPHAS SECTION -->
+    <section id="whyus" class="py-24 relative overflow-hidden">
+        <div class="absolute top-[30%] right-[-10%] w-[500px] h-[500px] rounded-full bg-alphas-accent/5 blur-[120px] pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-16 text-right">
+                <div class="lg:col-span-6">
+                    <span class="text-alphas-accent text-sm font-semibold uppercase tracking-wider">سياستنا وأمانتنا معاك</span>
+                    <h2 class="text-3xl md:text-4xl font-extrabold font-display text-white uppercase mt-2 mb-4">ليه تشتغل وتكبر براندك مع ALPHAS بالذات؟</h2>
+                    <p class="text-gray-400 leading-relaxed">لأننا مش بنحكيلك كلام تسويق معقد؛ إحنا بنقعد معاك وبنتكلم لغة البزنس والمبيعات والـ ROI. هدفنا الأول والأخير إن كل مليم بتصرفه في الماركتنج يرجعلك مبيعات ومكاسب تانية حقيقية لشركتك.</p>
+                </div>
+                <div class="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="glass-card p-6 rounded-2xl border border-white/5">
+                        <i class="fa-solid fa-coins text-alphas-accent text-xl mb-3"></i>
+                        <h4 class="text-white font-bold uppercase mb-1.5">أسعار مناسبة ومرنة</h4>
+                        <p class="text-xs text-gray-400">بنوفر نظام حزم ساعات مرن ومناسب ليك، عشان تدفع بالظبط حسب احتياج ومرحلة شغلك الحالية من غير ميزانيات عملاقة.</p>
+                    </div>
+                    <div class="glass-card p-6 rounded-2xl border border-white/5">
+                        <i class="fa-solid fa-eye text-alphas-accent text-xl mb-3"></i>
+                        <h4 class="text-white font-bold uppercase mb-1.5">أمانة وشفافية كاملة</h4>
+                        <p class="text-xs text-gray-400">بنقدملك تقارير وسجلات دقيقة بالدقيقة بكل ساعة شغل اتعملت على موقعك، تصميماتك، أو إعلاناتك الممولة.</p>
+                    </div>
+                    <div class="glass-card p-6 rounded-2xl border border-white/5">
+                        <i class="fa-solid fa-user-astronaut text-alphas-accent text-xl mb-3"></i>
+                        <h4 class="text-white font-bold uppercase mb-1.5">فريق بيفكر معاك</h4>
+                        <p class="text-xs text-gray-400">إحنا مش مجرد بنفذ وخلاص؛ إحنا بنفحص البزنس وننصحك بأحسن أفكار وحلول إعلانية تزود أرباحك بناءً على أرقام السوق.</p>
+                    </div>
+                    <div class="glass-card p-6 rounded-2xl border border-white/5">
+                        <i class="fa-solid fa-recycle text-alphas-accent text-xl mb-3"></i>
+                        <h4 class="text-white font-bold uppercase mb-1.5">سهولة وسرعة تعديل</h4>
+                        <p class="text-xs text-gray-400">تقدر تغير خطة الشغل، حجم التصميمات، أو ميزانيات إعلاناتك بسهولة وبسرعة تماشياً مع مواسم البزنس بتاعتك.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Dynamic Packages Simulator -->
+            <div class="glass-card rounded-3xl p-8 lg:p-12 border border-white/10 relative overflow-hidden text-right">
+                <div class="absolute top-0 left-0 right-auto w-[40%] h-full bg-alphas-accent/5 -skew-x-12 pointer-events-none"></div>
+                <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <div class="lg:col-span-7">
+                        <span class="text-xs font-bold text-alphas-accent uppercase tracking-widest block mb-2 font-sans">حاسبة تفاعلية بسيطة</span>
+                        <h3 class="text-2xl md:text-3xl font-bold text-white uppercase mb-4">فصل باقة الساعات إللي تريح ميزانيتك</h3>
+                        <p class="text-sm text-gray-400 leading-relaxed mb-6 font-sans">اختار حزمة الساعات الشهرية إللي تريحك ونغطي بيها تصاميم السوشيال ميديا، الأكواد، تعديلات موقعك، أو إدارة إعلاناتك الممولة. وتقدر توسع أو تصغر الباقة دي براحتك حسب مبيعاتك ومواسم شغلك.</p>
+                        
+                        <!-- Range Slider component -->
+                        <div class="mb-6">
+                            <div class="flex items-center justify-between text-sm text-white font-semibold uppercase mb-2 flex-row-reverse">
+                                <span>ساعات التشغيل الشهرية المطلوبة</span>
+                                <span id="hours-display" class="text-alphas-accent font-extrabold text-lg">50 ساعة / شهر</span>
+                            </div>
+                            <input oninput="updatePackageHours(this.value)" type="range" min="20" max="150" value="50" class="w-full h-2 bg-white/10 rounded-lg appearance-none cursor-pointer accent-alphas-accent focus:outline-none">
+                            <div class="flex justify-between text-[10px] text-gray-500 mt-1 uppercase flex-row-reverse">
+                                <span>20 ساعة (بداية تشغيل)</span>
+                                <span>80 ساعة (نمو سريع)</span>
+                                <span>150 ساعة (سكيل كامل)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-5 bg-alphas-navy/60 p-8 rounded-2xl border border-white/5 text-center">
+                        <h4 class="text-sm text-gray-400 uppercase tracking-widest font-bold mb-1">الميزانية التقريبية للباقة</h4>
+                        <div class="text-4xl font-black text-white font-display my-4">
+                            <span id="price-display">35,000 ج.م</span> <span class="text-xs text-gray-500 uppercase font-bold tracking-normal">/ شهرياً</span>
+                        </div>
+                        <ul class="text-right text-xs text-gray-300 space-y-2 mb-6 border-y border-white/10 py-4 max-w-xs mx-auto">
+                            <li class="flex items-center justify-end"><span class="mr-0 ml-2">خبير سوشيال ميديا مخصص لبراندك</span><i class="fa-solid fa-check text-alphas-accent"></i></li>
+                            <li class="flex items-center justify-end"><span class="mr-0 ml-2">سجل ساعات شغل شفاف ودقيق بالدقيقة</span><i class="fa-solid fa-check text-alphas-accent"></i></li>
+                            <li class="flex items-center justify-end"><span class="mr-0 ml-2">تعديلات ومرونة سريعة حسب مبيعاتك</span><i class="fa-solid fa-check text-alphas-accent"></i></li>
+                        </ul>
+                        <button onclick="toggleConsultation(true)" class="w-full bg-alphas-accent hover:bg-alphas-accentHover text-white py-3 rounded-full font-bold text-sm transition-all shadow-gold-glow uppercase tracking-wider">
+                            اطلب الباقة دي لحسابك
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SUCCESS STORIES SECTION -->
+    <section id="success" class="py-24 relative overflow-hidden bg-alphas-navy/30">
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left: Big Metric Numbers -->
+                <div class="lg:col-span-5 text-right">
+                    <span class="text-alphas-accent text-sm font-semibold uppercase tracking-wider">النمو الحقيقي للبزنس</span>
+                    <h2 class="text-3xl md:text-5xl font-extrabold font-display text-white uppercase mt-2 mb-6 font-sans">معادلة سكيل قوية ومجربة</h2>
+                    <p class="text-gray-300 leading-relaxed mb-6 font-sans">فريقنا بيضم نخبة من خبراء الـ Digital Operations والـ Marketing. من خلال مراقبة وفهم عادات العميل الفعلية في السوق، **95%** من الشركات إللي شغالين معاها بتسجل نمو مبيعات ملحوظ خلال أول 90 يوم بس.</p>
+                    
+                    <div class="grid grid-cols-2 gap-4 border-t border-white/10 pt-6">
+                        <div class="glass-card p-4 rounded-xl">
+                            <h3 class="text-4xl font-extrabold text-alphas-accent font-display">95%</h3>
+                            <p class="text-xs text-gray-400 uppercase mt-1">معدل نمو الشركات معانا</p>
+                        </div>
+                        <div class="glass-card p-4 rounded-xl">
+                            <h3 class="text-4xl font-extrabold text-alphas-accent font-display">&lt; 3%</h3>
+                            <p class="text-xs text-gray-400 uppercase mt-1">نسبة إلغاء أو توقف الحملات</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Custom Simulated Interactive Graph Card -->
+                <div class="lg:col-span-7">
+                    <div class="glass-card rounded-3xl p-8 border border-white/10 relative overflow-hidden text-right">
+                        <div class="flex items-center justify-between mb-8 flex-row-reverse">
+                            <div>
+                                <h4 class="text-white font-bold uppercase text-sm font-sans">مخطط متوسط نمو مبيعات عملائنا</h4>
+                                <p class="text-[11px] text-gray-400 font-sans">متوسط أداء الشركات إللي شغالة تحت إشرافنا</p>
+                            </div>
+                            <div class="flex items-center gap-3 flex-row-reverse">
+                                <span class="inline-flex items-center gap-1.5 text-xs text-alphas-accent font-semibold"><span class="w-2.5 h-2.5 bg-alphas-accent rounded-full"></span> مع ALPHAS</span>
+                                <span class="inline-flex items-center gap-1.5 text-xs text-gray-500 font-semibold"><span class="w-2.5 h-2.5 bg-gray-600 rounded-full"></span> الأداء الطبيعي في السوق</span>
+                            </div>
+                        </div>
+
+                        <!-- GSAP Animated SVG Chart -->
+                        <div class="w-full h-64 relative">
+                            <svg viewBox="0 0 500 200" class="w-full h-full overflow-visible">
+                                <!-- Grid Lines -->
+                                <line x1="0" y1="180" x2="500" y2="180" stroke="rgba(255,255,255,0.05)" stroke-width="1" />
+                                <line x1="0" y1="120" x2="500" y2="120" stroke="rgba(255,255,255,0.05)" stroke-width="1" />
+                                <line x1="0" y1="60" x2="500" y2="60" stroke="rgba(255,255,255,0.05)" stroke-width="1" />
+                                <line x1="0" y1="10" x2="500" y2="10" stroke="rgba(255,255,255,0.05)" stroke-width="1" />
+
+                                <!-- Industry Baseline Area Line -->
+                                <path d="M0,160 Q100,150 200,155 T400,150 T500,145 L500,200 L0,200 Z" fill="rgba(255,255,255,0.02)" />
+                                <path d="M0,160 Q100,150 200,155 T400,150 T500,145" fill="none" stroke="#4b5563" stroke-width="2" stroke-dasharray="4" />
+
+                                <!-- Alphas Active Area Path -->
+                                <path d="M0,170 Q100,130 200,90 T400,40 T500,20 L500,200 L0,200 Z" fill="url(#alphas-gradient)" opacity="0.15" />
+                                <!-- Alphas Active Line with Drawing Trigger class -->
+                                <path id="active-success-path" d="M0,170 Q100,130 200,90 T400,40 T500,20" fill="none" stroke="#e59b58" stroke-width="4.5" stroke-linecap="round" />
+
+                                <!-- Interactive Data Dots -->
+                                <circle cx="200" cy="90" r="5" fill="#e59b58" />
+                                <circle cx="400" cy="40" r="5" fill="#e59b58" />
+                                <circle cx="500" cy="20" r="5" fill="#e59b58" />
+
+                                <!-- Custom Gradient Definition inside SVG -->
+                                <defs>
+                                    <linearGradient id="alphas-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" stop-color="#e59b58" />
+                                        <stop offset="100%" stop-color="#e59b58" stop-opacity="0" />
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                        </div>
+                        
+                        <div class="flex justify-between text-[11px] text-gray-500 mt-4 uppercase tracking-widest font-bold flex-row-reverse">
+                            <span>الربع الأول: الانطلاق</span>
+                            <span>الربع الثاني: تظبيط وتحسين الحملات</span>
+                            <span>الربع الثالث: مرحلة السكيل الكامل</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="py-24 relative overflow-hidden bg-alphas-dark">
+        <div class="absolute inset-0 grid-wave opacity-15 pointer-events-none"></div>
+        <div class="max-w-4xl mx-auto px-6 relative z-10 text-center">
+            
+            <div class="mb-12">
+                <span class="text-alphas-accent text-sm font-semibold uppercase tracking-wider">طلب فحص ومكالمة مجانية</span>
+                <h2 class="text-3xl md:text-5xl font-extrabold font-display text-white uppercase mt-2 mb-4">ابعتلنا تفاصيل وهنكلمك فوراً</h2>
+                <p class="text-gray-400 max-w-xl mx-auto font-sans">اكتبلنا باختصار طبيعة شغلك، والميزانية المتوفرة عندك. خبير من فريق ALPHAS هيتواصل معاك ويشرحلك خطة الشغل المناسبة ليك بالكامل مجاناً.</p>
+            </div>
+
+            <!-- Beautiful Inline Glass Form -->
+            <div class="glass-card rounded-3xl p-8 md:p-12 border border-white/10 text-right relative overflow-hidden">
+                <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-alphas-accent/10 rounded-full blur-2xl"></div>
+                
+                <form id="landing-contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" onsubmit="handleFormSubmit(event)" class="space-y-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">اسم شركتك أو براندك</label>
+                            <input required type="text" placeholder="مثال: عربية فرنيتشر" class="w-full bg-white/5 border border-white/10 focus:border-alphas-accent/50 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:ring-1 focus:ring-alphas-accent/30 transition text-right">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">البريد الإلكتروني الأساسي</label>
+                            <input required type="email" placeholder="e.g. contact@business.com" class="w-full bg-white/5 border border-white/10 focus:border-alphas-accent/50 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:ring-1 focus:ring-alphas-accent/30 transition text-left" dir="ltr">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">الخدمات إللي محتاجها بالظبط</label>
+                            <select class="w-full bg-white/5 border border-white/10 focus:border-alphas-accent/50 rounded-xl px-4 py-3 text-sm text-gray-400 focus:outline-none focus:ring-1 focus:ring-alphas-accent/30 transition text-right">
+                                <option value="social" class="bg-alphas-dark text-white">إدارة صفحات السوشيال ميديا والديكورشن</option>
+                                <option value="web" class="bg-alphas-dark text-white">تصميم موقع أو متجر إلكتروني</option>
+                                <option value="ads" class="bg-alphas-dark text-white">ميديا باينج وإعلانات ممولة بذكاء</option>
+                                <option value="all" class="bg-alphas-dark text-white">تطوير رقمي وتسويقي شامل (الكل مع بعض)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">ميزانيتك الشهرية للإعلانات</label>
+                            <select class="w-full bg-white/5 border border-white/10 focus:border-alphas-accent/50 rounded-xl px-4 py-3 text-sm text-gray-400 focus:outline-none focus:ring-1 focus:ring-alphas-accent/30 transition text-right">
+                                <option value="budget1" class="bg-alphas-dark text-white">أقل من 50,000 ج.م شهرياً</option>
+                                <option value="budget2" class="bg-alphas-dark text-white">من 50,000 ج.م لـ 150,000 ج.م شهرياً</option>
+                                <option value="budget3" class="bg-alphas-dark text-white">أكتر من 150,000 ج.م شهرياً</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">احكيلنا باختصار عن مشكلتك أو الأهداف إللي عايزها</label>
+                        <textarea required rows="4" placeholder="مثال: مبيعات المحل قليلة ومحتاج زباين، أو المتجر القديم بطيء والناس بتسيبه وتمشي..." class="w-full bg-white/5 border border-white/10 focus:border-alphas-accent/50 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:ring-1 focus:ring-alphas-accent/30 transition resize-none text-right"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full bg-alphas-accent hover:bg-alphas-accentHover text-white py-4 rounded-xl font-bold text-sm tracking-widest uppercase transition-all shadow-gold-glow">
+                        ابعت وهنرد عليك بخطة العمل خلال 24 ساعة
+                    </button>
+                </form>
+
+                <!-- Custom Inline Success Message Box -->
+                <div id="form-success-box" class="hidden absolute inset-0 bg-alphas-dark/95 backdrop-blur-md flex flex-col items-center justify-center text-center p-8">
+                    <div class="w-16 h-16 rounded-full bg-alphas-accent/10 border border-alphas-accent text-alphas-accent flex items-center justify-center text-2xl mb-4 animate-bounce">
+                        <i class="fa-solid fa-check"></i>
+                    </div>
+                    <h4 class="text-2xl font-bold text-white uppercase mb-2">تم استلام طلبك بنجاح!</h4>
+                    <p class="text-sm text-gray-400 max-w-sm">خبير مبيعات من فريق ALPHAS هيحلل معلومات شركتك فوراً وهنبعتلك خطة الـ Roadmap الشاملة على الإيميل خلال 24 ساعة.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-alphas-dark border-t border-white/5 py-12 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 relative z-10 flex flex-col md:flex-row-reverse items-center justify-between gap-8 text-center md:text-right">
+            
+            <div class="flex items-center gap-3 flex-row-reverse">
+                <img src="Logo.png" alt="ALPHAS Logo" class="w-10 h-10 object-contain">
+                <div class="flex flex-col leading-none items-end">
+                    <span class="text-lg font-bold font-display tracking-widest text-white uppercase">ALPHAS</span>
+                    <span class="text-[8px] tracking-[0.25em] text-gray-400">DIGITAL BUSINESS SOLUTIONS</span>
+                </div>
+            </div>
+
+            <div class="text-sm text-gray-500" dir="ltr">
+                &copy; 2026 ALPHAS Digital Business Solutions. All rights reserved.
+            </div>
+
+            <div class="flex items-center gap-4">
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:text-alphas-accent hover:bg-alphas-accent/10 transition"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:text-alphas-accent hover:bg-alphas-accent/10 transition"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:text-alphas-accent hover:bg-alphas-accent/10 transition"><i class="fa-brands fa-behance"></i></a>
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:text-alphas-accent hover:bg-alphas-accent/10 transition"><i class="fa-solid fa-globe"></i></a>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- DYNAMIC SLIDEOUT CONSULTATION DRAWER PANEL -->
+    <div id="consultation-drawer" class="fixed inset-y-0 left-0 right-auto z-50 w-full max-w-md bg-alphas-dark/95 backdrop-blur-3xl border-r border-white/10 p-8 shadow-2xl transform -translate-x-full transition-transform duration-300 ease-in-out overflow-y-auto text-right">
+        <div class="flex items-center justify-between mb-6 flex-row-reverse">
+            <div class="flex flex-col items-end">
+                <h3 class="text-lg font-bold text-white uppercase tracking-wider">مكالمة فحص مجانية للبزنس</h3>
+                <span class="text-[10px] text-gray-400 uppercase tracking-widest font-semibold mt-0.5">مكالمة فحص مجانية بالكامل</span>
+            </div>
+            <button onclick="toggleConsultation(false)" class="text-gray-400 hover:text-alphas-accent transition text-xl focus:outline-none"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+
+        <!-- Progress Steps Tracker -->
+        <div class="mb-8 bg-white/5 rounded-full h-1.5 overflow-hidden">
+            <div id="quiz-progress-bar" class="bg-alphas-accent h-full w-1/3 transition-all duration-300 float-right"></div>
+        </div>
+
+        <!-- Multi-step Form Container -->
+        <form id="multi-step-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="space-y-6">
+            <!-- Hidden inputs to record selections in Formspree submission -->
+            <input type="hidden" id="form-selected-bottleneck" name="bottleneck" value="">
+            <input type="hidden" id="form-selected-hours" name="hours_package" value="50 ساعة / شهر">
+            <input type="hidden" id="form-selected-date" name="scheduled_date" value="">
+            <input type="hidden" id="form-selected-time" name="scheduled_time" value="">
+
+            <!-- STEP 1: CHOOSE BOTTLENECK -->
+            <div id="quiz-step-1" class="space-y-4">
+                <h4 class="text-xs font-bold text-white uppercase tracking-widest mb-4">الخطوة 1: إيه أكبر وجع دماغ ومشكلة بتواجهك حالياً؟</h4>
+                
+                <div onclick="selectBottleneck('smm', this)" class="quiz-opt-card glass-card p-4 rounded-xl border border-white/5 cursor-pointer flex items-center gap-4 flex-row-reverse text-right">
+                    <div class="w-10 h-10 rounded-lg bg-alphas-accent/10 text-alphas-accent flex items-center justify-center text-lg shrink-0">
+                        <i class="fa-solid fa-share-nodes"></i>
+                    </div>
+                    <div>
+                        <h5 class="text-xs font-bold text-white uppercase">السوشيال ميديا وشكل الصفحة ضعيف</h5>
+                        <p class="text-[11px] text-gray-400 mt-0.5">التفاعل قليل جداً، وتصاميم المنتجات شكلها مش احترافي.</p>
+                    </div>
+                </div>
+
+                <div onclick="selectBottleneck('store', this)" class="quiz-opt-card glass-card p-4 rounded-xl border border-white/5 cursor-pointer flex items-center gap-4 flex-row-reverse text-right">
+                    <div class="w-10 h-10 rounded-lg bg-alphas-accent/10 text-alphas-accent flex items-center justify-center text-lg shrink-0">
+                        <i class="fa-solid fa-store"></i>
+                    </div>
+                    <div>
+                        <h5 class="text-xs font-bold text-white uppercase">عايز متجر إلكتروني سريع وسهل</h5>
+                        <p class="text-[11px] text-gray-400 mt-0.5">الموقع القديم بطيء، أو محتاج متجر جديد وسهل عشان الزباين تشتري علطول.</p>
+                    </div>
+                </div>
+
+                <div onclick="selectBottleneck('ads', this)" class="quiz-opt-card glass-card p-4 rounded-xl border border-white/5 cursor-pointer flex items-center gap-4 flex-row-reverse text-right">
+                    <div class="w-10 h-10 rounded-lg bg-alphas-accent/10 text-alphas-accent flex items-center justify-center text-lg shrink-0">
+                        <i class="fa-solid fa-chart-pie"></i>
+                    </div>
+                    <div>
+                        <h5 class="text-xs font-bold text-white uppercase">بصرف كتير في الإعلانات ومفيش مبيعات</h5>
+                        <p class="text-[11px] text-gray-400 mt-0.5">الفلوس بتخلص على الفاضي ومفيش أوردرات كفاية بتغطي المصاريف.</p>
+                    </div>
+                </div>
+
+                <div onclick="selectBottleneck('all', this)" class="quiz-opt-card glass-card p-4 rounded-xl border border-white/5 cursor-pointer flex items-center gap-4 flex-row-reverse text-right">
+                    <div class="w-10 h-10 rounded-lg bg-alphas-accent/10 text-alphas-accent flex items-center justify-center text-lg shrink-0">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <div>
+                        <h5 class="text-xs font-bold text-white uppercase">عايز تسويق وسيستم رقمي كامل وشامل</h5>
+                        <p class="text-[11px] text-gray-400 mt-0.5">محتاجين نربط كل حاجة ببعض ونعمل انطلاقة تسويقية كبيرة تبيع بجد.</p>
+                    </div>
+                </div>
+
+                <div class="pt-4">
+                    <button type="button" onclick="goToStep(2)" class="w-full bg-alphas-accent hover:bg-alphas-accentHover text-white py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition-all">
+                        التالي: بيانات شركتك
+                    </button>
+                </div>
+            </div>
+
+            <!-- STEP 2: COMPANY DETAILS & HOURS -->
+            <div id="quiz-step-2" class="hidden space-y-4">
+                <h4 class="text-xs font-bold text-white uppercase tracking-widest mb-4">الخطوة 2: معلومات تهمنا لتنظيم المكالمة</h4>
+                
+                <div>
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">اسم براندك أو شركتك</label>
+                    <input id="quiz-company-name" required type="text" placeholder="مثال: عربية فرنيتشر" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-alphas-accent/50 transition text-right">
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">البريد الإلكتروني للتواصل</label>
+                    <input id="quiz-email" required type="email" placeholder="e.g. contact@company.com" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-alphas-accent/50 transition text-left" dir="ltr">
+                </div>
+
+                <div class="bg-white/5 rounded-xl p-4 border border-white/5 text-right">
+                    <span class="text-[10px] font-bold text-gray-400 uppercase block mb-1">باقة الساعات المحددة مبدئياً</span>
+                    <div class="flex items-center justify-between text-xs mt-1 flex-row-reverse">
+                        <span id="quiz-hours-display" class="font-bold text-white">50 ساعة / شهر</span>
+                        <span id="quiz-price-display" class="text-alphas-accent font-extrabold">35,000 ج.م</span>
+                    </div>
+                </div>
+
+                <div class="flex gap-4 pt-4 flex-row-reverse">
+                    <button type="button" onclick="goToStep(1)" class="w-1/3 border border-white/10 text-gray-300 hover:text-white py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition-all">
+                        رجوع
+                    </button>
+                    <button type="button" onclick="validateStep2AndProceed()" class="w-2/3 bg-alphas-accent hover:bg-alphas-accentHover text-white py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition-all">
+                        التالي: ميعاد المكالمة
+                    </button>
+                </div>
+            </div>
+
+            <!-- STEP 3: INTERACTIVE CALENDAR BOOKING -->
+            <div id="quiz-step-3" class="hidden space-y-4">
+                <h4 class="text-xs font-bold text-white uppercase tracking-widest mb-2">الخطوة 3: حدد ميعاد مكالمة الفحص المجانية</h4>
+                <p class="text-[10px] text-gray-400 mb-4">اختار اليوم والوقت المناسبين ليك ونقعد معاك نفحص مشاكلك ونقترح عليك حلول مجانية تماماً.</p>
+
+                <!-- Mini Calendar Mockup -->
+                <div class="border border-white/5 rounded-xl p-3 bg-alphas-navy/40">
+                    <div class="flex justify-between items-center text-xs font-bold text-white uppercase tracking-widest mb-3 border-b border-white/5 pb-2 flex-row-reverse">
+                        <span>يوليو 2026</span>
+                        <i class="fa-solid fa-calendar-days text-alphas-accent text-xs"></i>
+                    </div>
+                    <div class="grid grid-cols-7 gap-1 text-center text-[9px] font-semibold text-gray-500 uppercase mb-2" dir="rtl">
+                        <span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span><span>Su</span>
+                    </div>
+                    <div class="grid grid-cols-7 gap-1" id="calendar-days-grid" dir="rtl">
+                        <!-- Days dynamically rendered below via JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Selectable Time Slots -->
+                <div class="space-y-2 text-right">
+                    <span class="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">الوقت المتاح (بتوقيت مصر)</span>
+                    <div class="grid grid-cols-3 gap-2" id="time-slots-container" dir="ltr">
+                        <div onclick="selectTimeSlot('10:00 AM', this)" class="time-slot border border-white/5 bg-white/5 rounded-lg py-2 text-center text-xs text-gray-300">10:00 AM</div>
+                        <div onclick="selectTimeSlot('11:30 AM', this)" class="time-slot border border-white/5 bg-white/5 rounded-lg py-2 text-center text-xs text-gray-300">11:30 AM</div>
+                        <div onclick="selectTimeSlot('02:00 PM', this)" class="time-slot border border-white/5 bg-white/5 rounded-lg py-2 text-center text-xs text-gray-300">02:00 PM</div>
+                        <div onclick="selectTimeSlot('03:30 PM', this)" class="time-slot border border-white/5 bg-white/5 rounded-lg py-2 text-center text-xs text-gray-300">03:30 PM</div>
+                        <div onclick="selectTimeSlot('05:00 PM', this)" class="time-slot border border-white/5 bg-white/5 rounded-lg py-2 text-center text-xs text-gray-300">05:00 PM</div>
+                        <div onclick="selectTimeSlot('06:30 PM', this)" class="time-slot border border-white/5 bg-white/5 rounded-lg py-2 text-center text-xs text-gray-300">06:30 PM</div>
+                    </div>
+                </div>
+
+                <div class="flex gap-4 pt-4 flex-row-reverse">
+                    <button type="button" onclick="goToStep(2)" class="w-1/3 border border-white/10 text-gray-300 hover:text-white py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition-all">
+                        رجوع
+                    </button>
+                    <button type="submit" class="w-2/3 bg-alphas-accent hover:bg-alphas-accentHover text-white py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition-all shadow-gold-glow">
+                        تأكيد وحجز المكالمة
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        <!-- Dynamic success drawer box -->
+        <div id="drawer-success-box" class="hidden absolute inset-0 bg-alphas-dark/95 backdrop-blur-md flex flex-col items-center justify-center text-center p-8 z-10">
+            <div class="w-16 h-16 rounded-full bg-alphas-accent/10 border border-alphas-accent text-alphas-accent flex items-center justify-center text-2xl mb-6 animate-bounce">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <h4 class="text-2xl font-bold text-white uppercase mb-2">تم الحجز بنجاح!</h4>
+            <p class="text-xs text-gray-400 max-w-xs leading-relaxed">مكالمة الفحص والاستشارة تم حجزها يوم <strong id="success-date-time" class="text-white"></strong>.</p>
+            <p class="text-[10px] text-alphas-accent font-semibold mt-4">هنبعتلك تفاصيل لينك المكالمة على الإيميل بتاعك علطول.</p>
+            <button onclick="toggleConsultation(false)" class="mt-8 border border-white/10 text-xs text-gray-300 hover:text-white px-6 py-2.5 rounded-full uppercase font-bold tracking-wider transition">قفل اللوحة</button>
+        </div>
+    </div>
+
+    <!-- DYNAMIC CASE STUDY OVERLAY MODAL -->
+    <div id="case-study-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+        <!-- Backdrop -->
+        <div onclick="closeCaseStudy()" class="absolute inset-0 bg-alphas-dark/90 backdrop-blur-md cursor-pointer"></div>
+        <!-- Modal Content Container Box -->
+        <div class="modal-box relative w-full max-w-3xl glass-card bg-[#0b1224]/95 rounded-3xl border border-white/10 p-6 md:p-10 shadow-2xl overflow-y-auto max-h-[90vh] z-10 transform scale-95 opacity-0 transition-all duration-300 text-right">
+            <!-- Close Button -->
+            <button onclick="closeCaseStudy()" class="absolute top-6 left-6 right-auto text-gray-400 hover:text-alphas-accent transition text-2xl focus:outline-none">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div id="modal-content-container">
+                <!-- Content gets injected dynamically by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- CLIENT JS CONTROL ACTIONS -->
+    <script>
+        // Initialize GSAP ScrollTrigger
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Refresh ScrollTrigger after page load
+        ScrollTrigger.refresh();
+
+        // Run animations on window load
+        window.onload = function() {
+            // Animate hero text contents staggered
+            gsap.from(".hero-text > *", {
+                opacity: 0,
+                y: 30,
+                stagger: 0.15,
+                duration: 1.0,
+                ease: "power3.out"
+            });
+
+            // Animate hero visual mockup reveal
+            gsap.from(".hero-visual", {
+                opacity: 0,
+                scale: 0.95,
+                y: 40,
+                duration: 1.5,
+                delay: 0.4,
+                ease: "power2.out"
+            });
+
+            // Reveal scroll triggers for core services
+            gsap.from(".services-grid > div", {
+                scrollTrigger: {
+                    trigger: ".services-grid",
+                    start: "top 80%",
+                },
+                opacity: 0,
+                y: 60,
+                stagger: 0.2,
+                duration: 1,
+                ease: "power3.out"
+            });
+
+            // About section animations
+            gsap.from(".about-left", {
+                scrollTrigger: {
+                    trigger: "#about",
+                    start: "top 70%",
+                },
+                opacity: 0,
+                x: -50,
+                duration: 1,
+                ease: "power3.out"
+            });
+            gsap.from(".about-right", {
+                scrollTrigger: {
+                    trigger: "#about",
+                    start: "top 70%",
+                },
+                opacity: 0,
+                x: 50,
+                duration: 1,
+                delay: 0.2,
+                ease: "power3.out"
+            });
+
+            // Services header animation
+            gsap.from(".services-header", {
+                scrollTrigger: {
+                    trigger: ".services-header",
+                    start: "top 80%",
+                },
+                opacity: 0,
+                y: 40,
+                duration: 0.8,
+                ease: "power3.out"
+            });
+
+            // Workflow section simple animation
+            gsap.from("#workflow .glass-card", {
+                scrollTrigger: {
+                    trigger: "#workflow",
+                    start: "top 85%",
+                    toggleActions: "play none none reverse"
+                },
+                opacity: 0,
+                y: 30,
+                stagger: 0.1,
+                duration: 0.6,
+                ease: "power2.out"
+            });
+
+            // Approach pillars animation
+            gsap.from(".approach-grid > div", {
+                scrollTrigger: {
+                    trigger: ".approach-grid",
+                    start: "top 75%",
+                },
+                opacity: 0,
+                y: 40,
+                stagger: 0.1,
+                duration: 0.7,
+                ease: "power3.out"
+            });
+
+            // Portfolio items animation
+            gsap.from(".portfolio-item", {
+                scrollTrigger: {
+                    trigger: "#showcase",
+                    start: "top 70%",
+                },
+                opacity: 0,
+                y: 50,
+                stagger: 0.15,
+                duration: 0.8,
+                ease: "power3.out"
+            });
+
+            // Why us section animation
+            gsap.from("#whyus .glass-card", {
+                scrollTrigger: {
+                    trigger: "#whyus",
+                    start: "top 70%",
+                },
+                opacity: 0,
+                y: 30,
+                stagger: 0.1,
+                duration: 0.7,
+                ease: "power3.out"
+            });
+
+            // Success section animation
+            gsap.from("#success .lg\\:col-span-5", {
+                scrollTrigger: {
+                    trigger: "#success",
+                    start: "top 70%",
+                },
+                opacity: 0,
+                x: 50,
+                duration: 1,
+                ease: "power3.out"
+            });
+            gsap.from("#success .lg\\:col-span-7", {
+                scrollTrigger: {
+                    trigger: "#success",
+                    start: "top 70%",
+                },
+                opacity: 0,
+                x: -50,
+                duration: 1,
+                delay: 0.2,
+                ease: "power3.out"
+            });
+
+            // Contact section animation
+            gsap.from("#contact .glass-card", {
+                scrollTrigger: {
+                    trigger: "#contact",
+                    start: "top 70%",
+                },
+                opacity: 0,
+                y: 40,
+                scale: 0.95,
+                duration: 0.9,
+                ease: "power3.out"
+            });
+
+            // Animated graph line drawing effect on scroll
+            const path = document.querySelector('#active-success-path');
+            const pathLength = path.getTotalLength();
+            path.style.strokeDasharray = pathLength + ' ' + pathLength;
+            path.style.strokeDashoffset = pathLength;
+            
+            gsap.to(path, {
+                scrollTrigger: {
+                    trigger: "#success",
+                    start: "top 75%",
+                },
+                strokeDashoffset: 0,
+                duration: 2.2,
+                ease: "power2.out"
+            });
+        };
+
+        // Filter Portfolio Categories Actions
+        function filterPortfolio(category) {
+            // Toggle active filter tabs styles
+            document.querySelectorAll('.portfolio-tab').forEach(tab => {
+                tab.classList.remove('bg-alphas-accent', 'text-white');
+                tab.classList.add('bg-white/5', 'text-gray-400', 'hover:text-white');
+            });
+            document.getElementById(`tab-${category}`).classList.add('bg-alphas-accent', 'text-white');
+            document.getElementById(`tab-${category}`).classList.remove('bg-white/5', 'text-gray-400', 'hover:text-white');
+
+            // Stagger hidden/show visuals
+            const items = document.querySelectorAll('.portfolio-item');
+            gsap.to(items, {
+                scale: 0.9,
+                opacity: 0,
+                duration: 0.25,
+                onComplete: () => {
+                    items.forEach(item => {
+                        if (category === 'all' || item.classList.contains(category)) {
+                            item.style.display = 'block';
+                            gsap.to(item, { scale: 1, opacity: 1, duration: 0.35 });
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                }
+            });
+        }
+
+        // Package Pricing Hourly blocks updates (EGP currency calculations - 700 EGP per hour)
+        function updatePackageHours(hours) {
+            const price = Math.round(hours * 700); 
+            const formattedPrice = price.toLocaleString('en-US') + ' ج.م';
+            document.getElementById('hours-display').innerText = `${hours} ساعة / شهر`;
+            document.getElementById('price-display').innerText = formattedPrice;
+            
+            // Sync with Consultation Drawer
+            document.getElementById('form-selected-hours').value = `${hours} ساعة / شهر`;
+            document.getElementById('quiz-hours-display').innerText = `${hours} ساعة / شهر`;
+            document.getElementById('quiz-price-display').innerText = formattedPrice;
+        }
+
+        // Toggle Right slide side consultation drawer
+        function toggleConsultation(open) {
+            const drawer = document.getElementById('consultation-drawer');
+            if (open) {
+                drawer.classList.remove('-translate-x-full');
+                // Pre-fill package hours with current slider selection
+                const hoursVal = document.getElementById('hours-display').innerText;
+                const priceVal = document.getElementById('price-display').innerText;
+                document.getElementById('form-selected-hours').value = hoursVal;
+                document.getElementById('quiz-hours-display').innerText = hoursVal;
+                document.getElementById('quiz-price-display').innerText = priceVal;
+                
+                // Initialize step 1
+                goToStep(1);
+                renderCalendarDays();
+            } else {
+                drawer.classList.add('-translate-x-full');
+                // Hide success elements on close reset
+                document.getElementById('drawer-success-box').classList.add('hidden');
+            }
+        }
+
+        // Mobile dropdown navigation toggle controls
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('mobile-menu-icon');
+            if (menu.classList.contains('translate-x-full')) {
+                menu.classList.remove('translate-x-full');
+                icon.classList.replace('fa-bars', 'fa-xmark');
+            } else {
+                menu.classList.add('translate-x-full');
+                icon.classList.replace('fa-xmark', 'fa-bars');
+            }
+        }
+
+        // Submit landing page consultation form
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const box = document.getElementById('form-success-box');
+            box.classList.remove('hidden');
+            gsap.from(box, { opacity: 0, scale: 0.95, duration: 0.3 });
+            e.target.reset();
+        }
+
+        /* DYNAMIC INTERACTIVE CASE STUDIES DATABASE */
+        const caseStudyDb = {
+            arabia: {
+                title: "Arabia Furniture",
+                subtitle: "تنسيق وإعلانات كتالوج أثاث مودرن فاخر",
+                category: "سوشيال ميديا وتصاميم",
+                badgeColor: "bg-amber-600",
+                metric1: "نمو الوصول للصفحة", metric1val: "+210%",
+                metric2: "عائد الإعلانات الممولة", metric2val: "1.8x ROI",
+                metric3: "زيادة زوار المعرض", metric3val: "+45%",
+                problem: "بيصنعوا موبيليا راقية وفخمة جداً، لكن المعرض كان هادي ومفيش زباين كفاية بتدخل تشتري، وإعلانات السوشيال ميديا كانت بتصرف كتير ومبيجيش منها صفقات فعلية.",
+                solution: "أعدنا تصميم وعرض الكتالوج بتاعهم أونلاين بأسلوب شيك ومريح للعين، وأطلقنا حملة عروض ممتازة مستهدفة الناس إللي بتجهز وعايشة في مناطق سكنية معينة بالتجمع والشيخ زايد والرحاب.",
+                result: "الوصول لصفحتهم وتفاعل الناس زاد بـ 210%، وإعلانات الميديا باينج غطت تكلفتها وحققت مبيعات ممتازة، وزوار المعرض الفعلي زادوا بنسبة 45%."
+            },
+            modern: {
+                title: "Modern Motors",
+                subtitle: "إدارة صفحات توكيل السيارات الأكبر",
+                category: "إدارة صفحات سيارات",
+                badgeColor: "bg-blue-600",
+                metric1: "عملاء مستهدفين حقيقيين", metric1val: "+160%",
+                metric2: "تفاعل عملاء البراند", metric2val: "+85%",
+                metric3: "توفير تكلفة العميل", metric3val: "-30%",
+                problem: "المجموعة ليها ثقة كبيرة في سوق السيارات بخبرة 43 سنة، لكن صفحات السوشيال ميديا بتاعتهم كانت شكلها قديم ومش بتشد الشباب والعرايس إللي عايزين يشتروا عربية جديدة بالتقسيط.",
+                solution: "ظبطنا شكل الهوية البصرية، وصممنا جداول واضحة بتشرح مواصفات العربيات وأنظمة القسط المريحة، وعملنا إعلانات دقيقة مستهدفة الناس الجاهزة تشتري فعلياً.",
+                result: "عدد العملاء المهتمين إللي سابوا بياناتهم زاد بنسبة 160%، والتصاميم المظبوطة قللت تكلفة العميل المهتم بنسبة 30% مع زيادة التفاعل بنسبة 85%."
+            },
+            penduline: {
+                title: "Penduline Kids",
+                subtitle: "أفكار ديزاينات كرتونية وسوبر هيرو لشامبو الأطفال",
+                category: "تصميم براند وهوية",
+                badgeColor: "bg-pink-600",
+                metric1: "معدل تفاعل الأمهات", metric1val: "12.4%",
+                metric2: "زيادة مبيعات المتجر", metric2val: "+75%",
+                metric3: "مشاهدات أورجانيك للريلز", metric3val: "1.2M+",
+                problem: "في وسط منافسة شرسة جداً في مستحضرات تجميل الأطفال، كانوا محتاجين يثبتوا للأمهات إن خط الشامبو الجديد بتاعهم آمن تماماً وصحي ومفيهوش دموع بشكل يشد العين من غير تكرار.",
+                solution: "صممنا ثيم كرتوني وسوبر هيرو لطيف لشامبو الأطفال، ونظمنا خطة نشر ريلز وفيديوهات توضح شهادات أمهات حقيقية جربوا المنتج مع أطفالهم.",
+                result: "تفاعل الأمهات على البوستات زاد لـ 12.4% (ضعف المتوسط العادي في السوق)، وفيديوهات الحملة جابت أكتر من 1.2 مليون مشاهدة حقيقية، والمبيعات أونلاين زادت بنسبة 75%."
+            },
+            koshary: {
+                title: "Koshary Masr",
+                subtitle: "فيديوهات قصيرة وتصاميم لزيادة طلبات الدليفري",
+                category: "تسويق مطاعم",
+                badgeColor: "bg-red-600",
+                metric1: "زيادة طلبات الدليفري", metric1val: "+240%",
+                metric2: "متابعين حقيقيين جدد", metric2val: "+45K",
+                metric3: "طلبات الساعات الهادية", metric3val: "+90%",
+                problem: "المطعم معروف جداً وله فروع كتيرة، لكن كانت الأوردرات وطلبات الدليفري بتقل جداً وتكاد تنعدم في الساعات الميتة من الظهر (من 2 لـ 5 بعد الظهر).",
+                solution: "أطلقنا حملة فيديوهات سريعة ولطيفة بتفتح النفس، وعملنا كود خصم مخصوص بيشتغل بس جغرافياً حوالين الفروع في ساعات الظهر الهادية دي عشان نشجع الناس تطلب.",
+                result: "مبيعات الدليفري في الأوقات الميتة دي زادت بنسبة 240% داخل الفروع المستهدفة بالقاهرة، وحملات الفيديوهات زودت عدد المتابعين بـ 45 ألف زبون جديد في شهرين."
+            },
+            drnutrition: {
+                title: "Dr Nutrition",
+                subtitle: "بناء متجر شوبيفاي سريع جداً لبيع المكملات الغذائية",
+                category: "تصميم متاجر إلكترونية",
+                badgeColor: "bg-teal-600",
+                metric1: "تقليل السلات المتروكة", metric1val: "-42%",
+                metric2: "سرعة تصفح المتجر", metric2val: "0.8s",
+                metric3: "زيادة أرباح الموقع", metric3val: "+115%",
+                problem: "الموقع القديم لبيع المكملات كان بطيء وصعب في الاستخدام، وكان أكتر من 78% من العملاء بيخرجوا في صفحة الدفع ومبيكملوش الشراء بسبب التعقيد.",
+                solution: "عملنا متجر شوبيفاي سريع جداً ومتطور، وظبطنا شكل وتصنيف المنتجات بسهولة، وفعلنا ميزة الدفع السريع والربط التلقائي بالشحن مع رسايل تذكير ذكية للسلات المتروكة.",
+                result: "سرعة تحميل المتجر نزلت لـ 0.8 ثانية بس، والسلات المتروكة قلت بنسبة 42%، وأرباح المتجر الإلكتروني زادت بمعدل 115% في أول 3 شهور بعد اللانش."
+            },
+            lia: {
+                title: "London Innovation Academy",
+                subtitle: "بناء منصة كورسات وشرح إلكتروني كاملة",
+                category: "منصات تعليمية",
+                badgeColor: "bg-purple-600",
+                metric1: "طلاب نشطين مسجلين", metric1val: "14K+",
+                metric2: "تقليل شغل الإدارة", metric2val: "-60%",
+                metric3: "استقرار وثبات المنصة", metric3val: "99.9%",
+                problem: "كانوا محتاجين لسيستم مركزي قوي يقدر يستوعب محاضرات وفيديوهات الشرح، مع ميزة استخراج وتوثيق شهادات الطلاب فورياً من غير تدخل يدوي معقد يضيع وقت الإدارة.",
+                solution: "صممنا وبرمجنا بوابة تعليمية مخصصة بلوحات تحكم ذكية لكل طالب، مع ميزة بث الفيديو ونظام توثيق رقمي يسمح للجهات الخارجية بالتحقق من صحة أي شهادة فوراً.",
+                result: "السيستم استوعب بنجاح أكتر من 14 ألف طالب نشط، والتوثيق التلقائي للشهادات قلل ضغط العمل على شؤون الطلاب والإدارة بنسبة 60% مع استقرار تام للسيستم."
+            },
+            giftshop4u: {
+                title: "4U Gift Shop",
+                subtitle: "متجر لبيع الساعات والمحافظ والشنط الفخمة",
+                category: "تصميم متاجر إلكترونية",
+                badgeColor: "bg-emerald-600",
+                metric1: "نمو الإيراد الشهري", metric1val: "+180%",
+                metric2: "تحويل مبيعات الموبايل", metric2val: "4.2%",
+                metric3: "متوسط قيمة الأوردر", metric3val: "+65%",
+                problem: "كانوا محتاجين تجربة شراء موبايل فاخرة تليق بمنتجات المحافظ والساعات والأحزمة الجلدية الفاخرة عشان يقدروا ينافسوا المتاجر الكبيرة في السوق.",
+                solution: "بنينا متجر شوبيفاي متطور مع ضبط زوايا تصوير المنتجات، وتسهيل خطوات الدفع من الموبايل، وربط الواتساب مباشرة لخدمة العملاء ومساعدتهم في الشراء الفوري.",
+                result: "الإيرادات الشهرية نمت بنسبة 180% في أول ربع سنة، ومعدل تحويل مبيعات الموبايل وصل لـ 4.2% (3 أضعاف المتوسط في السوق)، ومتوسط قيمة أوردر العميل زاد بـ 65%."
+            },
+            eclat: {
+                title: "Éclat Store",
+                subtitle: "متجر لمنتجات العناية بالبشرة والمكياج الراقي",
+                category: "تجارة إلكترونية",
+                badgeColor: "bg-amber-500",
+                metric1: "تنسيق ورفع منتجات", metric1val: "500+",
+                metric2: "رجوع العميل يشتري ثاني", metric2val: "38%",
+                metric3: "نمو قيمة السلة", metric3val: "+120%",
+                problem: "المتجر كان محتاج تنظيم احترافي لعرض أكتر من 500 منتج للعناية بالبشرة، وتفعيل ميزة الشحن المجاني الذكي فوق رقم معين لتشجيع العميل يزود منتجات أكتر في السلة.",
+                solution: "صممنا واجهة المتجر باللون الذهبي الراقي، مع تقسيم ذكي للأقسام (عناية بالبشرة، ضد التجاعيد...) وتفعيل ميزة الشحن المجاني التلقائي أو الهدايا لو الأوردر عدا قيمة معينة.",
+                result: "رفعنا وتنسيق أكتر من 500 منتج في وقت قياسي، ومعدل رجوع العميل يشتري تاني وصل لـ 38% بفضل حملات الإيميل، واستراتيجية الشحن المجاني زودت قيمة مبيعات الطلب الواحد بـ 120%."
+            },
+            laperva: {
+                title: "Laperva",
+                subtitle: "منصة بيع مكملات اللياقة والرياضة بتصميم براند",
+                category: "صحة ومكملات رياضية",
+                badgeColor: "bg-green-600",
+                metric1: "المبيعات أونلاين", metric1val: "+250%",
+                metric2: "سرعة تحميل المتجر", metric2val: "1.1s",
+                metric3: "عدد المشاهدات شهرياً", metric3val: "2.5M+",
+                problem: "البراند قوي وله اسم كبير، لكن موقعهم القديم مكنش بيستحمل الضغط وقت نزول منتجات جديدة أو فترات العروض والـ Flash Sales وكان بيقع.",
+                solution: "طورنا البنية البرمجية بالكامل لتتحمل أعلى درجات الترافيك مع استخدام ألوان البراند القوية (الأسود والأخضر الفوسفوري) وتسهيل تصفح المنتجات والمكملات حسب هدف العميل الرياضي.",
+                result: "المبيعات أونلاين قفزت بنسبة 250%، وسرعة تصفح الموقع بقت 1.1 ثانية حتى في أوقات ضغط الإعلانات والعروض، واستراتيجية المحتوى وصلت لـ 2.5 مليون مشاهدة شهرياً."
+            },
+            natpro: {
+                title: "Natpro Pharmaceuticals",
+                subtitle: "موقع رسمي لخط منتجات Vitova الطبية",
+                category: "موقع شركات ومصانع",
+                badgeColor: "bg-slate-700",
+                metric1: "استفسارات وطلبات الوكلاء", metric1val: "+320%",
+                metric2: "ثقة البراند في السوق", metric2val: "ممتاز A+",
+                metric3: "التواجد الجغرافي للشركة", metric3val: "12 دولة",
+                problem: "المجموعة كانت محتاجة موقع شركات رسمي على مستوى عالمي يعكس الجودة العلمية لخط منتجات فايتوفا الطبية التجميلية، عشان يقدروا يجذبوا وكلاء وموزعين برة مصر.",
+                solution: "عملنا تصميم راقي وغامق مع استخدام صور نباتية وعلمية دقيقة، وبوابة خاصة لعرض البيانات للمستثمرين والشركاء، ودعم كامل للغات متعددة لتسهيل التوسع الدولي.",
+                result: "طلبات الوكلاء والموزعين الجدد زادت بنسبة 320% في أول 90 يوم، والموقع ساعد بقوة في تسهيل وتأكيد صفقات توزيع لخط المنتجات في 12 سوق برة وجوة المنطقة."
+            },
+            scit: {
+                title: "Smart City IT",
+                subtitle: "إدارة صفحات وحملات سوشيال ميديا كشريك لهواوي",
+                category: "سوشيال ميديا وتصاميم",
+                badgeColor: "bg-blue-600",
+                metric1: "معدل نمو التفاعل أورجانيك", metric1val: "+140%",
+                metric2: "تقييم العملاء للشركة", metric2val: "5 نجوم",
+                metric3: "زيادة طلبات الشركات", metric3val: "+80%",
+                problem: "الشركة كانت محتاجة تبرز وتثبت شراكتها المعتمدة مع Huawei eKit وتبني اسم قوي يخلي الشركات الكبيرة تختارهم لتنفيذ البنية التحتية والشبكات وهي مغمضة.",
+                solution: "صممنا إنفوجرافكس وجداول تقنية واضحة جداً بتشرح الهاردوير والسيستم، وركزنا على إبراز شهادات الاعتماد وآراء وتقييمات العملاء الكبار السابقة (5 Stars Reviews).",
+                result: "التواجد والوصول لعملاء الشركات (B2B) زاد بنسبة 140% شهر ورا شهر، وطلبات عروض الأسعار والتعاقدات لتأسيس الشبكات نمت بنسبة 80% بفضل حملات الثقة دي."
+            },
+            sculptor: {
+                title: "Sculptor Aesthetics",
+                subtitle: "تصميم باقات لعروض جلسات الليزر وتنسيق القوام",
+                category: "براندنج وتصميمات عيادات",
+                badgeColor: "bg-fuchsia-600",
+                metric1: "زيادة استفسارات الحجز", metric1val: "+220%",
+                metric2: "معدل تحويل الحجوزات", metric2val: "5.8%",
+                metric3: "عائد الإعلانات الممولة", metric3val: "3.2x Spend",
+                problem: "العيادة كانت بتواجه مشكلة في ملء المواعيد وساعات العمل الفاضية في الفترات والمواسم الهادية، وصعوبة في شرح باقات تجميل وتنسيق القوام للجمهور المستهدف.",
+                solution: "عملنا تصاميم بألوان هادية وراقية جداً بتوضح تفاصيل باقات جلسات الليزر ونحت الجسم، مع تفعيل كول-تو-أكشن واضح ومباشر على الواتساب والموبايل للحجز الفوري القريب جغرافياً.",
+                result: "الحجوزات المباشرة في العيادة زادت بنسبة 220% خلال 45 يوم، وحملات الميديا باينج حققت عائد على الصرف الإعلاني (ROAS) بمعدل 3.2 ضعف الميزانية المحددة."
+            }
+        };
+
+        // Open Case Study Modal
+        function openCaseStudy(projectId) {
+            const data = caseStudyDb[projectId];
+            if (!data) return;
+
+            const container = document.getElementById('modal-content-container');
+            container.innerHTML = `
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    <!-- Left: Project Visuals & Stats -->
+                    <div class="lg:col-span-5 space-y-6">
+                        <div class="rounded-2xl overflow-hidden border border-white/10 relative">
+                            <img src="${projectId === 'arabia' ? 'showcase_images/page_15_img_2.jpeg' : 
+                                      projectId === 'modern' ? 'showcase_images/modern_motors.png' : 
+                                      projectId === 'penduline' ? 'showcase_images/penduline_kids.png' : 
+                                      projectId === 'koshary' ? 'showcase_images/page_15_img_4.jpeg' : 
+                                      projectId === 'drnutrition' ? 'showcase_images/dr_nutrition_store.png' : 
+                                      projectId === 'giftshop4u' ? 'showcase_images/4u_giftshop.png' : 
+                                      projectId === 'eclat' ? 'showcase_images/eclat_store.png' : 
+                                      projectId === 'laperva' ? 'showcase_images/laperva_store.png' : 
+                                      projectId === 'natpro' ? 'showcase_images/natpro_pharma.png' : 
+                                      projectId === 'scit' ? 'showcase_images/scit_showcase.png' : 
+                                      projectId === 'sculptor' ? 'showcase_images/sculptor_showcase.png' : 
+                                      'showcase_images/lia_academy.png'}" 
+                                 alt="${data.title}" class="w-full h-auto object-cover">
+                            <span class="absolute top-4 right-4 left-auto ${data.badgeColor} text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow-lg">
+                                ${data.category}
+                            </span>
+                        </div>
+
+                        <!-- Highlights metrics -->
+                        <div class="grid grid-cols-3 gap-3">
+                            <div class="bg-white/5 border border-white/5 rounded-xl p-3 text-center">
+                                <span class="text-[8px] text-gray-400 uppercase tracking-wider block">${data.metric1}</span>
+                                <span class="text-sm font-bold text-alphas-accent block mt-1">${data.metric1val}</span>
+                            </div>
+                            <div class="bg-white/5 border border-white/5 rounded-xl p-3 text-center">
+                                <span class="text-[8px] text-gray-400 uppercase tracking-wider block">${data.metric2}</span>
+                                <span class="text-sm font-bold text-white block mt-1">${data.metric2val}</span>
+                            </div>
+                            <div class="bg-white/5 border border-white/5 rounded-xl p-3 text-center">
+                                <span class="text-[8px] text-gray-400 uppercase tracking-wider block">${data.metric3}</span>
+                                <span class="text-sm font-bold text-alphas-accent block mt-1">${data.metric3val}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Narrative content -->
+                    <div class="lg:col-span-7 space-y-6 text-right">
+                        <div>
+                            <span class="text-alphas-accent text-xs font-bold uppercase tracking-widest block mb-1">تفاصيل قصة النجاح</span>
+                            <h2 class="text-2xl md:text-3xl font-bold text-white uppercase tracking-tight">${data.title}</h2>
+                            <p class="text-sm text-gray-400 font-semibold mt-1">${data.subtitle}</p>
+                        </div>
+
+                        <div class="space-y-4 border-t border-white/5 pt-4">
+                            <div>
+                                <h4 class="text-xs font-bold text-alphas-accent uppercase tracking-wider flex items-center gap-2 justify-end"><i class="fa-solid fa-triangle-exclamation text-[10px] ml-1"></i> المشكلة / التحدي</h4>
+                                <p class="text-xs text-gray-300 leading-relaxed mt-1.5">${data.problem}</p>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2 justify-end"><i class="fa-solid fa-gears text-[10px] text-alphas-accent ml-1"></i> إزاي شغلناه صح؟</h4>
+                                <p class="text-xs text-gray-300 leading-relaxed mt-1.5">${data.solution}</p>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2 justify-end"><i class="fa-solid fa-chart-line text-[10px] text-alphas-accent ml-1"></i> النتيجة النهائية والأرقام</h4>
+                                <p class="text-xs text-gray-300 leading-relaxed mt-1.5">${data.result}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            const modal = document.getElementById('case-study-modal');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.add('open');
+                modal.querySelector('.modal-box').classList.remove('scale-95', 'opacity-0');
+                modal.querySelector('.modal-box').classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        // Close Case Study Modal
+        function closeCaseStudy() {
+            const modal = document.getElementById('case-study-modal');
+            modal.querySelector('.modal-box').classList.remove('scale-100', 'opacity-100');
+            modal.querySelector('.modal-box').classList.add('scale-95', 'opacity-0');
+            modal.classList.remove('open');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        /* DYNAMIC DRAWER MULTI-STEP STATE MACHINE */
+        let currentStep = 1;
+        let selectedBottleneck = '';
+        let selectedDate = '';
+        let selectedTime = '';
+
+        function goToStep(step) {
+            currentStep = step;
+            
+            // Toggle visibility
+            document.getElementById('quiz-step-1').classList.add('hidden');
+            document.getElementById('quiz-step-2').classList.add('hidden');
+            document.getElementById('quiz-step-3').classList.add('hidden');
+            document.getElementById(`quiz-step-${step}`).classList.remove('hidden');
+            
+            // Update progress bar width
+            const progressVal = (step / 3) * 100;
+            document.getElementById('quiz-progress-bar').style.width = `${progressVal}%`;
+        }
+
+        function selectBottleneck(type, cardEl) {
+            selectedBottleneck = type;
+            document.getElementById('form-selected-bottleneck').value = type;
+            
+            // Toggle highlight active
+            document.querySelectorAll('.quiz-opt-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            cardEl.classList.add('selected');
+        }
+
+        function validateStep2AndProceed() {
+            const name = document.getElementById('quiz-company-name').value.trim();
+            const email = document.getElementById('quiz-email').value.trim();
+            
+            if (!name || !email) {
+                alert("لو سمحت اكتب اسم براندك أو شركتك وبريدك الإلكتروني.");
+                return;
+            }
+            goToStep(3);
+        }
+
+        // Simulated Calendly Days renderer
+        function renderCalendarDays() {
+            const grid = document.getElementById('calendar-days-grid');
+            grid.innerHTML = '';
+            
+            // Generate next 14 days starting from today
+            const today = new Date();
+            
+            // Direct selectable day cards (today + 14 days)
+            for (let i = 1; i <= 14; i++) {
+                const nextDate = new Date();
+                nextDate.setDate(today.getDate() + i);
+                
+                const isWeekend = nextDate.getDay() === 5 || nextDate.getDay() === 6; // Friday / Saturday weekend
+                const fullDateStr = nextDate.toLocaleDateString('ar-EG', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+                
+                const cell = document.createElement('div');
+                cell.className = `date-cell border border-white/5 bg-white/5 rounded-lg py-2 text-center text-[10px] text-gray-300 uppercase ${isWeekend ? 'opacity-30 disabled cursor-not-allowed' : ''}`;
+                cell.innerHTML = `
+                    <span class="block font-semibold text-[8px] opacity-60">${nextDate.toLocaleDateString('ar-EG', { weekday: 'short' })}</span>
+                    <span class="block text-xs font-bold text-white mt-0.5">${nextDate.getDate()}</span>
+                `;
+                
+                if (!isWeekend) {
+                    cell.onclick = () => {
+                        document.querySelectorAll('.date-cell').forEach(c => c.classList.remove('selected'));
+                        cell.classList.add('selected');
+                        selectedDate = fullDateStr;
+                        document.getElementById('form-selected-date').value = fullDateStr;
+                    };
+                }
+                grid.appendChild(cell);
+            }
+        }
+
+        function selectTimeSlot(time, timeEl) {
+            selectedTime = time;
+            document.getElementById('form-selected-time').value = time;
+            
+            document.querySelectorAll('.time-slot').forEach(t => t.classList.remove('selected'));
+            timeEl.classList.add('selected');
+        }
+
+        // Custom consultation drawer submit action override
+        document.getElementById('multi-step-form').onsubmit = function(e) {
+            e.preventDefault();
+            
+            if (!selectedDate || !selectedTime) {
+                alert("لو سمحت اختار الميعاد واليوم المناسبين ليك أولاً.");
+                return;
+            }
+            
+            // Display confirmation details
+            document.getElementById('success-date-time').innerText = `${selectedDate} في ${selectedTime}`;
+            
+            const box = document.getElementById('drawer-success-box');
+            box.classList.remove('hidden');
+            gsap.from(box, { opacity: 0, scale: 0.95, duration: 0.3 });
+            e.target.reset();
+        };
+
+        /* INTERACTIVE 3D PARALLAX AND SHINE IN THE HERO SECTION */
+        const trigger = document.getElementById('mockup-parallax-trigger');
+        const mockup = document.querySelector('.browser-mockup');
+        const shine = document.getElementById('mockup-shine');
+
+        if (trigger && mockup) {
+            trigger.addEventListener('mousemove', (e) => {
+                const rect = trigger.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const percentX = (x / rect.width) * 100;
+                
+                // Tilting angles values limits
+                const rotateY = -14 + ((x / rect.width) * 20); // Tilt Range (-14 to +6)
+                const rotateX = 7 - ((y / rect.height) * 14);  // Tilt Range (7 to -7)
+                
+                mockup.style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg) rotateZ(-1deg) scale(1.02)`;
+                
+                // Move reflection shine
+                if (shine) {
+                    shine.style.transform = `translateX(${percentX * 2 - 100}%)`;
+                }
+            });
+            
+            trigger.addEventListener('mouseleave', () => {
+                // Reset to baseline styling smooth transition
+                mockup.style.transform = `rotateY(-14deg) rotateX(7deg) rotateZ(-1deg) scale(1)`;
+                if (shine) {
+                    shine.style.transform = `translateX(-100%)`;
+                }
+            });
+        }
+
+        /* LIGHTWEIGHT HIGH-AESTHETIC CANVAS PARTICLE RENDERER */
+        const canvas = document.getElementById('particle-canvas');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            let width = canvas.width = canvas.offsetWidth;
+            let height = canvas.height = canvas.offsetHeight;
+            
+            window.addEventListener('resize', () => {
+                width = canvas.width = canvas.offsetWidth;
+                height = canvas.height = canvas.offsetHeight;
+            });
+            
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.vx = (Math.random() - 0.5) * 0.3;
+                    this.vy = (Math.random() - 0.5) * 0.3;
+                    this.r = Math.random() * 2 + 1;
+                }
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    if (this.x < 0 || this.x > width) this.vx *= -1;
+                    if (this.y < 0 || this.y > height) this.vy *= -1;
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(229, 155, 88, 0.25)'; // Amber accent particle color
+                    ctx.fill();
+                }
+            }
+            
+            // Build particles arrays
+            for (let i = 0; i < 40; i++) {
+                particles.push(new Particle());
+            }
+            
+            function animateParticles() {
+                ctx.clearRect(0, 0, width, height);
+                
+                // Draw connections
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dist = Math.hypot(particles[i].x - particles[j].x, particles[i].y - particles[j].y);
+                        if (dist < 120) {
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.strokeStyle = `rgba(229, 155, 88, ${0.08 * (1 - dist / 120)})`;
+                            ctx.stroke();
+                        }
+                    }
+                }
+                
+                // Draw particles
+                particles.forEach(p => {
+                    p.update();
+                    p.draw();
+                });
+                
+                requestAnimationFrame(animateParticles);
+            }
+            animateParticles();
+        }
+    </script>
+</body>
+</html>
