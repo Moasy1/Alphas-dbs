@@ -312,7 +312,6 @@
                 <a href="#showcase" class="text-sm font-medium text-gray-300 hover:text-alphas-accent transition-colors" data-i18n="nav.showcase">Showcase</a>
                 <a href="#whyus" class="text-sm font-medium text-gray-300 hover:text-alphas-accent transition-colors" data-i18n="nav.whyus">Why us</a>
                 <a href="#success" class="text-sm font-medium text-gray-300 hover:text-alphas-accent transition-colors" data-i18n="nav.success">Success</a>
-                <a href="admin_panel.html" class="text-sm font-medium text-alphas-accent hover:text-white transition-colors" data-i18n="nav.admin">Admin Panel</a>
                 <!-- Language Switcher -->
                 <button onclick="switchLanguage('ar')"
                     class="lang-switch-btn px-4 py-2 rounded-full text-xs font-semibold bg-white/5 border border-white/10 text-white hover:bg-alphas-accent hover:text-alphas-dark transition-all">العربية</button>
@@ -343,7 +342,6 @@
             <a onclick="toggleMobileMenu()" href="#showcase" class="text-xl font-semibold text-gray-200 hover:text-alphas-accent transition" data-i18n="nav.showcase">Showcase</a>
             <a onclick="toggleMobileMenu()" href="#whyus" class="text-xl font-semibold text-gray-200 hover:text-alphas-accent transition" data-i18n="nav.whyAlphas">Why Alphas</a>
             <a onclick="toggleMobileMenu()" href="#success" class="text-xl font-semibold text-gray-200 hover:text-alphas-accent transition" data-i18n="nav.successStories">Success Stories</a>
-            <a href="admin_panel.html" class="text-xl font-semibold text-alphas-accent hover:text-white transition" data-i18n="nav.admin">Admin Panel</a>
             
             <!-- Language Switcher -->
             <button onclick="toggleMobileMenu(); switchLanguage('ar')"
@@ -2435,6 +2433,298 @@
             }
         }
 
+        const caseStudyDbEn = {
+            arabia: {
+                title: "Arabia Furniture",
+                subtitle: "Luxury Master Bedroom & Modular Styling",
+                category: "Branding & SMM",
+                badgeColor: "bg-amber-600",
+                metric1: "Reach Growth", metric1val: "+210%",
+                metric2: "Return On Ads", metric2val: "1.8x ROI",
+                metric3: "In-Store Traffic", metric3val: "+45%",
+                problem: "Despite offering premium luxury master bedroom catalog pieces, Arabia Furniture struggled to generate organic social foot-traffic. Digital ad budgets were producing high impressions but extremely low click-through rates.",
+                solution: "ALPHAS restructured the digital catalog design, focusing on high-end glassmorphic renders and clean spacing. Deployed the 'Wild Sale Up to 50% Off' campaign targeting specific localized high-income segments across Cairo governorates. Synchronized SMM content with local store inventory schedules.",
+                result: "Organic SMM reach expanded by 210% in 45 days. Localized advertising campaigns generated a 1.8x direct return on ad spend (ROAS) and boosted in-store showroom traffic by 45% month-over-month."
+            },
+            modern: {
+                title: "Modern Motors",
+                subtitle: "National Brand SMM & Campaign Delivery",
+                category: "Automotive SMM",
+                badgeColor: "bg-blue-600",
+                metric1: "Lead Generation", metric1val: "+160%",
+                metric2: "Brand Recall", metric2val: "+85%",
+                metric3: "Cost Per Lead", metric3val: "-30%",
+                problem: "Modern Motors had a 43-year legacy of automotive trust in Egypt, but their social media channels lacked the modern interactive polish required to appeal to a younger cohort of car buyers.",
+                solution: "We engineered an interactive brand storytelling layout highlighting their 43 years of expertise. Designed customized, responsive vehicle spec matrices, customer service infographics, and targeted geo-campaigns filtering high-intent buyers seeking installment programs.",
+                result: "Lead generation volumes escalated by 160% within 60 days. Custom graphics optimized for mobile viewing decreased the average cost-per-lead (CPL) by 30% while expanding social channel engagements by 85%."
+            },
+            penduline: {
+                title: "Penduline Kids",
+                subtitle: "Kid Shampoo mascot branding",
+                category: "Cosmetics Branding",
+                badgeColor: "bg-pink-600",
+                metric1: "Engagement Rate", metric1val: "12.4%",
+                metric2: "Direct Purchases", metric2val: "+75%",
+                metric3: "Organic Views", metric3val: "1.2M+",
+                problem: "Standing out in a competitive children's cosmetics category. They needed to demonstrate product safety and child-friendly appeal to mothers in a visually crowded space.",
+                solution: "Designed custom superhero character layouts for their kids' shampoo line packaging and digital banners. Crafted a high-retention content calendar emphasizing organic product safety animations, zero-tears properties, and customer testimonial reels.",
+                result: "Average post engagement rose to 12.4% (double the industry average). Launch campaign videos reached 1.2 million organic views, causing a direct e-commerce purchase uplift of 75% inside 30 days."
+            },
+            koshary: {
+                title: "Koshary Masr",
+                subtitle: "Viral SMM & High-Retention Catalogs",
+                category: "Food Franchise",
+                badgeColor: "bg-red-600",
+                metric1: "Delivery Orders", metric1val: "+240%",
+                metric2: "Followers Gained", metric2val: "+45K",
+                metric3: "Off-Peak Sales", metric3val: "+90%",
+                problem: "Koshary Masr franchises had high brand awareness but faced declining delivery orders during non-peak afternoon hours.",
+                solution: "Launched the 'Taste that makes you fly' SMM campaign with micro-animations showing fresh ingredients. Deployed dynamic geo-fenced social coupon codes active only during off-peak afternoon periods (2 PM - 5 PM).",
+                result: "Off-peak delivery sales spiked by 240% inside Cairo governorates. The viral content campaigns grew their social following by 45K within two months, establishing strong brand affinity."
+            },
+            drnutrition: {
+                title: "Dr Nutrition (JNP)",
+                subtitle: "Supplements E-Commerce Infrastructure",
+                category: "E-Commerce",
+                badgeColor: "bg-teal-600",
+                metric1: "Abandoned Carts", metric1val: "-42%",
+                metric2: "Page Load Speed", metric2val: "0.8s",
+                metric3: "E-comm Revenue", metric3val: "+115%",
+                problem: "Dr Nutrition's previous online store was slow, resulting in a high shopping cart abandonment rate (over 78%) and low mobile user retention.",
+                solution: "Deployed a customized, high-performance Shopify theme utilizing headless design patterns. Optimised supplement listings, added instant-checkout payment API integrations, and built automated SMS/Email abandoned cart workflows.",
+                result: "Page load speed decreased to 0.8 seconds. Abandoned cart drop-offs fell by 42%, leading to a 115% surge in monthly e-commerce revenues in the first quarter post-launch."
+            },
+            lia: {
+                title: "LIA (London Innovation Academy)",
+                subtitle: "E-Learning Platform & Cryptographic Credentials",
+                category: "Education Portal",
+                badgeColor: "bg-purple-600",
+                metric1: "Active Students", metric1val: "14K+",
+                metric2: "Admin Workload", metric2val: "-60%",
+                metric3: "Verification Uptime", metric3val: "99.9%",
+                problem: "Needed a secure, centralized system to host training modules and instantly verify student completion certificates without administrative bottlenecks.",
+                solution: "Designed and coded a custom educational portal with modular student dashboards, video streaming capabilities, and a cryptographic verification engine enabling employers to instantly audit certificates.",
+                result: "The platform scaled successfully to host 14,000+ active students. Automating certificate audits reduced school administrative workloads by 60% with zero downtime errors."
+            },
+            giftshop4u: {
+                title: "4U Gift Shop",
+                subtitle: "Luxury Accessories E-Commerce Platform",
+                category: "E-Commerce",
+                badgeColor: "bg-emerald-600",
+                metric1: "Monthly Revenue", metric1val: "+180%",
+                metric2: "Mobile Conv. Rate", metric2val: "4.2%",
+                metric3: "Avg. Order Value", metric3val: "+65%",
+                problem: "4U Gift Shop needed a premium mobile-first e-commerce experience to showcase luxury designer wallets, belts, and accessories while competing with established online retailers.",
+                solution: "Built a sleek Shopify-powered store with premium product photography staging, mobile-optimized checkout flows, wishlist functionality, and WhatsApp-integrated customer service for instant purchase assistance.",
+                result: "Monthly revenue grew by 180% within the first quarter. Mobile conversion rate reached 4.2% (3x industry average) and average order value increased by 65% through smart upselling and bundle recommendations."
+            },
+            eclat: {
+                title: "Éclat Store",
+                subtitle: "Beauty & Skincare E-Commerce",
+                category: "Beauty E-Commerce",
+                badgeColor: "bg-amber-500",
+                metric1: "Product Range", metric1val: "500+",
+                metric2: "Repeat Customers", metric2val: "38%",
+                metric3: "Shipping Revenue", metric3val: "+120%",
+                problem: "Éclat Store needed a sophisticated e-commerce platform to retail premium beauty and skincare products across Morocco, with multi-currency support and free shipping thresholds to drive order volume.",
+                solution: "Designed an elegant, golden-themed storefront with category-driven navigation, dynamic product search, Eva Skin Care featured collections, anti-aging product spotlights, and automated free shipping + gift promotions over 500 MAD.",
+                result: "Onboarded 500+ products within 60 days. Repeat customer rate reached 38% through loyalty email flows. The free shipping threshold strategy boosted average order values by 120% compared to baseline."
+            },
+            laperva: {
+                title: "Laperva",
+                subtitle: "Fitness Supplements Brand Platform",
+                category: "Fitness E-Commerce",
+                badgeColor: "bg-green-600",
+                metric1: "Online Sales", metric1val: "+250%",
+                metric2: "Page Speed", metric2val: "1.1s",
+                metric3: "Social Reach", metric3val: "2.5M+",
+                problem: "Laperva, a leading fitness supplements brand, needed a high-performance e-commerce platform that matched their bold, athletic brand identity while handling high-traffic product launches.",
+                solution: "Engineered a performance-optimized storefront with bold green and black branding, ISO Triple Zero hero showcases, BCAA and recovery product category architecture, and integrated content marketing for fitness education.",
+                result: "Online sales surged by 250% post-launch. Page load speed optimized to 1.1 seconds even during flash sales. Social media content strategy reached 2.5M+ impressions monthly across fitness communities."
+            },
+            natpro: {
+                title: "Natpro Pharmaceuticals",
+                subtitle: "Science-Led Cosmeceutical Corporate Site",
+                category: "Pharmaceuticals",
+                badgeColor: "bg-slate-700",
+                metric1: "Investor Inquiries", metric1val: "+320%",
+                metric2: "Brand Credibility", metric2val: "A+ Score",
+                metric3: "Global Reach", metric3val: "12 Markets",
+                problem: "Natpro Pharmaceuticals needed a world-class corporate website to position their Vitova cosmeceutical line as a science-led global brand, attracting investors and distribution partners.",
+                solution: "Crafted a premium dark-themed corporate website with botanical imagery, Vitova product range hero sections, investor overview portal, partner onboarding flows, and multi-language support for global expansion.",
+                result: "Investor inquiry volume increased by 320% within 90 days of launch. The brand credibility audit scored A+ from industry reviewers. Successfully expanded digital presence to 12 international markets."
+            },
+            scit: {
+                title: "Smart City IT",
+                subtitle: "Authorized Trust SMM & Network Infrastructure",
+                category: "IT & Networking SMM",
+                badgeColor: "bg-blue-600",
+                metric1: "Organic Engagement", metric1val: "+140%",
+                metric2: "Trust Rating", metric2val: "5 Stars",
+                metric3: "Partner Inquiries", metric3val: "+80%",
+                problem: "Smart City IT (SCIT) wanted to highlight their partnership with Huawei eKit and build authoritative trust among corporate enterprise clients searching for network infrastructure setups.",
+                solution: "Designed high-authority, technical yet clean infographic grids displaying network hardware, highlighting 'Authorized Trust' certification, and showcasing five-star partner review experiences.",
+                result: "Organic SMM reach and corporate inquiries grew by 140% month-over-month. Direct B2B partner lead acquisition rate grew by 80% through trust-oriented campaigns."
+            },
+            sculptor: {
+                title: "Sculptor Aesthetics",
+                subtitle: "Premium Clinic Branding & Offer Campaigns",
+                category: "Clinic Branding",
+                badgeColor: "bg-fuchsia-600",
+                metric1: "Booking Inquiries", metric1val: "+220%",
+                metric2: "Conversion Rate", metric2val: "5.8%",
+                metric3: "Campaign ROAS", metric3val: "3.2x Spend",
+                problem: "Sculptor Aesthetics clinic in Colindale struggled to communicate their high-end body shaping and laser treatment packages, resulting in empty booking slots during off-peak seasons.",
+                solution: "Created premium, warm skin-toned aesthetic grids mapping out 'Shape Your Body' fat freezing packages, 10-session laser deals, and Autumn promotion directories with clear local contact channels.",
+                result: "Direct appointment bookings increased by 220% within 45 days. The clinic achieved a 3.2x return on ad spend (ROAS) and secured bookings for Colindale and Edgware locations."
+            }
+        };
+        const caseStudyDbAr = {
+            arabia: {
+                title: "Arabia Furniture",
+                subtitle: "تنسيق وإعلانات كتالوج أثاث مودرن فاخر",
+                category: "سوشيال ميديا وتصاميم",
+                badgeColor: "bg-amber-600",
+                metric1: "نمو الوصول للصفحة", metric1val: "+210%",
+                metric2: "عائد الإعلانات الممولة", metric2val: "1.8x ROI",
+                metric3: "زيادة زوار المعرض", metric3val: "+45%",
+                problem: "بيصنعوا موبيليا راقية وفخمة جداً، لكن المعرض كان هادي ومفيش زباين كفاية بتدخل تشتري، وإعلانات السوشيال ميديا كانت بتصرف كتير ومبيجيش منها صفقات فعلية.",
+                solution: "أعدنا تصميم وعرض الكتالوج بتاعهم أونلاين بأسلوب شيك ومريح للعين، وأطلقنا حملة عروض ممتازة مستهدفة الناس إللي بتجهز وعايشة في مناطق سكنية معينة بالتجمع والشيخ زايد والرحاب.",
+                result: "الوصول لصفحتهم وتفاعل الناس زاد بـ 210%، وإعلانات الميديا باينج غطت تكلفتها وحققت مبيعات ممتازة، وزوار المعرض الفعلي زادوا بنسبة 45%."
+            },
+            modern: {
+                title: "Modern Motors",
+                subtitle: "إدارة صفحات توكيل السيارات الأكبر",
+                category: "إدارة صفحات سيارات",
+                badgeColor: "bg-blue-600",
+                metric1: "عملاء مستهدفين حقيقيين", metric1val: "+160%",
+                metric2: "تفاعل عملاء البراند", metric2val: "+85%",
+                metric3: "توفير تكلفة العميل", metric3val: "-30%",
+                problem: "المجموعة ليها ثقة كبيرة في سوق السيارات بخبرة 43 سنة، لكن صفحات السوشيال ميديا بتاعتهم كانت شكلها قديم ومش بتشد الشباب والعرايس إللي عايزين يشتروا عربية جديدة بالتقسيط.",
+                solution: "ظبطنا شكل الهوية البصرية، وصممنا جداول واضحة بتشرح مواصفات العربيات وأنظمة القسط المريحة، وعملنا إعلانات دقيقة مستهدفة الناس الجاهزة تشتري فعلياً.",
+                result: "عدد العملاء المهتمين إللي سابوا بياناتهم زاد بنسبة 160%، والتصاميم المظبوطة قللت تكلفة العميل المهتم بنسبة 30% مع زيادة التفاعل بنسبة 85%."
+            },
+            penduline: {
+                title: "Penduline Kids",
+                subtitle: "أفكار ديزاينات كرتونية وسوبر هيرو لشامبو الأطفال",
+                category: "تصميم براند وهوية",
+                badgeColor: "bg-pink-600",
+                metric1: "معدل تفاعل الأمهات", metric1val: "12.4%",
+                metric2: "زيادة مبيعات المتجر", metric2val: "+75%",
+                metric3: "مشاهدات أورجانيك للريلز", metric3val: "1.2M+",
+                problem: "في وسط منافسة شرسة جداً في مستحضرات تجميل الأطفال، كانوا محتاجين يثبتوا للأمهات إن خط الشامبو الجديد بتاعهم آمن تماماً وصحي ومفيهوش دموع بشكل يشد العين من غير تكرار.",
+                solution: "صممنا ثيم كرتوني وسوبر هيرو لطيف لشامبو الأطفال، ونظمنا خطة نشر ريلز وفيديوهات توضح شهادات أمهات حقيقية جربوا المنتج مع أطفالهم.",
+                result: "تفاعل الأمهات على البوستات زاد لـ 12.4% (ضعف المتوسط العادي في السوق)، وفيديوهات الحملة جابت أكتر من 1.2 مليون مشاهدة حقيقية، والمبيعات أونلاين زادت بنسبة 75%."
+            },
+            koshary: {
+                title: "Koshary Masr",
+                subtitle: "فيديوهات قصيرة وتصاميم لزيادة طلبات الدليفري",
+                category: "تسويق مطاعم",
+                badgeColor: "bg-red-600",
+                metric1: "زيادة طلبات الدليفري", metric1val: "+240%",
+                metric2: "متابعين حقيقيين جدد", metric2val: "+45K",
+                metric3: "طلبات الساعات الهادية", metric3val: "+90%",
+                problem: "المطعم معروف جداً وله فروع كتيرة، لكن كانت الأوردرات وطلبات الدليفري بتقل جداً وتكاد تنعدم في الساعات الميتة من الظهر (من 2 لـ 5 بعد الظهر).",
+                solution: "أطلقنا حملة فيديوهات سريعة ولطيفة بتفتح النفس، وعملنا كود خصم مخصوص بيشتغل بس جغرافياً حوالين الفروع في ساعات الظهر الهادية دي عشان نشجع الناس تطلب.",
+                result: "مبيعات الدليفري في الأوقات الميتة دي زادت بنسبة 240% داخل الفروع المستهدفة بالقاهرة، وحملات الفيديوهات زودت عدد المتابعين بـ 45 ألف زبون جديد في شهرين."
+            },
+            drnutrition: {
+                title: "Dr Nutrition",
+                subtitle: "بناء متجر شوبيفاي سريع جداً لبيع المكملات الغذائية",
+                category: "تصميم متاجر إلكترونية",
+                badgeColor: "bg-teal-600",
+                metric1: "تقليل السلات المتروكة", metric1val: "-42%",
+                metric2: "سرعة تصفح المتجر", metric2val: "0.8s",
+                metric3: "زيادة أرباح الموقع", metric3val: "+115%",
+                problem: "الموقع القديم لبيع المكملات كان بطيء وصعب في الاستخدام، وكان أكتر من 78% من العملاء بيخرجوا في صفحة الدفع ومبيكملوش الشراء بسبب التعقيد.",
+                solution: "عملنا متجر شوبيفاي سريع جداً ومتطور، وظبطنا شكل وتصنيف المنتجات بسهولة، وفعلنا ميزة الدفع السريع والربط التلقائي بالشحن مع رسايل تذكير ذكية للسلات المتروكة.",
+                result: "سرعة تحميل المتجر نزلت لـ 0.8 ثانية بس، والسلات المتروكة قلت بنسبة 42%، وأرباح المتجر الإلكتروني زادت بمعدل 115% في أول 3 شهور بعد اللانش."
+            },
+            lia: {
+                title: "London Innovation Academy",
+                subtitle: "بناء منصة كورسات وشرح إلكتروني كاملة",
+                category: "منصات تعليمية",
+                badgeColor: "bg-purple-600",
+                metric1: "طلاب نشطين مسجلين", metric1val: "14K+",
+                metric2: "تقليل شغل الإدارة", metric2val: "-60%",
+                metric3: "استقرار وثبات المنصة", metric3val: "99.9%",
+                problem: "كانوا محتاجين لسيستم مركزي قوي يقدر يستوعب محاضرات وفيديوهات الشرح، مع ميزة استخراج وتوثيق شهادات الطلاب فورياً من غير تدخل يدوي معقد يضيع وقت الإدارة.",
+                solution: "صممنا وبرمجنا بوابة تعليمية مخصصة بلوحات تحكم ذكية لكل طالب، مع ميزة بث الفيديو ونظام توثيق رقمي يسمح للجهات الخارجية بالتحقق من صحة أي شهادة فوراً.",
+                result: "السيستم استوعب بنجاح أكتر من 14 ألف طالب نشط، والتوثيق التلقائي للشهادات قلل ضغط العمل على شؤون الطلاب والإدارة بنسبة 60% مع استقرار تام للسيستم."
+            },
+            giftshop4u: {
+                title: "4U Gift Shop",
+                subtitle: "متجر لبيع الساعات والمحافظ والشنط الفخمة",
+                category: "تصميم متاجر إلكترونية",
+                badgeColor: "bg-emerald-600",
+                metric1: "نمو الإيراد الشهري", metric1val: "+180%",
+                metric2: "تحويل مبيعات الموبايل", metric2val: "4.2%",
+                metric3: "متوسط قيمة الأوردر", metric3val: "+65%",
+                problem: "كانوا محتاجين تجربة شراء موبايل فاخرة تليق بمنتجات المحافظ والساعات والأحزمة الجلدية الفاخرة عشان يقدروا ينافسوا المتاجر الكبيرة في السوق.",
+                solution: "بنينا متجر شوبيفاي متطور مع ضبط زوايا تصوير المنتجات، وتسهيل خطوات الدفع من الموبايل، وربط الواتساب مباشرة لخدمة العملاء ومساعدتهم في الشراء الفوري.",
+                result: "الإيرادات الشهرية نمت بنسبة 180% في أول ربع سنة، ومعدل تحويل مبيعات الموبايل وصل لـ 4.2% (3 أضعاف المتوسط في السوق)، ومتوسط قيمة أوردر العميل زاد بـ 65%."
+            },
+            eclat: {
+                title: "Éclat Store",
+                subtitle: "متجر لمنتجات العناية بالبشرة والمكياج الراقي",
+                category: "تجارة إلكترونية",
+                badgeColor: "bg-amber-500",
+                metric1: "تنسيق ورفع منتجات", metric1val: "500+",
+                metric2: "رجوع العميل يشتري ثاني", metric2val: "38%",
+                metric3: "نمو قيمة السلة", metric3val: "+120%",
+                problem: "المتجر كان محتاج تنظيم احترافي لعرض أكتر من 500 منتج للعناية بالبشرة، وتفعيل ميزة الشحن المجاني الذكي فوق رقم معين لتشجيع العميل يزود منتجات أكتر في السلة.",
+                solution: "صممنا واجهة المتجر باللون الذهبي الراقي، مع تقسيم ذكي للأقسام (عناية بالبشرة، ضد التجاعيد...) وتفعيل ميزة الشحن المجاني التلقائي أو الهدايا لو الأوردر عدا قيمة معينة.",
+                result: "رفعنا وتنسيق أكتر من 500 منتج في وقت قياسي، ومعدل رجوع العميل يشتري تاني وصل لـ 38% بفضل حملات الإيميل، واستراتيجية الشحن المجاني زودت قيمة مبيعات الطلب الواحد بـ 120%."
+            },
+            laperva: {
+                title: "Laperva",
+                subtitle: "منصة بيع مكملات اللياقة والرياضة بتصميم براند",
+                category: "صحة ومكملات رياضية",
+                badgeColor: "bg-green-600",
+                metric1: "المبيعات أونلاين", metric1val: "+250%",
+                metric2: "سرعة تحميل المتجر", metric2val: "1.1s",
+                metric3: "عدد المشاهدات شهرياً", metric3val: "2.5M+",
+                problem: "البراند قوي وله اسم كبير، لكن موقعهم القديم مكنش بيستحمل الضغط وقت نزول منتجات جديدة أو فترات العروض والـ Flash Sales وكان بيقع.",
+                solution: "طورنا البنية البرمجية بالكامل لتتحمل أعلى درجات الترافيك مع استخدام ألوان البراند القوية (الأسود والأخضر الفوسفوري) وتسهيل تصفح المنتجات والمكملات حسب هدف العميل الرياضي.",
+                result: "المبيعات أونلاين قفزت بنسبة 250%، وسرعة تصفح الموقع بقت 1.1 ثانية حتى في أوقات ضغط الإعلانات والعروض، واستراتيجية المحتوى وصلت لـ 2.5 مليون مشاهدة شهرياً."
+            },
+            natpro: {
+                title: "Natpro Pharmaceuticals",
+                subtitle: "موقع رسمي لخط منتجات Vitova الطبية",
+                category: "موقع شركات ومصانع",
+                badgeColor: "bg-slate-700",
+                metric1: "استفسارات وطلبات الوكلاء", metric1val: "+320%",
+                metric2: "ثقة البراند في السوق", metric2val: "ممتاز A+",
+                metric3: "التواجد الجغرافي للشركة", metric3val: "12 دولة",
+                problem: "المجموعة كانت محتاجة موقع شركات رسمي على مستوى عالمي يعكس الجودة العلمية لخط منتجات فايتوفا الطبية التجميلية، عشان يقدروا يجذبوا وكلاء وموزعين برة مصر.",
+                solution: "عملنا تصميم راقي وغامق مع استخدام صور نباتية وعلمية دقيقة، وبوابة خاصة لعرض البيانات للمستثمرين والشركاء، ودعم كامل للغات متعددة لتسهيل التوسع الدولي.",
+                result: "طلبات الوكلاء والموزعين الجدد زادت بنسبة 320% في أول 90 يوم، والموقع ساعد بقوة في تسهيل وتأكيد صفقات توزيع لخط المنتجات في 12 سوق برة وجوة المنطقة."
+            },
+            scit: {
+                title: "Smart City IT",
+                subtitle: "إدارة صفحات وحملات سوشيال ميديا كشريك لهواوي",
+                category: "سوشيال ميديا وتصاميم",
+                badgeColor: "bg-blue-600",
+                metric1: "معدل نمو التفاعل أورجانيك", metric1val: "+140%",
+                metric2: "تقييم العملاء للشركة", metric2val: "5 نجوم",
+                metric3: "زيادة طلبات الشركات", metric3val: "+80%",
+                problem: "الشركة كانت محتاجة تبرز وتثبت شراكتها المعتمدة مع Huawei eKit وتبني اسم قوي يخلي الشركات الكبيرة تختارهم لتنفيذ البنية التحتية والشبكات وهي مغمضة.",
+                solution: "صممنا إنفوجرافكس وجداول تقنية واضحة جداً بتشرح الهاردوير والسيستم، وركزنا على إبراز شهادات الاعتماد وآراء وتقييمات العملاء الكبار السابقة (5 Stars Reviews).",
+                result: "التواجد والوصول لعملاء الشركات (B2B) زاد بنسبة 140% شهر ورا شهر، وطلبات عروض الأسعار والتعاقدات لتأسيس الشبكات نمت بنسبة 80% بفضل حملات الثقة دي."
+            },
+            sculptor: {
+                title: "Sculptor Aesthetics",
+                subtitle: "تصميم باقات لعروض جلسات الليزر وتنسيق القوام",
+                category: "براندنج وتصميمات عيادات",
+                badgeColor: "bg-fuchsia-600",
+                metric1: "زيادة استفسارات الحجز", metric1val: "+220%",
+                metric2: "معدل تحويل الحجوزات", metric2val: "5.8%",
+                metric3: "عائد الإعلانات الممولة", metric3val: "3.2x Spend",
+                problem: "العيادة كانت بتواجه مشكلة في ملء المواعيد وساعات العمل الفاضية في الفترات والمواسم الهادية، وصعوبة في شرح باقات تجميل وتنسيق القوام للجمهور المستهدف.",
+                solution: "عملنا تصاميم بألوان هادية وراقية جداً بتوضح تفاصيل باقات جلسات الليزر ونحت الجسم، مع تفعيل كول-تو-أكشن واضح ومباشر على الواتساب والموبايل للحجز الفوري القريب جغرافياً.",
+                result: "الحجوزات المباشرة في العيادة زادت بنسبة 220% خلال 45 يوم، وحملات الميديا باينج حققت عائد على الصرف الإعلاني (ROAS) بمعدل 3.2 ضعف الميزانية المحددة."
+            }
+        };
         // Track the currently open project for live modal translation
         let currentOpenProject = null;
 
