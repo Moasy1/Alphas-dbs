@@ -312,6 +312,7 @@
                 <a href="#showcase" class="text-sm font-medium text-gray-300 hover:text-alphas-accent transition-colors" data-i18n="nav.showcase">Showcase</a>
                 <a href="#whyus" class="text-sm font-medium text-gray-300 hover:text-alphas-accent transition-colors" data-i18n="nav.whyus">Why us</a>
                 <a href="#success" class="text-sm font-medium text-gray-300 hover:text-alphas-accent transition-colors" data-i18n="nav.success">Success</a>
+                <a href="admin_panel.html" class="text-sm font-medium text-alphas-accent hover:text-white transition-colors" data-i18n="nav.admin">Admin Panel</a>
                 <!-- Language Switcher -->
                 <button onclick="switchLanguage('ar')"
                     class="lang-switch-btn px-4 py-2 rounded-full text-xs font-semibold bg-white/5 border border-white/10 text-white hover:bg-alphas-accent hover:text-alphas-dark transition-all">العربية</button>
@@ -342,6 +343,7 @@
             <a onclick="toggleMobileMenu()" href="#showcase" class="text-xl font-semibold text-gray-200 hover:text-alphas-accent transition" data-i18n="nav.showcase">Showcase</a>
             <a onclick="toggleMobileMenu()" href="#whyus" class="text-xl font-semibold text-gray-200 hover:text-alphas-accent transition" data-i18n="nav.whyAlphas">Why Alphas</a>
             <a onclick="toggleMobileMenu()" href="#success" class="text-xl font-semibold text-gray-200 hover:text-alphas-accent transition" data-i18n="nav.successStories">Success Stories</a>
+            <a href="admin_panel.html" class="text-xl font-semibold text-alphas-accent hover:text-white transition" data-i18n="nav.admin">Admin Panel</a>
             
             <!-- Language Switcher -->
             <button onclick="toggleMobileMenu(); switchLanguage('ar')"
@@ -2212,6 +2214,19 @@
                 x: 50,
                 duration: 1,
                 delay: 0.2,
+                ease: "power3.out"
+            });
+
+            // Workflow section animation
+            gsap.from("#workflow .glass-card", {
+                scrollTrigger: {
+                    trigger: "#workflow",
+                    start: "top 75%",
+                },
+                opacity: 0,
+                y: 40,
+                stagger: 0.1,
+                duration: 0.8,
                 ease: "power3.out"
             });
 
