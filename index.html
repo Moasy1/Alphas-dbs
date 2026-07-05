@@ -2143,13 +2143,12 @@
             gsap.from("#workflow .glass-card", {
                 scrollTrigger: {
                     trigger: "#workflow",
-                    start: "top 85%",
-                    toggleActions: "play none none reverse"
+                    start: "top 80%",
                 },
                 opacity: 0,
-                y: 30,
+                y: 20,
                 stagger: 0.1,
-                duration: 0.6,
+                duration: 0.5,
                 ease: "power2.out"
             });
 
@@ -2215,18 +2214,7 @@
                 ease: "power3.out"
             });
 
-            // Workflow section animation
-            gsap.from("#workflow .glass-card", {
-                scrollTrigger: {
-                    trigger: "#workflow",
-                    start: "top 75%",
-                },
-                opacity: 0,
-                y: 40,
-                stagger: 0.1,
-                duration: 0.8,
-                ease: "power3.out"
-            });
+
 
             // Contact section animation
             gsap.from("#contact .glass-card", {
