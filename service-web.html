@@ -1274,26 +1274,7 @@
             document.documentElement.setAttribute('lang', lang);
             document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
 
-            // Handle header layout for RTL
-            const headerContainer = document.getElementById('header-container');
-            const logoLink = document.getElementById('logo-link');
-            const logoText = document.getElementById('logo-text');
-            const desktopNav = document.getElementById('desktop-nav');
-            const headerActions = document.getElementById('header-actions');
-
-            if (lang === 'ar') {
-                headerContainer.classList.add('flex-row-reverse');
-                logoLink.classList.add('flex-row-reverse');
-                logoText.classList.add('items-end');
-                desktopNav.classList.add('flex-row-reverse');
-                headerActions.classList.add('flex-row-reverse');
-            } else {
-                headerContainer.classList.remove('flex-row-reverse');
-                logoLink.classList.remove('flex-row-reverse');
-                logoText.classList.remove('items-end');
-                desktopNav.classList.remove('flex-row-reverse');
-                headerActions.classList.remove('flex-row-reverse');
-            }
+            // Browser direction (dir="rtl") automatically handles header layouts.
 
             // Update all data-i18n elements
             document.querySelectorAll('[data-i18n]').forEach(el => {
