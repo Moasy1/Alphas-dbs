@@ -96,6 +96,27 @@
             transform: translateY(-5px);
         }
 
+        /* IntersectionObserver scroll-reveal classes */
+        #workflow .glass-card,
+        .approach-grid > div,
+        .portfolio-item,
+        #whyus .glass-card,
+        #contact .glass-card {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.55s ease, transform 0.55s ease;
+        }
+
+        #workflow .glass-card.io-visible,
+        .approach-grid > div.io-visible,
+        .portfolio-item.io-visible,
+        #whyus .glass-card.io-visible,
+        #contact .glass-card.io-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+
         .glass-nav {
             background: rgba(6, 10, 20, 0.7);
             backdrop-filter: blur(20px);
@@ -1049,95 +1070,44 @@
                 ease: "power3.out"
             });
 
-            // Workflow section simple animation
-            gsap.from("#workflow .glass-card", {
-                scrollTrigger: {
-                    trigger: "#workflow",
-                    start: "top 80%",
-                },
-                opacity: 0,
-                y: 20,
-                stagger: 0.1,
-                duration: 0.5,
-                ease: "power2.out"
-            });
+            // --- Reliable IntersectionObserver-based scroll animations ---
+            const revealOnScroll = (selector, animClass, staggerMs) => {
+                const els = document.querySelectorAll(selector);
+                if (!els.length) return;
+                const obs = new IntersectionObserver((entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            Array.from(els).forEach((el, i) => {
+                                setTimeout(() => el.classList.add(animClass), i * (staggerMs || 0));
+                            });
+                            obs.disconnect();
+                        }
+                    });
+                }, { threshold: 0.1 });
+                obs.observe(els[0].closest('section') || els[0]);
+            };
 
-            // Approach pillars animation
-            gsap.from(".approach-grid > div", {
-                scrollTrigger: {
-                    trigger: ".approach-grid",
-                    start: "top 75%",
-                },
-                opacity: 0,
-                y: 40,
-                stagger: 0.1,
-                duration: 0.7,
-                ease: "power3.out"
-            });
+            revealOnScroll('#workflow .glass-card',   'io-visible', 80);
+            revealOnScroll('.approach-grid > div',    'io-visible', 80);
+            revealOnScroll('.portfolio-item',          'io-visible', 100);
+            revealOnScroll('#whyus .glass-card',       'io-visible', 80);
+            revealOnScroll('#contact .glass-card',     'io-visible', 0);
 
-            // Portfolio items animation
-            gsap.from(".portfolio-item", {
-                scrollTrigger: {
-                    trigger: "#showcase",
-                    start: "top 70%",
-                },
-                opacity: 0,
-                y: 50,
-                stagger: 0.15,
-                duration: 0.8,
-                ease: "power3.out"
-            });
-
-            // Why us section animation
-            gsap.from("#whyus .glass-card", {
-                scrollTrigger: {
-                    trigger: "#whyus",
-                    start: "top 70%",
-                },
-                opacity: 0,
-                y: 30,
-                stagger: 0.1,
-                duration: 0.7,
-                ease: "power3.out"
-            });
-
-            // Success section animation
-            gsap.from("#success .lg\\:col-span-5", {
-                scrollTrigger: {
-                    trigger: "#success",
-                    start: "top 70%",
-                },
-                opacity: 0,
-                x: -50,
-                duration: 1,
-                ease: "power3.out"
-            });
-            gsap.from("#success .lg\\:col-span-7", {
-                scrollTrigger: {
-                    trigger: "#success",
-                    start: "top 70%",
-                },
-                opacity: 0,
-                x: 50,
-                duration: 1,
-                delay: 0.2,
-                ease: "power3.out"
-            });
-
-
-
-            // Contact section animation
-            gsap.from("#contact .glass-card", {
-                scrollTrigger: {
-                    trigger: "#contact",
-                    start: "top 70%",
-                },
-                opacity: 0,
-                y: 40,
-                scale: 0.95,
-                duration: 0.9,
-                ease: "power3.out"
-            });
+            // Success section slide-in
+            const successLeft  = document.querySelector('#success .lg\\:col-span-5');
+            const successRight = document.querySelector('#success .lg\\:col-span-7');
+            if (successLeft && successRight) {
+                gsap.set(successLeft,  { opacity: 0, x: -50 });
+                gsap.set(successRight, { opacity: 0, x:  50 });
+                const successObs = new IntersectionObserver((entries) => {
+                    if (entries[0].isIntersecting) {
+                        gsap.to(successLeft,  { opacity: 1, x: 0, duration: 1, ease: 'power3.out' });
+                        gsap.to(successRight, { opacity: 1, x: 0, duration: 1, ease: 'power3.out', delay: 0.2 });
+                        successObs.disconnect();
+                    }
+                }, { threshold: 0.15 });
+                successObs.observe(document.querySelector('#success'));
+            }
 
             // Animated graph line drawing effect on scroll
             const path = document.querySelector('#active-success-path');
@@ -1154,6 +1124,11 @@
                 duration: 2.2,
                 ease: "power2.out"
             });
+
+            // Refresh ScrollTrigger positions after all layout renders have settled (e.g. Tailwind CDN compiles)
+            setTimeout(() => {
+                ScrollTrigger.refresh();
+            }, 600);
         };
 
         // Filter Portfolio Categories Actions
@@ -1313,6 +1288,11 @@
             if (modal && !modal.classList.contains('hidden') && currentOpenProject) {
                 openCaseStudy(currentOpenProject);
             }
+
+            // Recalculate ScrollTrigger positions after layout shifts caused by language translation text length changes
+            setTimeout(() => {
+                ScrollTrigger.refresh();
+            }, 300);
         }
 
         function updatePortfolioTabs() {
