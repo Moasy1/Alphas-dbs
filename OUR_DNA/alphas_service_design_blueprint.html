@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Catalyst™ Framework - Service Design Blueprint | Alphas</title>
+    <style>
+        /* CSS RESET & VARIABLES */
+        :root {
+            --primary-dark: #020617;
+            --secondary-dark: #0f172a;
+            --accent-blue: #3b82f6;
+            --accent-gold: #f59e0b;
+            --text-light: #f8fafc;
+            --text-muted: #64748b;
+            --text-dark: #0f172a;
+            --bg-light: #fafbfd;
+            --border-color: #cbd5e1;
+            --success: #10b981;
+            --danger: #ef4444;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Times New Roman', Arial, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--primary-dark);
+            line-height: 1.8;
+            font-size: 11.5pt;
+        }
+
+        /* PRINT CONFIGURATION */
+        @page {
+            size: A4 portrait;
+            margin: 20mm 15mm 20mm 15mm;
+            @bottom-left {
+                content: "الصفحة " counter(page);
+                font-family: 'Segoe UI', sans-serif;
+                font-size: 8.5pt;
+                color: var(--text-muted);
+                font-weight: bold;
+            }
+            @bottom-right {
+                content: "Alphas DBS | Catalyst™ 2-Man Blueprint";
+                font-family: 'Segoe UI', sans-serif;
+                font-size: 8.5pt;
+                color: var(--text-muted);
+            }
+        }
+
+        @media print {
+            body {
+                background-color: #ffffff;
+            }
+            .no-print {
+                display: none !important;
+            }
+            .page-break {
+                page-break-before: always;
+                height: 0;
+            }
+            .blueprint-table {
+                page-break-inside: avoid !important;
+            }
+            thead {
+                display: table-header-group;
+            }
+        }
+
+        /* TYPOGRAPHY */
+        h1, h2, h3, h4, h5 {
+            font-weight: bold;
+            color: var(--primary-dark);
+            page-break-after: avoid;
+        }
+
+        h2 {
+            font-size: 20pt;
+            border-bottom: 3px solid var(--accent-blue);
+            padding-bottom: 8px;
+            margin-top: 35px;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            font-size: 15pt;
+            color: #1e3a8a;
+            margin-top: 25px;
+            margin-bottom: 12px;
+        }
+
+        h4 {
+            font-size: 12.5pt;
+            color: var(--secondary-dark);
+            margin-top: 15px;
+            margin-bottom: 8px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+            text-justify: inter-word;
+        }
+
+        ul, ol {
+            margin-bottom: 20px;
+            margin-right: 25px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        /* COVER PAGE STYLE */
+        .cover-page {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 100%);
+            color: var(--text-light);
+            height: 255mm;
+            padding: 40mm 20mm 20mm 20mm;
+            position: relative;
+            margin: -20mm -15mm;
+            box-sizing: border-box;
+            page-break-after: always;
+        }
+
+        .cover-logo {
+            font-size: 32pt;
+            font-weight: 900;
+            color: var(--accent-blue);
+            letter-spacing: 4px;
+            margin-bottom: 10mm;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        .cover-title {
+            font-size: 30pt;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 5mm;
+        }
+
+        .cover-subtitle {
+            font-size: 18pt;
+            color: #93c5fd;
+            margin-bottom: 40mm;
+            font-weight: 300;
+        }
+
+        .cover-tagline {
+            font-size: 14pt;
+            border-right: 4px solid var(--accent-blue);
+            padding-right: 15px;
+            margin-top: 20mm;
+            color: #e2e8f0;
+            font-style: italic;
+        }
+
+        .cover-footer {
+            position: absolute;
+            bottom: 25mm;
+            right: 20mm;
+            font-size: 10.5pt;
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+
+        /* CONTAINER AND STRUCTURE */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 10px;
+        }
+
+        .chapter {
+            margin-bottom: 45px;
+        }
+
+        /* SERVICE BLUEPRINT GRID/TABLE */
+        .blueprint-title-box {
+            background-color: var(--secondary-dark);
+            color: var(--text-light);
+            padding: 12px 18px;
+            margin-top: 30px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .blueprint-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0 35px 0;
+            font-size: 10pt;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+
+        .blueprint-table th {
+            background-color: var(--primary-dark);
+            color: var(--text-light);
+            font-weight: bold;
+            padding: 10px;
+            border: 1px solid #475569;
+            text-align: right;
+        }
+
+        .blueprint-table td {
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            vertical-align: top;
+        }
+
+        .blueprint-row-header {
+            background-color: #f1f5f9;
+            font-weight: bold;
+            color: var(--primary-dark);
+            width: 18%;
+            border-left: 3px solid var(--accent-blue) !important;
+        }
+
+        /* CALLOUT BOXES */
+        .box {
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            page-break-inside: avoid;
+        }
+
+        .box-highlight {
+            background-color: #f0fdf4;
+            border-right: 4px solid var(--success);
+            color: #065f46;
+        }
+
+        .box-warning {
+            background-color: #fef2f2;
+            border-right: 4px solid var(--danger);
+            color: #991b1b;
+        }
+
+        .box-info {
+            background-color: #eff6ff;
+            border-right: 4px solid var(--accent-blue);
+            color: #1e40af;
+        }
+
+        .term-box {
+            background-color: #f8fafc;
+            border-right: 3px solid #64748b;
+            padding: 8px 15px;
+            margin: 10px 0 15px 0;
+            font-size: 10pt;
+        }
+
+        .term-box strong {
+            color: #334155;
+        }
+
+        /* TABLES FOR PRICING */
+        .pricing-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 10pt;
+        }
+
+        .pricing-table th {
+            background-color: var(--secondary-dark);
+            color: var(--text-light);
+            font-weight: bold;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            text-align: right;
+        }
+
+        .pricing-table td {
+            padding: 10px;
+            border: 1px solid var(--border-color);
+        }
+
+        .pricing-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        /* FLOW VISUALIZATIONS */
+        .workflow-step-box {
+            display: inline-block;
+            width: 13%;
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 10px 5px;
+            text-align: center;
+            font-size: 8.5pt;
+            font-weight: bold;
+            margin-right: 1%;
+            color: var(--primary-dark);
+            box-shadow: 0 2px 4px rgb(0 0 0 / 0.05);
+        }
+
+        .workflow-step-box:first-child {
+            margin-right: 0;
+        }
+
+        .workflow-step-box.active {
+            background-color: var(--accent-blue);
+            color: var(--text-light);
+            border-color: var(--accent-blue);
+        }
+
+        .workflow-arrow {
+            display: inline-block;
+            width: 1.5%;
+            text-align: center;
+            font-weight: bold;
+            color: var(--accent-blue);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. COVER PAGE -->
+    <div class="cover-page">
+        <div class="cover-logo">ALPHAS</div>
+        <div class="cover-title">The Catalyst™ 2-Man Lean Blueprint</div>
+        <div class="cover-subtitle">وثيقة تصميم الخدمة الاستراتيجية المحدثة والميثاق التشغيلي للثنائي الحديدي</div>
+        <div class="cover-tagline">
+            الهندسة فائقة النعومة للتحول الرقمي: الاستشارات والحلول البرمجية المخصصة، حملات الأداء المتمحورة حول الأرباح الصافية، والتمكين المعرفي عبر الشريكين المؤسسين مباشرة.
+        </div>
+        <div class="cover-footer">
+            <strong>إصدار ميثاق الشراكة الثنائية والتشغيل السريع 2.0 (Lean Duo Version)</strong><br>
+            المخطط التشغيلي والمالي الحصري للشركاء الفعليين: محمد عاصي & أبانوب هاني<br>
+            Alphas Digital Business Solutions © 2026. جميع الحقوق محفوظة.
+        </div>
+    </div>
+
+    <div class="container">
+
+        <!-- 2. EXECUTIVE INTRODUCTION -->
+        <div class="chapter">
+            <h2>1. مقدمة وفلسفة هندسة تصميم الخدمة الثنائية (The Lean Duo Engine)</h2>
+            <p>
+                في سوق الديجيتال العربي المليء بالهياكل الإدارية الضخمة والمترهلة، قررت <strong>Alphas Digital Business Solutions</strong> الانتقال إلى نموذج تشغيلي خارق النعومة والسرعة (The Hyper-Lean Operation). إن خروج "سيف ياسر" و"ندى" من الهيكل التنظيمي لم يكن مجرد تعديل إداري، بل كان قراراً استراتيجياً مدروساً لتوحيد قنوات اتخاذ القرار والقضاء التام على أي "تشتت تشغيلي" بين الإدارة والتنفيذ والعميل.
+            </p>
+            <p>
+                في الهيكل الثنائي الجديد، ينقسم البزنس بالكامل إلى عقلين مفكرين ومحركين للأداء: 
+                <strong>محمد عاصي</strong> يقود التوجيه الاستراتيجي، الهيكل المالي وحسابات الميزانية، وتصميم الحملات الإعلانية مع الإشراف والتحكم التقني المباشر في كود الويب سايت. 
+                بينما يقود <strong>أبانوب هاني</strong> العمليات التشغيلية، تصميم وتنفيذ خطط المبيعات، توليد الليدز على منصات العمل الحر، وإدخال وتأهيل العملاء للسيستم (Client Onboarding).
+            </p>
+            <p>
+                هذا المخطط (Service Design Blueprint) يفصل كيف يعمل إطار عملنا <strong>The Catalyst™ Framework</strong> كحلقة هندسية موحدة تضمن تدفق البيانات والأموال للبراندات الطموحة بدون الحاجة لمديرين فرعيين أو تشتيت في الاتصال.
+            </p>
+
+            <div class="box box-info">
+                <h4>لماذا يعتبر البناء الثنائي أكثر ربحية وفخامة؟</h4>
+                <p>
+                    أداء الخدمة لدينا بات يمر مباشرة عبر الشريكين المؤسسين. العميل لا يتحدث مع موظف مبيعات مبتدئ أو مدير مشروع وسيط؛ بل يتفاعل مباشرة مع صناع القرار الفعليين للكيان، مما يضمن التزاماً بنسبة 100% بخلو الأكواد من المشاكل وتحقيق أعلى عوائد مالية (Maximum ROI).
+                </p>
+            </div>
+        </div>
+
+        <div class="page-break"></div>
+
+        <!-- 3. THE BLUEPRINT STRUCTURE EXPLAINED -->
+        <div class="chapter">
+            <h2>2. الهيكل التشغيلي المطور لرحلة العميل (The Duo Framework)</h2>
+            <p>
+                تمت إعادة صياغة وميكنة رحلة العميل بالكامل لتقليص الأنشطة اليدوية وتفعيل الـ AI والـ Workflows المتقدمة لتعويض غياب الكوادر الفرعية، مع تقسيم الأدوار التشغيلية بدقة متناهية:
+            </p>
+            <ol>
+                <li>
+                    <strong>الأدلة التحويلية الملموسة (Physical / Digital Evidence):</strong>
+                    المخرجات والتقارير الفورية التي يتسلمها العميل (Technical Scans، كود الـ Custom Woo، داشبوردات BI الحية، وأدلة تشغيل الأكاديمية).
+                </li>
+                <li>
+                    <strong>تصرفات ورحلة العميل الطموح (Customer Actions):</strong>
+                    خطوات العميل من طلب الاستشارة الأولي على موقع Alphas، مروراً بـ Sprints المراجعة، والتأهيل، وصولاً للهيمنة المستدامة.
+                </li>
+                <li>
+                    <strong>خط المواجهة البشري للثنائي (Frontstage - Active Duo):</strong>
+                    التفاعل البشري المباشر والحصري: <strong>أبانوب هاني</strong> في خط المبيعات والـ CRM وتأسيس العلاقة، و<strong>محمد عاصي</strong> في التوجيه الفني والمالي وتدشين استراتيجية الميديا باينج.
+                </li>
+                <li>
+                    <strong>كواليس التشغيل الخلفية البرمجية (Backstage Sprints):</strong>
+                    البناء البرمجي المخصص (Custom Hard-Coded Systems) الذي يقوده <strong>محمد عاصي</strong> مع شبكة من المطورين المتعاقدين الموثوقين، وتجهيز الكرييتفز والحملات وتتبع الـ Server-Side.
+                </li>
+                <li>
+                    <strong>الأنظمة التلقائية المساعدة (Support Systems & AI Workflows):</strong>
+                    سير العمل التلقائي (Automation) عبر Make/n8n، إدارة الـ CRM، والـ AI Agents للرد الفوري على الليدز لتقليل المجهود التشغيلي للثنائي.
+                </li>
+            </ol>
+
+            <div class="term-box">
+                <strong>التوفير والسرعة في النموذج الثنائي (Lean Duo visibility):</strong> تداخل الأدوار بين عاصي وأبانوب لغى "خطVisibility" المعقد؛ أصبح نقل المعلومات فوري ومترجم لكود وإعلانات مربحة في نفس الساعة.
+            </div>
+
+            <!-- VISUAL FLOW CHAIN -->
+            <div style="margin-top: 30px; text-align: center;">
+                <div class="workflow-step-box active">1. Nexus™</div>
+                <div class="workflow-arrow">&larr;</div>
+                <div class="workflow-step-box">2. Forge™</div>
+                <div class="workflow-arrow">&larr;</div>
+                <div class="workflow-step-box">3. Blueprint™</div>
+                <div class="workflow-arrow">&larr;</div>
+                <div class="workflow-step-box">4. Pulse™</div>
+                <div class="workflow-arrow">&larr;</div>
+                <div class="workflow-step-box">5. Flow™</div>
+                <div class="workflow-arrow">&larr;</div>
+                <div class="workflow-step-box">6. Vertex™</div>
+                <div class="workflow-arrow">&larr;</div>
+                <div class="workflow-step-box">7. Academy™</div>
+            </div>
+        </div>
+
+        <div class="page-break"></div>
+
+        <!-- 4. STAGE 1: NEXUS -->
+        <div class="chapter">
+            <h2>3. المرحلة الأولى: الاستشارات والتحول الاستراتيجي (Nexus™)</h2>
+            <p>
+                Nexus™ هي مرحلة التوجيه والتشخيص الشامل للبزنس. نرفض البدء في كتابة أي كود أو إطلاق إعلانات قبل فهم كامل الهيكل المالي للعميل وقنوات تسريب العملاء.
+            </p>
+
+            <div class="blueprint-title-box">مخطط تشغيل الخدمة الثنائية (Lean Blueprint) - مرحلة Nexus™</div>
+            <table class="blueprint-table">
+                <tbody>
+                    <tr>
+                        <td class="blueprint-row-header">الأدلة الملموسة والديجيتال</td>
+                        <td>تقرير تدقيق الأداء الفني وسرعة الموقع الحالي للعميل، وثيقة الـ Business Model الحالية، استمارة تشخيص عطل البزنس المعبأة.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">رحلة وتصرفات العميل</td>
+                        <td>يسجل العميل لطلب استشارة لحل لغز تسريب الميزانية وتشتت التيم، يملأ الاستبيان الأولي ويحضر مكالمة الـ Discovery.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">تيم المواجهة (Frontstage)</td>
+                        <td>يقود <strong>أبانوب هاني</strong> و<strong>محمد عاصي</strong> مكالمة التشخيص. يشرحان للعميل مواسير الداتا المخروقة ويقترحان الحل الاستراتيجي الموحد.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">خلف الكواليس (Backstage)</td>
+                        <td>يقوم <strong>محمد عاصي</strong> بتحليل التقرير التقني الناتج عن الفحص الأوتوماتيكي لسرعة وكود الويب سايت الحالي وتحليل السيو الأولي.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">الأنظمة والـ AI والـ CRM</td>
+                        <td>سيرفر Alphas يعمل تلقائياً على فحص كود وسرعة وسيو الموقع الحالي (Technical Scanners) وإدراج البيانات في الـ CRM وتنبيه أبانوب فوراً بمكالمة العميل.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="box box-highlight">
+                <h4>عوامل الأمان والوقاية (Fail-safe Points):</h4>
+                <p>
+                    ممنوع إمضاء العقد مع عميل يرفض تقديم بيانات مبيعاته الحالية أو يرفض مكالمة الـ Discovery. بدون داتا تشخيصية حقيقية، لا يمكن للثنائي صياغة استراتيجية نمو صحيحة.
+                </p>
+            </div>
+        </div>
+
+        <div class="page-break"></div>
+
+        <!-- 5. STAGE 2: FORGE -->
+        <div class="chapter">
+            <h2>4. المرحلة الثانية: إستراتيجية وتصميم البراند البريميوم (Forge™)</h2>
+            <p>
+                البراند الفخم هو الذي يخلق الثقة الفورية عند العميل من أول ثانية يدخل فيها موقعك. في Forge™ بنهندس الهوية البصرية لتعكس روح الهيبة والفخامة الوظيفية للبزنس.
+            </p>
+
+            <div class="blueprint-title-box">مخطط تشغيل الخدمة الثنائية (Lean Blueprint) - مرحلة Forge™</div>
+            <table class="blueprint-table">
+                <tbody>
+                    <tr>
+                        <td class="blueprint-row-header">الأدلة الملموسة والديجيتال</td>
+                        <td>اللوجو المطور، دليل الألوان والمساحات الرقمية (Digital Style Guide)، الـ Figma Interactive Prototype للمعاينة التفاعلية المباشرة.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">رحلة وتصرفات العميل</td>
+                        <td>يراجع العميل النماذج المبدئية للهوية البصرية، يعطي ملاحظاته الفنية ويختار نظام الألوان (Color Palette) الذي يعبر عن فخامة البزنس بتاعه.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">تيم المواجهة (Frontstage)</td>
+                        <td>يعرض <strong>أبانوب هاني</strong> فلسفة الديزاين على العميل، ويوضح <strong>محمد عاصي</strong> إزاي الهوية دي هتتحرك في إعلانات السوشيال ميديا لجلب العملاء.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">خلف الكواليس (Backstage)</td>
+                        <td>يشرف <strong>محمد عاصي</strong> على المطورين الخارجيين والمصممين أثناء رسم الهوية البصرية، ويتأكد من تماسك الهوية الرقمية ومطابقتها للمقاييس الوظيفية لرحلة الشراء.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">الأنظمة والـ AI والـ CRM</td>
+                        <td>تفعيل نظام Figma للعمل الجماعي المباشر، وتخزين ملفات الهوية المعتمدة تلقائياً على Cloud Folders مشفرة ومتاحة للعميل 24/7.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="box box-info">
+                <h4>اللمسة الفخمة لـ Alphas (Premium Touchpoint):</h4>
+                <p>
+                    بنسلم العميل دليل ستايل كامل وموحد وعابر للمنصات (Cross-Platform Style Guides) يضمن تماسك وهيبة مظهر براندك في كل مكان (ويب سايت، سوشيال ميديا، مطبوعات، وإعلانات ميديا باينج).
+                </p>
+            </div>
+        </div>
+
+        <div class="page-break"></div>
+
+        <!-- 6. STAGE 3: BLUEPRINT -->
+        <div class="chapter">
+            <h2>5. المرحلة الثالثة: الهندسة الرقمية والويب مخصص الكود (Blueprint™)</h2>
+            <p>
+                نرفض استخدام القوالب والـ Templates الجاهزة المليئة بالأكواد الثقيلة. في Blueprint™ بنبني الموقع أو المتجر كود بكود مخصص لضمان السرعة القصوى وحماية البيانات.
+            </p>
+
+            <div class="blueprint-title-box">مخطط تشغيل الخدمة الثنائية (Lean Blueprint) - مرحلة Blueprint™</div>
+            <table class="blueprint-table">
+                <tbody>
+                    <tr>
+                        <td class="blueprint-row-header">الأدلة الملموسة والديجيتال</td>
+                        <td>كود HTML/CSS/JS نضيف بنسبة 100%، ويب سايت أو متجر Woo المخصص وسريع التحميل، تقرير 100/100 من Google PageSpeed Audit.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">رحلة وتصرفات العميل</td>
+                        <td>يختبر العميل سرعة موقعه الجديد على الموبايل بنفسه، يراجع لوحة التحكم الخلفية (Dashboard) ويتأكد من سهولة رفع المنتجات والمبيعات.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">تيم المواجهة (Frontstage)</td>
+                        <td>يقود <strong>محمد عاصي</strong> جلسة المراجعة الفنية مع العميل لشرح السيستم، ويشرح <strong>أبانوب</strong> إزاي السيستم دة هيريح المبيعات والعملاء.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">خلف الكواليس (Backstage)</td>
+                        <td>يقود <strong>محمد عاصي</strong> المطورين الخارجيين لكتابة الكود المخصص من الصفر، ويفعلون بنية السيو البرمجية (Perfect SEO Architecture) لسرعة أرشفة الموقع تلقائياً في جوجل.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">الأنظمة والـ AI والـ CRM</td>
+                        <td>تفعيل الـ Automated Speed Testing والـ Load Testing للتأكد من تحمل السيرفر لأعلى لود من الزوار وحفاظه على سرعة تحميل أقل من 1.5 ثانية.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="box box-warning">
+                <h4>fail-safe Point (نقطة الأمان التشغيلية):</h4>
+                <p>
+                    مستحيل نرفع موقع للعميل لايف قبل ما يحصل على نسبة سرعة لا تقل عن 95/100 على الموبايل والـ Desktop. سرعة الموقع هي العامل الحاسم في رفع الـ Conversion Rate وتخفيض الـ Bounce Rate.
+                </p>
+            </div>
+        </div>
+
+        <div class="page-break"></div>
+
+        <!-- 7. STAGE 4: PULSE -->
+        <div class="chapter">
+            <h2>6. المرحلة الرابعة: الميديا باينج وحملات الأداء بالأرقام (Pulse™)</h2>
+            <p>
+                في Pulse™ بنقود حملات تسويقية عنيفة وموجهة بالأرقام الصافية. إعلان السوشيال ميديا مش لوحة فنية معمولة للتسلية؛ الإعلان دايماً هدفه زيادة المبيعات وتخفيض الـ CAC.
+            </p>
+
+            <div class="blueprint-title-box">مخطط تشغيل الخدمة الثنائية (Lean Blueprint) - مرحلة Pulse™</div>
+            <table class="blueprint-table">
+                <tbody>
+                    <tr>
+                        <td class="blueprint-row-header">الأدلة الملموسة والديجيتال</td>
+                        <td>حملات Meta و Google Ads نشطة ومهيكلة، تصميمات وكرييتفز إعلانية عالية التحويل، أكواد الـ Server-Side Tracking مفعلة بنجاح.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">رحلة وتصرفات العميل</td>
+                        <td>يتابع العميل أرقام مبيعاته الحية بتتحرك وتزيد، ويرى التقارير الأسبوعية لعوائد ميزانيته الإعلانية بوضوح.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">تيم المواجهة (Frontstage)</td>
+                        <td>يقود <strong>محمد عاصي</strong> مراجعة أرقام الـ ROAS والـ ROI مع العميل أسبوعياً، ويقترح تعديل الميزانيات لزيادة الأرباح الصافية.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">خلف الكواليس (Backstage)</td>
+                        <td>يخطط <strong>محمد عاصي</strong> الحملات يومياً، ويعدل الجمهور المستهدف، ويوقف أي إعلان يحرق فلوس بدون جلب عملاء حقيقيين. ويساعده <strong>أبانوب هاني</strong> في متابعة الليدز المستهدفة.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">الأنظمة والـ AI والـ CRM</td>
+                        <td>ربط الـ Server-Side Conversions ومحركات الـ Pixel والـ Catalog لضمان وصول الداتا للمنصات بدقة تامة وتخطي مشاكل قفل الكوكيز وخصوصية iOS.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="box box-info">
+                <h4>فلسفتنا في الـ Media Buying (Data Obsession):</h4>
+                <p>
+                    مبنتكلمش بلغة "اللايكات والريتش"؛ مقياس النجاح الوحيد عندنا هو الـ **ROAS (العائد المباشر على الإنفاق الإعلاني)** وصافي مبيعات البزنس بتاعك المسمعة في البنك.
+                </p>
+            </div>
+        </div>
+
+        <div class="page-break"></div>
+
+        <!-- 8. STAGE 5: FLOW -->
+        <div class="chapter">
+            <h2>7. المرحلة الخامسة: الأتمتة والذكاء الاصطناعي للبزنس (Flow™)</h2>
+            <p>
+                في Flow™ بنبني أنظمة أوتوماتيكية و AI Agents بتخلص الشغل وبتكلم العملاء في ثواني وبدون تعب لتوفير وقت ومجهود فريق العمل الداخلي.
+            </p>
+
+            <div class="blueprint-title-box">مخطط تشغيل الخدمة الثنائية (Lean Blueprint) - مرحلة Flow™</div>
+            <table class="blueprint-table">
+                <tbody>
+                    <tr>
+                        <td class="blueprint-row-header">الأدلة الملموسة والديجيتال</td>
+                        <td>ربط وتكامل متكامل للـ CRM بالويب سايت، الـ Workflows التلقائية على Make/n8n مفعلة، الـ AI Agent نشط على الواتساب والإيميل.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">رحلة وتصرفات العميل</td>
+                        <td>يتفاجأ عملاء البزنس بالرد الفوري والمثالي ومتابعة طلباتهم وحجوزاتهم في أقل من 5 ثوانٍ وبمنتهى الكفاءة.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">تيم المواجهة (Frontstage)</td>
+                        <td>يشرح <strong>أبانوب هاني</strong> لتيم مبيعات العميل إزاي هيستخدموا الـ CRM لمتابعة الصفقات بسهولة وتلقي التنبيهات الفورية.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">خلف الكواليس (Backstage)</td>
+                        <td>يقوم <strong>محمد عاصي</strong> ببرمجة مسارات الـ Workflows وربط الـ API للواتساب والإيميل بالـ CRM لضمان الميكنة الكاملة.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">الأنظمة والـ AI والـ CRM</td>
+                        <td>بمجرد ما عميل جديد يسجل، السيستم بيبعت بياناته للـ CRM، ويبعتله رسالة واتساب وإيميل، ويحددله موعد مكالمة أوتوماتيكياً في 3 ثوانٍ.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="box box-highlight">
+                <h4>الأرقام والمقاييس الملموسة (Impact):</h4>
+                <p>
+                    أتمتة دورة حياة العميل (Lead Lifecycle Automation) بتوفر أكتر من 80% من ساعات العمل اليدوية المكررة للبزنس، وبتلغي تماماً مشكلة "نسيان تيم المبيعات لمتابعة الليدز".
+                </p>
+            </div>
+        </div>
+
+        <div class="page-break"></div>
+
+        <!-- 9. STAGE 6: VERTEX -->
+        <div class="chapter">
+            <h2>8. المرحلة السادسة: ذكاء الأعمال وداشبورد الأرقام الصافية (Vertex™)</h2>
+            <p>
+                في Vertex™ بنوحد كل مصادر بياناتك في شاشة واحدة تفاعلية (Executive BI Dashboard) توريك وضع مبيعاتك وأرباحك الصافية لايف بدون تشتت أو فجوات داتا.
+            </p>
+
+            <div class="blueprint-title-box">مخطط تشغيل الخدمة الثنائية (Lean Blueprint) - مرحلة Vertex™</div>
+            <table class="blueprint-table">
+                <tbody>
+                    <tr>
+                        <td class="blueprint-row-header">الأدلة الملموسة والديجيتال</td>
+                        <td>لوحة تحكم حية مخصصة (Business Intelligence Dashboard)، نظام تقارير KPIs أوتوماتيكي مربوط بالكامل بمبيعات الـ CRM والـ Ads.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">رحلة وتصرفات العميل</td>
+                        <td>يفتح العميل الـ Dashboard في أي وقت من موبايله ليشاهد بوضوح تكلفة الاستحواذ على العميل (CAC)، العائد الصافي، وهامش الربح.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">تيم المواجهة (Frontstage)</td>
+                        <td>يستخدم <strong>محمد عاصي</strong> الـ Dashboard في الاجتماعات الدورية مع العميل لتحليل كفاءة التسويق والتشغيل المالي للشركة.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">خلف الكواليس (Backstage)</td>
+                        <td>يقوم <strong>محمد عاصي</strong> بربط الداتا لايف عبر الـ Webhooks والـ APIs لتوحيد قراءة البيانات من الموقع والـ CRM والمنصات الإعلانية.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">الأنظمة والـ AI والـ CRM</td>
+                        <td>الـ BI Engine يعمل 24 ساعة على معالجة البيانات، تحديث الجداول والـ Dashboards، وإرسال تقارير تنبيهية تلقائية بوضع الأرباح.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="box box-info">
+                <h4>التصميم والوضوح المطلق (Absolute Visibility):</h4>
+                <p>
+                    بنعطيك القدرة كمدير أو صاحب بزنس إنك تتابع أرقام الـ **LTV (القيمة الدائمة للعميل)** وتتحكم في ميزانياتك الإعلانية والتشغيلية بقرارات مبنية على داتا حقيقية 100%.
+                </p>
+            </div>
+        </div>
+
+        <div class="page-break"></div>
+
+        <!-- 10. STAGE 7: ACADEMY -->
+        <div class="chapter">
+            <h2>9. المرحلة السابعة: الأكاديمية ونقل الخبرة التشغيلية الحية (Alphas Academy™)</h2>
+            <p>
+                في الأكاديمية بننقل لتيم شركتك خبرتنا وأسرار السوق الحقيقية لضمان استمرار كفاءة المنظومة والقدرة على تشغيل الـ CRM باحترافية مستقلة 100%.
+            </p>
+
+            <div class="blueprint-title-box">مخطط تشغيل الخدمة الثنائية (Lean Blueprint) - مرحلة Alphas Academy™</div>
+            <table class="blueprint-table">
+                <tbody>
+                    <tr>
+                        <td class="blueprint-row-header">الأدلة الملموسة والديجيتال</td>
+                        <td>أدلة تشغيل ومستندات مخصصة لشركتك (Onboarding Manuals)، فيديوهات مسجلة تشرح استخدام الـ CRM والويب سايت، شهادة إتمام التدريب.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">رحلة وتصرفات العميل</td>
+                        <td>يحضر تيم العميل ورش العمل الحية والتنفيذية، يمارسون الشغل على السيستم الجديد، ويسألون عن أدق التفاصيل التشغيلية.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">تيم المواجهة (Frontstage)</td>
+                        <td>يقود <strong>أبانوب هاني</strong> و<strong>محمد عاصي</strong> ورش التدريب العملي لتأهيل فرق المبيعات والتسويق والتشغيل جوة شركة العميل.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">خلف الكواليس (Backstage)</td>
+                        <td>يقوم الشريكان بتسجيل وتجهيز المانيوال والـ Onboarding Videos الخاصة بنظام العميل وتسليمها له بشكل منظم.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">الأنظمة والـ AI والـ CRM</td>
+                        <td>سيستم الأكاديمية يتيح للتيم مراجعة الفيديوهات المسجلة وأدلة الاستخدام والـ Docs التوضيحية في أي وقت ومن أي شاشة.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="box box-highlight">
+                <h4>الهدف والمخرجات (Empowerment):</h4>
+                <p>
+                    مبنسلمش الموقع ونمشي؛ هدف الأكاديمية هو تمكين فريق عملك الداخلي من إدارة وتشغيل المنظومة والـ Dashboards بكفاءة كاملة وعائد مستمر وبدون أي احتياج خارجي.
+                </p>
+            </div>
+        </div>
+
+        <div class="page-break"></div>
+
+        <!-- 11. GOVERNANCE & ROLES ALIGNMENT (UPDATED FOR DUO) -->
+        <div class="chapter">
+            <h2>10. ميثاق الشراكة الثنائية وتوزيع المسؤوليات الجديد (Partnership Duo Governance)</h2>
+            <p>
+                بناءً على التعديلات التشغيلية المعتمدة لشركة Alphas Digital Business Solutions، وإلغاء حصص وإدارات "سيف ياسر" و"ندى"، يتوزع الهيكل الإداري والتشغيلي الثنائي لضمان جودة الأداء كالتالي:
+            </p>
+            <ul>
+                <li>
+                    <strong>محمد عاصي (CEO, Marketing & Tech Director - حصة الملكية والأرباح 60%):</strong>
+                    المسؤول الأول والنهائي عن الرؤية الاستراتيجية العامة للشركة، التوجيه المالي وحسابات الموازنة، صياغة وإطلاق استراتيجيات التسويق والميديا باينج، الإشراف والتحكم التقني المباشر كود بكود وتوجيه المطورين المتعاقدين، وتجهيز وتطوير محتوى الأكاديمية الاستشاري. (ساعات العمل: 8 ساعات يومياً).
+                </li>
+                <li>
+                    <strong>أبانوب هاني (COO, Sales & Lead Gen Director - حصة الملكية والأرباح 40%):</strong>
+                    المسؤول بالكامل عن الإدارة التشغيلية اليومية للشركة، إعداد وتنفيذ خطط المبيعات وتتبع الـ CRM، توليد وإدارة العملاء المحتملين والتحويل على منصات العمل الحر (Lead Generation & Conversion)، إدارة عمليات الـ Onboarding الفورية للعملاء، وتدريب تيم مبيعات العميل في الأكاديمية. (ساعات العمل: 6 ساعات يومياً تركيز مبيعات وتشغيل).
+                </li>
+            </ul>
+
+            <div class="box box-info">
+                <h4>تكامل الأنشطة في الـ Sprints التشغيلية الثنائية:</h4>
+                <p>
+                    <strong>أنشطة التسويق والميديا باينج:</strong> يقودها عاصي بالكامل ويساعده أبانوب بمراقبة الليدز المستهدفة.<br>
+                    <strong>أنشطة المبيعات والليدز:</strong> يتولاها أبانوب بالكامل (100% Sales Owner) بعد إلغاء دور ندى، ويقوم بإدارة منصات العمل الحر وتتبع الليدز والـ CRM.<br>
+                    <strong>أنشطة التنفيذ الفني والجودة:</strong> يقودها عاصي فلياً (100% Technical Delivery Owner) بالتنسيق المباشر مع المطورين والمصممين، ويقوم أبانوب بتنسيق الجداول والمواعيد مع العميل لضمان التسليم قبل الوقت.
+                </p>
+            </div>
+        </div>
+
+        <div class="page-break"></div>
+
+        <!-- 12. DETAILED SERVICE CATALOG & OPERATING COST STRUCTURE -->
+        <div class="chapter">
+            <h2>11. هياكل التكلفة التشغيلية والربحية المحدثة للباقات (Operating Cost Structure)</h2>
+            <p>
+                تصميم الخدمة الاحترافي يحتاج إلى وضوح مالي كامل. بناءً على ملفات التسعير والتشغيل المالي المعتمدة في Alphas، تم تحديث جداول التكلفة والأرباح الصافية لتوزيعها مباشرة بين عاصي وأبانوب بنسبة (60% عاصي / 40% أبانوب):
+            </p>
+
+            <h3>أولاً: باقات تطوير المواقع والمتاجر الإلكترونية (WooCommerce / Custom Web)</h3>
+            <table class="pricing-table">
+                <thead>
+                    <tr>
+                        <th>الباقة</th>
+                        <th>مكونات ومزايا الباقة التشغيلية</th>
+                        <th>التكلفة التشغيلية الفعلية (Operating Cost)</th>
+                        <th>صافي الربح والـ Margin</th>
+                        <th>السعر الكلي (Revenue)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Starter Website Package</strong></td>
+                        <td>موقع ووردبريس أساسي، متجاوب بالكامل مع الموبايل، سيو داخلي أولي، حجز الدومين والاستضافة المجانية.</td>
+                        <td>EGP 4,000 (تتضمن 1,500 استضافة ودومين، و 2,500 كود وسيرفر للمطور)</td>
+                        <td>EGP 5,000 <br>(توزع: 3,000 لعاصي، 2,000 لأبانوب)</td>
+                        <td>EGP 10,000</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Essential Website Package</strong></td>
+                        <td>تصميم مخصص، سيو داخلي متقدم، استضافة ودومين فاست، تدريب الأكاديمية على إدارة لوحة التحكم (CMS Training).</td>
+                        <td>EGP 6,000 (تتضمن 2,000 استضافة ودومين، 2,700 مبرمج CMS، و 1,800 تصميم تيم مخصص)</td>
+                        <td>EGP 12,000 <br>(توزع: 7,200 لعاصي، 4,800 لأبانوب)</td>
+                        <td>EGP 20,000</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ecommerce Website Package</strong></td>
+                        <td>متجر إلكتروني متكامل، تصميم تفاعلي فخم، ربط بوابات الدفع وسيستم الشحن الأوتوماتيكي، سيو متقدم وتدريب التيم.</td>
+                        <td>EGP 8,000 (تتضمن 2,000 استضافة، 3,000 مطور، 1,800 تيم، و 1,200 ربط الدفع والشحن والـ CRM)</td>
+                        <td>EGP 19,000 <br>(توزع: 11,400 لعاصي، 7,600 لأبانوب)</td>
+                        <td>EGP 30,000</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>ثانياً: باقات إدارة وتشغيل المتاجر والمواقع (Ecommerce Website Management)</h3>
+            <table class="pricing-table">
+                <thead>
+                    <tr>
+                        <th>الباقة</th>
+                        <th>الخدمات والعمليات التشغيلية المشمولة</th>
+                        <th>التكلفة والـ Inclusions التشغيلية</th>
+                        <th>صافي الربح الموزع للشركاء</th>
+                        <th>السعر الشهري</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Bronze Package</strong></td>
+                        <td>إدارة الويب سايت الأساسية، رفع المنتجات وتحديث المخزون، معالجة وتجهيز الطلبات، وتوفير خدمة دعم العملاء.</td>
+                        <td>EGP 2,500 تشغيل وصيانة، و 1,000 حماية ونسخ احتياطي تلقائي (Backup & Security).</td>
+                        <td>EGP 2,000 <br>(توزع: 1,200 لعاصي، 800 لأبانوب)</td>
+                        <td>EGP 5,000 شهرياً</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Silver Package</strong></td>
+                        <td>إدارة موقع متقدمة، معالجة الطلبات، خدمة العملاء الفورية، إدارة المدونة (Blog Management)، وماركتنج المحتوى.</td>
+                        <td>EGP 3,750 صيانة، 1,000 حماية وأمان، و 2,750 إدارة المدونة والمقالات المربحة.</td>
+                        <td>EGP 3,000 <br>(توزع: 1,800 لعاصي، 1,200 لأبانوب)</td>
+                        <td>EGP 7,500 شهرياً</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Gold Package</strong></td>
+                        <td>إدارة شاملة، إدخال 250 منتج وتنسيق الكتالوج، موديول أمان كامل وفحص ثغرات، مع اعتدال المبيعات وأوتوميشن.</td>
+                        <td>EGP 5,000 تشغيل، 2,000 حماية متطورة وفحص ثغرات، 1,500 إدخال منتجات، و 1,500 مودريشن للموقع.</td>
+                        <td>EGP 4,000 <br>(توزع: 2,400 لعاصي، 1,600 لأبانوب)</td>
+                        <td>EGP 10,000 شهرياً</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="page-break"></div>
+
+        <!-- 13. SMM & MEDIA BUYING PACKAGES -->
+        <div class="chapter">
+            <h2>12. الباقات التسويقية والميديا باينج بالأرقام للثنائي (SMM & Ads)</h2>
+            
+            <h3>أولاً: باقات السوشيال ميديا والتسويق الرقمي (Social Media Management)</h3>
+            <table class="pricing-table">
+                <thead>
+                    <tr>
+                        <th>الباقة التشغيلية</th>
+                        <th>مكونات الحملات، الكرييتف والتصميمات المشمولة</th>
+                        <th>التكلفة التشغيلية (Operating Cost)</th>
+                        <th>صافي الربح الموزع للشركاء (60% / 40%)</th>
+                        <th>السعر الشهري</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Social Media Kickstart</strong></td>
+                        <td>إدارة وتنسيق 3 حسابات، كتابة وتصميم 8 بوستات احترافية شهرياً (2 في الأسبوع)، مع تحليلات وتقارير أداء شهرية.</td>
+                        <td>EGP 2,250 (تتضمن 400 للمصمم وصناعة المحتوى، و 1,000 لتنسيق البوستات والكتابة والتشغيل التقني)</td>
+                        <td>صافي ربح EGP 2,250 <br>(يوزع: 1,350 لعاصي، 900 لأبانوب)</td>
+                        <td>EGP 4,500 شهرياً</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Social Media Growth</strong></td>
+                        <td>إدارة 5 حسابات، تصميم 16 بوست شهرياً (4 في الأسبوع)، إعداد وإطلاق حملات ميديا باينج مع التقارير والداتا الحية.</td>
+                        <td>EGP 2,750 (تتضمن 750 للمتخصص التقني، و 2,000 لتصميم وصناعة 16 بوست بكتابة إبداعية متكاملة)</td>
+                        <td>صافي ربح EGP 4,450 <br>(يوزع: 2,670 لعاصي، 1,780 لأبانوب)</td>
+                        <td>EGP 7,200 شهرياً</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Social Media Domination</strong></td>
+                        <td>إدارة شاملة لجميع الحسابات، تصميم 24 بوست شهرياً (6 في الأسبوع)، تخطيط ميديا باينج متقدم، أوتوميشن كامل للردود.</td>
+                        <td>EGP 4,000 (تتضمن 1,000 لمتخصص ميديا باينج، و 3,000 لتصميم وصياغة 24 بوست فخم بالكامل)</td>
+                        <td>صافي ربح EGP 6,000 <br>(يوزع: 3,600 لعاصي، 2,400 لأبانوب)</td>
+                        <td>EGP 10,000 شهرياً</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>ثانياً: باقات إدارة حملات الإعلانات والميديا باينج (Media Buying & Ads Packages)</h3>
+            <table class="pricing-table">
+                <thead>
+                    <tr>
+                        <th>الباقة</th>
+                        <th>هيكلة حملات جوجل وميتا والتتبع المشمول</th>
+                        <th>التكلفة والـ Inclusions التشغيلية</th>
+                        <th>صافي الربح الموزع للشركاء (60% / 40%)</th>
+                        <th>السعر الشهري</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Starter Ads Package</strong></td>
+                        <td>إطلاق من 1 لـ 2 حملة على ميتا (Meta Ads)، استهداف 4 شرائح جمهور مخصصة، إعداد حملة بحث جوجل وسيو داخلي.</td>
+                        <td>EGP 2,500 تشغيل، تتضمن استهداف وتصميمات، وسيو برمجى لتوافق موقعه مع معايير السيو والسرعة.</td>
+                        <td>EGP 2,500 <br>(توزع: 1,500 لعاصي، 1,000 لأبانوب)</td>
+                        <td>EGP 5,000 شهرياً</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Essential Ads Package</strong></td>
+                        <td>من 2 لـ 4 حملات Meta، استهداف 6 شرائح مخصصة، ربط Pixel وإعداد الـ Conversions، إطلاق إعلانات Google Search والـ Display.</td>
+                        <td>EGP 5,000 تشغيل، تتضمن 2,500 ميديا باير متكامل للميتا، و 2,500 لتجهيز السيو والـ Display والبحث في جوجل.</td>
+                        <td>EGP 5,000 <br>(توزع: 3,000 لعاصي، 2,000 لأبانوب)</td>
+                        <td>EGP 10,000 شهرياً</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ecommerce Ads Package</strong></td>
+                        <td>من 2 لـ 4 حملات Meta احترافية، ربط متقدم للـ Event Manager والـ Server-Side، جوجل ميرشانت وكتالوج متكامل لرفع المبيعات لايف.</td>
+                        <td>EGP 7,500 تشغيل، تتضمن 2,500 ميديا باير، 2,500 ربط الـ Conversions والبرايفسي، و 2,500 لجوجل ميرشانت والسيو.</td>
+                        <td>EGP 7,500 <br>(توزع: 4,500 لعاصي، 3,000 لأبانوب)</td>
+                        <td>EGP 15,000 شهرياً</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="page-break"></div>
+
+        <!-- 14. EXCLUSIVE FREELANCE & SALES EXECUTION PLAN -->
+        <div class="chapter">
+            <h2>13. خطة تشغيل المبيعات ومنصات العمل الحر للثنائي (Sales & Freelance Execution)</h2>
+            <p>
+                بعد إلغاء دور "ندى" و"سيف" في إدارة منصات الفريلانسنج والمبيعات، تم تصميم وتكامل سبرنتات المبيعات وإسنادها بالكامل إلى <strong>أبانوب هاني</strong>، بدعم تقني وتسويقي مباشر من <strong>محمد عاصي</strong> لضمان جودة الاقتراحات وصيد الصفقات البريميوم:
+            </p>
+
+            <table class="pricing-table">
+                <thead>
+                    <tr>
+                        <th>المنصة المستهدفة</th>
+                        <th>طريقة التشغيل وصيد المشاريع (Duo Strategy)</th>
+                        <th>مسؤولية أبانوب هاني (COO)</th>
+                        <th>مسؤولية محمد عاصي (CEO)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Upwork & Freelancer</strong></td>
+                        <td>تقديم عروض مخصصة (Premium Bids) تحل مشاكل البزنس للعميل فوراً، وتجنب الـ Copy-Paste تماماً.</td>
+                        <td>مراقبة المنصة 24/7، كتابة العروض المخصصة، الرد الفوري على الرسائل، وإغلاق الصفقات (Sales Closing).</td>
+                        <td>تجهيز البورتفوليو الفني للويب والـ Ads، وتصميم قوالب العروض التقنية المعقدة لجذب العملاء الكبار.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mostaqel & Khamsat</strong></td>
+                        <td>استهداف الشركات الطموحة والمتاجر في مصر والخليج التي تبحث عن تحول رقمي متكامل وسلس.</td>
+                        <td>متابعة المشاريع المنشورة، إرسال العروض بالعامية المصرية الـ Premium أو العربية الفصحى، وإقناع العميل بمكالمة ديسكفري.</td>
+                        <td>تقديم الحلول الاستشارية المبدئية والتقرير الفني لسرعة الموقع الحالي للعميل كأداة جذب قوية في العرض.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fiverr & Inbound CRM</strong></td>
+                        <td>تجهيز خدمات (Gigs) مخصصة لحل مشاكل الـ Pixel والـ Server-Side Tracking والـ PageSpeed لجلب عملاء دائمين.</td>
+                        <td>متابعة الليدز الواردة للـ CRM، إعداد تقارير المتابعة، والـ Client Onboarding للسيستم.</td>
+                        <td>بناء وتصميم الـ Workflows التلقائية والـ AI Agents لترقية العملاء وحجز مكالماتهم تلقائياً.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="box box-highlight">
+                <h4>مقياس النجاح لـ Freelancing Sprints (KPIs):</h4>
+                <p>
+                    تأمين ما لا يقل عن صفقتين مخصصتين (Custom Woo/Ads Web Packages) شهرياً بمتوسط قيمة 30,000 جنيه مصري للصفقة، مع تقليل المجهود الإعلاني للكيان بالاعتماد على الـ Inbound Leads والـ CRM Automation.
+                </p>
+            </div>
+        </div>
+
+        <div class="page-break"></div>
+
+        <!-- 15. THE SERVICE DESIGN BIBLE & SALES ENABLEMENT -->
+        <div class="chapter">
+            <h2>14. دليل التمكين ومعالجة اعتراضات الأسعار بالـ Service Design</h2>
+            <p>
+                العملاء الكبار وصناع القرار لما بيسمعوا أرقام الباقات، أول سؤال واعتراض بيجي في بالهم هو: "ليه الأسعار دي؟ ما أنا ممكن أروح لشركة تسويق عادية تاخد ربع المبلغ دة، أو مبرمج يعملي موقع رخيص!".
+            </p>
+            <p>
+                الدليل دة هو السلاح والدرع التشغيلي للثنائي (أبانوب أو عاصي) للرد الفوري والمقنع بالعامية المصرية الـ Premium اللي بتثبت العائد الفوري من وراء تصميم الخدمة المتكاملة:
+            </p>
+
+            <div class="box box-highlight">
+                <h4>سيناريو الرد العملي والمقنع لتيم المبيعات (Alphas Sales Script):</h4>
+                <p>
+                    <strong>العميل:</strong> "يا فندم الأسعار دي غالية جداً ومتاجر الـ Templates الجاهزة بتتعمل بمليم برة!"
+                </p>
+                <p>
+                    <strong>أبانوب هاني (الرد الحاسم):</strong> "يا فندم، كلام حضرتك منطقي جداً في الظاهر.. بس لو ركزنا شوية في الأرقام، هتلاقي إن التيمبليت الجاهز الرخيص دة هو أكبر ماسورة بتسرب وتخسر شركتك فلوس في الخلفية! حضرتك لما بتشتري ويب سايت رخيص، بيكون تقيل ومبني بكود تعبان وبطيء، فالعميل يدخل من الإعلان يستنى الصفحة تفتح فيزهق ويقفل ويمشي.. حضرتك كدا خسرت ثقة العميل وحرقت ميزانية حملاتك الإعلانية في الأرض! وتيجي شركة التسويق العادية تقولك: إحنا عملنا إعلانات حلوة بس موقّعك بطيء دة مش عيبنا! وشركة البرمجيات تقولك: إحنا سلمناك موقع شغال ملوش علاقة بإعلاناتك!"
+                </p>
+                <p>
+                    "إحنا في Alphas قضينا على التشتت والكركبة دي كلها.. إحنا بنقدملك **منظومة تشغيلية واستشارية وتقنية واحدة موحدة** يلتزم بيها الشركاء المؤسسين بنفسهم لمصلحة نمو وأرباح شركتك الصافية. بنقعد معاك كمستشارين نرسم الاستراتيجية الصح في Nexus، بنبني البنية التحتية كود بكود صاروخي وسريع لدرجة تذهل عملائك في Blueprint، بنضخ العملاء بإعلانات قوية مستهدفة مبنية على الأرقام الصافية في Pulse، بنلغي الشغل اليدوي وبنأتمت عملياتك في Flow، بنوريك أرباحك وتكلفة العميل لايف قدام عينك في داشبورد Vertex، وبندرب تيم شركتك في الأكاديمية عشان يستلموا الماكينة شغالة وبتكسب بوضوح كامل.. حضرتك كدا بتتعامل مع شريك تشغيلي واحد مسؤول عن البزنس من الألف للياء.. دة استثمار حقيقي بالأرقام بيرجعلك أضعاف اللي بتدفعه في الأول.. إيه رأي حضرتك نحجز مكالمة تشخيص البزنس مجاناً مع مهندسي الأداء والاستشاريين بتوعنا؟"
+                </p>
+            </div>
+
+            <h3>أمثلة الـ CTAs الموجهة لرواد الأعمال الطموحين:</h3>
+            <ul>
+                <li>"كفاية مسكنات تقنية وتشتت تشغيلي.. هندس عمليات موقّعك بالكامل وزود أرباحك الصافية مع Alphas."</li>
+                <li>"اضغط هنا لطلب مكالمة فحص فني وتشخيص عطل البزنس مجاناً.. واعرف فين ماسورة الداتا اللي بتسرب فلوسك."</li>
+                <li>"انقل للبنية التحتية البريميوم لخدمات الأتمتة والكود المخصص، وخلي البزنس يشتغل ويكسب لوحده."</li>
+            </ul>
+        </div>
+
+    </div>
+
+</body>
+</html>

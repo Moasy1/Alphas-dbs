@@ -2323,10 +2323,47 @@
         // Submit landing page consultation form
         function handleFormSubmit(e) {
             e.preventDefault();
+            
+            const form = e.target;
+            const inputs = form.querySelectorAll('input');
+            const companyName = inputs[0] ? inputs[0].value.trim() : "Unknown Company";
+            const email = inputs[1] ? inputs[1].value.trim() : "";
+            
+            const serviceSelect = form.querySelector('select:nth-of-type(1)');
+            const serviceText = serviceSelect ? serviceSelect.options[serviceSelect.selectedIndex].text : "General Inquiry";
+            
+            const budgetSelect = form.querySelector('select:nth-of-type(2)');
+            const budgetValStr = budgetSelect ? budgetSelect.value : "budget1";
+            let budgetNum = 5000;
+            if (budgetValStr === "budget2") budgetNum = 20000;
+            if (budgetValStr === "budget3") budgetNum = 40000;
+            
+            const scopeDetail = form.querySelector('textarea') ? form.querySelector('textarea').value.trim() : "";
+            
+            try {
+                const leads = JSON.parse(localStorage.getItem("alphas_leads")) || [];
+                const newLead = {
+                    id: "lead_" + Date.now(),
+                    name: companyName,
+                    email: email,
+                    phone: "",
+                    status: "new",
+                    budget: budgetNum,
+                    services: serviceText,
+                    notes: scopeDetail,
+                    source: "index.html - Contact Form",
+                    date: new Date().toISOString().split("T")[0]
+                };
+                leads.push(newLead);
+                localStorage.setItem("alphas_leads", JSON.stringify(leads));
+            } catch (err) {
+                console.error("CRM Local Save Error:", err);
+            }
+
             const box = document.getElementById('form-success-box');
             box.classList.remove('hidden');
             gsap.from(box, { opacity: 0, scale: 0.95, duration: 0.3 });
-            e.target.reset();
+            form.reset();
         }
 
         let currentLang = 'en';
@@ -2899,6 +2936,33 @@
             if (!selectedDate || !selectedTime) {
                 showToast(t('validation.dateTime'));
                 return;
+            }
+
+            const companyName = document.getElementById('quiz-company-name') ? document.getElementById('quiz-company-name').value.trim() : "Unknown";
+            const email = document.getElementById('quiz-email') ? document.getElementById('quiz-email').value.trim() : "";
+            const bottleneck = document.getElementById('form-selected-bottleneck') ? document.getElementById('form-selected-bottleneck').value : "";
+            const hoursValStr = document.getElementById('form-selected-hours') ? document.getElementById('form-selected-hours').value : "50 Hours/mo";
+            const hoursVal = parseInt(hoursValStr) || 50;
+            const budgetCalculated = hoursVal * 700;
+
+            try {
+                const leads = JSON.parse(localStorage.getItem("alphas_leads")) || [];
+                const newLead = {
+                    id: "lead_" + Date.now(),
+                    name: companyName,
+                    email: email,
+                    phone: "",
+                    status: "new",
+                    budget: budgetCalculated,
+                    services: `Hours Package (${hoursValStr}) - Primary Bottleneck: ${bottleneck.toUpperCase()}`,
+                    notes: `Scheduled Visual Audit Review for ${selectedDate} at ${selectedTime}`,
+                    source: "index.html - Diagnostic Drawer",
+                    date: new Date().toISOString().split("T")[0]
+                };
+                leads.push(newLead);
+                localStorage.setItem("alphas_leads", JSON.stringify(leads));
+            } catch (err) {
+                console.error("CRM Drawer Save Error:", err);
             }
 
             document.getElementById('success-date-time').innerText = `${selectedDate} at ${selectedTime}`;

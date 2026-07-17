@@ -434,7 +434,7 @@
         <div class="max-w-2xl mx-auto px-6">
             <div class="glass-card p-10 rounded-3xl border border-white/10">
                 <h3 class="text-2xl font-bold text-white uppercase mb-6 text-center">Request Media Buying Service Consultation</h3>
-                <form class="space-y-4">
+                <form class="space-y-4" onsubmit="handleFormSubmit(event)">
                     <input type="text" placeholder="Your Name" class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-alphas-accent outline-none transition">
                     <input type="email" placeholder="Your Email" class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-alphas-accent outline-none transition">
                     <textarea placeholder="Project Details" rows="4" class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-alphas-accent outline-none transition"></textarea>
@@ -1230,10 +1230,35 @@
         // Submit landing page consultation form
         function handleFormSubmit(e) {
             e.preventDefault();
-            const box = document.getElementById('form-success-box');
-            box.classList.remove('hidden');
-            gsap.from(box, { opacity: 0, scale: 0.95, duration: 0.3 });
-            e.target.reset();
+            
+            const form = e.target;
+            const inputs = form.querySelectorAll('input');
+            const name = inputs[0] ? inputs[0].value.trim() : "Unknown";
+            const email = inputs[1] ? inputs[1].value.trim() : "";
+            const projectDetails = form.querySelector('textarea') ? form.querySelector('textarea').value.trim() : "";
+            
+            try {
+                const leads = JSON.parse(localStorage.getItem("alphas_leads")) || [];
+                const newLead = {
+                    id: "lead_" + Date.now(),
+                    name: name,
+                    email: email,
+                    phone: "",
+                    status: "new",
+                    budget: 5750, // Media Buying default budget
+                    services: "Media Buying & Campaigns",
+                    notes: projectDetails,
+                    source: "service-media.html - Consult Form",
+                    date: new Date().toISOString().split("T")[0]
+                };
+                leads.push(newLead);
+                localStorage.setItem("alphas_leads", JSON.stringify(leads));
+            } catch (err) {
+                console.error("CRM Service Media Save Error:", err);
+            }
+
+            showToast("Consultation Request Submitted Successfully!");
+            form.reset();
         }
 
         let currentLang = 'en';

@@ -1,220 +1,1329 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alphas Admin Panel & CRM</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Boxicons for Icons -->
+    <title>Alphas Agency OS - Management Suite</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Boxicons for modern icons -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-- FontAwesome for additional icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts: Cairo (Arabic & Titles) & Inter & JetBrains Mono -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        alphas: {
+                            navy: '#0a1122',
+                            dark: '#060a14',
+                            surface: '#0f172a',
+                            accent: '#e59b58',
+                            accentHover: '#c97e3a',
+                            goldLight: '#f5d6b8',
+                            glass: 'rgba(255, 255, 255, 0.03)',
+                            glassBorder: 'rgba(255, 255, 255, 0.07)'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'Cairo', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                        cairo: ['Cairo', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
     <link rel="stylesheet" href="admin_panel.css">
 </head>
-<body>
-    <!-- Sidebar -->
-    <nav class="sidebar">
-        <div class="sidebar-header">
-            <i class='bx bx-cube-alt logo-icon'></i>
-            <span class="logo-text">Alphas Admin</span>
+<body class="bg-alphas-dark text-slate-100 font-sans min-h-screen flex overflow-x-hidden">
+
+    <!-- SIDEBAR -->
+    <nav class="sidebar fixed top-0 left-0 h-full w-[260px] bg-slate-950/70 backdrop-blur-md border-r border-alphas-glassBorder flex flex-col z-50 transition-all duration-300 no-print">
+        <div class="sidebar-header h-[70px] flex items-center px-6 border-b border-alphas-glassBorder gap-3">
+            <div class="h-9 w-9 rounded-lg bg-gradient-to-tr from-blue-600 to-alphas-accent flex items-center justify-center text-white font-extrabold text-lg shadow-lg">A</div>
+            <div>
+                <span class="logo-text text-lg font-black tracking-widest bg-gradient-to-r from-white via-alphas-goldLight to-alphas-accent bg-clip-text text-transparent">ALPHAS OS</span>
+                <span class="block text-[9px] text-blue-400 font-bold uppercase tracking-wider">Lean Duopoly v2.5</span>
+            </div>
         </div>
 
-        <ul class="nav-links">
+        <ul class="nav-links flex-1 px-4 py-6 space-y-1.5 overflow-y-auto">
             <li>
-                <a href="#" class="active" data-target="dashboard">
-                    <i class='bx bx-grid-alt' ></i>
-                    <span class="link-name">Dashboard</span>
+                <a href="#" class="nav-link active flex items-center px-4 py-3 text-slate-400 hover:text-white rounded-xl transition-all duration-200 gap-3" data-target="dashboard">
+                    <i class='bx bx-grid-alt text-xl'></i>
+                    <span class="text-sm font-semibold">Overview</span>
                 </a>
             </li>
             <li>
-                <a href="#" data-target="crm">
-                    <i class='bx bx-message-square-detail' ></i>
-                    <span class="link-name">CRM Forms</span>
+                <a href="#" class="nav-link flex items-center px-4 py-3 text-slate-400 hover:text-white rounded-xl transition-all duration-200 gap-3" data-target="crm">
+                    <i class='bx bx-user-voice text-xl'></i>
+                    <span class="text-sm font-semibold">CRM - Leads</span>
+                    <span id="crm-badge" class="ml-auto bg-alphas-accent text-alphas-dark text-[10px] font-black px-2 py-0.5 rounded-full hidden">0</span>
                 </a>
             </li>
             <li>
-                <a href="#" data-target="analytics">
-                    <i class='bx bx-line-chart' ></i>
-                    <span class="link-name">Analytics</span>
+                <a href="#" class="nav-link flex items-center px-4 py-3 text-slate-400 hover:text-white rounded-xl transition-all duration-200 gap-3" data-target="quotation">
+                    <i class='bx bx-notepad text-xl'></i>
+                    <span class="text-sm font-semibold">Quotation Maker</span>
                 </a>
             </li>
             <li>
-                <a href="#" data-target="settings">
-                    <i class='bx bx-cog' ></i>
-                    <span class="link-name">Settings</span>
+                <a href="#" class="nav-link flex items-center px-4 py-3 text-slate-400 hover:text-white rounded-xl transition-all duration-200 gap-3" data-target="projects">
+                    <i class='bx bx-task text-xl'></i>
+                    <span class="text-sm font-semibold">Project Tracker</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link flex items-center px-4 py-3 text-slate-400 hover:text-white rounded-xl transition-all duration-200 gap-3" data-target="invoices">
+                    <i class='bx bx-receipt text-xl'></i>
+                    <span class="text-sm font-semibold">Invoices Ledger</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link flex items-center px-4 py-3 text-slate-400 hover:text-white rounded-xl transition-all duration-200 gap-3" data-target="cms">
+                    <i class='bx bx-edit text-xl'></i>
+                    <span class="text-sm font-semibold">CMS Manager</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link flex items-center px-4 py-3 text-slate-400 hover:text-white rounded-xl transition-all duration-200 gap-3" data-target="knowledge">
+                    <i class='bx bx-book-bookmark text-xl'></i>
+                    <span class="text-sm font-semibold">Knowledge Base</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link flex items-center px-4 py-3 text-slate-400 hover:text-white rounded-xl transition-all duration-200 gap-3" data-target="dealhunter">
+                    <i class='bx bx-radar text-xl'></i>
+                    <span class="text-sm font-semibold">Deal Hunter</span>
+                    <span class="ml-auto bg-blue-500/20 text-blue-400 text-[9px] font-bold px-1.5 py-0.5 rounded border border-blue-500/30">AI</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link flex items-center px-4 py-3 text-slate-400 hover:text-white rounded-xl transition-all duration-200 gap-3" data-target="backup">
+                    <i class='bx bx-data text-xl'></i>
+                    <span class="text-sm font-semibold">System Backup</span>
                 </a>
             </li>
         </ul>
 
-        <div class="profile-content">
-            <div class="profile">
-                <div class="profile-details">
-                    <img src="https://ui-avatars.com/api/?name=Admin+User&background=6366f1&color=fff" alt="profileImg">
-                    <div class="name-job">
-                        <div class="name">Admin User</div>
-                        <div class="job">Superadmin</div>
-                    </div>
+        <!-- Partner Profiles -->
+        <div class="profile-content p-4 border-t border-alphas-glassBorder bg-slate-950/40 space-y-3">
+            <div class="flex items-center gap-3">
+                <img src="https://ui-avatars.com/api/?name=Mohamed+Asy&background=3b82f6&color=fff" class="h-9 w-9 rounded-full border border-blue-500/40" alt="Asy avatar">
+                <div class="leading-tight">
+                    <div class="text-xs font-bold text-slate-200">Mohamed Asy</div>
+                    <div class="text-[10px] text-blue-400 font-medium">CEO & Dev Partner</div>
                 </div>
-                <i class='bx bx-log-out' id="log_out" ></i>
+            </div>
+            <div class="flex items-center gap-3">
+                <img src="https://ui-avatars.com/api/?name=Abanoub+Hany&background=e59b58&color=000" class="h-9 w-9 rounded-full border border-alphas-accent/40" alt="Abanoub avatar">
+                <div class="leading-tight">
+                    <div class="text-xs font-bold text-slate-200">Abanoub Hany</div>
+                    <div class="text-[10px] text-alphas-accent font-medium">COO & Media Partner</div>
+                </div>
             </div>
         </div>
     </nav>
 
-    <!-- Main Content -->
-    <section class="main-content">
-        <div class="top-bar">
-            <div class="search-box">
-                <i class='bx bx-search'></i>
-                <input type="text" placeholder="Search...">
+    <!-- MAIN WRAPPER -->
+    <main class="flex-1 ml-[260px] min-h-screen flex flex-col print-area">
+        
+        <!-- HEADER -->
+        <header class="h-[70px] bg-alphas-navy/60 backdrop-blur-md border-b border-alphas-glassBorder flex items-center justify-between px-8 sticky top-0 z-40 no-print">
+            <div class="flex items-center gap-3">
+                <h1 id="view-title" class="text-lg font-bold text-white tracking-wide">Overview Dashboard</h1>
             </div>
-            <div class="top-actions">
-                <button class="notification-btn">
-                    <i class='bx bx-bell'></i>
-                    <span class="badge">3</span>
-                </button>
-            </div>
-        </div>
+            
+            <div class="flex items-center gap-6">
+                <!-- Search bar -->
+                <div class="relative w-64 bg-slate-900/60 rounded-full border border-alphas-glassBorder flex items-center px-4 py-1.5 focus-within:border-alphas-accent transition-all duration-300">
+                    <i class='bx bx-search text-slate-400 mr-2 text-lg'></i>
+                    <input type="text" id="global-search" oninput="runGlobalSearch()" placeholder="Search leads, projects, invoices..." class="bg-transparent border-none outline-none text-xs w-full text-slate-200 placeholder-slate-500">
+                </div>
 
-        <!-- Dashboard View -->
-        <div id="dashboard" class="view-section active">
-            <div class="overview-header">
-                <h2>Overview</h2>
-                <div class="date-filter">
-                    <span>Last 30 Days <i class='bx bx-chevron-down'></i></span>
+                <!-- Notifications -->
+                <div class="relative">
+                    <button class="relative p-2 bg-slate-900/50 hover:bg-slate-800 rounded-full border border-alphas-glassBorder text-slate-300 transition-colors">
+                        <i class='bx bx-bell text-lg'></i>
+                        <span class="absolute top-0 right-0 h-2.5 w-2.5 bg-alphas-accent rounded-full border-2 border-alphas-dark animate-ping"></span>
+                    </button>
+                </div>
+
+                <div class="px-3 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-full text-[10px] font-black uppercase tracking-wider flex items-center gap-1.5">
+                    <span class="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                    Secure Admin Session
                 </div>
             </div>
+        </header>
 
-            <div class="kpi-cards">
-                <div class="card">
-                    <div class="card-icon blue"><i class='bx bx-envelope'></i></div>
-                    <div class="card-info">
-                        <h3>Total Submissions</h3>
-                        <p class="number">1,284</p>
-                        <span class="trend up"><i class='bx bx-trending-up'></i> +12.5%</span>
+        <!-- VIEW SECTIONS CONTAINER -->
+        <div class="flex-grow p-8 no-print-padding">
+            
+            <!-- ================= VIEW 1: DASHBOARD ================= -->
+            <section id="dashboard" class="view-section active space-y-8">
+                <!-- Overview Row -->
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h2 class="text-2xl font-black text-white tracking-wide">Performance Overview</h2>
+                        <p class="text-xs text-slate-400 mt-1">Real-time ledger statements, capital reserve analysis, and partner payout balances.</p>
+                    </div>
+                    <div class="bg-alphas-glass border border-alphas-glassBorder rounded-xl px-4 py-2 flex items-center gap-2">
+                        <i class='bx bx-calendar text-alphas-accent text-lg'></i>
+                        <span class="text-xs font-semibold text-slate-300 font-mono">2026 Financial Year</span>
                     </div>
                 </div>
-                <div class="card">
-                    <div class="card-icon pink"><i class='bx bx-time-five'></i></div>
-                    <div class="card-info">
-                        <h3>Pending Review</h3>
-                        <p class="number">42</p>
-                        <span class="trend down"><i class='bx bx-trending-down'></i> -5.2%</span>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-icon green"><i class='bx bx-check-circle'></i></div>
-                    <div class="card-info">
-                        <h3>Resolved</h3>
-                        <p class="number">1,150</p>
-                        <span class="trend up"><i class='bx bx-trending-up'></i> +8.1%</span>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-icon purple"><i class='bx bx-star'></i></div>
-                    <div class="card-info">
-                        <h3>Conversion Rate</h3>
-                        <p class="number">24.8%</p>
-                        <span class="trend up"><i class='bx bx-trending-up'></i> +2.4%</span>
-                    </div>
-                </div>
-            </div>
 
-            <div class="charts-container">
-                <div class="chart-box">
-                    <h3 class="chart-title">Submission Activity</h3>
-                    <div class="mock-chart-area">
-                        <!-- Mock chart visual -->
-                        <div class="bar" style="height: 40%"></div>
-                        <div class="bar" style="height: 60%"></div>
-                        <div class="bar" style="height: 30%"></div>
-                        <div class="bar" style="height: 80%"></div>
-                        <div class="bar" style="height: 50%"></div>
-                        <div class="bar" style="height: 90%"></div>
-                        <div class="bar" style="height: 70%"></div>
+                <!-- KPI Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="glass-card rounded-2xl p-6 border border-alphas-glassBorder relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-blue-500/5 to-transparent pointer-events-none"></div>
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <span class="text-xs text-slate-400 font-bold block mb-1">Total Gross Revenue</span>
+                                <span id="kpi-total-revenue" class="text-2xl font-black text-white font-mono text-xl sm:text-2xl">EGP 0</span>
+                            </div>
+                            <div class="p-3 bg-blue-500/10 rounded-xl text-blue-400 border border-blue-500/20"><i class='bx bx-trending-up text-xl'></i></div>
+                        </div>
+                        <p class="text-[10px] text-slate-500 mt-3 font-semibold">Sum of all signed, closed, and invoiced client projects.</p>
+                    </div>
+
+                    <div class="glass-card rounded-2xl p-6 border border-alphas-glassBorder relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-amber-500/5 to-transparent pointer-events-none"></div>
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <span class="text-xs text-slate-400 font-bold block mb-1">Capital Reserve (25%)</span>
+                                <span id="kpi-capital-reserve" class="text-2xl font-black text-alphas-accent font-mono text-xl sm:text-2xl">EGP 0</span>
+                            </div>
+                            <div class="p-3 bg-amber-500/10 rounded-xl text-alphas-accent border border-amber-500/20"><i class='bx bx-safe-storage text-xl'></i></div>
+                        </div>
+                        <p class="text-[10px] text-slate-500 mt-3 font-semibold">Central growth reserve fund for R&D, servers, and ads.</p>
+                    </div>
+
+                    <div class="glass-card rounded-2xl p-6 border border-alphas-glassBorder relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-indigo-500/5 to-transparent pointer-events-none"></div>
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <span class="text-xs text-slate-400 font-bold block mb-1">Asy's Total Earnings</span>
+                                <span id="kpi-asy-earnings" class="text-2xl font-black text-blue-400 font-mono text-xl sm:text-2xl">EGP 0</span>
+                            </div>
+                            <div class="p-3 bg-indigo-500/10 rounded-xl text-blue-400 border border-indigo-500/20"><i class='bx bx-code-block text-xl'></i></div>
+                        </div>
+                        <p class="text-[10px] text-slate-500 mt-3 font-semibold">Includes 50% split + web development & tech execution fees.</p>
+                    </div>
+
+                    <div class="glass-card rounded-2xl p-6 border border-alphas-glassBorder relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-purple-500/5 to-transparent pointer-events-none"></div>
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <span class="text-xs text-slate-400 font-bold block mb-1">Abanoub's Total Earnings</span>
+                                <span id="kpi-abanoub-earnings" class="text-2xl font-black text-purple-400 font-mono text-xl sm:text-2xl">EGP 0</span>
+                            </div>
+                            <div class="p-3 bg-purple-500/10 rounded-xl text-purple-400 border border-purple-500/20"><i class='bx bx-bullseye text-xl'></i></div>
+                        </div>
+                        <p class="text-[10px] text-slate-500 mt-3 font-semibold">Includes 50% split + social media & media buying execution fees.</p>
                     </div>
                 </div>
-                <div class="chart-box recent-activity">
-                    <h3 class="chart-title">Recent Submissions</h3>
-                    <ul class="activity-list" id="dashboard-recent-list">
+
+                <!-- Graphs and Active Pipelines -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Chart 1: Revenue Trends -->
+                    <div class="glass-card rounded-3xl p-6 border border-alphas-glassBorder lg:col-span-2">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-sm font-black text-white uppercase tracking-wider">Revenue & Earnings Split Distribution</h3>
+                            <span class="text-[10px] text-slate-500 font-bold">Local database sync verified</span>
+                        </div>
+                        
+                        <!-- Premium SVG Line & Bar Chart -->
+                        <div class="relative h-64 w-full flex items-end gap-3 justify-around pt-8 px-4 bg-slate-950/40 rounded-2xl border border-slate-900" id="dashboard-chart-container">
+                            <!-- Populated dynamically via JS -->
+                        </div>
+                        <div class="flex justify-center items-center gap-6 mt-4 text-[10px] font-bold">
+                            <div class="flex items-center gap-1.5"><span class="h-2.5 w-2.5 rounded-full bg-blue-500"></span> Gross Revenue</div>
+                            <div class="flex items-center gap-1.5"><span class="h-2.5 w-2.5 rounded-full bg-amber-500"></span> Capital Reserve</div>
+                            <div class="flex items-center gap-1.5"><span class="h-2.5 w-2.5 rounded-full bg-blue-400"></span> Asy's Shares</div>
+                            <div class="flex items-center gap-1.5"><span class="h-2.5 w-2.5 rounded-full bg-purple-400"></span> Abanoub's Shares</div>
+                        </div>
+                    </div>
+
+                    <!-- Client Activity & Operations status -->
+                    <div class="glass-card rounded-3xl p-6 border border-alphas-glassBorder flex flex-col">
+                        <h3 class="text-sm font-black text-white uppercase tracking-wider mb-6">Operational Status</h3>
+                        
+                        <div class="flex-grow space-y-4">
+                            <!-- Conversion funnel status -->
+                            <div class="space-y-1.5">
+                                <div class="flex justify-between text-xs font-semibold">
+                                    <span class="text-slate-400">Active CRM Leads</span>
+                                    <span id="stat-active-leads" class="text-slate-200 font-mono">0</span>
+                                </div>
+                                <div class="w-full bg-slate-900 rounded-full h-1.5">
+                                    <div id="bar-active-leads" class="bg-alphas-accent h-1.5 rounded-full" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-1.5">
+                                <div class="flex justify-between text-xs font-semibold">
+                                    <span class="text-slate-400">Ongoing Projects</span>
+                                    <span id="stat-active-projects" class="text-slate-200 font-mono">0</span>
+                                </div>
+                                <div class="w-full bg-slate-900 rounded-full h-1.5">
+                                    <div id="bar-active-projects" class="bg-blue-500 h-1.5 rounded-full" style="width: 0%"></div>
+                                </div>
+                            </div>
+
+                            <div class="space-y-1.5">
+                                <div class="flex justify-between text-xs font-semibold">
+                                    <span class="text-slate-400">Paid Invoices Ratio</span>
+                                    <span id="stat-invoices-ratio" class="text-slate-200 font-mono">0%</span>
+                                </div>
+                                <div class="w-full bg-slate-900 rounded-full h-1.5">
+                                    <div id="bar-invoices-ratio" class="bg-emerald-500 h-1.5 rounded-full" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- System integrity stat -->
+                        <div class="mt-6 pt-4 border-t border-alphas-glassBorder/40 flex items-center justify-between text-[11px] text-slate-500 font-bold">
+                            <span>Storage Usage</span>
+                            <span id="storage-percentage" class="font-mono text-slate-300">0.05 KB</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activities Table -->
+                <div class="glass-card rounded-3xl p-6 border border-alphas-glassBorder">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-sm font-black text-white uppercase tracking-wider">Recent Project Ledger Entries</h3>
+                        <button onclick="switchTab('quotation')" class="text-xs text-alphas-accent hover:underline font-bold">New Quote <i class='bx bx-plus ml-0.5'></i></button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs">
+                            <thead>
+                                <tr class="border-b border-alphas-glassBorder/60 text-slate-400">
+                                    <th class="pb-3 text-left">Client Name & Project</th>
+                                    <th class="pb-3 text-center">Gross Revenue</th>
+                                    <th class="pb-3 text-center">COGS</th>
+                                    <th class="pb-3 text-center">Closer (15%)</th>
+                                    <th class="pb-3 text-center">Capital (25%)</th>
+                                    <th class="pb-3 text-center">Net Splits (50/50)</th>
+                                    <th class="pb-3 text-center">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dashboard-projects-table" class="divide-y divide-alphas-glassBorder/20 text-slate-300">
+                                <!-- Populated dynamically by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= VIEW 2: CRM ================= -->
+            <section id="crm" class="view-section space-y-8">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div>
+                        <h2 class="text-2xl font-black text-white tracking-wide">Client Relationship Management (CRM)</h2>
+                        <p class="text-xs text-slate-400 mt-1">Manage leads, track negotiations, log communication logs, and spawn instant client projects.</p>
+                    </div>
+                    <button onclick="openLeadModal()" class="px-4 py-2 bg-gradient-to-r from-blue-600 to-alphas-accent hover:from-blue-500 hover:to-alphas-accentHover text-alphas-dark font-black text-xs rounded-xl shadow-lg transition-all flex items-center gap-1.5">
+                        <i class='bx bx-plus-circle text-sm'></i> Add New Lead
+                    </button>
+                </div>
+
+                <!-- Pipeline Status Filter Row -->
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                    <button onclick="filterLeads('all')" class="crm-filter-btn active bg-alphas-glass border border-alphas-glassBorder rounded-xl p-4 text-center hover:border-slate-600 transition-all">
+                        <span class="text-[10px] text-slate-400 font-bold block uppercase">All Leads</span>
+                        <span id="crm-total-leads" class="text-lg font-black text-white font-mono">0</span>
+                    </button>
+                    <button onclick="filterLeads('new')" class="crm-filter-btn bg-alphas-glass border border-alphas-glassBorder rounded-xl p-4 text-center hover:border-slate-600 transition-all">
+                        <span class="text-[10px] text-blue-400 font-bold block uppercase">New Leads</span>
+                        <span id="crm-new-leads" class="text-lg font-black text-white font-mono">0</span>
+                    </button>
+                    <button onclick="filterLeads('negotiating')" class="crm-filter-btn bg-alphas-glass border border-alphas-glassBorder rounded-xl p-4 text-center hover:border-slate-600 transition-all">
+                        <span class="text-[10px] text-amber-500 font-bold block uppercase">Negotiation</span>
+                        <span id="crm-negotiating-leads" class="text-lg font-black text-white font-mono">0</span>
+                    </button>
+                    <button onclick="filterLeads('won')" class="crm-filter-btn bg-alphas-glass border border-alphas-glassBorder rounded-xl p-4 text-center hover:border-slate-600 transition-all">
+                        <span class="text-[10px] text-emerald-400 font-bold block uppercase">Closed Won</span>
+                        <span id="crm-won-leads" class="text-lg font-black text-white font-mono">0</span>
+                    </button>
+                    <button onclick="filterLeads('lost')" class="crm-filter-btn bg-alphas-glass border border-alphas-glassBorder rounded-xl p-4 text-center hover:border-slate-600 transition-all">
+                        <span class="text-[10px] text-red-500 font-bold block uppercase">Closed Lost</span>
+                        <span id="crm-lost-leads" class="text-lg font-black text-white font-mono">0</span>
+                    </button>
+                </div>
+
+                <!-- Leads Table Box -->
+                <div class="glass-card rounded-3xl p-6 border border-alphas-glassBorder">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-sm font-black text-white uppercase tracking-wider">Leads Ledger</h3>
+                        <div class="flex items-center gap-3">
+                            <input type="text" id="crm-search" oninput="searchLeads()" placeholder="Filter leads..." class="bg-slate-900/60 border border-alphas-glassBorder rounded-lg px-3 py-1 text-xs outline-none text-slate-200 focus:border-alphas-accent w-48">
+                        </div>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs">
+                            <thead>
+                                <tr class="border-b border-alphas-glassBorder/60 text-slate-400">
+                                    <th class="pb-3 text-left">Client Info</th>
+                                    <th class="pb-3 text-left">Source / Pipeline Status</th>
+                                    <th class="pb-3 text-center">Estimated Budget</th>
+                                    <th class="pb-3 text-left">Services Interest</th>
+                                    <th class="pb-3 text-left">Latest Communication / Date</th>
+                                    <th class="pb-3 text-center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="crm-leads-table-body" class="divide-y divide-alphas-glassBorder/20 text-slate-300">
+                                <!-- Populated dynamically by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= VIEW 3: QUOTATION MAKER ================= -->
+            <section id="quotation" class="view-section space-y-8">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h2 class="text-2xl font-black text-white tracking-wide">Strategic Proposal & Quotation Builder</h2>
+                        <p class="text-xs text-slate-400 mt-1">Configure client services, calculate operational COGS, and inspect split statements in real time.</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    
+                    <!-- Left: Configuration Form -->
+                    <div class="lg:col-span-5 bg-slate-950/60 border border-alphas-glassBorder rounded-3xl p-6 space-y-6">
+                        <div>
+                            <h3 class="text-base font-black text-white mb-1"><i class="fa-solid fa-sliders text-alphas-accent mr-2"></i>Configure Proposal</h3>
+                            <p class="text-[11px] text-slate-400">Specify details to update the split Statement and invoice preview.</p>
+                        </div>
+
+                        <!-- Client and Sales Closer -->
+                        <div class="space-y-4 font-bold text-xs">
+                            <div class="space-y-1.5">
+                                <label class="block text-slate-300">Client / Organization Name</label>
+                                <input type="text" id="quote-client-name" value="مؤسسة البزنس الطموح" oninput="calculateQuotation()" class="w-full bg-slate-900 border border-alphas-glassBorder rounded-xl px-4 py-2.5 text-xs text-white outline-none focus:border-alphas-accent">
+                            </div>
+
+                            <div class="space-y-1.5">
+                                <label class="block text-slate-300">Sales Closer (Closer 15%)</label>
+                                <div class="flex gap-2 items-center">
+                                    <select id="quote-closer-select" onchange="handleCloserChange()" class="w-full bg-slate-900 border border-alphas-glassBorder rounded-xl px-3 py-2.5 text-xs text-slate-200 outline-none">
+                                        <option value="asy" selected>Mohamed Asy</option>
+                                        <option value="abanoub">Abanoub</option>
+                                    </select>
+                                    <button type="button" id="delete-btn-closer" onclick="deleteCustomCloser()" class="hidden text-red-400 hover:text-red-300 p-2.5 bg-red-500/10 border border-red-500/20 rounded-xl" title="Delete custom closer"><i class='bx bx-trash'></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Core Services Checklist -->
+                        <div class="space-y-3">
+                            <label class="block text-xs font-black text-slate-300 uppercase tracking-wider">Core Pillars & Services</label>
+                            
+                            <!-- Web Custom Build -->
+                            <div class="p-4 bg-slate-900/30 border border-alphas-glassBorder rounded-2xl space-y-3">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs font-bold text-slate-200"><i class="fa-solid fa-code text-blue-500 mr-2"></i>Web Engineering & Stores</span>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" id="service-web-active" checked onchange="toggleService('web')" class="sr-only peer">
+                                        <div class="w-9 h-5 bg-slate-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-slate-400 after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
+                                    </label>
+                                </div>
+                                <div id="config-web" class="space-y-3 pt-2 border-t border-alphas-glassBorder/40">
+                                    <div class="flex gap-2 items-center">
+                                        <select id="web-tier" onchange="handleSelectChange('web-tier')" class="w-full bg-slate-900 border border-alphas-glassBorder rounded-xl px-3 py-2 text-xs font-bold text-slate-200">
+                                            <option value="starter">Starter Web Build (EGP 11,500)</option>
+                                            <option value="essential">Essential CMS Development (EGP 23,000)</option>
+                                            <option value="ecommerce" selected>Ecommerce Web & Custom Integrations (EGP 34,500)</option>
+                                        </select>
+                                        <button type="button" id="delete-btn-web-tier" onclick="deleteCustomItem('web-tier')" class="hidden text-red-400 hover:text-red-300 p-2 bg-red-500/10 border border-red-500/20 rounded-xl" title="Delete custom item"><i class='bx bx-trash'></i></button>
+                                    </div>
+                                    <div class="flex items-center justify-between pt-1">
+                                        <span class="text-[10px] font-bold text-slate-400">Execution premium paid to:</span>
+                                        <select id="web-partner-exec" onchange="handleExecPartnerChange('web-partner-exec')" class="bg-slate-900 border border-alphas-glassBorder rounded-lg px-2 py-0.5 text-[10px] font-bold text-slate-200 outline-none">
+                                            <option value="none">No premium</option>
+                                            <option value="asy" selected>Asy</option>
+                                            <option value="abanoub">Abanoub</option>
+                                            <option value="shared">Shared</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Website Management -->
+                            <div class="p-4 bg-slate-900/30 border border-alphas-glassBorder rounded-2xl space-y-3">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs font-bold text-slate-200"><i class="fa-solid fa-gears text-blue-500 mr-2"></i>Store Support & Management</span>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" id="service-mgmt-active" onchange="toggleService('mgmt')" class="sr-only peer">
+                                        <div class="w-9 h-5 bg-slate-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-slate-400 after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
+                                    </label>
+                                </div>
+                                <div id="config-mgmt" class="hidden space-y-3 pt-2 border-t border-alphas-glassBorder/40">
+                                    <div class="flex gap-2 items-center">
+                                        <select id="mgmt-tier" onchange="handleSelectChange('mgmt-tier')" class="w-full bg-slate-900 border border-alphas-glassBorder rounded-xl px-3 py-2 text-xs font-bold text-slate-200">
+                                            <option value="bronze" selected>Bronze Management (EGP 5,750 / mo)</option>
+                                            <option value="silver">Silver Support & SEO (EGP 8,625 / mo)</option>
+                                            <option value="gold">Gold Full-Service Ops (EGP 11,500 / mo)</option>
+                                        </select>
+                                        <button type="button" id="delete-btn-mgmt-tier" onclick="deleteCustomItem('mgmt-tier')" class="hidden text-red-400 hover:text-red-300 p-2 bg-red-500/10 border border-red-500/20 rounded-xl" title="Delete custom item"><i class='bx bx-trash'></i></button>
+                                    </div>
+                                    <div class="flex items-center justify-between pt-1">
+                                        <span class="text-[10px] font-bold text-slate-400">Execution premium paid to:</span>
+                                        <select id="mgmt-partner-exec" onchange="handleExecPartnerChange('mgmt-partner-exec')" class="bg-slate-900 border border-alphas-glassBorder rounded-lg px-2 py-0.5 text-[10px] font-bold text-slate-200 outline-none">
+                                            <option value="none">No premium</option>
+                                            <option value="asy" selected>Asy</option>
+                                            <option value="abanoub">Abanoub</option>
+                                            <option value="shared">Shared</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Social Media Marketing -->
+                            <div class="p-4 bg-slate-900/30 border border-alphas-glassBorder rounded-2xl space-y-3">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs font-bold text-slate-200"><i class="fa-solid fa-hashtag text-blue-500 mr-2"></i>Social Media Marketing (SMM)</span>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" id="service-smm-active" onchange="toggleService('smm')" class="sr-only peer">
+                                        <div class="w-9 h-5 bg-slate-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-slate-400 after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
+                                    </label>
+                                </div>
+                                <div id="config-smm" class="hidden space-y-3 pt-2 border-t border-alphas-glassBorder/40">
+                                    <div class="flex gap-2 items-center">
+                                        <select id="smm-tier" onchange="handleSelectChange('smm-tier')" class="w-full bg-slate-900 border border-alphas-glassBorder rounded-xl px-3 py-2 text-xs font-bold text-slate-200">
+                                            <option value="kickstart" selected>SMM Kickstart (EGP 5,175 / mo)</option>
+                                            <option value="growth">SMM Growth Plan (EGP 8,280 / mo)</option>
+                                            <option value="domination">SMM Domination (EGP 11,500 / mo)</option>
+                                        </select>
+                                        <button type="button" id="delete-btn-smm-tier" onclick="deleteCustomItem('smm-tier')" class="hidden text-red-400 hover:text-red-300 p-2 bg-red-500/10 border border-red-500/20 rounded-xl" title="Delete custom item"><i class='bx bx-trash'></i></button>
+                                    </div>
+                                    <div class="flex items-center justify-between pt-1">
+                                        <span class="text-[10px] font-bold text-slate-400">Execution premium paid to:</span>
+                                        <select id="smm-partner-exec" onchange="handleExecPartnerChange('smm-partner-exec')" class="bg-slate-900 border border-alphas-glassBorder rounded-lg px-2 py-0.5 text-[10px] font-bold text-slate-200 outline-none">
+                                            <option value="none">No premium</option>
+                                            <option value="asy">Asy</option>
+                                            <option value="abanoub" selected>Abanoub</option>
+                                            <option value="shared">Shared</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Media Buying & Ads -->
+                            <div class="p-4 bg-slate-900/30 border border-alphas-glassBorder rounded-2xl space-y-3">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs font-bold text-slate-200"><i class="fa-solid fa-bullseye text-blue-500 mr-2"></i>Media Buying & Ads</span>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" id="service-ads-active" checked onchange="toggleService('ads')" class="sr-only peer">
+                                        <div class="w-9 h-5 bg-slate-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-slate-400 after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
+                                    </label>
+                                </div>
+                                <div id="config-ads" class="space-y-3 pt-2 border-t border-alphas-glassBorder/40">
+                                    <div class="flex gap-2 items-center">
+                                        <select id="ads-tier" onchange="handleSelectChange('ads-tier')" class="w-full bg-slate-900 border border-alphas-glassBorder rounded-xl px-3 py-2 text-xs font-bold text-slate-200">
+                                            <option value="starter">Starter Ads meta/Google (EGP 5,750 / mo)</option>
+                                            <option value="essential">Essential Campaign setup (EGP 11,500 / mo)</option>
+                                            <option value="ecommerce" selected>Ecommerce Full Ads Sync & Optim (EGP 17,250 / mo)</option>
+                                        </select>
+                                        <button type="button" id="delete-btn-ads-tier" onclick="deleteCustomItem('ads-tier')" class="hidden text-red-400 hover:text-red-300 p-2 bg-red-500/10 border border-red-500/20 rounded-xl" title="Delete custom item"><i class='bx bx-trash'></i></button>
+                                    </div>
+                                    <div class="flex items-center justify-between pt-1">
+                                        <span class="text-[10px] font-bold text-slate-400">Execution premium paid to:</span>
+                                        <select id="ads-partner-exec" onchange="handleExecPartnerChange('ads-partner-exec')" class="bg-slate-900 border border-alphas-glassBorder rounded-lg px-2 py-0.5 text-[10px] font-bold text-slate-200 outline-none">
+                                            <option value="none">No premium</option>
+                                            <option value="asy">Asy</option>
+                                            <option value="abanoub" selected>Abanoub</option>
+                                            <option value="shared">Shared</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Consulting Services -->
+                            <div class="p-4 bg-slate-900/30 border border-alphas-glassBorder rounded-2xl space-y-3">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs font-bold text-slate-200"><i class="fa-solid fa-user-tie text-blue-500 mr-2"></i>Strategic Consulting</span>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" id="service-consulting-active" onchange="toggleService('consulting')" class="sr-only peer">
+                                        <div class="w-9 h-5 bg-slate-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-slate-400 after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
+                                    </label>
+                                </div>
+                                <div id="config-consulting" class="hidden space-y-3 pt-2 border-t border-alphas-glassBorder/40">
+                                    <div class="flex gap-2 items-center">
+                                        <select id="consulting-tier" onchange="handleSelectChange('consulting-tier')" class="w-full bg-slate-900 border border-alphas-glassBorder rounded-xl px-3 py-2 text-xs font-bold text-slate-200">
+                                            <option value="technical" selected>Technical Code Architecture (EGP 1,725 / hr)</option>
+                                            <option value="growth">Growth & CRO Optimization (EGP 1,725 / hr)</option>
+                                            <option value="enterprise">Enterprise Strategy Transformation (EGP 2,300 / hr)</option>
+                                        </select>
+                                        <button type="button" id="delete-btn-consulting-tier" onclick="deleteCustomItem('consulting-tier')" class="hidden text-red-400 hover:text-red-300 p-2 bg-red-500/10 border border-red-500/20 rounded-xl" title="Delete custom item"><i class='bx bx-trash'></i></button>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <span class="text-xs text-slate-400 font-bold font-sans">Hours:</span>
+                                        <input type="number" id="consulting-hours" value="10" min="1" onchange="calculateQuotation()" class="w-20 bg-slate-900 border border-alphas-glassBorder rounded-lg px-2 py-1 text-xs text-white text-center font-bold">
+                                    </div>
+                                    <div class="flex items-center justify-between pt-1">
+                                        <span class="text-[10px] font-bold text-slate-400">Execution premium paid to:</span>
+                                        <select id="consulting-partner-exec" onchange="handleExecPartnerChange('consulting-partner-exec')" class="bg-slate-900 border border-alphas-glassBorder rounded-lg px-2 py-0.5 text-[10px] font-bold text-slate-200 outline-none">
+                                            <option value="none">No premium</option>
+                                            <option value="asy" selected>Asy</option>
+                                            <option value="abanoub">Abanoub</option>
+                                            <option value="shared">Shared</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Academy Training -->
+                            <div class="p-4 bg-slate-900/30 border border-alphas-glassBorder rounded-2xl space-y-3">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs font-bold text-slate-200"><i class="fa-solid fa-graduation-cap text-blue-500 mr-2"></i>Corporate Academy Training</span>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" id="service-academy-active" onchange="toggleService('academy')" class="sr-only peer">
+                                        <div class="w-9 h-5 bg-slate-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-slate-400 after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
+                                    </label>
+                                </div>
+                                <div id="config-academy" class="hidden space-y-3 pt-2 border-t border-alphas-glassBorder/40">
+                                    <div class="flex gap-2 items-center">
+                                        <select id="academy-tier" onchange="handleSelectChange('academy-tier')" class="w-full bg-slate-900 border border-alphas-glassBorder rounded-xl px-3 py-2 text-xs font-bold text-slate-200">
+                                            <option value="woocommerce" selected>WooCommerce Website Setup (EGP 2,875 / student)</option>
+                                            <option value="mediabuying">Media Buying Tracking (EGP 2,875 / student)</option>
+                                            <option value="crm">CRM Pipeline Automation (EGP 2,875 / student)</option>
+                                        </select>
+                                        <button type="button" id="delete-btn-academy-tier" onclick="deleteCustomItem('academy-tier')" class="hidden text-red-400 hover:text-red-300 p-2 bg-red-500/10 border border-red-500/20 rounded-xl" title="Delete custom item"><i class='bx bx-trash'></i></button>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <span class="text-xs text-slate-400 font-bold font-sans">Students:</span>
+                                        <input type="number" id="academy-students" value="5" min="1" onchange="calculateQuotation()" class="w-20 bg-slate-900 border border-alphas-glassBorder rounded-lg px-2 py-1 text-xs text-white text-center font-bold font-mono">
+                                    </div>
+                                    <div class="flex items-center justify-between pt-1">
+                                        <span class="text-[10px] font-bold text-slate-400">Execution premium paid to:</span>
+                                        <select id="academy-partner-exec" onchange="handleExecPartnerChange('academy-partner-exec')" class="bg-slate-900 border border-alphas-glassBorder rounded-lg px-2 py-0.5 text-[10px] font-bold text-slate-200 outline-none">
+                                            <option value="none">No premium</option>
+                                            <option value="asy" selected>Asy</option>
+                                            <option value="abanoub">Abanoub</option>
+                                            <option value="shared">Shared</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Brand Visual Merchandising (VM) Swatches -->
+                        <div class="space-y-4">
+                            <label class="block text-xs font-black text-slate-300 uppercase tracking-wider">Physical Swatches & Merchandise</label>
+                            
+                            <div class="space-y-1">
+                                <span class="text-xs font-bold text-slate-400">Business Cards</span>
+                                <div class="flex gap-2 items-center">
+                                    <select id="swatch-cards" onchange="handleSelectChange('swatch-cards')" class="w-full bg-slate-900 border border-alphas-glassBorder rounded-xl px-3 py-2 text-xs text-slate-200">
+                                        <option value="none" selected>No physical business cards</option>
+                                        <option value="basic">Business Cards - Basic (EGP 5,750)</option>
+                                        <option value="standard">Business Cards - Spot UV (EGP 8,625)</option>
+                                        <option value="premium">Business Cards - Raised Foil & Spot UV (EGP 11,500)</option>
+                                    </select>
+                                    <button type="button" id="delete-btn-swatch-cards" onclick="deleteCustomItem('swatch-cards')" class="hidden text-red-400 hover:text-red-300 p-2 bg-red-500/10 border border-red-500/20 rounded-xl" title="Delete custom item"><i class='bx bx-trash'></i></button>
+                                </div>
+                            </div>
+
+                            <div class="space-y-1">
+                                <span class="text-xs font-bold text-slate-400">Brand Signage</span>
+                                <div class="flex gap-2 items-center">
+                                    <select id="swatch-signage" onchange="handleSelectChange('swatch-signage')" class="w-full bg-slate-900 border border-alphas-glassBorder rounded-xl px-3 py-2 text-xs text-slate-200">
+                                        <option value="none" selected>No physical signage</option>
+                                        <option value="basic">Signage - Basic 4x3 ft (EGP 5,750)</option>
+                                        <option value="standard">Signage - Standard with Installation (EGP 8,625)</option>
+                                        <option value="premium">Signage - Premium with Maintenance (EGP 11,500)</option>
+                                    </select>
+                                    <button type="button" id="delete-btn-swatch-signage" onclick="deleteCustomItem('swatch-signage')" class="hidden text-red-400 hover:text-red-300 p-2 bg-red-500/10 border border-red-500/20 rounded-xl" title="Delete custom item"><i class='bx bx-trash'></i></button>
+                                </div>
+                            </div>
+
+                            <div class="space-y-1">
+                                <span class="text-xs font-bold text-slate-400">CIM Uniforms, Bags & Goods</span>
+                                <div class="flex gap-2 items-center">
+                                    <select id="swatch-cim" onchange="handleSelectChange('swatch-cim')" class="w-full bg-slate-900 border border-alphas-glassBorder rounded-xl px-3 py-2 text-xs text-slate-200">
+                                        <option value="none" selected>No physical CIM goods</option>
+                                        <option value="basic">CIM Packaging/Bags 100 Sets (EGP 11,500)</option>
+                                        <option value="standard">CIM Packaging/Bags 250 Sets (EGP 23,000)</option>
+                                        <option value="premium">CIM Packaging/Bags 500 Sets (EGP 34,500)</option>
+                                    </select>
+                                    <button type="button" id="delete-btn-swatch-cim" onclick="deleteCustomItem('swatch-cim')" class="hidden text-red-400 hover:text-red-300 p-2 bg-red-500/10 border border-red-500/20 rounded-xl" title="Delete custom item"><i class='bx bx-trash'></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Submit to ledger button -->
+                        <button onclick="lockQuoteToLedger()" class="w-full py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-black text-sm rounded-xl transition-all shadow-lg shadow-emerald-500/20 flex items-center justify-center gap-2">
+                            <i class='bx bx-cloud-upload text-base'></i> Lock Deal & Payouts to Ledger
+                        </button>
+                    </div>
+
+                    <!-- Right: Live Split Panel and Invoice Preview -->
+                    <div class="lg:col-span-7 space-y-8">
+                        
+                        <!-- Real-time split details -->
+                        <div class="bg-slate-950/60 border border-alphas-glassBorder rounded-3xl p-6 relative overflow-hidden">
+                            <div class="flex justify-between items-center mb-6">
+                                <h3 class="text-sm font-black text-white uppercase tracking-wider"><i class='bx bx-calculator text-alphas-accent mr-1.5'></i> Duo Split Statement (Lean Duopoly)</h3>
+                                <span class="px-2 py-0.5 bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded text-[9px] font-bold">Real-time split verified</span>
+                            </div>
+
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6 text-center">
+                                <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-900/60">
+                                    <span class="text-[10px] text-slate-400 block mb-1">Gross Revenue</span>
+                                    <span id="split-gross-revenue" class="text-base font-black text-white font-mono">EGP 0</span>
+                                </div>
+                                <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-900/60">
+                                    <span class="text-[10px] text-slate-400 block mb-1">COGS (Expenses)</span>
+                                    <span id="split-total-cogs" class="text-base font-black text-red-400 font-mono">EGP 0</span>
+                                </div>
+                                <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-900/60">
+                                    <span class="text-[10px] text-slate-400 block mb-1">Closer Fee (15%)</span>
+                                    <span id="split-closer-fee" class="text-base font-black text-amber-500 font-mono">EGP 0</span>
+                                </div>
+                                <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-900/60">
+                                    <span class="text-[10px] text-slate-400 block mb-1">Gross Profit</span>
+                                    <span id="split-gross-profit" class="text-base font-black text-emerald-400 font-mono">EGP 0</span>
+                                </div>
+                            </div>
+
+                            <!-- Financial Split statement body -->
+                            <div class="space-y-4 pt-4 border-t border-alphas-glassBorder/40">
+                                <div class="flex justify-between items-center text-xs">
+                                    <span class="text-slate-400 flex items-center gap-1.5"><span class="h-1.5 w-1.5 rounded-full bg-amber-500"></span> Capital reserve (25% of profit):</span>
+                                    <span id="split-capital-reserve" class="font-black text-white font-mono">EGP 0</span>
+                                </div>
+
+                                <!-- Asy payout card -->
+                                <div class="p-4 bg-slate-900/50 rounded-2xl border border-slate-900 space-y-2">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-xs font-black text-slate-200 flex items-center gap-2">
+                                            <span class="h-2 w-2 rounded-full bg-blue-500"></span> Mohamed Asy (Tech Partner) Payout
+                                        </span>
+                                        <span id="split-asy-total" class="text-sm font-black text-blue-400 font-mono">EGP 0</span>
+                                    </div>
+                                    <div class="grid grid-cols-3 text-[10px] text-slate-500">
+                                        <span>Profit Share (50%): <strong id="split-asy-net" class="text-slate-300 font-mono">EGP 0</strong></span>
+                                        <span>Exec Fee: <strong id="split-asy-exec" class="text-slate-300 font-mono">EGP 0</strong></span>
+                                        <span>Sales Closer: <strong id="split-asy-closer" class="text-slate-300 font-mono">EGP 0</strong></span>
+                                    </div>
+                                </div>
+
+                                <!-- Abanoub payout card -->
+                                <div class="p-4 bg-slate-900/50 rounded-2xl border border-slate-900 space-y-2">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-xs font-black text-slate-200 flex items-center gap-2">
+                                            <span class="h-2 w-2 rounded-full bg-amber-500"></span> Abanoub Hany (Media Partner) Payout
+                                        </span>
+                                        <span id="split-abanoub-total" class="text-sm font-black text-amber-500 font-mono">EGP 0</span>
+                                    </div>
+                                    <div class="grid grid-cols-3 text-[10px] text-slate-500">
+                                        <span>Profit Share (50%): <strong id="split-abanoub-net" class="text-slate-300 font-mono">EGP 0</strong></span>
+                                        <span>Exec Fee: <strong id="split-abanoub-exec" class="text-slate-300 font-mono">EGP 0</strong></span>
+                                        <span>Sales Closer: <strong id="split-abanoub-closer" class="text-slate-300 font-mono">EGP 0</strong></span>
+                                    </div>
+                                </div>
+
+                                <!-- Custom Partner Payouts -->
+                                <div id="split-custom-payouts-container" class="hidden p-4 bg-slate-900/30 rounded-2xl border border-alphas-glassBorder/40 space-y-2">
+                                    <span class="text-[10px] font-black text-slate-300 uppercase tracking-widest block"><i class="fa-solid fa-users text-blue-400 mr-1.5"></i>External Execution Payments</span>
+                                    <div id="split-custom-payouts-list" class="space-y-1.5 text-[10px] text-slate-400">
+                                        <!-- Dynamic entries -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Strategic Invoice Preview -->
+                        <div class="bg-white text-slate-900 rounded-3xl p-8 shadow-2xl relative border border-slate-200 text-right" id="printable-quotation-pane" dir="rtl">
+                            <!-- Glowing background watermark -->
+                            <div class="absolute inset-0 flex items-center justify-center opacity-[0.02] pointer-events-none select-none">
+                                <span class="text-7xl font-black tracking-widest text-slate-900 uppercase">ALPHAS</span>
+                            </div>
+
+                            <!-- Document Header -->
+                            <div class="flex flex-col md:flex-row justify-between items-start border-b border-slate-200 pb-6 gap-4">
+                                <div class="text-right">
+                                    <div class="flex items-center gap-2 mb-2 justify-end">
+                                        <span class="text-base font-black tracking-wider text-slate-900">ALPHAS</span>
+                                        <div class="h-7 w-7 rounded-lg bg-blue-600 flex items-center justify-center text-white font-extrabold text-sm">A</div>
+                                    </div>
+                                    <p class="text-[9px] text-slate-500 leading-tight">Digital Business Solutions</p>
+                                    <p class="text-[9px] text-slate-500">Cairo, Egypt | alphas.dbs@gmail.com</p>
+                                </div>
+                                <div class="text-left md:text-right">
+                                    <span class="text-lg font-black text-blue-600 block font-cairo">عرض أسعار استراتيجي فخم</span>
+                                    <span class="text-[9px] text-slate-500 block">تاريخ الإصدار: <span id="invoice-date-display" class="font-mono">17 July 2026</span></span>
+                                    <span class="text-[9px] text-slate-500 block">رقم العقد: <span id="invoice-contract-number" class="font-mono">#DBS-2026-0717</span></span>
+                                </div>
+                            </div>
+
+                            <!-- Client Details -->
+                            <div class="grid grid-cols-2 gap-4 py-6 border-b border-slate-200 text-xs">
+                                <div>
+                                    <span class="text-slate-400 block mb-1">الطرف الأول (مقدم الخدمة):</span>
+                                    <strong class="text-slate-800 font-bold">Alphas Digital Business Solutions</strong>
+                                    <p class="text-slate-500">يمثلها: محمد عاصي & أبانوب هاني</p>
+                                </div>
+                                <div class="text-left">
+                                    <span class="text-slate-400 block mb-1">الطرف الثاني (العميل):</span>
+                                    <strong id="invoice-client-display" class="text-slate-800 font-bold">مؤسسة البزنس الطموح</strong>
+                                    <p class="text-slate-500">منظومة الخدمات والـ Service Design</p>
+                                </div>
+                            </div>
+
+                            <!-- Invoice Items -->
+                            <div class="py-6">
+                                <table class="w-full text-right text-xs">
+                                    <thead>
+                                        <tr class="border-b border-slate-200 text-slate-400 font-bold">
+                                            <th class="py-2 text-right">الخدمة والعمل التشغيلي المشمول</th>
+                                            <th class="py-2 text-center">الكمية</th>
+                                            <th class="py-2 text-left">التكلفة (EGP)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="invoice-preview-items-body" class="divide-y divide-slate-100">
+                                        <!-- Populated dynamically via JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Notes and Totals -->
+                            <div class="border-t border-slate-200 pt-6 flex flex-col md:flex-row justify-between gap-6">
+                                <div class="text-[9px] text-slate-500 leading-relaxed max-w-xs text-right">
+                                    <strong class="text-slate-700 block mb-1">ملاحظات وشروط التعاقد الفني:</strong>
+                                    - كافة الأسعار تشمل رسوم التراخيص والسيرفرات وصناعة المحتوى.<br>
+                                    - يتم ربط الأكواد وتفعيل الـ Server-Side Tracking تلقائياً.<br>
+                                    - يتم التدريب والتأهيل الفني مجاناً من الأكاديمية للتيم الداخلي.
+                                </div>
+                                <div class="text-left space-y-1 text-xs">
+                                    <div class="flex justify-between gap-12">
+                                        <span class="text-slate-500">القيمة الإجمالية للخدمات:</span>
+                                        <strong id="invoice-preview-subtotal" class="text-slate-800 font-bold font-mono">EGP 0</strong>
+                                    </div>
+                                    <div class="flex justify-between gap-12 border-t border-slate-300 pt-2 text-sm">
+                                        <span class="text-slate-900 font-black">إجمالي الاستثمار الصافي:</span>
+                                        <strong id="invoice-preview-total" class="text-blue-600 font-black font-mono">EGP 0</strong>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Signatures -->
+                            <div class="grid grid-cols-2 gap-12 pt-10 border-t border-slate-100 mt-8 text-center text-[9px]">
+                                <div>
+                                    <p class="text-slate-400 mb-4">توقيع واعتماد الشريك الأول (Alphas DBS)</p>
+                                    <div class="flex justify-center gap-6">
+                                        <div>
+                                            <span class="block font-black text-slate-800 text-xs">Mohamed Asy</span>
+                                            <span class="text-[8px] text-slate-400">CEO & Founder</span>
+                                        </div>
+                                        <div>
+                                            <span class="block font-black text-slate-800 text-xs">Abanoub Hany</span>
+                                            <span class="text-[8px] text-slate-400">COO & Partner</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex flex-col justify-end">
+                                    <p class="text-slate-400 mb-4">توقيع واعتماد العميل</p>
+                                    <span class="block font-bold text-slate-800 border-b border-slate-300 w-24 mx-auto"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Print Action -->
+                        <div class="flex justify-end gap-3 no-print">
+                            <button onclick="exportProposalDrafts()" class="px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white text-xs font-black rounded-xl transition-all shadow-md flex items-center gap-2">
+                                <i class="fa-solid fa-file-arrow-down"></i> Export Draft Files
+                            </button>
+                            <button onclick="printProposal()" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white text-xs font-black rounded-xl transition-all shadow-md flex items-center gap-2">
+                                <i class="fa-solid fa-print"></i> Print Proposal / Send to Client
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= VIEW 4: PROJECTS ================= -->
+            <section id="projects" class="view-section space-y-8">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h2 class="text-2xl font-black text-white tracking-wide">Client Project Tracking</h2>
+                        <p class="text-xs text-slate-400 mt-1">Track implementation progress, execution assignments, milestones, and deliverables.</p>
+                    </div>
+                </div>
+
+                <!-- Kanban Board -->
+                <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                    <!-- Column 1: Awaiting Start -->
+                    <div class="flex flex-col space-y-4">
+                        <div class="flex items-center gap-2 px-3 py-2 bg-slate-900/80 border border-alphas-glassBorder rounded-xl justify-between">
+                            <span class="text-xs font-black text-slate-300 uppercase flex items-center gap-2">
+                                <span class="h-2 w-2 rounded-full bg-slate-500 animate-pulse"></span> Awaiting Start
+                            </span>
+                            <span id="proj-count-awaiting" class="bg-slate-800 text-slate-300 text-[10px] font-bold px-2 py-0.5 rounded-full">0</span>
+                        </div>
+                        <div id="board-awaiting" class="project-board-col space-y-4 min-h-[300px] bg-slate-950/20 border border-dashed border-alphas-glassBorder/40 rounded-2xl p-4">
+                            <!-- Cards inserted via JS -->
+                        </div>
+                    </div>
+
+                    <!-- Column 2: In Development -->
+                    <div class="flex flex-col space-y-4">
+                        <div class="flex items-center gap-2 px-3 py-2 bg-slate-900/80 border border-alphas-glassBorder rounded-xl justify-between">
+                            <span class="text-xs font-black text-blue-400 uppercase flex items-center gap-2">
+                                <span class="h-2 w-2 rounded-full bg-blue-400 animate-pulse"></span> In Development
+                            </span>
+                            <span id="proj-count-dev" class="bg-slate-800 text-slate-300 text-[10px] font-bold px-2 py-0.5 rounded-full font-mono">0</span>
+                        </div>
+                        <div id="board-development" class="project-board-col space-y-4 min-h-[300px] bg-slate-950/20 border border-dashed border-alphas-glassBorder/40 rounded-2xl p-4">
+                            <!-- Cards inserted via JS -->
+                        </div>
+                    </div>
+
+                    <!-- Column 3: Quality Audit -->
+                    <div class="flex flex-col space-y-4">
+                        <div class="flex items-center gap-2 px-3 py-2 bg-slate-900/80 border border-alphas-glassBorder rounded-xl justify-between">
+                            <span class="text-xs font-black text-amber-500 uppercase flex items-center gap-2">
+                                <span class="h-2 w-2 rounded-full bg-amber-500 animate-pulse"></span> Quality Audit
+                            </span>
+                            <span id="proj-count-audit" class="bg-slate-800 text-slate-300 text-[10px] font-bold px-2 py-0.5 rounded-full font-mono">0</span>
+                        </div>
+                        <div id="board-audit" class="project-board-col space-y-4 min-h-[300px] bg-slate-950/20 border border-dashed border-alphas-glassBorder/40 rounded-2xl p-4">
+                            <!-- Cards inserted via JS -->
+                        </div>
+                    </div>
+
+                    <!-- Column 4: Handed Over -->
+                    <div class="flex flex-col space-y-4">
+                        <div class="flex items-center gap-2 px-3 py-2 bg-slate-900/80 border border-alphas-glassBorder rounded-xl justify-between">
+                            <span class="text-xs font-black text-emerald-400 uppercase flex items-center gap-2">
+                                <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span> Handed Over
+                            </span>
+                            <span id="proj-count-done" class="bg-slate-800 text-slate-300 text-[10px] font-bold px-2 py-0.5 rounded-full font-mono">0</span>
+                        </div>
+                        <div id="board-done" class="project-board-col space-y-4 min-h-[300px] bg-slate-950/20 border border-dashed border-alphas-glassBorder/40 rounded-2xl p-4">
+                            <!-- Cards inserted via JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= VIEW 5: INVOICES ================= -->
+            <section id="invoices" class="view-section space-y-8">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h2 class="text-2xl font-black text-white tracking-wide">Automated Invoicing Ledger</h2>
+                        <p class="text-xs text-slate-400 mt-1">Generate invoices, trace payments, trigger status modifications, and export client files.</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Invoice ledger list -->
+                    <div class="glass-card rounded-3xl p-6 border border-alphas-glassBorder lg:col-span-2 space-y-4">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-sm font-black text-white uppercase tracking-wider">Invoices List</h3>
+                            <input type="text" id="invoice-search" oninput="searchInvoices()" placeholder="Search client name..." class="bg-slate-900/60 border border-alphas-glassBorder rounded-lg px-3 py-1 text-xs outline-none text-slate-200 focus:border-alphas-accent w-48">
+                        </div>
+
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-xs">
+                                <thead>
+                                    <tr class="border-b border-alphas-glassBorder/60 text-slate-400 font-bold">
+                                        <th class="pb-3 text-left">Invoice No / Date</th>
+                                        <th class="pb-3 text-left">Client Name</th>
+                                        <th class="pb-3 text-center">Amount</th>
+                                        <th class="pb-3 text-center">Status</th>
+                                        <th class="pb-3 text-center">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="invoices-ledger-tbody" class="divide-y divide-alphas-glassBorder/20 text-slate-300">
+                                    <!-- Populated dynamically by JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Invoice Details Panel (Right side preview) -->
+                    <div class="glass-card rounded-3xl p-6 border border-alphas-glassBorder space-y-6 flex flex-col justify-between">
+                        <div class="space-y-6">
+                            <h3 class="text-sm font-black text-white uppercase tracking-wider"><i class='bx bx-search-alt-2 mr-1.5 text-alphas-accent'></i>Invoice Inspector</h3>
+                            <div id="invoice-inspect-panel" class="space-y-4 text-xs">
+                                <div class="text-center text-slate-500 py-12">Select an invoice from the ledger to inspect, edit status, or export for printing.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= VIEW 6: CMS ================= -->
+            <section id="cms" class="view-section space-y-8">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h2 class="text-2xl font-black text-white tracking-wide">Website Content Manager (CMS)</h2>
+                        <p class="text-xs text-slate-400 mt-1">Modify landing page content, services, pricing blocks, and copy-paste JSON configurations.</p>
+                    </div>
+                    <button onclick="saveCMSConfig()" class="px-4 py-2 bg-alphas-accent hover:bg-alphas-accentHover text-alphas-dark font-black text-xs rounded-xl shadow-lg transition-all"><i class='bx bx-save mr-1'></i> Save CMS Configurations</button>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- CMS Editing Forms -->
+                    <div class="glass-card rounded-3xl p-6 border border-alphas-glassBorder space-y-6">
+                        <h3 class="text-sm font-black text-white uppercase tracking-wider border-b border-alphas-glassBorder/40 pb-3">Landing Page Details</h3>
+                        
+                        <div class="space-y-4 text-xs font-bold">
+                            <div class="space-y-1.5">
+                                <label class="block text-slate-300">Hero Section Main Title</label>
+                                <input type="text" id="cms-hero-title" class="w-full bg-slate-900 border border-alphas-glassBorder rounded-xl px-4 py-2 text-white outline-none focus:border-alphas-accent">
+                            </div>
+                            <div class="space-y-1.5">
+                                <label class="block text-slate-300">Hero Subtitle & Tagline</label>
+                                <textarea id="cms-hero-subtitle" rows="3" class="w-full bg-slate-900 border border-alphas-glassBorder rounded-xl px-4 py-2 text-white outline-none focus:border-alphas-accent"></textarea>
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="space-y-1.5">
+                                    <label class="block text-slate-300">Consultation Link / Formspree ID</label>
+                                    <input type="text" id="cms-formspree-id" class="w-full bg-slate-900 border border-alphas-glassBorder rounded-xl px-4 py-2 text-white outline-none focus:border-alphas-accent">
+                                </div>
+                                <div class="space-y-1.5">
+                                    <label class="block text-slate-300">Contact Email</label>
+                                    <input type="email" id="cms-contact-email" class="w-full bg-slate-900 border border-alphas-glassBorder rounded-xl px-4 py-2 text-white outline-none focus:border-alphas-accent">
+                                </div>
+                            </div>
+
+                            <div class="space-y-1.5">
+                                <label class="block text-slate-300">Services Highlight Text</label>
+                                <textarea id="cms-services-desc" rows="3" class="w-full bg-slate-900 border border-alphas-glassBorder rounded-xl px-4 py-2 text-white outline-none focus:border-alphas-accent"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- JSON Exporter -->
+                    <div class="glass-card rounded-3xl p-6 border border-alphas-glassBorder space-y-6 flex flex-col">
+                        <h3 class="text-sm font-black text-white uppercase tracking-wider border-b border-alphas-glassBorder/40 pb-3">JSON Config Exporter</h3>
+                        <p class="text-xs text-slate-400">Any CMS changes made here are saved to the system database. Copy the generated configuration payload to seed updates to external static pipelines:</p>
+                        
+                        <div class="flex-grow space-y-3">
+                            <textarea id="cms-json-preview" readonly rows="12" class="w-full bg-slate-950 border border-alphas-glassBorder rounded-xl p-4 text-[10px] font-mono text-emerald-400 outline-none resize-none"></textarea>
+                            <button onclick="copyCMSJSON()" class="px-4 py-2 bg-slate-900 hover:bg-slate-800 border border-alphas-glassBorder text-slate-300 text-xs font-bold rounded-xl transition-all w-full flex items-center justify-center gap-1.5"><i class='bx bx-copy'></i> Copy Configurations JSON</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= VIEW 7: KNOWLEDGE BASE ================= -->
+            <section id="knowledge" class="view-section space-y-8">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h2 class="text-2xl font-black text-white tracking-wide">Knowledge Base & AI Agent seeding</h2>
+                        <p class="text-xs text-slate-400 mt-1">Host training details, documentation, and generate standardized system descriptions for AI agents.</p>
+                    </div>
+                    <button onclick="openKnowledgeModal()" class="px-4 py-2 bg-alphas-accent hover:bg-alphas-accentHover text-alphas-dark font-black text-xs rounded-xl shadow-lg transition-all"><i class='bx bx-plus-circle mr-1'></i> Create New Article</button>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Left Articles Grid -->
+                    <div class="lg:col-span-2 space-y-6" id="knowledge-articles-list">
                         <!-- Populated by JS -->
-                    </ul>
+                    </div>
+
+                    <!-- Right Agent prompt exporter -->
+                    <div class="glass-card rounded-3xl p-6 border border-alphas-glassBorder space-y-6 flex flex-col justify-between">
+                        <div class="space-y-4">
+                            <h3 class="text-sm font-black text-white uppercase tracking-wider"><i class='bx bx-bot mr-1.5 text-alphas-accent'></i>AI Agent Seeding Console</h3>
+                            <p class="text-xs text-slate-400">Generate a structured system prompt of your agency's architecture, services, and policies. This helps LLM and coding agents to understand the repository structure and execute adjustments without error.</p>
+                            
+                            <textarea id="ai-agent-prompt-output" readonly rows="12" class="w-full bg-slate-950 border border-alphas-glassBorder rounded-xl p-4 text-[10px] font-mono text-cyan-400 outline-none resize-none leading-relaxed"></textarea>
+                        </div>
+
+                        <button onclick="copyAgentPrompt()" class="px-4 py-2.5 bg-blue-600 hover:bg-blue-500 text-white text-xs font-black rounded-xl transition-all shadow-md w-full flex items-center justify-center gap-1.5"><i class='bx bx-copy'></i> Copy AI Agent Prompt</button>
+                    </div>
                 </div>
-            </div>
+            </section>
+
+            <!-- ================= VIEW 8: DEAL HUNTER ================= -->
+            <section id="dealhunter" class="view-section space-y-8">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h2 class="text-2xl font-black text-white tracking-wide">Freelance Platform Gig Hunter</h2>
+                        <p class="text-xs text-slate-400 mt-1">Scan simulated live gigs on Upwork, Fiverr, Behance, and Freelancer. Choose a job to generate pitches using AI based on Alphas DNA.</p>
+                    </div>
+                    <button onclick="simulateGigScan()" class="px-4 py-2 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-black text-xs rounded-xl shadow-lg transition-all flex items-center gap-1.5"><i class='bx bx-analyse animate-pulse'></i> Scan for Live Gigs</button>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    
+                    <!-- Left: Platforms Filter & Gigs Feed -->
+                    <div class="lg:col-span-7 space-y-6">
+                        <!-- Filters -->
+                        <div class="glass-card rounded-2xl p-4 border border-alphas-glassBorder flex flex-wrap gap-3 items-center justify-between text-xs">
+                            <div class="flex items-center gap-2 flex-wrap font-bold">
+                                <button onclick="filterGigs('all')" class="gig-platform-btn active bg-slate-900 border border-alphas-glassBorder px-3 py-1.5 rounded-lg hover:border-slate-500 text-slate-200">All Platforms</button>
+                                <button onclick="filterGigs('Upwork')" class="gig-platform-btn bg-slate-900 border border-alphas-glassBorder px-3 py-1.5 rounded-lg hover:border-slate-500 text-slate-200">Upwork</button>
+                                <button onclick="filterGigs('Fiverr')" class="gig-platform-btn bg-slate-900 border border-alphas-glassBorder px-3 py-1.5 rounded-lg hover:border-slate-500 text-slate-200">Fiverr</button>
+                                <button onclick="filterGigs('Freelancer')" class="gig-platform-btn bg-slate-900 border border-alphas-glassBorder px-3 py-1.5 rounded-lg hover:border-slate-500 text-slate-200">Freelancer</button>
+                                <button onclick="filterGigs('Behance')" class="gig-platform-btn bg-slate-900 border border-alphas-glassBorder px-3 py-1.5 rounded-lg hover:border-slate-500 text-slate-200">Behance</button>
+                            </div>
+                            
+                            <!-- Search -->
+                            <input type="text" id="gig-search" oninput="searchGigs()" placeholder="Filter by keyword..." class="bg-slate-900 border border-alphas-glassBorder rounded-lg px-3 py-1 text-xs outline-none text-slate-200 focus:border-alphas-accent w-40 font-bold">
+                        </div>
+
+                        <!-- Gigs Feed -->
+                        <div class="space-y-4" id="gigs-feed-container">
+                            <!-- Gigs populated dynamically via JS -->
+                        </div>
+                    </div>
+
+                    <!-- Right: Pitch Generator Console -->
+                    <div class="lg:col-span-5 glass-card rounded-3xl p-6 border border-alphas-glassBorder space-y-6 flex flex-col justify-between">
+                        <div class="space-y-4">
+                            <h3 class="text-sm font-black text-white uppercase tracking-wider"><i class='bx bx-file-find mr-1.5 text-alphas-accent'></i>Pitch Architect</h3>
+                            <p class="text-xs text-slate-400">Select a simulated gig from the left feed. The AI system will design a customized proposal that aligns with your agency services, execution roles, and budget configurations.</p>
+                            
+                            <div id="pitch-gig-meta" class="p-4 bg-slate-950/40 border border-slate-900 rounded-2xl hidden text-xs space-y-2">
+                                <!-- Populated dynamically by JS -->
+                            </div>
+
+                            <div class="space-y-1.5 font-bold text-xs">
+                                <label class="block text-slate-400">AI Tailoring Focus</label>
+                                <select id="pitch-style" onchange="generatePitchText()" class="w-full bg-slate-900 border border-alphas-glassBorder rounded-xl px-3 py-2 text-xs text-slate-200 outline-none">
+                                    <option value="premium">Premium Strategy & Outcome Focus (Recommended)</option>
+                                    <option value="lean">Fast, Outcome-Driven & Delivery Focus</option>
+                                    <option value="technical">Technical, Code Audit & CAPI-tracking Focus</option>
+                                </select>
+                            </div>
+
+                            <textarea id="ai-pitch-output" rows="12" class="w-full bg-slate-950 border border-alphas-glassBorder rounded-xl p-4 text-[11px] font-mono text-amber-100 outline-none leading-relaxed"></textarea>
+                        </div>
+
+                        <div class="flex gap-3 mt-4">
+                            <button onclick="copyPitchText()" class="flex-grow px-4 py-2.5 bg-alphas-accent hover:bg-alphas-accentHover text-alphas-dark text-xs font-black rounded-xl transition-all shadow-md flex items-center justify-center gap-1.5"><i class='bx bx-copy'></i> Copy Proposal Pitch</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= VIEW 9: SYSTEM BACKUP ================= -->
+            <section id="backup" class="view-section space-y-8">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h2 class="text-2xl font-black text-white tracking-wide">System Database Backup & recovery</h2>
+                        <p class="text-xs text-slate-400 mt-1">Export your local database as JSON or import backup states to ensure zero-loss operations without server dependencies.</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Export Box -->
+                    <div class="glass-card rounded-3xl p-6 border border-alphas-glassBorder space-y-6 flex flex-col justify-between">
+                        <div class="space-y-4">
+                            <h3 class="text-sm font-black text-white uppercase tracking-wider border-b border-alphas-glassBorder/40 pb-3"><i class='bx bx-export mr-1 text-blue-400'></i>Export Database JSON</h3>
+                            <p class="text-xs text-slate-400">Serialize all CRM leads, project ledger items, invoices, knowledge base articles, and CMS tweaks into a downloadable backup configuration file.</p>
+                            
+                            <textarea id="export-json-preview" readonly rows="8" class="w-full bg-slate-950 border border-alphas-glassBorder rounded-xl p-4 text-[9px] font-mono text-emerald-400 outline-none resize-none"></textarea>
+                        </div>
+                        
+                        <button onclick="downloadBackupJSON()" class="w-full py-3 bg-blue-600 hover:bg-blue-500 text-white font-black text-xs rounded-xl shadow-md transition-all flex items-center justify-center gap-1.5"><i class='bx bx-download'></i> Download Database Backup</button>
+                    </div>
+
+                    <!-- Import Box -->
+                    <div class="glass-card rounded-3xl p-6 border border-alphas-glassBorder space-y-6 flex flex-col justify-between">
+                        <div class="space-y-4">
+                            <h3 class="text-sm font-black text-white uppercase tracking-wider border-b border-alphas-glassBorder/40 pb-3"><i class='bx bx-import mr-1 text-alphas-accent'></i>Import Database Backup</h3>
+                            <p class="text-xs text-slate-400">Choose a previously downloaded `.json` backup file to seed or overwrite the client-side database cache in this browser's `localStorage` namespace.</p>
+                            
+                            <div class="border border-dashed border-alphas-glassBorder rounded-xl p-8 text-center flex flex-col items-center justify-center gap-3 bg-slate-950/20 hover:bg-slate-950/40 transition-colors">
+                                <i class='bx bx-upload text-4xl text-alphas-accent'></i>
+                                <div class="text-xs text-slate-400">Select Backup File</div>
+                                <input type="file" id="import-json-file" accept=".json" onchange="handleImportJSON(event)" class="text-xs text-slate-500 ml-12">
+                            </div>
+                        </div>
+                        
+                        <div class="text-[10px] text-slate-500 text-center font-bold">
+                            <i class='bx bx-info-circle mr-1 text-amber-500'></i> Overwriting existing database cannot be undone. Ensure the JSON schema matches.
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
+    </main>
 
-        <!-- CRM View -->
-        <div id="crm" class="view-section">
-            <div class="overview-header">
-                <h2>CRM - Form Submissions</h2>
-                <button class="btn-primary"><i class='bx bx-export'></i> Export CSV</button>
+    <!-- CRM LEAD DETAILS MODAL -->
+    <div id="lead-modal" class="modal fixed inset-0 bg-alphas-dark/80 backdrop-blur-sm z-50 flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300">
+        <div class="glass-card rounded-3xl border border-alphas-glassBorder w-full max-w-lg p-6 m-4 flex flex-col gap-6 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center border-b border-alphas-glassBorder/40 pb-3">
+                <h3 id="lead-modal-title" class="text-sm font-black text-white uppercase tracking-wider">Add New Lead</h3>
+                <button onclick="closeLeadModal()" class="text-slate-400 hover:text-white text-xl"><i class='bx bx-x'></i></button>
             </div>
+            
+            <form id="lead-form" class="space-y-4 text-xs font-bold" onsubmit="saveLeadForm(event)">
+                <input type="hidden" id="lead-form-id">
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-1.5">
+                        <label class="block text-slate-300">Contact / Lead Name</label>
+                        <input type="text" id="lead-form-name" required class="w-full bg-slate-900 border border-alphas-glassBorder rounded-xl px-4 py-2 text-white outline-none focus:border-alphas-accent">
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="block text-slate-300">Lead Source</label>
+                        <input type="text" id="lead-form-source" placeholder="e.g. index.html - Contact Form" class="w-full bg-slate-900 border border-alphas-glassBorder rounded-xl px-4 py-2 text-white outline-none focus:border-alphas-accent">
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-1.5">
+                        <label class="block text-slate-300">Email Address</label>
+                        <input type="email" id="lead-form-email" required class="w-full bg-slate-900 border border-alphas-glassBorder rounded-xl px-4 py-2 text-white outline-none focus:border-alphas-accent">
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="block text-slate-300">Phone Number (Optional)</label>
+                        <input type="text" id="lead-form-phone" class="w-full bg-slate-900 border border-alphas-glassBorder rounded-xl px-4 py-2 text-white outline-none focus:border-alphas-accent">
+                    </div>
+                </div>
 
-            <div class="table-container">
-                <div class="table-actions">
-                    <div class="filter-group">
-                        <select id="status-filter">
-                            <option value="all">All Statuses</option>
-                            <option value="pending">Pending</option>
-                            <option value="in-progress">In Progress</option>
-                            <option value="resolved">Resolved</option>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-1.5">
+                        <label class="block text-slate-300">Pipeline Status</label>
+                        <select id="lead-form-status" class="w-full bg-slate-900 border border-alphas-glassBorder rounded-xl px-3 py-2 text-white outline-none focus:border-alphas-accent">
+                            <option value="new">New Lead</option>
+                            <option value="negotiating">Negotiation</option>
+                            <option value="won">Closed Won</option>
+                            <option value="lost">Closed Lost</option>
                         </select>
                     </div>
-                </div>
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Service Requested</th>
-                            <th>Date</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="crm-table-body">
-                        <!-- Populated by JS -->
-                    </tbody>
-                </table>
-                <div class="pagination">
-                    <span>Showing 1 to 10 of 1,284 entries</span>
-                    <div class="page-controls">
-                        <button class="page-btn disabled"><i class='bx bx-chevron-left'></i></button>
-                        <button class="page-btn active">1</button>
-                        <button class="page-btn">2</button>
-                        <button class="page-btn">3</button>
-                        <button class="page-btn"><i class='bx bx-chevron-right'></i></button>
+                    <div class="space-y-1.5">
+                        <label class="block text-slate-300">Estimated Budget (EGP)</label>
+                        <input type="number" id="lead-form-budget" required class="w-full bg-slate-900 border border-alphas-glassBorder rounded-xl px-4 py-2 text-white outline-none focus:border-alphas-accent">
                     </div>
                 </div>
-            </div>
-        </div>
-        
-        <!-- Other views placeholders -->
-        <div id="analytics" class="view-section">
-            <div class="overview-header"><h2>Analytics (Coming Soon)</h2></div>
-        </div>
-        <div id="settings" class="view-section">
-            <div class="overview-header"><h2>Settings (Coming Soon)</h2></div>
-        </div>
 
-    </section>
+                <div class="space-y-1.5">
+                    <label class="block text-slate-300">Services Requested</label>
+                    <input type="text" id="lead-form-services" required placeholder="e.g. Web Dev + SMM + Ads Setup" class="w-full bg-slate-900 border border-alphas-glassBorder rounded-xl px-4 py-2 text-white outline-none focus:border-alphas-accent">
+                </div>
 
-    <!-- Modal for viewing form details -->
-    <div id="view-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Submission Details</h2>
-                <span class="close-btn">&times;</span>
-            </div>
-            <div class="modal-body" id="modal-details">
-                <!-- Populated by JS -->
-            </div>
-            <div class="modal-footer">
-                <button class="btn-secondary close-modal-btn">Close</button>
-                <button class="btn-primary" id="mark-resolved-btn">Mark as Resolved</button>
-            </div>
+                <div class="space-y-1.5">
+                    <label class="block text-slate-300">Initial Communication Logs / Notes</label>
+                    <textarea id="lead-form-notes" rows="4" placeholder="Client seeks a premium corporate e-commerce portal with custom split ledgers..." class="w-full bg-slate-900 border border-alphas-glassBorder rounded-xl px-4 py-2 text-white outline-none focus:border-alphas-accent font-sans"></textarea>
+                </div>
+
+                <div class="flex justify-end gap-3 pt-3 border-t border-alphas-glassBorder/40">
+                    <button type="button" onclick="closeLeadModal()" class="px-4 py-2 bg-slate-900 border border-alphas-glassBorder hover:bg-slate-800 text-slate-300 font-bold rounded-xl transition-all">Cancel</button>
+                    <button type="submit" class="px-4 py-2 bg-alphas-accent hover:bg-alphas-accentHover text-alphas-dark font-black rounded-xl transition-all">Save Lead</button>
+                </div>
+            </form>
         </div>
     </div>
 
+    <!-- ADD CUSTOM ITEM MODAL -->
+    <div id="custom-item-modal" class="modal fixed inset-0 bg-alphas-dark/80 backdrop-blur-sm z-50 flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300">
+        <div class="glass-card rounded-3xl border border-alphas-glassBorder w-full max-w-md p-6 m-4 flex flex-col gap-6 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center border-b border-alphas-glassBorder/40 pb-3">
+                <h3 id="custom-item-modal-title" class="text-sm font-black text-white uppercase tracking-wider">Add Custom Service Item</h3>
+                <button type="button" onclick="closeCustomItemModal()" class="text-slate-400 hover:text-white text-xl"><i class='bx bx-x'></i></button>
+            </div>
+            
+            <form id="custom-item-form" class="space-y-4 text-xs font-bold text-slate-200" onsubmit="saveCustomItemForm(event)">
+                <input type="hidden" id="custom-item-select-id">
+                
+                <div class="space-y-1.5">
+                    <label class="block text-slate-300">Item Label / Display Name</label>
+                    <input type="text" id="custom-item-label" required placeholder="e.g., Custom Brand Video Shoot" class="w-full bg-slate-900 border border-alphas-glassBorder rounded-xl px-4 py-2 text-white outline-none focus:border-alphas-accent">
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-1.5">
+                        <label class="block text-slate-300">Gross Price (EGP)</label>
+                        <input type="number" id="custom-item-price" required placeholder="e.g., 25000" class="w-full bg-slate-900 border border-alphas-glassBorder rounded-xl px-4 py-2 text-white outline-none focus:border-alphas-accent">
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="block text-slate-300">COGS Expenses (EGP)</label>
+                        <input type="number" id="custom-item-cogs" required placeholder="e.g., 5000" class="w-full bg-slate-900 border border-alphas-glassBorder rounded-xl px-4 py-2 text-white outline-none focus:border-alphas-accent">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-1.5">
+                        <label class="block text-slate-300">Execution Premium (EGP)</label>
+                        <input type="number" id="custom-item-exec-fee" required placeholder="e.g., 7500" class="w-full bg-slate-900 border border-alphas-glassBorder rounded-xl px-4 py-2 text-white outline-none focus:border-alphas-accent">
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="block text-slate-300">Executing Partner</label>
+                        <select id="custom-item-exec-partner" class="w-full bg-slate-900 border border-alphas-glassBorder rounded-xl px-3 py-2 text-white outline-none focus:border-alphas-accent">
+                            <option value="asy">Mohamed Asy (Tech)</option>
+                            <option value="abanoub">Abanoub Hany (Media)</option>
+                            <option value="shared">Shared Payout</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="flex justify-end gap-3 pt-3 border-t border-alphas-glassBorder/40">
+                    <button type="button" onclick="closeCustomItemModal()" class="px-4 py-2 bg-slate-900 border border-alphas-glassBorder hover:bg-slate-800 text-slate-300 font-bold rounded-xl transition-all">Cancel</button>
+                    <button type="submit" class="px-4 py-2 bg-alphas-accent hover:bg-alphas-accentHover text-alphas-dark font-black rounded-xl transition-all">Add Item</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- KNOWLEDGE BASE ARTICLE MODAL -->
+    <div id="knowledge-modal" class="modal fixed inset-0 bg-alphas-dark/80 backdrop-blur-sm z-50 flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300">
+        <div class="glass-card rounded-3xl border border-alphas-glassBorder w-full max-w-xl p-6 m-4 flex flex-col gap-6 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center border-b border-alphas-glassBorder/40 pb-3">
+                <h3 id="knowledge-modal-title" class="text-sm font-black text-white uppercase tracking-wider">Create New Article</h3>
+                <button onclick="closeKnowledgeModal()" class="text-slate-400 hover:text-white text-xl"><i class='bx bx-x'></i></button>
+            </div>
+            
+            <form id="knowledge-form" class="space-y-4 text-xs font-bold" onsubmit="saveKnowledgeForm(event)">
+                <input type="hidden" id="knowledge-form-id">
+                
+                <div class="space-y-1.5">
+                    <label class="block text-slate-300">Article Title</label>
+                    <input type="text" id="knowledge-form-title" required class="w-full bg-slate-900 border border-alphas-glassBorder rounded-xl px-4 py-2 text-white outline-none focus:border-alphas-accent">
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-1.5">
+                        <label class="block text-slate-300">Category</label>
+                        <select id="knowledge-form-category" class="w-full bg-slate-900 border border-alphas-glassBorder rounded-xl px-3 py-2 text-white outline-none focus:border-alphas-accent">
+                            <option value="training">Team Training & Onboarding</option>
+                            <option value="business">Business DNA & Splits</option>
+                            <option value="technical">Technical Specs & Dev Ops</option>
+                            <option value="clients">Client Guidelines</option>
+                        </select>
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="block text-slate-300">Author</label>
+                        <select id="knowledge-form-author" class="w-full bg-slate-900 border border-alphas-glassBorder rounded-xl px-3 py-2 text-white outline-none focus:border-alphas-accent">
+                            <option value="Mohamed Asy">Mohamed Asy</option>
+                            <option value="Abanoub Hany">Abanoub Hany</option>
+                            <option value="Alphas Team">Alphas Team</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="space-y-1.5">
+                    <label class="block text-slate-300">Article Content (Markdown / Text)</label>
+                    <textarea id="knowledge-form-content" required rows="8" placeholder="Write article content here..." class="w-full bg-slate-900 border border-alphas-glassBorder rounded-xl px-4 py-2 text-white outline-none focus:border-alphas-accent font-sans"></textarea>
+                </div>
+
+                <div class="flex justify-end gap-3 pt-3 border-t border-alphas-glassBorder/40">
+                    <button type="button" onclick="closeKnowledgeModal()" class="px-4 py-2 bg-slate-900 border border-alphas-glassBorder hover:bg-slate-800 text-slate-300 font-bold rounded-xl transition-all">Cancel</button>
+                    <button type="submit" class="px-4 py-2 bg-alphas-accent hover:bg-alphas-accentHover text-alphas-dark font-black rounded-xl transition-all">Save Article</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- CORE SCRIPTS -->
     <script src="admin_panel.js"></script>
 </body>
 </html>

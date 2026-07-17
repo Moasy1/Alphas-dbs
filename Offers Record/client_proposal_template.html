@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>عرض سعر استراتيجي فخم - ALPHAS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --alphas-accent: #e59b58;
+            --alphas-dark: #0b0e14;
+            --alphas-navy: #131924;
+            --alphas-border: #e2e8f0;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+        }
+        * {
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: #f8fafc;
+            color: var(--text-main);
+            padding: 40px;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+        .proposal-paper {
+            background-color: #ffffff;
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 50px;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            border: 1px solid var(--alphas-border);
+            position: relative;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 24px;
+            margin-bottom: 30px;
+        }
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo-img {
+            height: 45px;
+            width: auto;
+        }
+        .company-info {
+            text-align: right;
+        }
+        .company-name {
+            font-weight: 900;
+            font-size: 20px;
+            color: var(--alphas-dark);
+            letter-spacing: 1px;
+        }
+        .company-sub {
+            font-size: 10px;
+            color: var(--alphas-accent);
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-top: 2px;
+        }
+        .meta-area {
+            text-align: left;
+        }
+        .title-proposal {
+            font-size: 22px;
+            font-weight: 900;
+            color: var(--alphas-dark);
+            margin-bottom: 5px;
+        }
+        .meta-line {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+        .meta-val {
+            font-family: monospace;
+            font-weight: bold;
+            color: var(--text-main);
+        }
+        .parties-grid {
+            display: grid;
+            grid-template-cols: 1fr 1fr;
+            gap: 30px;
+            padding: 20px 0;
+            border-bottom: 1px solid #f1f5f9;
+            margin-bottom: 30px;
+        }
+        .party-card {
+            background-color: #f8fafc;
+            padding: 15px 20px;
+            border-radius: 12px;
+            border: 1px solid #f1f5f9;
+        }
+        .party-title {
+            font-size: 11px;
+            color: var(--alphas-accent);
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .party-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--alphas-dark);
+            margin-bottom: 4px;
+        }
+        .party-desc {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+        .intro-text {
+            margin-bottom: 30px;
+            font-size: 13px;
+            color: #475569;
+        }
+        .table-area {
+            margin-bottom: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: right;
+        }
+        th {
+            background-color: #f8fafc;
+            color: var(--text-muted);
+            font-weight: 700;
+            font-size: 11px;
+            padding: 12px 16px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        td {
+            padding: 16px;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 13px;
+            color: #334155;
+        }
+        .td-price {
+            font-family: monospace;
+            font-weight: bold;
+            text-align: left;
+        }
+        .totals-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #f1f5f9;
+        }
+        .notes-card {
+            max-width: 50%;
+        }
+        .notes-title {
+            font-weight: bold;
+            font-size: 12px;
+            color: var(--alphas-dark);
+            margin-bottom: 6px;
+        }
+        .notes-list {
+            font-size: 11px;
+            color: var(--text-muted);
+            list-style: none;
+        }
+        .notes-list li {
+            margin-bottom: 4px;
+            position: relative;
+            padding-right: 12px;
+        }
+        .notes-list li::before {
+            content: "•";
+            color: var(--alphas-accent);
+            position: absolute;
+            right: 0;
+            font-weight: bold;
+        }
+        .pricing-card {
+            background-color: #f8fafc;
+            padding: 15px 24px;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+            min-width: 250px;
+        }
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 12px;
+        }
+        .price-total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 2px dashed #cbd5e1;
+            font-size: 15px;
+            font-weight: 900;
+            color: #2563eb;
+        }
+        .signatures {
+            display: grid;
+            grid-template-cols: 1fr 1fr;
+            gap: 50px;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid #f1f5f9;
+            text-align: center;
+        }
+        .sig-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .sig-title {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-bottom: 45px;
+        }
+        .sig-line {
+            width: 150px;
+            border-bottom: 1px solid var(--text-muted);
+            margin-bottom: 6px;
+        }
+        .sig-name {
+            font-weight: bold;
+            font-size: 12px;
+            color: var(--alphas-dark);
+        }
+        .sig-sub {
+            font-size: 9px;
+            color: var(--text-muted);
+        }
+        
+        @media print {
+            body {
+                background-color: #ffffff;
+                padding: 0;
+            }
+            .proposal-paper {
+                box-shadow: none;
+                border: none;
+                padding: 0;
+            }
+            button {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="proposal-paper">
+        <!-- Header -->
+        <div class="header">
+            <div class="company-info">
+                <div class="logo-area">
+                    <img src="../Logo.png" class="logo-img" alt="Alphas Logo" onerror="this.style.display='none'">
+                    <div>
+                        <div class="company-name">ALPHAS</div>
+                        <div class="company-sub">Digital Business Solutions</div>
+                    </div>
+                </div>
+                <p style="font-size: 10px; color: var(--text-muted); margin-top: 6px;">القاهرة، جمهورية مصر العربية | alphas.dbs@gmail.com</p>
+            </div>
+            <div class="meta-area">
+                <div class="title-proposal">عرض أسعار استراتيجي</div>
+                <div class="meta-line">تاريخ الإصدار: <span class="meta-val" id="date-val">17 يوليو 2026</span></div>
+                <div class="meta-line">رقم العقد: <span class="meta-val" id="contract-val">#DBS-2026-0001</span></div>
+            </div>
+        </div>
+
+        <!-- Parties -->
+        <div class="parties-grid">
+            <div class="party-card">
+                <span class="party-title">الطرف الأول (مقدم الخدمة):</span>
+                <div class="party-name">Alphas Digital Business Solutions</div>
+                <div class="party-desc">يمثلها قانونياً الشركاء المؤسسون: محمد عاصي & أبانوب هاني.</div>
+            </div>
+            <div class="party-card">
+                <span class="party-title">الطرف الثاني (العميل):</span>
+                <div class="party-name" id="client-val">مؤسسة العميل الافتراضي</div>
+                <div class="party-desc">شريك التطور الرقمي والنمو التجاري المستهدف.</div>
+            </div>
+        </div>
+
+        <!-- Intro -->
+        <div class="intro-text">
+            بناءً على دراسة متطلباتكم الرقمية ونموذج العمل الخاص ببياناتكم التشغيلية، يسعدنا في شركة <strong>ALPHAS</strong> تقديم هذا العرض الفني والمالي المتكامل لتنفيذ الخدمات والهندسة الرقمية المطلوبة وفقاً لأعلى معايير الجودة العالمية وبشروط الشفافية التشغيلية الكاملة:
+        </div>
+
+        <!-- Items Table -->
+        <div class="table-area">
+            <table>
+                <thead>
+                    <tr>
+                        <th>الخدمة والعمل التشغيلي المشمول بالتفصيل</th>
+                        <th style="text-align: center;">الكمية</th>
+                        <th style="text-align: left;">التكلفة الاستثمارية (EGP)</th>
+                    </tr>
+                </thead>
+                <tbody id="items-body">
+                    <!-- Dynamic Items -->
+                    <tr>
+                        <td style="font-weight: bold; color: var(--alphas-dark);">باقة هندسة الويب وتطوير المتجر الإلكتروني المخصص (Premium WooCommerce Build)</td>
+                        <td style="text-align: center;">1</td>
+                        <td class="td-price">34,500</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; color: var(--alphas-dark);">باقة تفعيل الميديا باينج وربط الـ Server-Side Conversions API بالكامل</td>
+                        <td style="text-align: center;">1</td>
+                        <td class="td-price">17,250</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Totals & Notes -->
+        <div class="totals-area">
+            <div class="notes-card">
+                <div class="notes-title">ملاحظات وشروط التعاقد الفني:</div>
+                <ul class="notes-list">
+                    <li>كافة الأسعار المذكورة أعلاه تشمل التراخيص البرمجية وسيرفرات الاستضافة المبدئية.</li>
+                    <li>يتم دمج Conversions API وربطه بالخوادم لتجاوز قيود التتبع في أنظمة التشغيل الحديثة.</li>
+                    <li>تلتزم شركة ALPHAS بتقديم الدعم التشغيلي والتدريب المجاني للتيم الفني للعميل.</li>
+                </ul>
+            </div>
+            
+            <div class="pricing-card">
+                <div class="price-row">
+                    <span style="color: var(--text-muted);">القيمة الإجمالية للخدمات:</span>
+                    <strong style="font-family: monospace;" id="subtotal-val">EGP 51,750</strong>
+                </div>
+                <div class="price-row">
+                    <span style="color: var(--text-muted);">الخصومات والمميزات الاستثنائية:</span>
+                    <strong style="color: #10b981; font-family: monospace;">EGP 0</strong>
+                </div>
+                <div class="price-total-row">
+                    <span>إجمالي الاستثمار الصافي:</span>
+                    <span id="total-val">EGP 51,750</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Signatures -->
+        <div class="signatures">
+            <div class="sig-box">
+                <p class="sig-title">توقيع واعتماد الطرف الأول (Alphas DBS)</p>
+                <div style="display: flex; gap: 40px; margin-bottom: 20px;">
+                    <div>
+                        <div class="sig-line"></div>
+                        <div class="sig-name">Mohamed Asy</div>
+                        <div class="sig-sub">CEO & Co-Founder</div>
+                    </div>
+                    <div>
+                        <div class="sig-line"></div>
+                        <div class="sig-name">Abanoub Hany</div>
+                        <div class="sig-sub">COO & Co-Founder</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="sig-box">
+                <p class="sig-title">توقيع واعتماد الطرف الثاني (العميل)</p>
+                <div style="margin-bottom: 20px;">
+                    <div class="sig-line" style="width: 200px;"></div>
+                    <div class="sig-name" id="sig-client-name">ممثلاً عن العميل</div>
+                    <div class="sig-sub">التوقيع والخاتم الرسمي</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

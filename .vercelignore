@@ -1,0 +1,9 @@
+# Ignore large and unnecessary files for Vercel deployment
+English Alphas Portfolio (1).pdf
+logo_base64.txt
+extract_images.py
+Screenshot 2026-07-01 032753.png
+Screenshot 2026-07-01 034843.png
+OUR_DNA/
+.git
+.gitignore

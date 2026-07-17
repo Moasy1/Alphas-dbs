@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Catalyst™ Framework - Service Design Blueprint | Alphas</title>
+    <style>
+        /* CSS VARIABLES & PREMIUM PALETTE */
+        :root {
+            --primary-dark: #020617;
+            --secondary-dark: #0f172a;
+            --bg-cards: #1e293b;
+            --accent-blue: #3b82f6;
+            --accent-glow: #60a5fa;
+            --accent-gold: #f59e0b;
+            --text-light: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+            --success: #10b981;
+            --danger: #ef4444;
+            --font-main: 'Segoe UI', Tahoma, Arial, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--primary-dark);
+            color: var(--text-light);
+            line-height: 1.8;
+            font-size: 11.5pt;
+        }
+
+        /* CONTAINER & LAYOUT */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* INTERACTIVE DASHBOARD TABS */
+        .dashboard-navigation {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 15px;
+        }
+
+        .nav-btn {
+            background-color: var(--secondary-dark);
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            color: var(--text-light);
+            border-color: var(--accent-blue);
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+
+        .nav-btn.active {
+            background-color: var(--accent-blue);
+            color: var(--text-light);
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* TYPOGRAPHY */
+        h1, h2, h3, h4 {
+            font-weight: bold;
+            page-break-after: avoid;
+        }
+
+        h2 {
+            font-size: 22pt;
+            color: var(--text-light);
+            border-bottom: 3px solid var(--accent-blue);
+            padding-bottom: 10px;
+            margin-top: 40px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h2::before {
+            content: "///";
+            color: var(--accent-blue);
+            font-weight: 900;
+        }
+
+        h3 {
+            font-size: 16pt;
+            color: var(--accent-glow);
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        p {
+            margin-bottom: 18px;
+            text-align: justify;
+            color: #e2e8f0;
+        }
+
+        ul, ol {
+            margin-bottom: 25px;
+            margin-right: 25px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        /* COVER PAGE STYLE */
+        .cover-page {
+            background: linear-gradient(135deg, #020617 0%, #0b1329 100%);
+            color: var(--text-light);
+            height: 255mm;
+            padding: 45mm 25mm 25mm 25mm;
+            position: relative;
+            margin: -20px -20px 40px -20px;
+            box-sizing: border-box;
+            border-bottom: 5px solid var(--accent-blue);
+        }
+
+        .cover-logo {
+            font-size: 36pt;
+            font-weight: 900;
+            color: var(--accent-blue);
+            letter-spacing: 5px;
+            margin-bottom: 12mm;
+            text-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+        }
+
+        .cover-title {
+            font-size: 34pt;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 8mm;
+        }
+
+        .cover-subtitle {
+            font-size: 20pt;
+            color: #93c5fd;
+            margin-bottom: 35mm;
+            font-weight: 300;
+        }
+
+        .cover-tagline {
+            font-size: 15pt;
+            border-right: 5px solid var(--accent-blue);
+            padding-right: 20px;
+            color: #f1f5f9;
+            font-style: italic;
+        }
+
+        .cover-footer {
+            position: absolute;
+            bottom: 25mm;
+            right: 25mm;
+            font-size: 11pt;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        /* TABLES FOR SERVICE BLUEPRINT */
+        .blueprint-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0 40px 0;
+            font-size: 10pt;
+            background-color: var(--secondary-dark);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+        }
+
+        .blueprint-table th {
+            background-color: #1e293b;
+            color: var(--text-light);
+            font-weight: bold;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            text-align: right;
+        }
+
+        .blueprint-table td {
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            vertical-align: top;
+            color: #e2e8f0;
+        }
+
+        .blueprint-row-header {
+            background-color: #0b1329;
+            font-weight: bold;
+            color: var(--accent-blue);
+            width: 20%;
+            border-left: 4px solid var(--accent-blue) !important;
+        }
+
+        /* JSON CODE BLOCKS FOR AI COMPREHENSION */
+        .ai-payload-box {
+            background-color: #010409;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 15px 0 25px 0;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 9pt;
+            color: #79c0ff;
+            direction: ltr;
+            text-align: left;
+            position: relative;
+            overflow-x: auto;
+        }
+
+        .ai-payload-box::before {
+            content: "AI AUTOMATION PAYLOAD SCHEMA";
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            font-size: 7.5pt;
+            color: var(--accent-gold);
+            font-family: var(--font-main);
+            font-weight: bold;
+        }
+
+        /* CALLOUT BOXES */
+        .box {
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 6px;
+            page-break-inside: avoid;
+        }
+
+        .box-highlight {
+            background-color: rgba(16, 185, 129, 0.1);
+            border-right: 5px solid var(--success);
+            color: #a7f3d0;
+        }
+
+        .box-warning {
+            background-color: rgba(239, 68, 68, 0.1);
+            border-right: 5px solid var(--danger);
+            color: #fca5a5;
+        }
+
+        .box-info {
+            background-color: rgba(59, 130, 246, 0.1);
+            border-right: 5px solid var(--accent-blue);
+            color: #bfdbfe;
+        }
+
+        .formula-box {
+            background: linear-gradient(90deg, #0f172a 0%, #1e293b 100%);
+            border: 1px dashed var(--accent-gold);
+            border-radius: 6px;
+            padding: 15px;
+            margin: 20px 0;
+            font-size: 11pt;
+            font-weight: bold;
+            color: var(--accent-gold);
+            text-align: center;
+        }
+
+        /* PRINT CONFIGURATION MODIFICATIONS */
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            .tab-content {
+                display: block !important;
+                page-break-before: always;
+            }
+            .cover-page {
+                height: 270mm;
+                margin: -20mm -15mm 30px -15mm;
+                padding: 50mm 20mm;
+            }
+            body {
+                background-color: #ffffff !important;
+                color: #000000 !important;
+            }
+            h2, h3, h4, p, li, td {
+                color: #000000 !important;
+            }
+            .blueprint-table {
+                background-color: #ffffff !important;
+                box-shadow: none !important;
+            }
+            .blueprint-table td, .blueprint-table th {
+                border: 1px solid #000000 !important;
+                color: #000000 !important;
+            }
+            .blueprint-row-header {
+                background-color: #f1f5f9 !important;
+                color: #000000 !important;
+            }
+            .ai-payload-box {
+                background-color: #f8fafc !important;
+                border: 1px solid #cbd5e1 !important;
+                color: #000000 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- DASHBOARD NAVIGATION (HIDDEN ON PRINT) -->
+        <div class="dashboard-navigation no-print">
+            <button class="nav-btn active" onclick="switchTab('cover')">غلاف الدستور</button>
+            <button class="nav-btn" onclick="switchTab('lean-philosophy')">1. فلسفة الثنائي الحديدي</button>
+            <button class="nav-btn" onclick="switchTab('catalyst-blueprints')">2. مخططات الـ 7 Catalyst™</button>
+            <button class="nav-btn" onclick="switchTab('pricing-governance')">3. المالية والتوزيع القانوني</button>
+            <button class="nav-btn" onclick="switchTab('outbound-engine')">4. صيد صفقات الفريلانس</button>
+            <button class="nav-btn" onclick="switchTab('sales-enablement')">5. دليل معالجة الاعتراضات</button>
+        </div>
+
+        <!-- TAB: COVER -->
+        <div id="cover" class="tab-content active">
+            <div class="cover-page">
+                <div class="cover-logo">ALPHAS</div>
+                <div class="cover-title">The Catalyst™ 2-Man Hyper-Lean Blueprint</div>
+                <div class="cover-subtitle">الميثاق الاستراتيجي والتصميم التشغيلي للثنائي عاصي وأبانوب</div>
+                <div class="cover-tagline">
+                    تفكيك ميكانيكي متكامل لعمليات وخدمات الكيان، مع صياغة مدخلات ومخرجات الأنظمة البرمجية كدستور مقروء للبشر ومحركات الذكاء الاصطناعي (AI Agent Context).
+                </div>
+                <div class="cover-footer">
+                    <strong>الإصدار التشغيلي النهائي 2.0 (The Hyper-Lean Duopoly Engine)</strong><br>
+                    تأسيس وإدارة الشريكين: محمد عاصي & أبانوب هاني<br>
+                    Alphas Digital Business Solutions © 2026. جميع الحقوق محفوظة.
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: LEAN PHILOSOPHY -->
+        <div id="lean-philosophy" class="tab-content">
+            <h2>1. فلسفة الكيان الثنائي الخارق النعومة (The Lean Duo Engine)</h2>
+            <p>
+                في بيئة الأعمال الحديثة بالشرق الأوسط، تعاني أغلب الشركات الرقمية والوكالات من الترهل البشري وتشتت مواسير اتخاذ القرار، مما يتسبب في ضياع الأرباح وتشوه جودة التسليم الفني. لذلك، انتقلت شركة <strong>Alphas Digital Business Solutions</strong> إلى نموذج تشغيلي ثنائي فائق النعومة (Hyper-Lean Duopoly).
+            </p>
+            <p>
+                خروج "سيف ياسر" و"ندى" من الهيكل التنظيمي لـ Alphas لم يكن مجرد تقليص إداري عادي، بل كان خطوة استراتيجية لتوحيد المسؤوليات والقضاء التام على وسائط الاتصال. يعتمد هذا النموذج على **الميكنة والذكاء الاصطناعي (Automation & AI-First Sprints)** لتعويض غياب العنصر البشري الإضافي، مع توجيه مباشر وحصري من الشريكين الأساسيين لضمان الجودة العالية.
+            </p>
+
+            <h3>أركان السيطرة الثنائية لـ Alphas:</h3>
+            <ul>
+                <li>
+                    <strong>محمد عاصي (CEO, Marketing & Tech Director - 60% Ownership Share):</strong>
+                    المسؤول والموجه الأول للرؤية الاستراتيجية للكيان، التوجيه المالي وحسابات الموازنة، تخطيط وإطلاق حملات الميديا باينج والـ SEO، الإشراف الفني والتحكم البرمجي المباشر كود بكود وتوجيه المطورين المتعاقدين لضمان سرعة تحميل 100/100.
+                </li>
+                <li>
+                    <strong>أبانوب هاني (COO, Sales & Lead Gen Director - 40% Ownership Share):</strong>
+                    المسؤول بالكامل عن العمليات اليومية، صياغة وتنفيذ خطط المبيعات وتتبع الـ CRM، توليد وإدارة صيد الصفقات على منصات العمل الحر (Upwork, Mostaqel)، عمليات إدخال وتأهيل العملاء (Client Onboarding)، وتدريب تيم مبيعات العميل في الأكاديمية.
+                </li>
+            </ul>
+
+            <div class="box box-info">
+                <h4>لماذا هذا المستند مكتوب بطريقة الميثاق البرمجي؟</h4>
+                <p>
+                    بما أن عاصي وأبانوب يعتمدان بشكل كلي على **مساعدين أذكياء (AI Agents/LLMs)** في أتمتة الأعمال، وصياغة الـ Proposals، وبناء الأكواد؛ تم تصميم وتوجيه هذا الملف بصياغة **Machine-Readable**، بحيث يمكن لأي نموذج ذكاء اصطناعي قراءته وفهم فلسفة الـ Alphas Way لضمان عدم حدوث أي انحراف في جودة العمليات أو لغة التسويق.
+                </p>
+            </div>
+        </div>
+
+        <!-- TAB: CATALYST BLUEPRINTS -->
+        <div id="catalyst-blueprints" class="tab-content">
+            <h2>2. مخططات تشغيل الخدمة التفصيلية (The 7 Catalyst™ Blueprints)</h2>
+            <p>
+                إطار عمل **The Catalyst™** هو المنهجية التي تمر من خلالها أي شركة طموحة لضمان إلغاء فجوات التشغيل وتحقيق قمة عوائد المبيعات. قمنا بتفكيك كل مرحلة على طريقة الـ **Service Blueprint** من خلال 4 طبقات تشغيلية متزامنة وربطها بمخططات داتا (JSON Payload Schema) ليفهمها الذكاء الاصطناعي.
+            </p>
+
+            <!-- 1. NEXUS -->
+            <h3>1. موديول الاستشارات والتحول الاستراتيجي (Nexus™)</h3>
+            <p>الهدف: فحص نموذج عمل العميل والتدقيق المالي والتقني لكشف مواسير تسريب العملاء.</p>
+            
+            <table class="blueprint-table">
+                <tbody>
+                    <tr>
+                        <td class="blueprint-row-header">الأدلة الملموسة</td>
+                        <td>تقرير PageSpeed وسرعة الموقع الحالي، وثيقة تدقيق نموذج عمل العميل (Business Model Audit Sheet).</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">رحلة العميل</td>
+                        <td>يسجل العميل لطلب استشارة مجانية لتشخيص عطل البزنس ويحضر مكالمة الـ Discovery.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">تيم Alphas (Front)</td>
+                        <td>يقود <strong>أبانوب هاني</strong> حوار المبيعات، ويقوم <strong>محمد عاصي</strong> بتحليل الهيكل المالي وكشف نقاط التسريب للعميل.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">خلف الكواليس (Back)</td>
+                        <td>يفحص <strong>عاصي</strong> التقرير التقني الناتج عن أدوات الفحص التلقائية ويقترح التعديلات اللازمة.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">الأنظمة والـ AI</td>
+                        <td>تنبيه فوري لـ CRM، فحص الموقع أوتوماتيكياً عبر الـ Scanners ورفع تقرير فني بوضع الكود للبورتال.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="ai-payload-box">
+{
+  "stage": "Nexus",
+  "trigger": "Client_Request_Discovery_Call",
+  "inputs": {
+    "website_url": "string (url)",
+    "current_monthly_ad_spend": "number (USD)",
+    "current_monthly_revenue": "number (USD)",
+    "business_model": "string (ecommerce | high_ticket_service | lead_gen)"
+  },
+  "automation_actions": [
+    "run_google_pagespeed_api_scan",
+    "analyze_site_seo_tags_and_privacy_pixel",
+    "insert_lead_payload_to_alphas_crm",
+    "assign_lead_to_partner(Abanoub_Hany)"
+  ],
+  "outputs": {
+    "technical_audit_score_mobile": "number (0-100)",
+    "technical_audit_score_desktop": "number (0-100)",
+    "leaking_channels": "array [string]",
+    "discovery_meeting_payload_sent_to_owners": "boolean"
+  }
+}
+            </div>
+
+            <div class="page-break"></div>
+
+            <!-- 2. FORGE -->
+            <h3>2. موديول إستراتيجية وتصميم البراند الفخم (Forge™)</h3>
+            <p>الهدف: بناء الهيبة الفنية للبراند وخلق ثقة فورية تزيد الـ Conversion Rate للعملاء.</p>
+
+            <table class="blueprint-table">
+                <tbody>
+                    <tr>
+                        <td class="blueprint-row-header">الأدلة الملموسة</td>
+                        <td>Interactive Figma Prototypes، ودليل ستايل المنصات الرقمية الكامل (Digital Style Guide).</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">رحلة العميل</td>
+                        <td>يراجع العميل لوحة الهوية البصرية المقترحة، ويعطي ملاحظاته الفنية ويوافق على الألوان والفونتات.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">تيم Alphas (Front)</td>
+                        <td>يعرض <strong>أبانوب هاني</strong> استراتيجية البراند للعميل، ويصيغ <strong>عاصي</strong> الخط التوجيهي لهيبة المظهر.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">خلف الكواليس (Back)</td>
+                        <td>يشرف <strong>محمد عاصي</strong> على تيم المصممين الخارجيين للتأكد من فخامة وجودة الديزاين.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">الأنظمة والـ AI</td>
+                        <td>تصدير مكونات الهوية (Design Assets) تلقائياً عبر سكريبتات Figma لـ Cloud Folders مشفرة للعميل.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="ai-payload-box">
+{
+  "stage": "Forge",
+  "trigger": "Strategy_Proposal_Approved",
+  "inputs": {
+    "brand_pillars": "array [string]",
+    "target_audience_demographics": "object",
+    "competitors_visual_audit": "array [string]"
+  },
+  "automation_actions": [
+    "create_collaborative_figma_workspace",
+    "generate_cross_platform_style_sheet",
+    "link_assets_to_alphas_cloud_storage"
+  ],
+  "outputs": {
+    "figma_prototype_url": "string (url)",
+    "digital_style_guide_pdf": "string (url)",
+    "brand_assets_ready_for_code_integration": "boolean"
+  }
+}
+            </div>
+
+            <div class="page-break"></div>
+
+            <!-- 3. BLUEPRINT -->
+            <h3>3. موديول الهندسة البرمجية والـ Custom Code (Blueprint™)</h3>
+            <p>الهدف: بناء موقع أو متجر Woo كود بكود مخصص خارق السرعة لزيادة المبيعات والسرعة.</p>
+
+            <table class="blueprint-table">
+                <tbody>
+                    <tr>
+                        <td class="blueprint-row-header">الأدلة الملموسة</td>
+                        <td>كود HTML/CSS/JS نضيف بنسبة 100%، وتقييم سرعة 100/100 على Google PageSpeed.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">رحلة العميل</td>
+                        <td>يراجع العميل واجهة موقعه الجديد، ويختبر سرعة التصفح السريعة جداً بنفسه على الموبايل.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">تيم Alphas (Front)</td>
+                        <td>يقود <strong>محمد عاصي</strong> جلسة المراجعة الفنية للأكواد والـ Server، ويطمئن أبانوب العميل على سلاسة النظام.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">خلف الكواليس (Back)</td>
+                        <td>المطورون المتعاقدون يكتبون كود مخصص بالكامل تحت فحص وتحكم صارم من <strong>عاصي</strong>.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">الأنظمة والـ AI</td>
+                        <td>سيرفرات الفحص والـ Load Testing الأوتوماتيكية تراقب الأداء البرمجي وتكشف أي كود يبطئ التصفح.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="ai-payload-box">
+{
+  "stage": "Blueprint",
+  "trigger": "UI_UX_Design_Approved",
+  "inputs": {
+    "approved_design_url": "string (url)",
+    "required_integrations": "array [string]",
+    "cms_preference": "string (custom_wordpress | woocommerce | custom_nextjs)"
+  },
+  "automation_actions": [
+    "initialize_clean_git_repository",
+    "deploy_staging_environment",
+    "integrate_perfect_seo_architecture_rules"
+  ],
+  "outputs": {
+    "git_staging_url": "string (url)",
+    "lighthouse_speed_score_mobile": "number (goal >= 95)",
+    "lighthouse_speed_score_desktop": "number (goal >= 98)",
+    "database_security_handshake": "boolean"
+  }
+}
+            </div>
+
+            <div class="page-break"></div>
+
+            <!-- 4. PULSE -->
+            <h3>4. موديول حملات الميديا باينج بالأرقام (Pulse™)</h3>
+            <p>الهدف: تشغيل حملات تسويقية عنيفة مستهدفة ومبنية على حساب الأرباح الصافية.</p>
+
+            <table class="blueprint-table">
+                <tbody>
+                    <tr>
+                        <td class="blueprint-row-header">الأدلة الملموسة</td>
+                        <td>حملات ميتا وجوجل مفعلة، تتبع Server-Side Tracking جاهز، وتقارير أداء الـ ROAS والـ ROI.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">رحلة العميل</td>
+                        <td>يتابع العميل أرقام مبيعاته الحية بتزيد يوم بعد يوم في الـ CRM دون أي حرق عشوائي للفلوس.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">تيم Alphas (Front)</td>
+                        <td>يراجع <strong>محمد عاصي</strong> أرقام الـ ROAS والمبيعات الصافية مع العميل أسبوعياً لتعديل الميزانيات.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">خلف الكواليس (Back)</td>
+                        <td>الميديا بايرز الخارجين ينفذون خطط الاستهداف ويراقبون الإعلانات لتغيير الكرييتفز الميتة فوراً.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">الأنظمة والـ AI</td>
+                        <td>ربط متكامل للـ Server-Side Conversions لضمان إرسال الداتا للمنصات مباشرة دون مشاكل الـ iOS.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="ai-payload-box">
+{
+  "stage": "Pulse",
+  "trigger": "Website_Go_Live",
+  "inputs": {
+    "pixels_and_conversions_api": "array [string]",
+    "initial_monthly_advertising_budget": "number (EGP)",
+    "target_acquisition_cost_limit": "number (EGP)"
+  },
+  "automation_actions": [
+    "configure_server_side_tracking_via_stape_or_gcp",
+    "launch_ads_with_meta_catalog_sync",
+    "set_up_automated_budget_rules_to_pause_underperforming_ads"
+  ],
+  "outputs": {
+    "server_side_pixel_health_match_rate": "number (goal >= 8.5/10)",
+    "roas_calculation_dashboard_active": "boolean",
+    "monthly_media_buying_report_generated": "boolean"
+  }
+}
+            </div>
+
+            <div class="page-break"></div>
+
+            <!-- 5. FLOW -->
+            <h3>5. موديول الأتمتة والذكاء الاصطناعي للبزنس (Flow™)</h3>
+            <p>الهدف: إلغاء كل العمليات والمهام اليدوية المكررة للتيم وأتمتة دورة حياة الليدز بالكامل.</p>
+
+            <table class="blueprint-table">
+                <tbody>
+                    <tr>
+                        <td class="blueprint-row-header">الأدلة الملموسة</td>
+                        <td>الـ Workflows التلقائية على Make/n8n نشطة ومجربة، والـ AI Agents جاهزة للرد الفوري ومسجلة.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">رحلة العميل</td>
+                        <td>عملاء البزنس يتلقون رداً فورياً على رسايل الواتساب والإيميل في أقل من 5 ثوانٍ لحجز مواعيدهم.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">تيم Alphas (Front)</td>
+                        <td>يدرب <strong>أبانوب هاني</strong> تيم العميل على استخدام سيستم الـ CRM وإدارته من الموبايل بسهولة.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">خلف الكواليس (Back)</td>
+                        <td>يقوم <strong>محمد عاصي</strong> ببرمجة مسارات الأتمتة وربط الـ APIs للواتساب والإيميل بالـ CRM.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">الأنظمة والـ AI</td>
+                        <td>الـ AI Agent يرد ويسجل البيانات ويحجز المكالمة تلقائياً في الخلفية بدون تدخل بشري.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="ai-payload-box">
+{
+  "stage": "Flow",
+  "trigger": "Lead_Added_To_CRM",
+  "inputs": {
+    "lead_id": "string",
+    "lead_whatsapp_number": "string",
+    "acquisition_source": "string"
+  },
+  "automation_actions": [
+    "trigger_instant_whatsapp_welcome_message",
+    "start_ai_qualification_agent_workflow",
+    "sync_booking_calendar_with_sales_crm"
+  ],
+  "outputs": {
+    "response_delay_seconds": "number (goal < 5)",
+    "qualification_score": "number (0-10)",
+    "calendar_appointment_booked": "boolean"
+  }
+}
+            </div>
+
+            <div class="page-break"></div>
+
+            <!-- 6. VERTEX -->
+            <h3>6. موديول ذكاء الأعمال والتحليلات الحية (Vertex™)</h3>
+            <p>الهدف: تقديم وضوح مالي وتشغيلي لايف قدام عين صاحب البزنس بدون رغي وتقارير يدوية ميتة.</p>
+
+            <table class="blueprint-table">
+                <tbody>
+                    <tr>
+                        <td class="blueprint-row-header">الأدلة الملموسة</td>
+                        <td>داشبورد ذكاء أعمال حي (Interactive BI Dashboard) يعرض مقاييس الـ CAC والـ LTV والـ ROI.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">رحلة العميل</td>
+                        <td>يفتح العميل موقعه أو موبايله في أي وقت ليرى صافي مكاسبه ومبيعاته طالعة بوضوح تام.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">تيم Alphas (Front)</td>
+                        <td>يستخدم <strong>عاصي</strong> الداشبورد في المراجعات الدورية لوضع خطط التوسع للبزنس بالأرقام.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">خلف الكواليس (Back)</td>
+                        <td>يقوم <strong>محمد عاصي</strong> ببرمجة دمج وتوحيد مصادر الداتا من الـ CRM وميتا وجوجل.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">الأنظمة والـ AI</td>
+                        <td>الـ BI Engine يحدث البيانات أوتوماتيكياً كل ساعة ويرسل تنبيهات الأداء مباشرة لأصحاب العمل.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="ai-payload-box">
+{
+  "stage": "Vertex",
+  "trigger": "Periodic_Data_Ingest",
+  "inputs": {
+    "crm_sales_data": "array [object]",
+    "advertising_cost_ingest": "array [object]"
+  },
+  "automation_actions": [
+    "recalculate_net_profit_margin",
+    "calculate_cac_formula: (total_marketing_cost / total_new_clients)",
+    "calculate_ltv_formula: (average_purchase_value * average_purchase_frequency)"
+  ],
+  "outputs": {
+    "executive_dashboard_url": "string (url)",
+    "net_roi_score": "number (percentage)",
+    "ingestion_errors_or_anomalies_detected": "boolean"
+  }
+}
+            </div>
+
+            <div class="page-break"></div>
+
+            <!-- 7. ACADEMY -->
+            <h3>7. موديول الأكاديمية ونقل الخبرة الحية (Alphas Academy™)</h3>
+            <p>الهدف: تأهيل وتمكين تيم شركتك الداخلي على إدارة وتشغيل المنظومة والـ CRM باحترافية مستقلة 100%.</p>
+
+            <table class="blueprint-table">
+                <tbody>
+                    <tr>
+                        <td class="blueprint-row-header">الأدلة الملموسة</td>
+                        <td>أدلة تشغيل مخصصة لنظام شركتك (Onboarding Manuals)، فيديوهات مسجلة للـ CRM، وشهادة تأهيل التيم.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">رحلة العميل</td>
+                        <td>يحضر تيم مبيعات العميل ورش العمل الحية ويديرون السيستم والعملاء بمفرد وبنجاح كلي.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">تيم Alphas (Front)</td>
+                        <td>يقود <strong>أبانوب هاني</strong> و<strong>محمد عاصي</strong> ورش التدريب العملي لتمكين وتأهيل تيم العميل.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">خلف الكواليس (Back)</td>
+                        <td>يقوم الشريكان بتسجيل وتجميع المانيوال وفيديوهات التدريب لتسليمها بشكل منظم.</td>
+                    </tr>
+                    <tr>
+                        <td class="blueprint-row-header">الأنظمة والـ AI</td>
+                        <td>بوابات الأكاديمية تتيح للتيم تصفح ملفات المانيوال وفيديوهات الشرح لايف وفي أي وقت.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="ai-payload-box">
+{
+  "stage": "Academy",
+  "trigger": "System_Deployment_Completed",
+  "inputs": {
+    "client_team_members": "array [object]",
+    "system_documentation_folder": "string (url)"
+  },
+  "automation_actions": [
+    "generate_custom_onboarding_portal_access_credentials",
+    "schedule_live_training_sessions_in_partners_calendar",
+    "track_team_member_assessment_scores"
+  ],
+  "outputs": {
+    "onboarding_portal_url": "string (url)",
+    "training_completion_rate": "number (goal == 100)",
+    "team_independent_handover_signed": "boolean"
+  }
+}
+            </div>
+        </div>
+
+        <div class="page-break"></div>
+
+        <!-- TAB: PRICING GOVERNANCE -->
+        <div id="pricing-governance" class="tab-content">
+            <h2>3. ميثاق الشراكة الثنائية وهيكل التسعير والأرباح (Duo Financial Ledger)</h2>
+            <p>
+                وفقاً لـ <strong>PARTNERSHIP AGREEMENT (اتفاقية الشراكة القانونية لـ Alphas)</strong>، والمحدثة كلياً للعمل الثنائي فائق السرعة، يتم حسم وتوزيع الأرباح الصافية بنسبة **(60% لعاصي / 40% لأبانوب)** بعد استقطاع التكاليف التشغيلية (COGS) وخصم الـ **Capital Investment (25% من ربح كل شريك)** لتمويل البنية التحتية والنمو.
+            </p>
+
+            <div class="formula-box">
+                معادلة توزيع الأرباح لـ Alphas: <br>
+                $\text{صافي الربح الكلي} = \text{إجمالي الإيرادات} - \text{إجمالي التكاليف التشغيلية (COGS)}$ <br>
+                $\text{ربح عاصي الصافي} = (\text{صافي الربح} \times 0.60) \times 0.75 \quad | \quad \text{ربح أبانوب الصافي} = (\text{صافي الربح} \times 0.40) \times 0.75$ <br>
+                $\text{إجمالي الـ Capital Investment المقتطع} = \text{صافي الربح} \times 0.25$
+            </div>
+
+            <h3>أولاً: هيكلة مبيعات وتطوير المواقع والمتاجر (WooCommerce & Custom Web Packages)</h3>
+            <table class="pricing-table">
+                <thead>
+                    <tr>
+                        <th>اسم الباقة والسعر</th>
+                        <th>المكونات التقنية والتشغيلية المشمولة</th>
+                        <th>التكلفة التشغيلية (COGS)</th>
+                        <th>صافي الأرباح الموزع للشركاء (60/40)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Starter Website</strong><br>EGP 10,000</td>
+                        <td>موقع ووردبريس أساسي، تصميم متجاوب، سيو داخلي أولي، استضافة ودومين مجاني.</td>
+                        <td>EGP 4,000 <br>(1,500 سيرفر ودومين، 2,500 مبرمج CMS متعاقد)</td>
+                        <td>صافي ربح EGP 6,000 <br>(توزع: 3,600 لعاصي / 2,400 لأبانوب)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Essential Website</strong><br>EGP 20,000</td>
+                        <td>تصميم مخصص، سيو داخلي متقدم، استضافة فائقة السرعة، وتدريب الأكاديمية على الـ CMS.</td>
+                        <td>EGP 8,000 <br>(2,000 استضافة، 2,700 مطور CMS، 1,800 تيم، 1,500 مبيعات)</td>
+                        <td>صافي ربح EGP 12,000 <br>(توزع: 7,200 لعاصي / 4,800 لأبانوب)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ecommerce Website</strong><br>EGP 30,000</td>
+                        <td>متجر Woo مخصص، تصميم فخم، بوابات الدفع والشحن، سيو متطور وتدريب التيم على المبيعات.</td>
+                        <td>EGP 11,000 <br>(2,000 استضافة، 3,000 مطور، 1,800 تيم، 1,200 CRM وربط الدفع، 3,000 مبيعات)</td>
+                        <td>صافي ربح EGP 19,000 <br>(توزع: 11,400 لعاصي / 7,600 لأبانوب)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>ثانياً: هيكلة باقات السوشيال ميديا وإدارة المتاجر (SMM & Management)</h3>
+            <table class="pricing-table">
+                <thead>
+                    <tr>
+                        <th>الباقة والسعر الشهري</th>
+                        <th>المكونات وكرييتفز التصميمات المشمولة</th>
+                        <th>التكلفة التشغيلية (COGS)</th>
+                        <th>صافي الربح الموزع للشركاء (60/40)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Bronze Store Management</strong><br>EGP 5,000 / mo</td>
+                        <td>إدارة الويب سايت، تحديث المنتجات والمخزون، معالجة الطلبات، ودعم العملاء الأساسي.</td>
+                        <td>EGP 3,000 <br>(2,500 تشغيل، 500 حماية ونسخ احتياطي)</td>
+                        <td>صافي ربح EGP 2,000 <br>(توزع: 1,200 لعاصي / 800 لأبانوب)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Social Media Kickstart</strong><br>EGP 4,500 / mo</td>
+                        <td>إدارة 3 حسابات، كتابة وتصميم 8 بوستات شهرياً، مع تقارير أداء ومتابعة شهرية.</td>
+                        <td>EGP 2,250 <br>(400 للمصمم، 1,000 لتنسيق وتشغيل البوستات، 850 إداري ومبيعات)</td>
+                        <td>صافي ربح EGP 2,250 <br>(توزع: 1,350 لعاصي / 900 لأبانوب)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Social Media Growth</strong><br>EGP 7,200 / mo</td>
+                        <td>إدارة 5 حسابات، تصميم 16 بوست شهرياً، إعداد حملات إعلانية مع تقارير الداتا الحية.</td>
+                        <td>EGP 2,750 <br>(750 متخصص تقني وسوشيال، 2,000 لتصميم وصناعة 16 بوست بريميوم)</td>
+                        <td>صافي ربح EGP 4,450 <br>(توزع: 2,670 لعاصي / 1,780 لأبانوب)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Social Media Domination</strong><br>EGP 10,000 / mo</td>
+                        <td>إدارة شاملة لجميع الحسابات، تصميم 24 بوست شهرياً، ميديا باينج متقدم، أوتوميشن كامل للردود.</td>
+                        <td>EGP 4,000 <br>(1,000 ميديا باير متعاقد، 3,000 لتصميم وصياغة 24 بوست فخم بالكامل)</td>
+                        <td>صافي ربح EGP 6,000 <br>(توزع: 3,600 لعاصي / 2,400 لأبانوب)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>ثالثاً: باقات الميديا باينج بالأرقام (Media Buying & Ads Packages)</h3>
+            <table class="pricing-table">
+                <thead>
+                    <tr>
+                        <th>الباقة والسعر الشهري</th>
+                        <th>حملات جوجل وميتا والتتبع المشمول</th>
+                        <th>التكلفة التشغيلية (COGS)</th>
+                        <th>صافي الربح الموزع للشركاء (60/40)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Starter Ads Package</strong><br>EGP 5,000 / mo</td>
+                        <td>1 لـ 2 حملة Meta Ads، استهداف 4 شرائح، إعداد حملة بحث جوجل وسيو داخلي.</td>
+                        <td>EGP 2,500 <br>(إعداد استهداف وتصميمات، وسيو برمجى لتوافق موقعه مع معايير السيو والسرعة)</td>
+                        <td>صافي ربح EGP 2,500 <br>(توزع: 1,500 لعاصي / 1,000 لأبانوب)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Essential Ads Package</strong><br>EGP 10,000 / mo</td>
+                        <td>2 لـ 4 حملات Meta، استهداف 6 شرائح، ربط Pixel، إطلاق إعلانات Google Search والـ Display.</td>
+                        <td>EGP 5,000 <br>(2,500 ميديا باير، و 2,500 لتجهيز السيو والـ Display والبحث في جوجل)</td>
+                        <td>صافي ربح EGP 5,000 <br>(توزع: 3,000 لعاصي / 2,000 لأبانوب)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ecommerce Ads Package</strong><br>EGP 15,000 / mo</td>
+                        <td>2 لـ 4 حملات Meta، ربط Server-Side Conversions، جوجل ميرشانت وكتالوج متكامل لرفع المبيعات لايف.</td>
+                        <td>EGP 7,500 <br>(2,500 ميديا باير، 2,500 ربط الـ Conversions والبرايفسي، و 2,500 لجوجل ميرشانت والسيو)</td>
+                        <td>صافي ربح EGP 7,500 <br>(توزع: 4,500 لعاصي / 3,000 لأبانوب)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- TAB: OUTBOUND ENGINE -->
+        <div id="outbound-engine" class="tab-content">
+            <h2>4. نظام صيد الصفقات الخارجي للثنائي (The Freelance & Outbound Engine)</h2>
+            <p>
+                بعد إلغاء أدوار "سيف" و"ندى"، تم دمج وأتمتة مسارات المبيعات الخارجية وإسنادها بالكامل لـ <strong>أبانوب هاني</strong>، بدعم تقني وتخطيط بورتفوليو مباشر من <strong>محمد عاصي</strong> لضمان جلب أعلى الصفقات البريميوم من منصات العمل الحر الكبرى.
+            </p>
+
+            <h3>مصفوفة صيد الصفقات وتشغيل الـ Freelancing (The Duo Sales Matrix):</h3>
+            <table class="pricing-table">
+                <thead>
+                    <tr>
+                        <th>المنصة المستهدفة</th>
+                        <th>عملية واقتراح الصيد (Bid Strategy)</th>
+                        <th>أبرز مهام أبانوب هاني (COO)</th>
+                        <th>أبرز مهام محمد عاصي (CEO)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Upwork & Freelancer</strong></td>
+                        <td>تجنب الـ Copy-Paste تماماً. تقديم عروض مخصصة (Custom Bids) تحل مشاكل البزنس للعميل من السطر الأول وتدفعه لمكالمة Discovery.</td>
+                        <td>مراقبة المنصة 24/7، كتابة العروض المخصصة، الرد الفوري على رسائل العملاء، وإغلاق الصفقات (Sales Closing).</td>
+                        <td>تجهيز البورتفوليو الفني للويب والـ Ads، وتصميم قوالب العروض التقنية المعقدة لكسب ثقة صناع القرار الكبار.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mostaqel & Khamsat</strong></td>
+                        <td>استهداف الشركات الطموحة والمتاجر في مصر والخليج التي تبحث عن تحول رقمي كامل وسلس بدون عطلات تشغيلية.</td>
+                        <td>متابعة المشاريع المنشورة، إرسال العروض بالعامية المصرية الـ Premium أو العربية الفصحى، وإقناع العميل بمكالمة ديسكفري.</td>
+                        <td>تقديم الحلول الاستشارية المبدئية والتقرير الفني لسرعة الموقع الحالي للعميل كأداة جذب قوية في العرض.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fiverr & Inbound CRM</strong></td>
+                        <td>تجهيز خدمات (Gigs) مخصصة لحل مشاكل الـ Pixel والـ Server-Side Tracking والـ PageSpeed لجلب عملاء دائمين.</td>
+                        <td>متابعة الليدز الواردة للـ CRM، إعداد تقارير المتابعة، والـ Client Onboarding للسيستم.</td>
+                        <td>بناء وتصميم الـ Workflows التلقائية والـ AI Agents لترقية العملاء وحجز مكالماتهم تلقائياً.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="box box-warning">
+                <h4>نقطة الأمان ومقاييس جودة العروض (SOP for Bidding):</h4>
+                <p>
+                    يُمنع على أبانوب أو الـ AI Agents الخاصة به كتابة عرض (Proposal) لا يحتوي على: (1) اسم العميل إن وجد في التقييمات، (2) تشخيص فوري لمشكلة سرعة موقعه أو تتبع الداتا لديه، (3) دعوة صريحة ومباشرة لحجز مكالمة Discovery مجانية لفحص وضعه المالي والتقني أوتوماتيكياً.
+                </p>
+            </div>
+        </div>
+
+        <!-- TAB: SALES ENABLEMENT -->
+        <div id="sales-enablement" class="tab-content">
+            <h2>5. دليل التمكين ومعالجة اعتراضات الأسعار (The Premium Sales Script)</h2>
+            <p>
+                العملاء الكبار وصناع القرار بمجرد سماعهم لأسعار الباقات، أول اعتراض يتبادر لذهنهم هو: "ليه الأسعار دي؟ ما أنا ممكن أروح لشركة تسويق عادية تاخد ربع المبلغ، أو مبرمج مستقل يعملي موقع رخيص!".
+            </p>
+            <p>
+                هذا الدليل هو السلاح والدرع التشغيلي الحاسم لـ <strong>أبانوب هاني</strong> للرد الفوري والمقنع بالعامية المصرية الـ Premium التي تثبت العائد المباشر من وراء تصميم الخدمة الموحدة:
+            </p>
+
+            <div class="box box-highlight">
+                <h4>سيناريو الرد العملي والمقنع لعملاء الـ High-Ticket (Alphas Sales Script):</h4>
+                <p>
+                    <strong>العميل:</strong> "يا فندم الأسعار دي غالية جداً ومتاجر الـ Templates الجاهزة بتتعمل بمليم برة!"
+                </p>
+                <p>
+                    <strong>أبانوب هاني (الرد الحاسم):</strong> "يا فندم، كلام حضرتك منطقي جداً في الظاهر.. بس لو ركزنا شوية في الأرقام، هتلاقي إن التيمبليت الجاهز الرخيص دة هو أكبر ماسورة بتسرب وتخسر شركتك فلوس في الخلفية! حضرتك لما بتشتري ويب سايت رخيص، بيكون تقيل ومبني بكود تعبان وبطيء، فالعميل يدخل من الإعلان يستنى الصفحة تفتح فيزهق ويقفل ويمشي.. حضرتك كدا خسرت ثقة العميل وحرقت ميزانية حملاتك الإعلانية في الأرض! وتيجي شركة التسويق العادية تقولك: إحنا عملنا إعلانات حلوة بس موقّعك بطيء دة مش عيبنا! وشركة البرمجيات تقولك: إحنا سلمناك موقع شغال ملوش علاقة بإعلاناتك!"
+                </p>
+                <p>
+                    "إحنا في Alphas قضينا على التشتت والكركبة دي كلها.. إحنا بنقدملك **منظومة تشغيلية واستشارية وتقنية واحدة موحدة** يلتزم بيها الشركاء المؤسسين بنفسهم لمصلحة نمو وأرباح شركتك الصافية. بنقعد معاك كمستشارين نرسم الاستراتيجية الصح في Nexus، بنبني البنية التحتية كود بكود صاروخي وسريع لدرجة تذهل عملائك في Blueprint، بنضخ العملاء بإعلانات قوية مستهدفة مبنية على الأرقام الصافية في Pulse، بنلغي الشغل اليدوي وبنأتمت عملياتك في Flow، بنوريك أرباحك وتكلفة العميل لايف قدام عينك في داشبورد Vertex، وبندرب تيم شركتك في الأكاديمية عشان يستلموا الماكينة شغالة وبتكسب بوضوح كامل.. حضرتك كدا بتتعامل مع شريك تشغيلي واحد مسؤول عن البزنس من الألف للياء.. دة استثمار حقيقي بالأرقام بيرجعلك أضعاف اللي بتدفعه في الأول.. إيه رأي حضرتك نحجز مكالمة تشخيص البزنس مجاناً مع مهندسي الأداء والاستشاريين بتوعنا؟"
+                </p>
+            </div>
+
+            <h3>أمثلة الـ CTAs الموجهة لرواد الأعمال الطموحين:</h3>
+            <ul>
+                <li>"كفاية مسكنات تقنية وتشتت تشغيلي.. هندس عمليات موقّعك بالكامل وزود أرباحك الصافية مع Alphas."</li>
+                <li>"اضغط هنا لطلب مكالمة فحص فني وتشخيص عطل البزنس مجاناً.. واعرف فين ماسورة الداتا اللي بتسرب فلوسك."</li>
+                <li>"انقل للبنية التحتية البريميوم لخدمات الأتمتة والكود المخصص، وخلي البزنس يشتغل ويكسب لوحده."</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <!-- TABS TRANSITION JAVASCRIPT -->
+    <script>
+        function switchTab(tabId) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            // Show current tab content and activate button
+            document.getElementById(tabId).classList.add('active');
+            
+            // Find button that has onclick attribute containing tabId
+            const activeBtn = Array.from(buttons).find(btn => btn.getAttribute('onclick').includes(tabId));
+            if (activeBtn) activeBtn.classList.add('active');
+        }
+    </script>
+
+</body>
+</html>

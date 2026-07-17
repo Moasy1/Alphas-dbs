@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alphas Platform | Proposal Configurator & Revenue Dashboard</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Premium Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts: Cairo, Inter & JetBrains Mono -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Inter:wght@300;400;600;700;950&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Cairo', 'Inter', sans-serif;
+            background-color: #020617;
+            color: #f8fafc;
+        }
+        .code-font {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .neon-glow {
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.15);
+            border: 1px solid rgba(59, 130, 246, 0.25);
+        }
+        .neon-text {
+            text-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+        }
+        /* Custom dynamic height/scroll adjustments */
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #020617;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3b82f6;
+        }
+        /* Page breaks and print layouts optimized for proposals */
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            .print-area {
+                background: #ffffff !important;
+                color: #0f172a !important;
+                padding: 30px !important;
+                margin: 0 !important;
+                box-shadow: none !important;
+                border: none !important;
+                width: 100% !important;
+            }
+            .print-card {
+                background: #f8fafc !important;
+                border: 1px solid #e2e8f0 !important;
+                color: #0f172a !important;
+            }
+            h1, h2, h3, h4, p, span, td, th, li, strong {
+                color: #0f172a !important;
+                text-shadow: none !important;
+            }
+            .glow-badge {
+                background-color: #f1f5f9 !important;
+                color: #0f172a !important;
+                border: 1px solid #cbd5e1 !important;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen selection:bg-blue-600 selection:text-white pb-12">
+
+    <!-- HEADER BANNER (NO-PRINT) -->
+    <header class="no-print bg-slate-950/90 border-b border-slate-900 sticky top-0 z-50 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <div class="relative flex items-center justify-center">
+                    <!-- Correct Logo binding with elegant circle/glow background -->
+                    <div class="h-11 w-11 rounded-full bg-slate-900 flex items-center justify-center border border-slate-800">
+                        <img src="Logo.png" alt="ALPHAS" class="h-9 w-9 object-contain" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='flex'">
+                        <div id="logo-fallback" class="hidden h-9 w-9 rounded-lg bg-gradient-to-tr from-blue-600 to-indigo-800 items-center justify-center text-white font-extrabold text-sm shadow-md">A</div>
+                    </div>
+                </div>
+                <div>
+                    <span class="text-lg font-black text-white tracking-widest leading-none block">ALPHAS</span>
+                    <span class="text-[9.5px] text-blue-400 font-semibold tracking-wider block mt-1">DIGITAL BUSINESS SOLUTIONS</span>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-full text-xs font-bold flex items-center gap-1.5">
+                    <span class="h-2 w-2 rounded-full bg-emerald-400 animate-ping"></span>
+                    Lean Duopoly Engine v2.5
+                </span>
+                <button onclick="window.print()" class="px-4 py-2.5 bg-blue-600 hover:bg-blue-500 text-white text-xs font-black rounded-xl transition-all shadow-lg shadow-blue-500/25 flex items-center gap-2">
+                    <i class="fa-solid fa-print"></i> طباعة المقترح المعتمد
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="max-w-7xl mx-auto px-6 py-8">
+
+        <!-- MAIN LAYOUT SWITCHER (NO-PRINT) -->
+        <div class="no-print mb-8 flex justify-center bg-slate-900/40 p-1.5 rounded-2xl border border-slate-900 max-w-md mx-auto">
+            <button onclick="switchView('builder')" id="btn-view-builder" class="flex-1 py-3 text-center text-xs font-black rounded-xl transition-all bg-blue-600 text-white shadow-lg shadow-blue-500/15">
+                <i class="fa-solid fa-sliders ml-2"></i> مهندس العروض المقترحة
+            </button>
+            <button onclick="switchView('dashboard')" id="btn-view-dashboard" class="flex-1 py-3 text-center text-xs font-black rounded-xl transition-all text-slate-400 hover:text-white">
+                <i class="fa-solid fa-chart-line ml-2"></i> لوحة الأرباح التراكمية
+            </button>
+        </div>
+
+        <!-- ================= VIEW: BUILDER ================= -->
+        <div id="view-builder" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            <!-- LEFT PANEL: CONFIGURATOR (NO-PRINT) -->
+            <div class="no-print lg:col-span-5 bg-slate-950 border border-slate-900 rounded-3xl p-6 space-y-6">
+                <div>
+                    <h2 class="text-lg font-black text-white mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-wand-magic-sparkles text-blue-500"></i> تهيئة عروض الـ Swatches
+                    </h2>
+                    <p class="text-xs text-slate-400">حدد الباقات، المطبوعات، ومسؤول البيع والتنفيذ لبناء العرض الفني الفوري للعميل وحساب الـ Split المالي.</p>
+                </div>
+
+                <!-- CLIENT METAL FIELD INPUTS (ADD DETAILS) -->
+                <div class="bg-slate-900/30 p-4 rounded-2xl border border-slate-900 space-y-3">
+                    <span class="text-xs font-black text-slate-300 block mb-1">تفاصيل العميل وبيانات المقترح</span>
+                    
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-400 mb-1">اسم متخذ القرار (العميل المستهدف)</label>
+                        <input type="text" id="input-client-name" value="المهندس أحمد علي" oninput="updateProposalMeta()" placeholder="مثال: المهندس أحمد علي" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs font-bold text-white focus:outline-none focus:border-blue-500 transition-all">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-400 mb-1">اسم الشركة / المؤسسة</label>
+                        <input type="text" id="input-company-name" value="شركة تكنو لايف للعيون وبصريات مصر" oninput="updateProposalMeta()" placeholder="مثال: مستشفى تكنو لايف للعيون" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs font-bold text-white focus:outline-none focus:border-blue-500 transition-all">
+                    </div>
+
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-400 mb-1">عنوان المقترح الفني</label>
+                        <input type="text" id="input-project-title" value="مقترح هندسة النمو الرقمي وتكامل المبيعات المتكامل" oninput="updateProposalMeta()" placeholder="مثال: مقترح هندسة النمو الرقمي" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs font-bold text-white focus:outline-none focus:border-blue-500 transition-all">
+                    </div>
+                </div>
+
+                <!-- SELECT CLOSER & SALES SOURCE -->
+                <div class="space-y-3">
+                    <label class="block text-xs font-black text-slate-300 tracking-wide uppercase">مكتشف ومغلق البيعة (Closer 15%)</label>
+                    <div class="grid grid-cols-2 gap-3">
+                        <label class="flex items-center gap-2 p-3 bg-slate-900/60 border border-slate-800 rounded-xl cursor-pointer hover:border-slate-700 transition-all">
+                            <input type="radio" name="closer" value="asy" checked onchange="calculateQuotation()" class="text-blue-500">
+                            <span class="text-xs font-bold text-slate-200">محمد عاصي</span>
+                        </label>
+                        <label class="flex items-center gap-2 p-3 bg-slate-900/60 border border-slate-800 rounded-xl cursor-pointer hover:border-slate-700 transition-all">
+                            <input type="radio" name="closer" value="abanoub" onchange="calculateQuotation()" class="text-blue-500">
+                            <span class="text-xs font-bold text-slate-200">أبانوب هاني</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- CORE SERVICES SELECTION (CASES) -->
+                <div class="space-y-4">
+                    <label class="block text-xs font-black text-slate-300 tracking-wide uppercase">الأعمدة والخدمات الأساسية</label>
+                    
+                    <!-- Web / Ecommerce -->
+                    <div class="p-4 bg-slate-900/30 border border-slate-900 hover:border-slate-800 rounded-2xl space-y-3 transition-all">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-black text-slate-200"><i class="fa-solid fa-code text-blue-500 ml-1.5"></i> هندسة الويب وتطوير المتاجر</span>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" id="service-web-active" checked onchange="toggleService('web')" class="sr-only peer">
+                                <div class="w-9 h-5 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-slate-400 after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600 peer-checked:after:bg-white"></div>
+                            </label>
+                        </div>
+                        <div id="config-web" class="space-y-3 pt-2 border-t border-slate-900">
+                            <select id="web-tier" onchange="calculateQuotation()" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs font-bold text-slate-200">
+                                <option value="starter">Starter Website Package (EGP 11,500)</option>
+                                <option value="essential">Essential Website Package (EGP 23,000)</option>
+                                <option value="ecommerce" selected>Ecommerce Website Package (EGP 34,500)</option>
+                            </select>
+                            <div class="text-[10px] text-slate-400 font-mono" id="web-expense-preview"></div>
+                            <label class="flex items-center gap-2 cursor-pointer pt-1">
+                                <input type="checkbox" id="web-partner-exec" checked onchange="calculateQuotation()" class="rounded text-blue-500">
+                                <span class="text-[10px] font-bold text-slate-400">التنفيذ الفني والبرمجة بواسطة الشريك (<span class="text-blue-400">عاصي</span>)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Website Management -->
+                    <div class="p-4 bg-slate-900/30 border border-slate-900 hover:border-slate-800 rounded-2xl space-y-3 transition-all">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-black text-slate-200"><i class="fa-solid fa-gears text-blue-500 ml-1.5"></i> خدمات إدارة وتشغيل المواقع</span>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" id="service-mgmt-active" onchange="toggleService('mgmt')" class="sr-only peer">
+                                <div class="w-9 h-5 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-slate-400 after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600 peer-checked:after:bg-white"></div>
+                            </label>
+                        </div>
+                        <div id="config-mgmt" class="hidden space-y-3 pt-2 border-t border-slate-900">
+                            <select id="mgmt-tier" onchange="calculateQuotation()" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs font-bold text-slate-200">
+                                <option value="bronze" selected>Bronze Package (EGP 5,750 / mo)</option>
+                                <option value="silver">Silver Package (EGP 8,625 / mo)</option>
+                                <option value="gold">Gold Package (EGP 11,500 / mo)</option>
+                            </select>
+                            <div class="text-[10px] text-slate-400 font-mono" id="mgmt-expense-preview"></div>
+                            <label class="flex items-center gap-2 cursor-pointer pt-1">
+                                <input type="checkbox" id="mgmt-partner-exec" checked onchange="calculateQuotation()" class="rounded text-blue-500">
+                                <span class="text-[10px] font-bold text-slate-400">التنفيذ الفني بواسطة الشريك (<span class="text-blue-400">عاصي</span>)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Social Media Marketing -->
+                    <div class="p-4 bg-slate-900/30 border border-slate-900 hover:border-slate-800 rounded-2xl space-y-3 transition-all">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-black text-slate-200"><i class="fa-solid fa-hashtag text-blue-500 ml-1.5"></i> السوشيال ميديا والتسويق الرقمي</span>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" id="service-smm-active" onchange="toggleService('smm')" class="sr-only peer">
+                                <div class="w-9 h-5 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-slate-400 after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600 peer-checked:after:bg-white"></div>
+                            </label>
+                        </div>
+                        <div id="config-smm" class="hidden space-y-3 pt-2 border-t border-slate-900">
+                            <select id="smm-tier" onchange="calculateQuotation()" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs font-bold text-slate-200">
+                                <option value="kickstart" selected>Social Media Kickstart (EGP 5,175 / mo)</option>
+                                <option value="growth">Social Media Growth (EGP 8,280 / mo)</option>
+                                <option value="domination">Social Media Domination (EGP 11,500 / mo)</option>
+                            </select>
+                            <div class="text-[10px] text-slate-400 font-mono" id="smm-expense-preview"></div>
+                            <label class="flex items-center gap-2 cursor-pointer pt-1">
+                                <input type="checkbox" id="smm-partner-exec" checked onchange="calculateQuotation()" class="rounded text-blue-500">
+                                <span class="text-[10px] font-bold text-slate-400">التنفيذ والتنسيق الفني بواسطة الشريك (<span class="text-blue-400">أبانوب</span>)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Media Buying & Ads -->
+                    <div class="p-4 bg-slate-900/30 border border-slate-900 hover:border-slate-800 rounded-2xl space-y-3 transition-all">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-black text-slate-200"><i class="fa-solid fa-bullseye text-blue-500 ml-1.5"></i> الميديا باينج وحملات الأداء</span>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" id="service-ads-active" checked onchange="toggleService('ads')" class="sr-only peer">
+                                <div class="w-9 h-5 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-slate-400 after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600 peer-checked:after:bg-white"></div>
+                            </label>
+                        </div>
+                        <div id="config-ads" class="space-y-3 pt-2 border-t border-slate-900">
+                            <select id="ads-tier" onchange="calculateQuotation()" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs font-bold text-slate-200">
+                                <option value="starter">Starter Ads Package (EGP 5,750 / mo)</option>
+                                <option value="essential">Essential Ads Package (EGP 11,500 / mo)</option>
+                                <option value="ecommerce" selected>Ecommerce Ads Package (EGP 17,250 / mo)</option>
+                            </select>
+                            <div class="text-[10px] text-slate-400 font-mono" id="ads-expense-preview"></div>
+                            <label class="flex items-center gap-2 cursor-pointer pt-1">
+                                <input type="checkbox" id="ads-partner-exec" checked class="rounded text-blue-500" disabled>
+                                <span class="text-[10px] font-bold text-slate-400">تنفيذ عملية الباينج إلزامياً بواسطة (<span class="text-amber-500 font-extrabold">أبانوب هاني</span>)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Consulting Services -->
+                    <div class="p-4 bg-slate-900/30 border border-slate-900 hover:border-slate-800 rounded-2xl space-y-3 transition-all">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-black text-slate-200"><i class="fa-solid fa-user-tie text-blue-500 ml-1.5"></i> الاستشارات المتقدمة والتحول الرقم</span>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" id="service-consulting-active" onchange="toggleService('consulting')" class="sr-only peer">
+                                <div class="w-9 h-5 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-slate-400 after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600 peer-checked:after:bg-white"></div>
+                            </label>
+                        </div>
+                        <div id="config-consulting" class="hidden space-y-3 pt-2 border-t border-slate-900">
+                            <select id="consulting-tier" onchange="calculateQuotation()" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs font-bold text-slate-200">
+                                <option value="technical" selected>Technical & Code Architecture (EGP 1,725 / hr)</option>
+                                <option value="growth">Growth & Conversion Optimization (EGP 1,725 / hr)</option>
+                                <option value="enterprise">Enterprise Strategy Session (EGP 2,300 / hr)</option>
+                            </select>
+                            <div class="text-[10px] text-slate-400 font-mono" id="consulting-expense-preview"></div>
+                            <div class="flex items-center gap-3">
+                                <span class="text-xs text-slate-400 font-bold">عدد الساعات:</span>
+                                <input type="number" id="consulting-hours" value="10" min="1" onchange="calculateQuotation()" class="w-20 bg-slate-950 border border-slate-800 rounded-lg px-2 py-1 text-xs text-white text-center font-bold">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Academy Courses -->
+                    <div class="p-4 bg-slate-900/30 border border-slate-900 hover:border-slate-800 rounded-2xl space-y-3 transition-all">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-black text-slate-200"><i class="fa-solid fa-graduation-cap text-blue-500 ml-1.5"></i> كورسات وتأهيل الأكاديمية</span>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" id="service-academy-active" onchange="toggleService('academy')" class="sr-only peer">
+                                <div class="w-9 h-5 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-slate-400 after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600 peer-checked:after:bg-white"></div>
+                            </label>
+                        </div>
+                        <div id="config-academy" class="hidden space-y-3 pt-2 border-t border-slate-900">
+                            <select id="academy-tier" onchange="calculateQuotation()" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs font-bold text-slate-200">
+                                <option value="woocommerce" selected>WooCommerce Masterclass (EGP 2,875 / std)</option>
+                                <option value="mediabuying">Media Buying & CAPI Course (EGP 2,875 / std)</option>
+                                <option value="crm">CRM & Lead Automation Training (EGP 2,875 / std)</option>
+                            </select>
+                            <div class="text-[10px] text-slate-400 font-mono" id="academy-expense-preview"></div>
+                            <div class="flex items-center gap-3">
+                                <span class="text-xs text-slate-400 font-bold">عدد المتدربين:</span>
+                                <input type="number" id="academy-students" value="5" min="1" onchange="calculateQuotation()" class="w-20 bg-slate-950 border border-slate-800 rounded-lg px-2 py-1 text-xs text-white text-center font-bold">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DYNAMIC BRANDING & VM SWATCHES -->
+                <div class="space-y-4">
+                    <label class="block text-xs font-black text-slate-300 tracking-wide uppercase">مطبوعات الـ VM و الهوية البصرية (Swatches)</label>
+                    
+                    <!-- Business Cards -->
+                    <div class="space-y-1">
+                        <span class="text-xs font-bold text-slate-400">كروت فخمة (Business Cards)</span>
+                        <select id="swatch-cards" onchange="calculateQuotation()" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-slate-200">
+                            <option value="none">بدون مطبوعات كروت</option>
+                            <option value="basic">كروت فخمة - Basic (EGP 5,750)</option>
+                            <option value="standard">كروت فخمة - Standard Spot UV (EGP 8,625)</option>
+                            <option value="premium">كروت فخمة - Premium Raised Foil (EGP 11,500)</option>
+                        </select>
+                    </div>
+
+                    <!-- Signage -->
+                    <div class="space-y-1">
+                        <span class="text-xs font-bold text-slate-400">يفط ولوحات فخمة (Signage)</span>
+                        <select id="swatch-signage" onchange="calculateQuotation()" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-slate-200">
+                            <option value="none">بدون لوحات إعلانية</option>
+                            <option value="basic">لوحة مخصصة - Basic up to 4x3 ft (EGP 5,750)</option>
+                            <option value="standard">لوحة مخصصة - Standard Installation (EGP 8,625)</option>
+                            <option value="premium">لوحة مخصصة - Premium Ongoing Support (EGP 11,500)</option>
+                        </select>
+                    </div>
+
+                    <!-- CIM Uniforms, Bags & Vouchers -->
+                    <div class="space-y-1">
+                        <span class="text-xs font-bold text-slate-400">مخرجات الـ CIM المادية الموحدة</span>
+                        <select id="swatch-cim" onchange="calculateQuotation()" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-slate-200">
+                            <option value="none">بدون مخرجات CIM مادية</option>
+                            <option value="basic">يونيفورم وشنط - Basic 100 Sets (EGP 11,500)</option>
+                            <option value="standard">يونيفورم وشنط - Standard 250 Sets (EGP 23,000)</option>
+                            <option value="premium">يونيفورم وشنط - Premium 500 Sets (EGP 34,500)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- ADD TO LEDGER SUBMIT -->
+                <button onclick="submitToLedger()" class="w-full py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-black text-sm rounded-xl transition-all shadow-lg shadow-emerald-500/20 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-cloud-arrow-up"></i> ترحيل وحفظ المشروع في الميزانية العامة
+                </button>
+            </div>
+
+            <!-- RIGHT PANEL: PREVIEW & REAL-TIME LEDGER SPLIT -->
+            <div class="lg:col-span-7 space-y-8">
+                
+                <!-- LEDGER SPLIT STATEMENT CARD -->
+                <div class="bg-slate-950 border border-slate-900 rounded-3xl p-6 neon-border relative overflow-hidden">
+                    <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(245,158,11,0.05),transparent)] pointer-events-none"></div>
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-base font-black text-white flex items-center gap-2"><i class="fa-solid fa-calculator text-amber-500"></i> بيان توزيع الأرباح وعوائد الشركاء (Duo Ledger Split)</h2>
+                        <span class="px-2.5 py-1 bg-amber-500/10 text-amber-400 border border-amber-500/20 rounded-md text-[9px] font-bold code-font">REAL-TIME LEDGER</span>
+                    </div>
+
+                    <!-- LEDGER GRID METRICS -->
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6 text-center">
+                        <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-900">
+                            <span class="text-[10px] text-slate-400 block mb-1">الإيراد الإجمالي (+15%)</span>
+                            <span id="ledger-total-revenue" class="text-base font-black text-white code-font">EGP 0</span>
+                        </div>
+                        <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-900">
+                            <span class="text-[10px] text-slate-400 block mb-1">المصروفات (COGS +5%)</span>
+                            <span id="ledger-total-cogs" class="text-base font-black text-red-400 code-font">EGP 0</span>
+                        </div>
+                        <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-900">
+                            <span class="text-[10px] text-slate-400 block mb-1">عمولة الإغلاق (15%)</span>
+                            <span id="ledger-total-closer" class="text-base font-black text-amber-500 code-font">EGP 0</span>
+                        </div>
+                        <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-900">
+                            <span class="text-[10px] text-slate-400 block mb-1">صافي أرباح المشروع</span>
+                            <span id="ledger-gross-profit" class="text-base font-black text-emerald-400 code-font">EGP 0</span>
+                        </div>
+                    </div>
+
+                    <!-- FINANCIAL SPLIT STATEMENT -->
+                    <div class="space-y-4 pt-4 border-t border-slate-900">
+                        <!-- Capital Reserve Cut (25%) -->
+                        <div class="flex justify-between items-center text-xs">
+                            <span class="text-slate-400 flex items-center gap-1.5">
+                                <span class="h-1.5 w-1.5 rounded-full bg-amber-500"></span>
+                                صندوق نمو الكيان واستثمارات الأبحاث (Capital Reserve - 25%):
+                            </span>
+                            <span id="ledger-capital-reserve" class="font-black text-white code-font">EGP 0</span>
+                        </div>
+
+                        <!-- Partner 1 Pay: Mohamed Asy -->
+                        <div class="p-4 bg-slate-900/50 rounded-2xl border border-slate-900 space-y-2">
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs font-black text-slate-200 flex items-center gap-2">
+                                    <span class="h-2 w-2 rounded-full bg-blue-500"></span>
+                                    إجمالي مستحقات الشريك: محمد عاصي (Owner & CEO)
+                                </span>
+                                <span id="ledger-asy-total" class="text-xs font-black text-blue-400 code-font">EGP 0</span>
+                            </div>
+                            <div class="flex flex-col sm:flex-row justify-between text-[10px] text-slate-400 gap-1">
+                                <span>أرباح موزعة (50% Split): <span id="ledger-asy-net-profit" class="text-slate-300 font-bold code-font">EGP 0</span></span>
+                                <span>رسوم تنفيذ فني: <span id="ledger-asy-exec-fee" class="text-slate-300 font-bold code-font">EGP 0</span></span>
+                                <span>عمولة الإغلاق: <span id="ledger-asy-closer-fee" class="text-slate-300 font-bold code-font">EGP 0</span></span>
+                            </div>
+                        </div>
+
+                        <!-- Partner 2 Pay: Abanoub Hany -->
+                        <div class="p-4 bg-slate-900/50 rounded-2xl border border-slate-900 space-y-2">
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs font-black text-slate-200 flex items-center gap-2">
+                                    <span class="h-2 w-2 rounded-full bg-amber-500"></span>
+                                    إجمالي مستحقات الشريك: أبانوب هاني (COO & Buyer)
+                                </span>
+                                <span id="ledger-abanoub-total" class="text-xs font-black text-amber-500 code-font">EGP 0</span>
+                            </div>
+                            <div class="flex flex-col sm:flex-row justify-between text-[10px] text-slate-400 gap-1">
+                                <span>أرباح موزعة (50% Split): <span id="ledger-abanoub-net-profit" class="text-slate-300 font-bold code-font">EGP 0</span></span>
+                                <span>رسوم تنفيذ الباينج: <span id="ledger-abanoub-exec-fee" class="text-slate-300 font-bold code-font">EGP 0</span></span>
+                                <span>عمولة الإغلاق: <span id="ledger-abanoub-closer-fee" class="text-slate-300 font-bold code-font">EGP 0</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- REAL-TIME PROPOSAL VIEW (MODERN DIGITAL BRANDED DECK) -->
+                <div id="quotation-print-container" class="bg-slate-950 text-slate-100 rounded-3xl p-8 shadow-2xl relative border border-slate-900 print-area overflow-hidden">
+                    <div class="absolute top-0 right-0 h-40 w-40 bg-gradient-to-br from-blue-600/10 to-transparent rounded-full pointer-events-none"></div>
+                    
+                    <!-- Branded Header -->
+                    <div class="flex flex-col sm:flex-row justify-between items-start border-b border-slate-900 pb-6 gap-6">
+                        <div class="flex items-center gap-3">
+                            <img src="Logo.png" alt="ALPHAS" class="h-14 w-14 object-contain" onerror="this.style.display='none'; document.getElementById('preview-logo-fallback').style.display='flex'">
+                            <div id="preview-logo-fallback" class="hidden h-14 w-14 rounded-2xl bg-blue-600 items-center justify-center text-white font-extrabold text-2xl shadow-lg">A</div>
+                            <div>
+                                <span class="text-lg font-black tracking-widest text-white leading-none block">ALPHAS</span>
+                                <span class="text-[9px] text-blue-400 font-semibold tracking-wider block mt-1">DIGITAL BUSINESS SOLUTIONS</span>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xs font-bold text-slate-500 tracking-wider block uppercase">PROJECT GROWTH BLUEPRINT</span>
+                            <h2 class="text-sm font-black text-blue-400 m-0 p-0 border-b-0" id="preview-project-title">مقترح هندسة النمو الرقمي وتكامل المبيعات المتكامل</h2>
+                            <span class="text-[10px] text-slate-500 block mt-1 code-font">DBS-ID: #2026-0717</span>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Swatch Meta Context Box -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 py-6 border-b border-slate-900 text-xs text-slate-300 leading-relaxed">
+                        <div class="bg-slate-900/40 p-4 rounded-2xl border border-slate-900 print-card">
+                            <span class="text-[9px] text-slate-500 font-bold block mb-1">مقدم المقترح الفني (الطرف الأول):</span>
+                            <strong class="text-white text-xs block mb-1">شركة Alphas DBS للحلول الرقمية</strong>
+                            <p class="text-slate-400">الشركاء المؤسسين: محمد عاصي & أبانوب هاني</p>
+                            <p class="text-slate-500 mt-1">الموقع الإلكتروني: alphas.agency/platform</p>
+                        </div>
+                        <div class="bg-slate-900/40 p-4 rounded-2xl border border-slate-900 print-card">
+                            <span class="text-[9px] text-slate-500 font-bold block mb-1">صاحب الأعمال الطموح (الطرف الثاني):</span>
+                            <strong class="text-white text-xs block mb-1" id="preview-company-name">شركة تكنو لايف للعيون وبصريات مصر</strong>
+                            <p class="text-slate-400" id="preview-client-name">متخذ القرار: المهندس أحمد علي</p>
+                            <p class="text-slate-500 mt-1">طبيعة العقد: حلول ونمذجة التحول الرقمي بالأرقام</p>
+                        </div>
+                    </div>
+
+                    <!-- PROPOSAL ROADMAP SECTION (PHASES INSPIRED BY BLUEPRINT) -->
+                    <div class="py-6 space-y-6">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-xs font-black tracking-wider text-slate-400 uppercase">هيكلة ومحاور مقترح النمو الرقمي المعتمد</h3>
+                            <span class="px-2 py-0.5 bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded text-[9px] font-bold">3 Execution Phases</span>
+                        </div>
+
+                        <!-- Phase 1 Card: Infrastructure -->
+                        <div id="proposal-phase-1" class="p-4 bg-slate-900/20 rounded-2xl border border-slate-900/60 print-card space-y-3 hidden">
+                            <div class="flex justify-between items-center">
+                                <span class="px-2.5 py-1 bg-blue-600/10 text-blue-400 border border-blue-600/20 rounded-full text-[10px] font-black glow-badge">PHASE 01: التأسيس وهيكلة الهوية الرقمية</span>
+                                <span class="text-[10px] text-slate-500">Core Foundations</span>
+                            </div>
+                            <div class="text-xs text-slate-300 space-y-2 pr-2" id="phase-1-items">
+                                <!-- Dynamic JS -->
+                            </div>
+                        </div>
+
+                        <!-- Phase 2 Card: Growth Engine -->
+                        <div id="proposal-phase-2" class="p-4 bg-slate-900/20 rounded-2xl border border-slate-900/60 print-card space-y-3 hidden">
+                            <div class="flex justify-between items-center">
+                                <span class="px-2.5 py-1 bg-amber-500/10 text-amber-400 border border-amber-500/20 rounded-full text-[10px] font-black glow-badge">PHASE 02: إطلاق حملات الأداء والـ Ads والباينج</span>
+                                <span class="text-[10px] text-slate-500">Performance Sprints</span>
+                            </div>
+                            <div class="text-xs text-slate-300 space-y-2 pr-2" id="phase-2-items">
+                                <!-- Dynamic JS -->
+                            </div>
+                        </div>
+
+                        <!-- Phase 3 Card: Automations -->
+                        <div id="proposal-phase-3" class="p-4 bg-slate-900/20 rounded-2xl border border-slate-900/60 print-card space-y-3 hidden">
+                            <div class="flex justify-between items-center">
+                                <span class="px-2.5 py-1 bg-purple-500/10 text-purple-400 border border-purple-500/20 rounded-full text-[10px] font-black glow-badge">PHASE 03: الأتمتة الميكانيكية وتأهيل الكوادر</span>
+                                <span class="text-[10px] text-slate-500">Automation & Handover</span>
+                            </div>
+                            <div class="text-xs text-slate-300 space-y-2 pr-2" id="phase-3-items">
+                                <!-- Dynamic JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Investment Terms and Signatures -->
+                    <div class="border-t border-slate-900 pt-6 flex flex-col md:flex-row justify-between items-center gap-6">
+                        <div class="text-[9.5px] text-slate-500 leading-relaxed max-w-md">
+                            <strong class="text-slate-400 block mb-1">آلية شروط الدفع والتعاقد الفني لـ Alphas:</strong>
+                            - يتم سداد **50% مقدم تعاقد** للبدء في كتابة الأكواد وتصميم الهوية.<br>
+                            - الـ **50% المتبقية** تُدفع فوراً عند تسليم المشاريع وبدء سبرنتات الأكاديمية ونقل الخبرة.<br>
+                            - كافة الأكواد محمية ومبنية من الصفر (Custom Code) لضمان أقصى سرعة 100/100 على PageSpeed.
+                        </div>
+                        <div class="text-left w-full md:w-auto space-y-2 border-t md:border-t-0 border-slate-900 pt-4 md:pt-0">
+                            <div class="flex justify-between gap-12 text-xs text-slate-400">
+                                <span>مجموع قيمة العقد الكلي:</span>
+                                <span id="prop-gross-subtotal" class="font-bold code-font">EGP 0</span>
+                            </div>
+                            <div class="flex justify-between gap-12 text-xs text-emerald-400">
+                                <span>الخصم الاستراتيجي للثنائي:</span>
+                                <span class="font-bold code-font">- EGP 0</span>
+                            </div>
+                            <div class="flex justify-between gap-12 border-t border-slate-800 pt-2 text-base text-white">
+                                <span class="font-black">الاستثمار الصافي المطلوب:</span>
+                                <strong id="prop-net-total" class="font-black text-blue-400 neon-text code-font">EGP 0</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Signatures Area -->
+                    <div class="grid grid-cols-2 gap-12 pt-12 text-center text-[10px] border-t border-slate-900 mt-12">
+                        <div>
+                            <p class="text-slate-500 mb-6">توقيع واعتماد الشريكين المؤسسين (Alphas DBS)</p>
+                            <div class="flex justify-center gap-8">
+                                <div>
+                                    <span class="block font-black text-slate-300 font-serif text-xs">Mohamed Asy</span>
+                                    <span class="text-[8.5px] text-slate-500">CEO & Tech Director</span>
+                                </div>
+                                <div>
+                                    <span class="block font-black text-slate-300 font-serif text-xs">Abanoub Hany</span>
+                                    <span class="text-[8.5px] text-slate-500">COO & Buyer</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col justify-end">
+                            <p class="text-slate-500 mb-6">توقيع واعتماد الطرف الثاني (مؤسسة البزنس الطموح)</p>
+                            <span class="block font-bold text-slate-300 border-b border-slate-800 w-32 mx-auto"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= VIEW: DASHBOARD ================= -->
+        <div id="view-dashboard" class="hidden space-y-8">
+            
+            <!-- OVERALL LEDGER SUMS -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+                <!-- Total Gross Revenue -->
+                <div class="bg-slate-950 border border-slate-900 rounded-3xl p-6 relative overflow-hidden neon-border">
+                    <span class="text-slate-400 text-xs block mb-1">إجمالي إيرادات الكيان التراكمية (+15%)</span>
+                    <span id="dash-total-revenue" class="text-xl font-black text-white code-font">EGP 0</span>
+                    <p class="text-[10px] text-slate-500 mt-2">مجموع الإيرادات المحققة قبل استقطاع الـ COGS.</p>
+                </div>
+
+                <!-- Total Capital reserve -->
+                <div class="bg-slate-950 border border-slate-900 rounded-3xl p-6 relative overflow-hidden">
+                    <span class="text-slate-400 text-xs block mb-1">إجمالي خزانة صندوق الكابيتال (Capital 25%)</span>
+                    <span id="dash-total-capital" class="text-xl font-black text-amber-500 code-font">EGP 0</span>
+                    <p class="text-[10px] text-slate-500 mt-2">موازنة نمو الكيان لتمويل الحملات، التراخيص والسيرفرات.</p>
+                </div>
+
+                <!-- Total Mohamed Asy Earnings -->
+                <div class="bg-slate-950 border border-slate-900 rounded-3xl p-6 relative overflow-hidden">
+                    <span class="text-slate-400 text-xs block mb-1">مستحقات الشريك: محمد عاصي</span>
+                    <span id="dash-total-asy" class="text-xl font-black text-blue-400 code-font">EGP 0</span>
+                    <p class="text-[10px] text-slate-500 mt-2">شاملة الـ 50% أرباح صافية، رسوم التكويد، والـ Close Fee.</p>
+                </div>
+
+                <!-- Total Abanoub Hany Earnings -->
+                <div class="bg-slate-950 border border-slate-900 rounded-3xl p-6 relative overflow-hidden">
+                    <span class="text-slate-400 text-xs block mb-1">مستحقات الشريك: أبانوب هاني</span>
+                    <span id="dash-total-abanoub" class="text-xl font-black text-emerald-400 code-font">EGP 0</span>
+                    <p class="text-[10px] text-slate-500 mt-2">شاملة الـ 50% أرباح صافية، رسوم الباينج، والـ Close Fee.</p>
+                </div>
+            </div>
+
+            <!-- PROJECTS LIST & DETAILS TABLE -->
+            <div class="bg-slate-950 border border-slate-900 rounded-3xl p-6 overflow-hidden">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+                    <div>
+                        <h2 class="text-base font-black text-white m-0 border-none p-0 flex items-center gap-2">
+                            <span class="text-blue-500">///</span> قائمة المشاريع الحية والمرحلة للميزانية
+                        </h2>
+                        <p class="text-xs text-slate-400">السجل الحقيقي لحركة التدفقات النقدية والـ Split المالي الموزع لكل مشروع.</p>
+                    </div>
+                    <button onclick="clearLedger()" class="px-4 py-2 bg-red-500/10 text-red-400 border border-red-500/20 rounded-xl text-xs font-bold hover:bg-red-500 hover:text-white transition-all">
+                        <i class="fa-solid fa-trash-can ml-1.5"></i> تصفير سجل الحسابات
+                    </button>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-right text-xs">
+                        <thead>
+                            <tr class="border-b border-slate-900 text-slate-400">
+                                <th class="pb-3 pl-4">اسم المشروع والتاريخ</th>
+                                <th class="pb-3 text-center">إجمالي الإيرادات</th>
+                                <th class="pb-3 text-center">المصروفات والـ COGS</th>
+                                <th class="pb-3 text-center">الـ Closer والعمولة</th>
+                                <th class="pb-3 text-center">كابيتال الكيان (25%)</th>
+                                <th class="pb-3 text-center">صافي أرباح الشركاء</th>
+                                <th class="pb-3 text-center">العمليات والتحكم</th>
+                            </tr>
+                        </thead>
+                        <tbody id="dash-projects-tbody" class="divide-y divide-slate-900 text-slate-300">
+                            <!-- Submitted Projects go here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- TABS & BUSINESS LEDGER LOGIC -->
+    <script>
+        // CORE BUSINESS CONFIGURATION (incorporates the requested structure: +15% price, +5% COGS)
+        const businessConfigs = {
+            web: {
+                starter: { label: "تطوير موقع ووردبريس مخصص - Starter Web Build", price: 11500, cogs: 4200, execFee: 2625, execPartner: 'asy', phase: 1 },
+                essential: { label: "تطوير وتكويد موقع مخصص مع الـ CMS - Essential Web Build", price: 23000, cogs: 8400, execFee: 3465, execPartner: 'asy', phase: 1 },
+                ecommerce: { label: "برمجة متجر إلكتروني WooCommerce متكامل كود بكود مخصص", price: 34500, cogs: 11550, execFee: 4410, execPartner: 'asy', phase: 1 }
+            },
+            mgmt: {
+                bronze: { label: "تشغيل وإدارة المتجر ورفع المنتجات الأساسية - Bronze Management", price: 5750, cogs: 3150, execFee: 2100, execPartner: 'asy', phase: 3 },
+                silver: { label: "إدارة متجر متقدمة مع كتابة وتحسين السيو الفني - Silver Management", price: 8625, cogs: 4725, execFee: 2100, execPartner: 'asy', phase: 3 },
+                gold: { label: "إدارة شاملة، معالجة طلبات، أتمتة، وحماية - Gold Full Management", price: 11500, cogs: 6300, execFee: 2625, execPartner: 'asy', phase: 3 }
+            },
+            smm: {
+                kickstart: { label: "إدارة وتنسيق 3 حسابات سوشيال وتصميم 8 بوستات شهرياً", price: 5175, cogs: 2362.5, execFee: 892.5, execPartner: 'abanoub', phase: 2 },
+                growth: { label: "إدارة 5 حسابات وتصميم 16 بوست شهرياً مع إطلاق الإعلانات", price: 8280, cogs: 2887.5, execFee: 1050, execPartner: 'abanoub', phase: 2 },
+                domination: { label: "إدارة شاملة، تصميم 24 بوست، ميديا باينج، وأتمتة الردود", price: 11500, cogs: 4200, execFee: 1575, execPartner: 'abanoub', phase: 2 }
+            },
+            ads: {
+                starter: { label: "إطلاق حملة ميديا باينج Meta/Google Ads مع الاستهداف بدقة", price: 5750, cogs: 2625, execFee: 1575, execPartner: 'abanoub', phase: 2 },
+                essential: { label: "إطلاق ميديا باينج مكثف، تتبع Pixel، وإعلانات البحث وجوجل", price: 11500, cogs: 5250, execFee: 2625, execPartner: 'abanoub', phase: 2 },
+                ecommerce: { label: "إعداد ميكانيكا حملات ميديا باينج متكاملة للمتاجر وربط كتالوج المبيعات", price: 17250, cogs: 7875, execFee: 3150, execPartner: 'abanoub', phase: 2 }
+            },
+            consulting: {
+                technical: { label: "جلسات استشارات برمجية معمارية كود بكود (Technical Architecture Consulting)", price: 1725, cogs: 0, execFee: 1000, execPartner: 'asy', phase: 1 },
+                growth: { label: "جلسات استشارات تحسين معدلات التحويل والمبيعات (Conversion Optimization)", price: 1725, cogs: 0, execFee: 1000, execPartner: 'abanoub', phase: 1 },
+                enterprise: { label: "استشارات التحول الاستراتيجي الشامل للبزنس للثنائي (Enterprise Strategy)", price: 2300, cogs: 525, execFee: 315, execPartner: 'shared', phase: 1 }
+            },
+            academy: {
+                woocommerce: { label: "ورشة عمل تدريب مبيعات وإدارة متاجر WooCommerce بالأكاديمية", price: 2875, cogs: 525, execFee: 315, execPartner: 'asy', phase: 3 },
+                mediabuying: { label: "تدريب مبيعات ميديا باينج وتتبع CAPI المتقدم للشركات بالأكاديمية", price: 2875, cogs: 525, execFee: 315, execPartner: 'abanoub', phase: 3 },
+                crm: { label: "تدريب مبيعات وأتمتة الـ CRM والمتابعة التلقائية للعملاء بالأكاديمية", price: 2875, cogs: 525, execFee: 315, execPartner: 'abanoub', phase: 3 }
+            },
+            swatches: {
+                cards: {
+                    none: { label: "", price: 0, cogs: 0, execFee: 0, execPartner: 'asy', phase: 1 },
+                    basic: { label: "مطبوعات كروت هوية فخمة ومصقولة - 250 كارت Basic", price: 5750, cogs: 1575, execFee: 2625, execPartner: 'asy', phase: 1 },
+                    standard: { label: "مطبوعات كروت هوية فخمة - Standard Spot UV 500 كارت", price: 8625, cogs: 2362.5, execFee: 3465, execPartner: 'asy', phase: 1 },
+                    premium: { label: "مطبوعات كروت هوية بريميوم بارزة بتذهيب - Premium 1000 كارت", price: 11500, cogs: 3150, execFee: 4410, execPartner: 'asy', phase: 1 }
+                },
+                signage: {
+                    none: { label: "", price: 0, cogs: 0, execFee: 0, execPartner: 'asy', phase: 1 },
+                    basic: { label: "لوحات وإعلانات مادية فخمة لمقرات العمل - Basic sign up to 4x3 ft", price: 5750, cogs: 1575, execFee: 2625, execPartner: 'asy', phase: 1 },
+                    standard: { label: "لوحات وإعلانات مادية فخمة مع التركيب - Standard with installation", price: 8625, cogs: 2362.5, execFee: 3465, execPartner: 'asy', phase: 1 },
+                    premium: { label: "لوحات مادية مخصصة فخمة مع التوجيه والدعم - Premium Signage Support", price: 11500, cogs: 3150, execFee: 4410, execPartner: 'asy', phase: 1 }
+                },
+                cim: {
+                    none: { label: "", price: 0, cogs: 0, execFee: 0, execPartner: 'asy', phase: 1 },
+                    basic: { label: "يونيفورم مخصص، علب هدايا، وشنط فخمة موحدة - 100 حزمة CIM Basic", price: 11500, cogs: 3150, execFee: 4410, execPartner: 'asy', phase: 1 },
+                    standard: { label: "يونيفورم مخصص، علب هدايا، وشنط فخمة موحدة - 250 حزمة CIM Standard", price: 23000, cogs: 6300, execFee: 8820, execPartner: 'asy', phase: 1 },
+                    premium: { label: "يونيفورم مخصص، علب هدايا، وشنط فخمة موحدة - 500 حزمة CIM Premium", price: 34500, cogs: 9450, execFee: 13230, execPartner: 'asy', phase: 1 }
+                }
+            }
+        };
+
+        // IN-MEMORY PROJECTS LEDGER (SAVED LOCALLY)
+        let alphasProjectsLedger = JSON.parse(localStorage.getItem('alphas_ledger_data_v2.5')) || [
+            {
+                id: "p1",
+                clientName: "المهندس أحمد علي | مستشفى تكنو لايف للعيون",
+                date: "12 يوليو 2026",
+                revenue: 34500,
+                cogs: 11550,
+                closerPartner: "abanoub",
+                closerFee: 5175,
+                capitalReserve: 4375,
+                execPartner: "asy",
+                execFee: 4410,
+                netProfit: 17775,
+                partnerSplit: 6665.62
+            },
+            {
+                id: "p2",
+                clientName: "الأستاذ خالد يوسف | المعادي العقارية",
+                date: "14 يوليو 2026",
+                revenue: 17250,
+                cogs: 7875,
+                closerPartner: "asy",
+                closerFee: 2587.5,
+                capitalReserve: 1696.88,
+                execPartner: "abanoub",
+                execFee: 3150,
+                netProfit: 6787.5,
+                partnerSplit: 2545.31
+            }
+        ];
+
+        // VIEW NAVIGATION
+        function switchView(viewName) {
+            document.getElementById('view-builder').classList.add('hidden');
+            document.getElementById('view-dashboard').classList.add('hidden');
+            document.getElementById('btn-view-builder').className = "flex-1 py-3 text-center text-xs font-black rounded-xl transition-all text-slate-400 hover:text-white";
+            document.getElementById('btn-view-dashboard').className = "flex-1 py-3 text-center text-xs font-black rounded-xl transition-all text-slate-400 hover:text-white";
+
+            if (viewName === 'builder') {
+                document.getElementById('view-builder').classList.remove('hidden');
+                document.getElementById('btn-view-builder').className = "flex-1 py-3 text-center text-xs font-black rounded-xl transition-all bg-blue-600 text-white shadow-lg shadow-blue-500/15";
+            } else {
+                document.getElementById('view-dashboard').classList.remove('hidden');
+                document.getElementById('btn-view-dashboard').className = "flex-1 py-3 text-center text-xs font-black rounded-xl transition-all bg-blue-600 text-white shadow-lg shadow-blue-500/15";
+                renderDashboard();
+            }
+        }
+
+        // TOGGLE CORE SERVICE CONFIGURATION PANELS
+        function toggleService(serviceId) {
+            const isChecked = document.getElementById(`service-${serviceId}-active`).checked;
+            const configBlock = document.getElementById(`config-${serviceId}`);
+            if (isChecked) {
+                configBlock.classList.remove('hidden');
+                configBlock.classList.add('space-y-3');
+            } else {
+                configBlock.classList.add('hidden');
+                configBlock.classList.remove('space-y-3');
+            }
+            calculateQuotation();
+        }
+
+        // UPDATE PROPOSAL TEXT DYNAMICALLY FROM ADMIN FIELDS
+        function updateProposalMeta() {
+            const clientName = document.getElementById('input-client-name').value;
+            const companyName = document.getElementById('input-company-name').value;
+            const projectTitle = document.getElementById('input-project-title').value;
+
+            document.getElementById('preview-client-name').innerText = `متخذ القرار: ${clientName || '---'}`;
+            document.getElementById('preview-company-name').innerText = companyName || '---';
+            document.getElementById('preview-project-title').innerText = projectTitle || '---';
+        }
+
+        // CALCULATE ENTIRE PROPOSAL AND DUO LEDGER SPLIT
+        function calculateQuotation() {
+            let totalRevenue = 0;
+            let totalCOGS = 0;
+            let totalPartnerExecutionFee = 0;
+            
+            // Phase Lists for Dynamic Roadmap Rendering
+            let phase1Items = [];
+            let phase2Items = [];
+            let phase3Items = [];
+
+            // 1. Web Custom build (Phase 1)
+            if (document.getElementById('service-web-active').checked) {
+                const tier = document.getElementById('web-tier').value;
+                const config = businessConfigs.web[tier];
+                totalRevenue += config.price;
+                totalCOGS += config.cogs;
+                
+                // Show expense breakdown inline for transparency
+                document.getElementById('web-expense-preview').innerHTML = 
+                    `<i class="fa-solid fa-calculator ml-1 text-slate-500"></i> المصروفات: استضافة وسيرفر EGP ${Math.round(config.cogs * 0.35)} | تنفيذ فني EGP ${config.execFee}`;
+                
+                phase1Items.push({ label: config.label, price: config.price });
+            }
+
+            // 2. Website Management (Phase 3)
+            if (document.getElementById('service-mgmt-active').checked) {
+                const tier = document.getElementById('mgmt-tier').value;
+                const config = businessConfigs.mgmt[tier];
+                totalRevenue += config.price;
+                totalCOGS += config.cogs;
+                
+                document.getElementById('mgmt-expense-preview').innerHTML = 
+                    `<i class="fa-solid fa-calculator ml-1 text-slate-500"></i> المصروفات: تراخيص وأمان EGP ${Math.round(config.cogs * 0.33)} | تنفيذ فني EGP ${config.execFee}`;
+                
+                phase3Items.push({ label: config.label, price: config.price });
+            }
+
+            // 3. Social Media Management (Phase 2)
+            if (document.getElementById('service-smm-active').checked) {
+                const tier = document.getElementById('smm-tier').value;
+                const config = businessConfigs.smm[tier];
+                totalRevenue += config.price;
+                totalCOGS += config.cogs;
+                
+                document.getElementById('smm-expense-preview').innerHTML = 
+                    `<i class="fa-solid fa-calculator ml-1 text-slate-500"></i> المصروفات: صناعة وكرييتفز EGP ${Math.round(config.cogs * 0.6)} | تنفيذ وتنسيق EGP ${config.execFee}`;
+                
+                phase2Items.push({ label: config.label, price: config.price });
+            }
+
+            // 4. Media Buying Execution (Phase 2) - Executed by Abanoub
+            if (document.getElementById('service-ads-active').checked) {
+                const tier = document.getElementById('ads-tier').value;
+                const config = businessConfigs.ads[tier];
+                totalRevenue += config.price;
+                totalCOGS += config.cogs;
+                
+                document.getElementById('ads-expense-preview').innerHTML = 
+                    `<i class="fa-solid fa-calculator ml-1 text-slate-500"></i> المصروفات: تتبع وخوادم EGP ${Math.round(config.cogs * 0.4)} | ميكانيكا باينج EGP ${config.execFee}`;
+                
+                phase2Items.push({ label: config.label, price: config.price });
+            }
+
+            // 5. Consulting Hours (Phase 1)
+            if (document.getElementById('service-consulting-active').checked) {
+                const tier = document.getElementById('consulting-tier').value;
+                const hours = parseInt(document.getElementById('consulting-hours').value) || 0;
+                const config = businessConfigs.consulting[tier];
+                const priceCalculated = config.price * hours;
+                const cogsCalculated = config.cogs * hours;
+                
+                totalRevenue += priceCalculated;
+                totalCOGS += cogsCalculated;
+                
+                document.getElementById('consulting-expense-preview').innerHTML = 
+                    `<i class="fa-solid fa-calculator ml-1 text-slate-500"></i> المصروفات: حجز وأدوات EGP ${cogsCalculated} | تنفيذ فني EGP ${(config.execFee * hours)}`;
+                
+                phase1Items.push({ label: `${config.label} (${hours} ساعات استشارة)`, price: priceCalculated });
+            }
+
+            // 6. Academy Courses (Phase 3)
+            if (document.getElementById('service-academy-active').checked) {
+                const tier = document.getElementById('academy-tier').value;
+                const students = parseInt(document.getElementById('academy-students').value) || 0;
+                const config = businessConfigs.academy[tier];
+                const priceCalculated = config.price * students;
+                const cogsCalculated = config.cogs * students;
+                
+                totalRevenue += priceCalculated;
+                totalCOGS += cogsCalculated;
+                
+                document.getElementById('academy-expense-preview').innerHTML = 
+                    `<i class="fa-solid fa-calculator ml-1 text-slate-500"></i> المصروفات: مانيوال وشهادات EGP ${cogsCalculated} | تنفيذ تدريب EGP ${(config.execFee * students)}`;
+                
+                phase3Items.push({ label: `${config.label} (عدد المتدربين: ${students})`, price: priceCalculated });
+            }
+
+            // 7. Swatches add-ons (Phase 1/Branding)
+            const swatches = ['cards', 'signage', 'cim'];
+            swatches.forEach(sw => {
+                const val = document.getElementById(`swatch-${sw}`).value;
+                if (val !== 'none') {
+                    const config = businessConfigs.swatches[sw][val];
+                    totalRevenue += config.price;
+                    totalCOGS += config.cogs;
+                    phase1Items.push({ label: config.label, price: config.price });
+                }
+            });
+
+            // CLOSER SALES FEE (15% OF REVENUE)
+            const closerPartner = document.querySelector('input[name="closer"]:checked').value;
+            const closerFee = totalRevenue * 0.15;
+
+            // PARTNER EXECUTION PREMIUM CALCULATION
+            let asyExecFee = 0;
+            let abanoubExecFee = 0;
+
+            if (document.getElementById('service-web-active').checked && document.getElementById('web-partner-exec').checked) {
+                asyExecFee += businessConfigs.web[document.getElementById('web-tier').value].execFee;
+            }
+            if (document.getElementById('service-mgmt-active').checked && document.getElementById('mgmt-partner-exec').checked) {
+                asyExecFee += businessConfigs.mgmt[document.getElementById('mgmt-tier').value].execFee;
+            }
+            if (document.getElementById('service-smm-active').checked && document.getElementById('smm-partner-exec').checked) {
+                abanoubExecFee += businessConfigs.smm[document.getElementById('smm-tier').value].execFee;
+            }
+            if (document.getElementById('service-ads-active').checked) {
+                abanoubExecFee += businessConfigs.ads[document.getElementById('ads-tier').value].execFee;
+            }
+            if (document.getElementById('service-consulting-active').checked) {
+                const hours = parseInt(document.getElementById('consulting-hours').value) || 0;
+                const tier = document.getElementById('consulting-tier').value;
+                if (tier === 'technical') asyExecFee += (1000 * hours);
+                if (tier === 'growth') abanoubExecFee += (1000 * hours);
+                if (tier === 'enterprise') {
+                    asyExecFee += (157.5 * hours);
+                    abanoubExecFee += (157.5 * hours);
+                }
+            }
+            if (document.getElementById('service-academy-active').checked) {
+                const students = parseInt(document.getElementById('academy-students').value) || 0;
+                const tier = document.getElementById('academy-tier').value;
+                if (tier === 'woocommerce') asyExecFee += (315 * students);
+                if (tier === 'mediabuying') abanoubExecFee += (315 * students);
+                if (tier === 'crm') abanoubExecFee += (315 * students);
+            }
+            
+            swatches.forEach(sw => {
+                const val = document.getElementById(`swatch-${sw}`).value;
+                if (val !== 'none') {
+                    const config = businessConfigs.swatches[sw][val];
+                    if (config.execPartner === 'asy') asyExecFee += config.execFee;
+                    if (config.execPartner === 'abanoub') abanoubExecFee += config.execFee;
+                }
+            });
+
+            // FINANCES FORMULAS
+            const grossProjectProfit = Math.max(0, totalRevenue - totalCOGS - closerFee);
+            const capitalReserve = grossProjectProfit * 0.25;
+            const distributableNetProfit = grossProjectProfit - capitalReserve;
+            const partnerSplit = distributableNetProfit * 0.50; // Dynamic 50-50 Split
+
+            const asyCloserCut = closerPartner === 'asy' ? closerFee : 0;
+            const abanoubCloserCut = closerPartner === 'abanoub' ? closerFee : 0;
+
+            const asyTotalPayout = partnerSplit + asyExecFee + asyCloserCut;
+            const abanoubTotalPayout = partnerSplit + abanoubExecFee + abanoubCloserCut;
+
+            // SAVE STATE FOR LEDGER
+            currentCalcState = {
+                revenue: totalRevenue,
+                cogs: totalCOGS,
+                closerPartner: closerPartner,
+                closerFee: closerFee,
+                capitalReserve: capitalReserve,
+                grossProfit: grossProjectProfit,
+                netProfit: distributableNetProfit,
+                partnerSplit: partnerSplit,
+                asyExecFee: asyExecFee,
+                abanoubExecFee: abanoubExecFee,
+                asyTotal: asyTotalPayout,
+                abanoubTotal: abanoubTotalPayout
+            };
+
+            // UPDATE UI ELEMENTS
+            document.getElementById('ledger-total-revenue').innerText = `EGP ${totalRevenue.toLocaleString()}`;
+            document.getElementById('ledger-total-cogs').innerText = `EGP ${totalCOGS.toLocaleString()}`;
+            document.getElementById('ledger-total-closer').innerText = `EGP ${closerFee.toLocaleString()}`;
+            document.getElementById('ledger-gross-profit').innerText = `EGP ${grossProjectProfit.toLocaleString()}`;
+            document.getElementById('ledger-capital-reserve').innerText = `EGP ${capitalReserve.toLocaleString()}`;
+            
+            document.getElementById('ledger-asy-total').innerText = `EGP ${Math.round(asyTotalPayout).toLocaleString()}`;
+            document.getElementById('ledger-asy-net-profit').innerText = `EGP ${Math.round(partnerSplit).toLocaleString()}`;
+            document.getElementById('ledger-asy-exec-fee').innerText = `EGP ${Math.round(asyExecFee).toLocaleString()}`;
+            document.getElementById('ledger-asy-closer-fee').innerText = `EGP ${Math.round(asyCloserCut).toLocaleString()}`;
+
+            document.getElementById('ledger-abanoub-total').innerText = `EGP ${Math.round(abanoubTotalPayout).toLocaleString()}`;
+            document.getElementById('ledger-abanoub-net-profit').innerText = `EGP ${Math.round(partnerSplit).toLocaleString()}`;
+            document.getElementById('ledger-abanoub-exec-fee').innerText = `EGP ${Math.round(abanoubExecFee).toLocaleString()}`;
+            document.getElementById('ledger-abanoub-closer-fee').innerText = `EGP ${Math.round(abanoubCloserCut).toLocaleString()}`;
+
+            // RENDER MODERN PITCH CARD DECK SYSTEM
+            renderPhaseContent('proposal-phase-1', 'phase-1-items', phase1Items);
+            renderPhaseContent('proposal-phase-2', 'phase-2-items', phase2Items);
+            renderPhaseContent('proposal-phase-3', 'phase-3-items', phase3Items);
+
+            document.getElementById('prop-gross-subtotal').innerText = `EGP ${totalRevenue.toLocaleString()}`;
+            document.getElementById('prop-net-total').innerText = `EGP ${totalRevenue.toLocaleString()}`;
+        }
+
+        // RENDER STRATEGIC BLOCK CONTENT FOR EACH ROADMAP PHASE
+        function renderPhaseContent(sectionId, containerId, itemsList) {
+            const section = document.getElementById(sectionId);
+            const container = document.getElementById(containerId);
+            
+            if (itemsList.length === 0) {
+                section.classList.add('hidden');
+                container.innerHTML = '';
+            } else {
+                section.classList.remove('hidden');
+                container.innerHTML = '';
+                itemsList.forEach((item, index) => {
+                    const block = document.createElement('div');
+                    block.className = "flex justify-between items-center py-2 border-b border-slate-900/40 text-xs text-slate-300";
+                    block.innerHTML = `
+                        <div class="flex items-center gap-2">
+                            <span class="h-5 w-5 rounded-full bg-slate-900 flex items-center justify-center text-[10px] text-blue-400 font-bold font-mono">${index + 1}</span>
+                            <span class="font-bold text-slate-100">${item.label}</span>
+                        </div>
+                        <span class="font-black text-slate-200 code-font">${item.price.toLocaleString()} EGP</span>
+                    `;
+                    container.appendChild(block);
+                });
+            }
+        }
+
+        // SUBMIT AND LOCK DEAL TO THE DASHBOARD
+        function submitToLedger() {
+            if (!currentCalcState.revenue || currentCalcState.revenue === 0) {
+                alert('عطل تشغيلي: برجاء تحديد وتفعيل خدمات حقيقية أولاً للترحيل.');
+                return;
+            }
+            const clientName = document.getElementById('input-client-name').value;
+            const companyName = document.getElementById('input-company-name').value;
+            const fullIdentity = `${clientName} | ${companyName}`;
+
+            const newProject = {
+                id: "p_" + Date.now(),
+                clientName: fullIdentity,
+                date: "17 يوليو 2026",
+                revenue: currentCalcState.revenue,
+                cogs: currentCalcState.cogs,
+                closerPartner: currentCalcState.closerPartner,
+                closerFee: currentCalcState.closerFee,
+                capitalReserve: currentCalcState.capitalReserve,
+                execPartner: currentCalcState.asyExecFee > currentCalcState.abanoubExecFee ? 'asy' : 'abanoub',
+                execFee: Math.max(currentCalcState.asyExecFee, currentCalcState.abanoubExecFee),
+                netProfit: currentCalcState.netProfit,
+                partnerSplit: currentCalcState.partnerSplit,
+                asyTotal: currentCalcState.asyTotal,
+                abanoubTotal: currentCalcState.abanoubTotal
+            };
+
+            alphasProjectsLedger.push(newProject);
+            localStorage.setItem('alphas_ledger_data_v2.5', JSON.stringify(alphasProjectsLedger));
+            alert('تم ترحيل وحفظ المشروع بنجاح في موازنة خزانة Alphas! يمكنك مراجعته الآن في التبويب التراكمي.');
+            switchView('dashboard');
+        }
+
+        // CLEAR PROJECTS LEDGER
+        function clearLedger() {
+            if (confirm('هل أنت متأكد من تصفير وتطهير سجل الحسابات والأرباح كلياً؟')) {
+                alphasProjectsLedger = [];
+                localStorage.setItem('alphas_ledger_data_v2.5', JSON.stringify([]));
+                renderDashboard();
+            }
+        }
+
+        // RENDER REVENUE DASHBOARD CHARTS & TABLES
+        function renderDashboard() {
+            let totalRevenue = 0;
+            let totalCapital = 0;
+            let totalAsy = 0;
+            let totalAbanoub = 0;
+
+            const tbody = document.getElementById('dash-projects-tbody');
+            tbody.innerHTML = '';
+
+            if (alphasProjectsLedger.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="7" class="py-8 text-center text-slate-500">لا يوجد مشاريع مسجلة حالياً..</td></tr>`;
+            } else {
+                alphasProjectsLedger.forEach(proj => {
+                    totalRevenue += proj.revenue;
+                    totalCapital += proj.capitalReserve;
+                    
+                    const asyCloser = proj.closerPartner === 'asy' ? proj.closerFee : 0;
+                    const abanoubCloser = proj.closerPartner === 'abanoub' ? proj.closerFee : 0;
+                    
+                    let asyExec = 0;
+                    let abanoubExec = 0;
+                    if (proj.execPartner === 'asy') asyExec = proj.execFee;
+                    else abanoubExec = proj.execFee;
+
+                    const asyProjectTotal = proj.partnerSplit + asyExec + asyCloser;
+                    const abanoubProjectTotal = proj.partnerSplit + abanoubExec + abanoubCloser;
+
+                    totalAsy += asyProjectTotal;
+                    totalAbanoub += abanoubProjectTotal;
+
+                    const row = document.createElement('tr');
+                    row.className = "border-b border-slate-900/60 hover:bg-slate-900/20 transition-all";
+                    row.innerHTML = `
+                        <td class="py-4 pl-4 text-right">
+                            <span class="font-black text-white block text-sm">${proj.clientName}</span>
+                            <span class="text-[10px] text-slate-500">${proj.date}</span>
+                        </td>
+                        <td class="py-4 text-center font-bold text-slate-200 code-font">EGP ${proj.revenue.toLocaleString()}</td>
+                        <td class="py-4 text-center text-red-400 code-font">EGP ${proj.cogs.toLocaleString()}</td>
+                        <td class="py-4 text-center text-amber-500 font-bold text-[11px] leading-tight">
+                            EGP ${proj.closerFee.toLocaleString()}<br>
+                            <span class="text-[9px] text-slate-500">(${proj.closerPartner === 'asy' ? 'عاصي' : 'أبانوب'})</span>
+                        </td>
+                        <td class="py-4 text-center text-yellow-500 font-bold code-font">EGP ${proj.capitalReserve.toLocaleString()}</td>
+                        <td class="py-4 text-center text-emerald-400 font-bold text-[11px] leading-tight">
+                            عاصي: EGP ${Math.round(asyProjectTotal).toLocaleString()}<br>
+                            أبانوب: EGP ${Math.round(abanoubProjectTotal).toLocaleString()}
+                        </td>
+                        <td class="py-4 text-center">
+                            <button onclick="deleteProject('${proj.id}')" class="text-red-500 hover:text-red-400 transition-all text-sm p-1"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            }
+
+            document.getElementById('dash-total-revenue').innerText = `EGP ${totalRevenue.toLocaleString()}`;
+            document.getElementById('dash-total-capital').innerText = `EGP ${totalCapital.toLocaleString()}`;
+            document.getElementById('dash-total-asy').innerText = `EGP ${Math.round(totalAsy).toLocaleString()}`;
+            document.getElementById('dash-total-abanoub').innerText = `EGP ${Math.round(totalAbanoub).toLocaleString()}`;
+        }
+
+        // DELETE SINGLE PROJECT FROM LEDGER
+        function deleteProject(id) {
+            alphasProjectsLedger = alphasProjectsLedger.filter(p => p.id !== id);
+            localStorage.setItem('alphas_ledger_data_v2.5', JSON.stringify(alphasProjectsLedger));
+            renderDashboard();
+        }
+
+        // INITIAL LOAD HANDLER
+        window.onload = function() {
+            // Default select Ecommerce Web & Ads for instant elegant preview
+            document.getElementById('service-web-active').checked = true;
+            toggleService('web');
+            document.getElementById('service-ads-active').checked = true;
+            toggleService('ads');
+            updateProposalMeta();
+            calculateQuotation();
+        }
+    </script>
+
+</body>
+</html>
