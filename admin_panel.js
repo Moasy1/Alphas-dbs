@@ -663,25 +663,29 @@ function renderServiceTaskRows(serviceId) {
     
     tasks.forEach(task => {
         const row = document.createElement("div");
-        row.className = "flex gap-1.5 items-center bg-slate-950/80 p-1.5 rounded-xl border border-alphas-glassBorder/60 text-xs";
+        row.className = "bg-slate-950/80 p-2 sm:p-1.5 rounded-xl border border-alphas-glassBorder/60 text-xs space-y-2 sm:space-y-0 sm:flex sm:gap-1.5 sm:items-center";
         row.innerHTML = `
-            <input type="text" value="${task.name}" oninput="updateTaskField('${serviceId}', '${task.id}', 'name', this.value)" placeholder="Task Name" class="w-full bg-slate-900 border border-alphas-glassBorder rounded-lg px-2 py-1 text-[11px] text-white outline-none focus:border-blue-500">
-            <select onchange="updateTaskField('${serviceId}', '${task.id}', 'assignee', this.value)" class="bg-slate-900 border border-alphas-glassBorder rounded-lg px-1.5 py-1 text-[11px] font-bold text-slate-200 outline-none">
-                <option value="asy" ${task.assignee === 'asy' ? 'selected' : ''}>Asy</option>
-                <option value="abanoub" ${task.assignee === 'abanoub' ? 'selected' : ''}>Abanoub</option>
-                <option value="shared" ${task.assignee === 'shared' ? 'selected' : ''}>Shared</option>
-                <option value="freelancer" ${task.assignee === 'freelancer' ? 'selected' : ''}>Freelancer</option>
-            </select>
-            <div class="flex items-center gap-0.5">
-                <input type="number" min="0" max="40" value="${task.percentage}" oninput="updateTaskField('${serviceId}', '${task.id}', 'percentage', this.value)" class="w-12 bg-slate-900 border border-alphas-glassBorder rounded-lg px-1 py-1 text-[11px] text-white text-center font-bold font-mono outline-none">
-                <span class="text-[10px] text-slate-400 font-bold">%</span>
+            <div class="w-full">
+                <input type="text" value="${task.name}" oninput="updateTaskField('${serviceId}', '${task.id}', 'name', this.value)" placeholder="Task Name" class="w-full bg-slate-900 border border-alphas-glassBorder rounded-lg px-2.5 py-2 sm:py-1 text-base sm:text-[11px] text-white outline-none focus:border-blue-500 min-h-[40px] sm:min-h-[30px]">
             </div>
-            <div class="w-24 text-right pr-1">
-                <span id="task-cost-${task.id}" class="text-[11px] font-mono font-bold text-emerald-400">EGP 0</span>
+            <div class="flex items-center justify-between gap-1.5 w-full sm:w-auto">
+                <select onchange="updateTaskField('${serviceId}', '${task.id}', 'assignee', this.value)" class="bg-slate-900 border border-alphas-glassBorder rounded-lg px-2 sm:px-1.5 py-2 sm:py-1 text-base sm:text-[11px] font-bold text-slate-200 outline-none min-h-[40px] sm:min-h-[30px] flex-1 sm:flex-none">
+                    <option value="asy" ${task.assignee === 'asy' ? 'selected' : ''}>Asy</option>
+                    <option value="abanoub" ${task.assignee === 'abanoub' ? 'selected' : ''}>Abanoub</option>
+                    <option value="shared" ${task.assignee === 'shared' ? 'selected' : ''}>Shared</option>
+                    <option value="freelancer" ${task.assignee === 'freelancer' ? 'selected' : ''}>Freelancer</option>
+                </select>
+                <div class="flex items-center gap-0.5">
+                    <input type="number" min="0" max="40" value="${task.percentage}" oninput="updateTaskField('${serviceId}', '${task.id}', 'percentage', this.value)" class="w-14 sm:w-12 bg-slate-900 border border-alphas-glassBorder rounded-lg px-1 py-2 sm:py-1 text-base sm:text-[11px] text-white text-center font-bold font-mono outline-none min-h-[40px] sm:min-h-[30px]">
+                    <span class="text-xs sm:text-[10px] text-slate-400 font-bold">%</span>
+                </div>
+                <div class="w-24 text-right pr-1">
+                    <span id="task-cost-${task.id}" class="text-xs sm:text-[11px] font-mono font-bold text-emerald-400">EGP 0</span>
+                </div>
+                <button type="button" onclick="removeServiceTask('${serviceId}', '${task.id}')" class="text-red-400 hover:text-red-300 p-2 sm:p-1 bg-red-500/10 border border-red-500/20 rounded-lg min-h-[40px] min-w-[40px] sm:min-h-[30px] sm:min-w-[30px] flex items-center justify-center" title="Remove Task">
+                    <i class='bx bx-trash text-sm sm:text-xs'></i>
+                </button>
             </div>
-            <button type="button" onclick="removeServiceTask('${serviceId}', '${task.id}')" class="text-red-400 hover:text-red-300 p-1 bg-red-500/10 border border-red-500/20 rounded-lg" title="Remove Task">
-                <i class='bx bx-trash text-xs'></i>
-            </button>
         `;
         container.appendChild(row);
     });

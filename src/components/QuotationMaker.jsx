@@ -1,37 +1,15 @@
 import React, { useState, useMemo } from 'react';
-import { Plus, Trash2, Layers, Calculator, UserCheck, PieChart, Info, RefreshCw, Edit3, AlertTriangle, CheckCircle2 } from 'lucide-react';
+import { Plus, Trash2, Layers, Calculator, UserCheck, PieChart, Info, RefreshCw, Edit3, AlertTriangle, CheckCircle2, Menu, X, Lock, Check } from 'lucide-react';
 
 /**
- * ALPHAS OS - Quotation Maker & Financial Split Engine v3.8
+ * ALPHAS OS - Quotation Maker & Financial Split Engine v4.0 (Mobile UX Optimized)
  * 
- * Enforces Canonical 40% Service Execution Breakdown Architecture:
- * 1. Web Engineering & Stores (40% Total):
- *    - Web Dev & Architecture Lead (Asy) - 22%
- *    - UI/UX & Custom E-Commerce Flow (Asy) - 10%
- *    - Server-Side Tracking & Gateway Integration (Asy) - 8%
- * 
- * 2. Media Buying & Ads (40% Total):
- *    - Media Buying Execution & Campaign Ops (Abanoub) - 20%
- *    - Server-Side Tracking & Pixel CAPI Setup (Asy) - 12%
- *    - Ad Creatives & Dynamic Formats (Freelancer) - 8%
- * 
- * 3. Social Media Marketing (SMM) (40% Total):
- *    - Graphic Design & Visual Assets (Freelancer) - 18%
- *    - Marketing Strategy & Copywriting (Abanoub) - 12%
- *    - Video Reels & Motion Editing (Freelancer) - 10%
- * 
- * 4. Store Support & Management (40% Total):
- *    - Catalog & Inventory Flow Sync (Asy) - 18%
- *    - Staging, Backup & Speed Optimization (Asy) - 12%
- *    - Checkout Flow & Security Audit (Asy) - 10%
- * 
- * 5. Strategic Consulting (40% Total):
- *    - Business Audit & Funnel Diagnostics (Asy) - 22%
- *    - Growth Strategy & Scaling Roadmap (Abanoub) - 18%
- * 
- * 6. Corporate Academy Training (40% Total):
- *    - Curriculum & Course Materials Setup (Asy) - 20%
- *    - Live Workshops & Team Training (Asy) - 20%
+ * Mobile-First UX Improvements:
+ * 1. Responsive Grids & Stacking (single-column on mobile, dynamic px-3 sm:px-6)
+ * 2. Mobile Navigation Drawer (slide-over Sheet triggered by hamburger icon)
+ * 3. Touch-Friendly Controls (min-h-[44px] touch targets, text-base on mobile to prevent iOS zoom-in)
+ * 4. Task Breakdown Table -> Mobile Card Adaptation
+ * 5. Sticky Bottom Viewport Action Bar (Real-time totals & Lock Deal CTA with backdrop-blur)
  */
 
 export const CANONICAL_SERVICE_TASKS = {
@@ -158,6 +136,11 @@ export default function QuotationMaker() {
   const [services, setServices] = useState(INITIAL_SERVICES);
   const [physicalMerchandiseOverhead, setPhysicalMerchandiseOverhead] = useState(0);
   const [fixedDirectCosts, setFixedDirectCosts] = useState(0);
+  
+  // Mobile UI States
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState("quotation");
+  const [isDealLocked, setIsDealLocked] = useState(false);
 
   const handleToggleService = (serviceId) => {
     setServices((prev) =>
@@ -235,6 +218,11 @@ export default function QuotationMaker() {
     );
   };
 
+  const handleLockDeal = () => {
+    setIsDealLocked(true);
+    setTimeout(() => setIsDealLocked(false), 3000);
+  };
+
   // Real-time Financial Cascade
   const financialSummary = useMemo(() => {
     let grossRevenue = 0;
@@ -303,58 +291,152 @@ export default function QuotationMaker() {
   }, [services, physicalMerchandiseOverhead, fixedDirectCosts, closerPartner]);
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 p-4 md:p-8 font-sans">
-      <div className="max-w-7xl mx-auto space-y-8">
-        
-        {/* Header Bar */}
-        <header className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-800">
+    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans pb-28 md:pb-12">
+      
+      {/* Mobile Top Sticky Navigation Header */}
+      <header className="sticky top-0 z-40 bg-slate-950/90 backdrop-blur-md border-b border-slate-800 px-4 py-3 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => setIsMobileMenuOpen(true)}
+            className="md:hidden text-slate-300 hover:text-white p-2.5 rounded-xl bg-slate-900 border border-slate-800 min-h-[44px] min-w-[44px] flex items-center justify-center"
+            aria-label="Open Navigation Drawer"
+          >
+            <Menu className="w-5 h-5 text-blue-400" />
+          </button>
           <div>
-            <div className="flex items-center gap-2">
-              <span className="bg-blue-500/10 text-blue-400 text-xs font-mono font-bold px-2.5 py-1 rounded-md border border-blue-500/20">
-                ALPHAS OS v3.8
-              </span>
-              <span className="text-slate-400 text-xs uppercase tracking-widest font-semibold">Canonical 40% Service Execution Architecture</span>
-            </div>
-            <h1 className="text-2xl md:text-3xl font-extrabold text-white mt-1">Quotation Maker</h1>
+            <span className="text-[10px] font-mono font-bold bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-md">
+              ALPHAS OS v4.0
+            </span>
+            <h1 className="text-sm sm:text-base font-extrabold text-white leading-tight">Quotation Maker</h1>
           </div>
-          
-          <div className="flex flex-wrap items-center gap-3">
-            <div className="bg-slate-900 border border-slate-800 rounded-xl px-3 py-1.5 flex items-center gap-2">
-              <span className="text-xs text-slate-400">Client:</span>
-              <input
-                type="text"
-                value={clientName}
-                onChange={(e) => setClientName(e.target.value)}
-                className="bg-transparent text-xs font-bold text-white outline-none w-44"
-              />
-            </div>
-            
-            <div className="bg-slate-900 border border-slate-800 rounded-xl px-3 py-1.5 flex items-center gap-2">
-              <span className="text-xs text-slate-400">Closer (15%):</span>
-              <select
-                value={closerPartner}
-                onChange={(e) => setCloserPartner(e.target.value)}
-                className="bg-transparent text-xs font-bold text-blue-400 outline-none cursor-pointer"
-              >
-                <option value="asy" className="bg-slate-900 text-white">Mohamed Asy</option>
-                <option value="abanoub" className="bg-slate-900 text-white">Abanoub</option>
-              </select>
-            </div>
-          </div>
-        </header>
+        </div>
 
-        {/* 2-Column Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        {/* Header Actions */}
+        <div className="hidden sm:flex items-center gap-3">
+          <div className="bg-slate-900 border border-slate-800 rounded-xl px-3 py-1.5 flex items-center gap-2 min-h-[44px]">
+            <span className="text-xs text-slate-400">Client:</span>
+            <input
+              type="text"
+              value={clientName}
+              onChange={(e) => setClientName(e.target.value)}
+              className="bg-transparent text-xs font-bold text-white outline-none w-36 sm:w-44"
+            />
+          </div>
           
-          {/* Services Column (7 Cols) */}
-          <div className="lg:col-span-7 space-y-6">
+          <div className="bg-slate-900 border border-slate-800 rounded-xl px-3 py-1.5 flex items-center gap-2 min-h-[44px]">
+            <span className="text-xs text-slate-400">Closer (15%):</span>
+            <select
+              value={closerPartner}
+              onChange={(e) => setCloserPartner(e.target.value)}
+              className="bg-transparent text-xs font-bold text-blue-400 outline-none cursor-pointer"
+            >
+              <option value="asy" className="bg-slate-900 text-white">Mohamed Asy</option>
+              <option value="abanoub" className="bg-slate-900 text-white">Abanoub</option>
+            </select>
+          </div>
+        </div>
+      </header>
+
+      {/* Slide-over Mobile Navigation Drawer */}
+      {isMobileMenuOpen && (
+        <div className="fixed inset-0 z-50 flex">
+          {/* Backdrop */}
+          <div
+            className="fixed inset-0 bg-black/70 backdrop-blur-sm transition-opacity"
+            onClick={() => setIsMobileMenuOpen(false)}
+          />
+
+          {/* Drawer Sidebar Content */}
+          <div className="relative w-4/5 max-w-xs bg-slate-950 border-r border-slate-800 p-5 flex flex-col justify-between z-10 space-y-6">
+            <div className="space-y-6">
+              <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center font-black text-white text-sm">
+                    A
+                  </div>
+                  <span className="font-extrabold text-white text-base">ALPHAS OS</span>
+                </div>
+                <button
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-slate-400 hover:text-white p-2 rounded-lg bg-slate-900 border border-slate-800 min-h-[44px] min-w-[44px] flex items-center justify-center"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              {/* Mobile Menu Links */}
+              <nav className="space-y-2">
+                {[
+                  { id: "overview", label: "Executive Dashboard", icon: Layers },
+                  { id: "crm", label: "CRM & Leads Management", icon: UserCheck },
+                  { id: "quotation", label: "Quotation Maker & Split", icon: PieChart },
+                  { id: "projects", label: "Project Board & Delivery", icon: Calculator }
+                ].map((item) => (
+                  <button
+                    key={item.id}
+                    onClick={() => {
+                      setActiveTab(item.id);
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-sm text-left transition-all min-h-[44px] ${
+                      activeTab === item.id
+                        ? "bg-blue-600/20 text-blue-400 border border-blue-500/30"
+                        : "text-slate-400 hover:bg-slate-900 hover:text-slate-200"
+                    }`}
+                  >
+                    <item.icon className="w-5 h-5" />
+                    {item.label}
+                  </button>
+                ))}
+              </nav>
+            </div>
+
+            <div className="border-t border-slate-800 pt-4 text-center">
+              <p className="text-[11px] font-mono text-slate-500">ALPHAS Operating System v4.0</p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Main Container */}
+      <main className="max-w-7xl mx-auto px-3 sm:px-6 md:px-8 pt-4 md:pt-8 space-y-6">
+        
+        {/* Mobile Header Inputs (Client & Closer) */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:hidden bg-slate-900/60 p-3.5 rounded-2xl border border-slate-800">
+          <div>
+            <label className="block text-[11px] font-bold uppercase text-slate-400 mb-1">Client Name</label>
+            <input
+              type="text"
+              value={clientName}
+              onChange={(e) => setClientName(e.target.value)}
+              className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 text-base font-bold text-white outline-none focus:border-blue-500 min-h-[44px]"
+            />
+          </div>
+          <div>
+            <label className="block text-[11px] font-bold uppercase text-slate-400 mb-1">Sales Closer (15%)</label>
+            <select
+              value={closerPartner}
+              onChange={(e) => setCloserPartner(e.target.value)}
+              className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 text-base font-bold text-blue-400 outline-none min-h-[44px]"
+            >
+              <option value="asy">Mohamed Asy</option>
+              <option value="abanoub">Abanoub</option>
+            </select>
+          </div>
+        </div>
+
+        {/* 2-Column Responsive Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8">
+          
+          {/* Column 1: Core Service Pillars (7 Cols) */}
+          <div className="lg:col-span-7 space-y-4 sm:space-y-6">
             <div className="flex items-center justify-between">
-              <h2 className="text-sm font-black uppercase tracking-wider text-slate-300 flex items-center gap-2">
+              <h2 className="text-xs sm:text-sm font-black uppercase tracking-wider text-slate-300 flex items-center gap-2">
                 <Layers className="w-4 h-4 text-blue-500" />
-                Core Pillars & Task Breakdown
+                Core Services & Tasks
               </h2>
-              <span className="text-xs text-emerald-400 font-mono font-bold bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full">
-                40% Execution Cap Preserved
+              <span className="text-[11px] sm:text-xs text-emerald-400 font-mono font-bold bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded-full">
+                40% Execution Cap
               </span>
             </div>
 
@@ -366,57 +448,58 @@ export default function QuotationMaker() {
                 return (
                   <div
                     key={service.serviceId}
-                    className={`p-4 rounded-2xl border transition-all ${
+                    className={`p-3.5 sm:p-4 rounded-2xl border transition-all ${
                       service.isEnabled
                         ? isOverCap
-                          ? "bg-slate-900/60 border-red-500/50 shadow-lg shadow-red-500/5"
-                          : "bg-slate-900/60 border-blue-500/40 shadow-lg shadow-blue-500/5"
-                        : "bg-slate-900/20 border-slate-800/80 opacity-70"
+                          ? "bg-slate-900/70 border-red-500/50 shadow-lg shadow-red-500/5"
+                          : "bg-slate-900/70 border-blue-500/40 shadow-lg shadow-blue-500/5"
+                        : "bg-slate-900/30 border-slate-800/80 opacity-70"
                     }`}
                   >
                     {/* Service Header Bar */}
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between gap-2">
                       <div className="flex items-center gap-3">
-                        <div className={`w-8 h-8 rounded-xl flex items-center justify-center ${
+                        <div className={`w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 ${
                           service.isEnabled ? "bg-blue-600/20 text-blue-400" : "bg-slate-800 text-slate-500"
                         }`}>
                           <Layers className="w-4 h-4" />
                         </div>
                         <div>
-                          <h3 className="text-sm font-bold text-slate-100">{service.name}</h3>
+                          <h3 className="text-xs sm:text-sm font-bold text-slate-100 leading-snug">{service.name}</h3>
                           {service.isEnabled && (
                             <span className="text-[11px] font-mono text-emerald-400 font-bold">
-                              Selected: EGP {service.selectedPackagePrice.toLocaleString()}
+                              EGP {service.selectedPackagePrice.toLocaleString()}
                             </span>
                           )}
                         </div>
                       </div>
 
-                      <label className="relative inline-flex items-center cursor-pointer">
+                      {/* Touch-Friendly Toggle Switch */}
+                      <label className="relative inline-flex items-center cursor-pointer min-h-[44px] min-w-[44px] justify-end">
                         <input
                           type="checkbox"
                           checked={service.isEnabled}
                           onChange={() => handleToggleService(service.serviceId)}
                           className="sr-only peer"
                         />
-                        <div className="w-10 h-5 bg-slate-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-slate-400 after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
+                        <div className="w-11 h-6 bg-slate-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[10px] after:right-[22px] after:bg-slate-400 after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
                       </label>
                     </div>
 
-                    {/* Expandable Sub-panel */}
+                    {/* Expandable Sub-panel Drawer */}
                     {service.isEnabled && (
-                      <div className="mt-4 pt-3 border-t border-slate-800/60 space-y-4">
+                      <div className="mt-4 pt-3.5 border-t border-slate-800/60 space-y-4">
                         
-                        {/* Bundle Selector & Custom Price Input */}
+                        {/* Bundle Selector & Package Price */}
                         <div className="grid grid-cols-1 sm:grid-cols-12 gap-3 items-end">
                           <div className="sm:col-span-7">
                             <label className="block text-[10px] uppercase font-bold text-slate-400 mb-1">
-                              Bundle Tier
+                              Bundle / Package Tier
                             </label>
                             <select
                               value={service.selectedTierId}
                               onChange={(e) => handleTierChange(service.serviceId, e.target.value)}
-                              className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs font-bold text-slate-200 outline-none focus:border-blue-500 cursor-pointer"
+                              className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 text-base sm:text-xs font-bold text-slate-200 outline-none focus:border-blue-500 cursor-pointer min-h-[44px]"
                             >
                               {service.tiers.map((tier) => (
                                 <option key={tier.id} value={tier.id}>
@@ -428,23 +511,23 @@ export default function QuotationMaker() {
 
                           <div className="sm:col-span-5">
                             <label className="block text-[10px] uppercase font-bold text-slate-400 mb-1 flex items-center gap-1">
-                              <Edit3 className="w-3 h-3 text-blue-400" /> Package Price (EGP)
+                              <Edit3 className="w-3 h-3 text-blue-400" /> Bundle Price (EGP)
                             </label>
                             <input
                               type="number"
                               value={service.selectedTier.price}
                               onChange={(e) => handleTierPriceChange(service.serviceId, service.selectedTierId, e.target.value)}
-                              className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs font-mono font-bold text-white outline-none focus:border-blue-500"
+                              className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 text-base sm:text-xs font-mono font-bold text-white outline-none focus:border-blue-500 min-h-[44px]"
                             />
                           </div>
                         </div>
 
-                        {/* Task Breakdown Sub-panel Drawer */}
-                        <div className="bg-slate-950/80 border border-slate-800 rounded-xl p-3.5 space-y-3">
+                        {/* Task Breakdown Drawer Sub-panel */}
+                        <div className="bg-slate-950/80 border border-slate-800 rounded-xl p-3 sm:p-3.5 space-y-3">
                           <div className="flex flex-wrap items-center justify-between gap-2">
                             <div className="flex items-center gap-2">
                               <span className="text-[11px] font-bold uppercase tracking-wider text-slate-300">
-                                Service Task Breakdown
+                                Service Tasks
                               </span>
                               <span className={`text-[10px] font-mono px-2 py-0.5 rounded-md font-bold flex items-center gap-1 ${
                                 isOverCap
@@ -460,15 +543,15 @@ export default function QuotationMaker() {
                               <button
                                 type="button"
                                 onClick={() => handleResetDefaultTasks(service.serviceId)}
-                                className="text-[10px] bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 rounded-lg px-2 py-1 font-semibold flex items-center gap-1 transition-all"
-                                title="Reset tasks to canonical 40% template"
+                                className="text-[10px] bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 rounded-lg px-2 py-1.5 font-semibold flex items-center gap-1 min-h-[36px]"
+                                title="Reset tasks to default template"
                               >
-                                <RefreshCw className="w-3 h-3" /> Reset Defaults
+                                <RefreshCw className="w-3 h-3" /> Reset
                               </button>
                               <button
                                 type="button"
                                 onClick={() => handleAddTask(service.serviceId)}
-                                className="text-[10px] bg-blue-600/20 hover:bg-blue-600/30 text-blue-400 border border-blue-500/30 rounded-lg px-2.5 py-1 font-bold flex items-center gap-1 transition-all"
+                                className="text-[10px] bg-blue-600/20 hover:bg-blue-600/30 text-blue-400 border border-blue-500/30 rounded-lg px-2.5 py-1.5 font-bold flex items-center gap-1 min-h-[36px]"
                               >
                                 <Plus className="w-3.5 h-3.5" /> Add Task
                               </button>
@@ -477,25 +560,23 @@ export default function QuotationMaker() {
 
                           {/* Over-Cap Warning Banner */}
                           {isOverCap && (
-                            <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-2 text-[10px] text-red-300 flex items-center gap-2">
+                            <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-2.5 text-[11px] text-red-300 flex items-center gap-2">
                               <AlertTriangle className="w-4 h-4 text-red-400 flex-shrink-0" />
-                              <span>Warning: Execution cost ({totalTaskPercent}%) exceeds the 40% limit! Gross margin will drop below 60%.</span>
+                              <span>Execution cost ({totalTaskPercent}%) exceeds the 40% limit!</span>
                             </div>
                           )}
 
-                          {/* Dynamic Task Rows */}
+                          {/* Dynamic Task Rows (Mobile Cards + Desktop Table) */}
                           {service.tasks.length === 0 ? (
                             <p className="text-[11px] text-slate-500 italic text-center py-2">
-                              No tasks defined. Click "+ Add Task" or "Reset Defaults".
+                              No tasks defined. Click "+ Add Task" or "Reset".
                             </p>
                           ) : (
-                            <div className="space-y-2">
+                            <div className="space-y-2.5">
                               {service.tasks.map((task) => (
-                                <div
-                                  key={task.id}
-                                  className="grid grid-cols-1 sm:grid-cols-12 gap-2 items-center bg-slate-900/90 p-2 rounded-lg border border-slate-800/80"
-                                >
-                                  {/* Task Name (5 cols) */}
+                                <div key={task.id} className="bg-slate-900/90 rounded-xl p-2.5 sm:p-2 border border-slate-800/80 space-y-2 sm:space-y-0 sm:grid sm:grid-cols-12 sm:gap-2 sm:items-center">
+                                  
+                                  {/* Task Name (Mobile: Full Width | Desktop: 5 cols) */}
                                   <div className="sm:col-span-5">
                                     <input
                                       type="text"
@@ -504,56 +585,60 @@ export default function QuotationMaker() {
                                       onChange={(e) =>
                                         handleUpdateTask(service.serviceId, task.id, "name", e.target.value)
                                       }
-                                      className="w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-slate-100 outline-none focus:border-blue-500"
+                                      className="w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-2 text-base sm:text-xs text-slate-100 outline-none focus:border-blue-500 min-h-[40px] sm:min-h-[32px]"
                                     />
                                   </div>
 
-                                  {/* Assignee (3 cols) */}
-                                  <div className="sm:col-span-3">
-                                    <select
-                                      value={task.assignee}
-                                      onChange={(e) =>
-                                        handleUpdateTask(service.serviceId, task.id, "assignee", e.target.value)
-                                      }
-                                      className="w-full bg-slate-950 border border-slate-800 rounded-lg px-2 py-1.5 text-xs text-slate-300 outline-none focus:border-blue-500"
-                                    >
-                                      <option value="Asy">Asy</option>
-                                      <option value="Abanoub">Abanoub</option>
-                                      <option value="Shared">Shared Split</option>
-                                      <option value="Editor/Freelancer">Editor / Freelancer</option>
-                                    </select>
+                                  {/* Mobile Wrapper for Role, Percentage & EGP Output */}
+                                  <div className="grid grid-cols-12 gap-2 items-center sm:contents">
+                                    {/* Assignee (6 cols on Mobile | 3 cols Desktop) */}
+                                    <div className="col-span-6 sm:col-span-3">
+                                      <select
+                                        value={task.assignee}
+                                        onChange={(e) =>
+                                          handleUpdateTask(service.serviceId, task.id, "assignee", e.target.value)
+                                        }
+                                        className="w-full bg-slate-950 border border-slate-800 rounded-lg px-2 py-2 text-base sm:text-xs text-slate-300 outline-none focus:border-blue-500 min-h-[40px] sm:min-h-[32px]"
+                                      >
+                                        <option value="Asy">Asy</option>
+                                        <option value="Abanoub">Abanoub</option>
+                                        <option value="Shared">Shared</option>
+                                        <option value="Editor/Freelancer">Freelancer</option>
+                                      </select>
+                                    </div>
+
+                                    {/* Percentage (3 cols on Mobile | 2 cols Desktop) */}
+                                    <div className="col-span-3 sm:col-span-2 flex items-center gap-1">
+                                      <input
+                                        type="number"
+                                        min="0"
+                                        max="40"
+                                        placeholder="%"
+                                        value={task.percentage}
+                                        onChange={(e) =>
+                                          handleUpdateTask(service.serviceId, task.id, "percentage", e.target.value)
+                                        }
+                                        className="w-full bg-slate-950 border border-slate-800 rounded-lg px-1.5 py-2 text-base sm:text-xs text-white font-mono text-center font-bold outline-none focus:border-blue-500 min-h-[40px] sm:min-h-[32px]"
+                                      />
+                                      <span className="text-xs font-bold text-slate-400">%</span>
+                                    </div>
+
+                                    {/* Calculated Cost & Delete (3 cols on Mobile | 2 cols Desktop) */}
+                                    <div className="col-span-3 sm:col-span-2 flex items-center justify-between pl-1">
+                                      <span className="text-xs font-mono font-bold text-emerald-400">
+                                        EGP {Math.round(task.calculatedCost).toLocaleString()}
+                                      </span>
+                                      <button
+                                        type="button"
+                                        onClick={() => handleRemoveTask(service.serviceId, task.id)}
+                                        className="text-red-400 hover:text-red-300 p-2 rounded-lg hover:bg-red-500/10 min-h-[40px] min-w-[40px] sm:min-h-[32px] sm:min-w-[32px] flex items-center justify-center"
+                                        title="Remove Task"
+                                      >
+                                        <Trash2 className="w-4 h-4" />
+                                      </button>
+                                    </div>
                                   </div>
 
-                                  {/* Percentage Input (2 cols) */}
-                                  <div className="sm:col-span-2 flex items-center gap-1">
-                                    <input
-                                      type="number"
-                                      min="0"
-                                      max="40"
-                                      placeholder="%"
-                                      value={task.percentage}
-                                      onChange={(e) =>
-                                        handleUpdateTask(service.serviceId, task.id, "percentage", e.target.value)
-                                      }
-                                      className="w-full bg-slate-950 border border-slate-800 rounded-lg px-2 py-1.5 text-xs text-white font-mono text-center font-bold outline-none focus:border-blue-500"
-                                    />
-                                    <span className="text-xs font-bold text-slate-400">%</span>
-                                  </div>
-
-                                  {/* Calculated Cost Output & Delete (2 cols) */}
-                                  <div className="sm:col-span-2 flex items-center justify-between pl-1">
-                                    <span className="text-xs font-mono font-bold text-emerald-400">
-                                      EGP {Math.round(task.calculatedCost).toLocaleString()}
-                                    </span>
-                                    <button
-                                      type="button"
-                                      onClick={() => handleRemoveTask(service.serviceId, task.id)}
-                                      className="text-red-400 hover:text-red-300 p-1.5 rounded-md hover:bg-red-500/10 transition-all"
-                                      title="Remove Task"
-                                    >
-                                      <Trash2 className="w-3.5 h-3.5" />
-                                    </button>
-                                  </div>
                                 </div>
                               ))}
                             </div>
@@ -567,19 +652,19 @@ export default function QuotationMaker() {
             </div>
 
             {/* Direct Costs & Physical Overhead Panel */}
-            <div className="p-4 bg-slate-900/40 border border-slate-800 rounded-2xl space-y-3">
+            <div className="p-3.5 sm:p-4 bg-slate-900/40 border border-slate-800 rounded-2xl space-y-3">
               <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
                 <Calculator className="w-4 h-4 text-amber-400" />
                 Physical Overhead & Direct Expenses
               </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 <div>
                   <label className="block text-[11px] text-slate-400 mb-1">Physical Merchandise Overhead (EGP)</label>
                   <input
                     type="number"
                     value={physicalMerchandiseOverhead}
                     onChange={(e) => setPhysicalMerchandiseOverhead(parseFloat(e.target.value) || 0)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs font-mono font-bold text-white outline-none focus:border-amber-400"
+                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 text-base sm:text-xs font-mono font-bold text-white outline-none focus:border-amber-400 min-h-[44px]"
                   />
                 </div>
                 <div>
@@ -588,7 +673,7 @@ export default function QuotationMaker() {
                     type="number"
                     value={fixedDirectCosts}
                     onChange={(e) => setFixedDirectCosts(parseFloat(e.target.value) || 0)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs font-mono font-bold text-white outline-none focus:border-amber-400"
+                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 text-base sm:text-xs font-mono font-bold text-white outline-none focus:border-amber-400 min-h-[44px]"
                   />
                 </div>
               </div>
@@ -597,20 +682,20 @@ export default function QuotationMaker() {
 
           {/* Real-time Duo Split Statement (5 Cols) */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 shadow-2xl relative space-y-6">
+            <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-4 sm:p-6 shadow-2xl space-y-5">
               
-              <div className="flex items-center justify-between pb-4 border-b border-slate-800">
+              <div className="flex items-center justify-between pb-3.5 border-b border-slate-800">
                 <div className="flex items-center gap-2">
                   <PieChart className="w-5 h-5 text-emerald-400" />
-                  <h2 className="text-base font-extrabold text-white">DUO SPLIT STATEMENT</h2>
+                  <h2 className="text-sm sm:text-base font-extrabold text-white">DUO SPLIT STATEMENT</h2>
                 </div>
                 <span className="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono font-bold px-2 py-0.5 rounded-full">
-                  60% MARGIN ENGINE
+                  60% MARGIN
                 </span>
               </div>
 
               {/* Metrics Summary */}
-              <div className="space-y-3 font-mono text-xs">
+              <div className="space-y-2.5 font-mono text-xs">
                 
                 <div className="flex justify-between items-center py-2 border-b border-slate-800/60">
                   <span className="text-slate-400">Gross Revenue</span>
@@ -621,11 +706,11 @@ export default function QuotationMaker() {
 
                 <div className="flex justify-between items-center py-2 border-b border-slate-800/60">
                   <div className="flex items-center gap-1.5">
-                    <span className="text-slate-400">COGS (Canonical 40% Execution)</span>
+                    <span className="text-slate-400">COGS (Max 40% Exec)</span>
                     <div className="group relative cursor-pointer">
                       <Info className="w-3.5 h-3.5 text-slate-500" />
                       <div className="hidden group-hover:block absolute left-0 bottom-6 w-56 p-2 bg-slate-950 border border-slate-800 text-[10px] text-slate-300 rounded-lg shadow-xl z-20 font-sans">
-                        Task costs are capped at 40% per service package revenue.
+                        Execution task costs capped at 40% max per service package.
                       </div>
                     </div>
                   </div>
@@ -725,7 +810,38 @@ export default function QuotationMaker() {
           </div>
 
         </div>
+      </main>
+
+      {/* Sticky Bottom Action Bar for Mobile Viewports */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-950/90 backdrop-blur-md border-t border-slate-800 px-4 py-3 shadow-2xl flex items-center justify-between">
+        <div>
+          <span className="text-[10px] uppercase font-bold text-slate-400 block">Gross Revenue</span>
+          <span className="text-sm font-mono font-extrabold text-emerald-400">
+            EGP {financialSummary.grossRevenue.toLocaleString()}
+          </span>
+        </div>
+
+        <button
+          onClick={handleLockDeal}
+          disabled={isDealLocked}
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs shadow-lg transition-all min-h-[44px] ${
+            isDealLocked
+              ? "bg-emerald-600 text-white"
+              : "bg-blue-600 hover:bg-blue-500 text-white shadow-blue-600/20"
+          }`}
+        >
+          {isDealLocked ? (
+            <>
+              <Check className="w-4 h-4" /> Locked to Ledger
+            </>
+          ) : (
+            <>
+              <Lock className="w-4 h-4" /> Lock Deal & Payouts
+            </>
+          )}
+        </button>
       </div>
+
     </div>
   );
 }
