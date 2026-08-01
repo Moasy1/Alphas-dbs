@@ -177,6 +177,7 @@ document.addEventListener("DOMContentLoaded", () => {
     populateQuotationSelects();
     populateExecPartnerSelects();
     populateCloserSelect();
+    ['web', 'mgmt', 'smm', 'ads', 'consulting', 'academy'].forEach(s => renderServiceTaskRows(s));
     calculateQuotation();
     renderProjectBoard();
     renderInvoicesLedger();
@@ -530,6 +531,86 @@ function convertLeadToProject(id) {
 // 7. QUOTATION MAKER & LEDGER SPLIT ENGINE
 let currentCalcState = {};
 
+// Dynamic Task Breakdown State Schema
+let serviceTasksState = {
+    web: [
+        { id: "t1", name: "Custom Woo Integration", assignee: "asy", percentage: 10 },
+        { id: "t2", name: "Motion Animations (GSAP)", assignee: "freelancer", percentage: 5 }
+    ],
+    mgmt: [],
+    smm: [],
+    ads: [
+        { id: "t3", name: "Pixel Setup & Tracking", assignee: "abanoub", percentage: 12 },
+        { id: "t4", name: "Ad Creative Motion Design", assignee: "freelancer", percentage: 8 }
+    ],
+    consulting: [],
+    academy: []
+};
+
+function addServiceTask(serviceId) {
+    if (!serviceTasksState[serviceId]) serviceTasksState[serviceId] = [];
+    serviceTasksState[serviceId].push({
+        id: "t_" + Date.now() + "_" + Math.random().toString(36).substr(2, 4),
+        name: "New Task",
+        assignee: serviceId === "ads" || serviceId === "smm" ? "abanoub" : "asy",
+        percentage: 5
+    });
+    renderServiceTaskRows(serviceId);
+    calculateQuotation();
+}
+
+function removeServiceTask(serviceId, taskId) {
+    if (!serviceTasksState[serviceId]) return;
+    serviceTasksState[serviceId] = serviceTasksState[serviceId].filter(t => t.id !== taskId);
+    renderServiceTaskRows(serviceId);
+    calculateQuotation();
+}
+
+function updateTaskField(serviceId, taskId, field, value) {
+    if (!serviceTasksState[serviceId]) return;
+    const task = serviceTasksState[serviceId].find(t => t.id === taskId);
+    if (task) {
+        task[field] = field === 'percentage' ? parseFloat(value) || 0 : value;
+    }
+    calculateQuotation();
+}
+
+function renderServiceTaskRows(serviceId) {
+    const container = document.getElementById(`tasks-container-${serviceId}`);
+    if (!container) return;
+    const tasks = serviceTasksState[serviceId] || [];
+    container.innerHTML = "";
+    if (tasks.length === 0) {
+        container.innerHTML = `<p class="text-[10px] text-slate-500 italic py-1">No custom task breakdown added. Default tier costs will apply.</p>`;
+        return;
+    }
+    
+    tasks.forEach(task => {
+        const row = document.createElement("div");
+        row.className = "flex gap-1.5 items-center bg-slate-950/80 p-1.5 rounded-xl border border-alphas-glassBorder/60 text-xs";
+        row.innerHTML = `
+            <input type="text" value="${task.name}" oninput="updateTaskField('${serviceId}', '${task.id}', 'name', this.value)" placeholder="Task Name" class="w-full bg-slate-900 border border-alphas-glassBorder rounded-lg px-2 py-1 text-[11px] text-white outline-none focus:border-blue-500">
+            <select onchange="updateTaskField('${serviceId}', '${task.id}', 'assignee', this.value)" class="bg-slate-900 border border-alphas-glassBorder rounded-lg px-1.5 py-1 text-[11px] font-bold text-slate-200 outline-none">
+                <option value="asy" ${task.assignee === 'asy' ? 'selected' : ''}>Asy</option>
+                <option value="abanoub" ${task.assignee === 'abanoub' ? 'selected' : ''}>Abanoub</option>
+                <option value="shared" ${task.assignee === 'shared' ? 'selected' : ''}>Shared</option>
+                <option value="freelancer" ${task.assignee === 'freelancer' ? 'selected' : ''}>Freelancer</option>
+            </select>
+            <div class="flex items-center gap-0.5">
+                <input type="number" min="0" max="100" value="${task.percentage}" oninput="updateTaskField('${serviceId}', '${task.id}', 'percentage', this.value)" class="w-12 bg-slate-900 border border-alphas-glassBorder rounded-lg px-1 py-1 text-[11px] text-white text-center font-bold font-mono outline-none">
+                <span class="text-[10px] text-slate-400 font-bold">%</span>
+            </div>
+            <div class="w-24 text-right pr-1">
+                <span id="task-cost-${task.id}" class="text-[11px] font-mono font-bold text-emerald-400">EGP 0</span>
+            </div>
+            <button type="button" onclick="removeServiceTask('${serviceId}', '${task.id}')" class="text-red-400 hover:text-red-300 p-1 bg-red-500/10 border border-red-500/20 rounded-lg" title="Remove Task">
+                <i class='bx bx-trash text-xs'></i>
+            </button>
+        `;
+        container.appendChild(row);
+    });
+}
+
 function toggleService(serviceId) {
     const isChecked = document.getElementById(`service-${serviceId}-active`).checked;
     const configBlock = document.getElementById(`config-${serviceId}`);
@@ -569,14 +650,33 @@ function calculateQuotation() {
         }
     }
 
+    // Helper to calculate tasks COGS and execution fees per service
+    function processServiceTasks(serviceId, serviceRevenue, defaultCogs, defaultExecPartner, defaultExecFee) {
+        const tasks = serviceTasksState[serviceId] || [];
+        if (tasks.length > 0) {
+            tasks.forEach(task => {
+                const percentage = parseFloat(task.percentage) || 0;
+                const taskCost = serviceRevenue * (percentage / 100);
+                totalCOGS += taskCost;
+                addExecutionFee(task.assignee, taskCost);
+                const costDisplay = document.getElementById(`task-cost-${task.id}`);
+                if (costDisplay) {
+                    costDisplay.innerText = `EGP ${Math.round(taskCost).toLocaleString()}`;
+                }
+            });
+        } else {
+            totalCOGS += defaultCogs;
+            addExecutionFee(defaultExecPartner, defaultExecFee);
+        }
+    }
+
     // 1. Web Custom build
     if (document.getElementById('service-web-active').checked) {
         const tier = document.getElementById('web-tier').value;
         const config = configs.web[tier];
         totalRevenue += config.price;
-        totalCOGS += config.cogs;
         const execPartner = document.getElementById('web-partner-exec').value;
-        addExecutionFee(execPartner, config.execFee);
+        processServiceTasks('web', config.price, config.cogs, execPartner, config.execFee);
         invoiceItems.push({ label: config.label, price: config.price });
     }
 
@@ -585,9 +685,8 @@ function calculateQuotation() {
         const tier = document.getElementById('mgmt-tier').value;
         const config = configs.mgmt[tier];
         totalRevenue += config.price;
-        totalCOGS += config.cogs;
         const execPartner = document.getElementById('mgmt-partner-exec').value;
-        addExecutionFee(execPartner, config.execFee);
+        processServiceTasks('mgmt', config.price, config.cogs, execPartner, config.execFee);
         invoiceItems.push({ label: config.label, price: config.price });
     }
 
@@ -596,20 +695,18 @@ function calculateQuotation() {
         const tier = document.getElementById('smm-tier').value;
         const config = configs.smm[tier];
         totalRevenue += config.price;
-        totalCOGS += config.cogs;
         const execPartner = document.getElementById('smm-partner-exec').value;
-        addExecutionFee(execPartner, config.execFee);
+        processServiceTasks('smm', config.price, config.cogs, execPartner, config.execFee);
         invoiceItems.push({ label: config.label, price: config.price });
     }
 
-    // 4. Media Buying Execution (Mandatory for Abanoub)
+    // 4. Media Buying Execution
     if (document.getElementById('service-ads-active').checked) {
         const tier = document.getElementById('ads-tier').value;
         const config = configs.ads[tier];
         totalRevenue += config.price;
-        totalCOGS += config.cogs;
         const execPartner = document.getElementById('ads-partner-exec').value;
-        addExecutionFee(execPartner, config.execFee);
+        processServiceTasks('ads', config.price, config.cogs, execPartner, config.execFee);
         invoiceItems.push({ label: config.label, price: config.price });
     }
 
@@ -619,12 +716,10 @@ function calculateQuotation() {
         const hours = parseInt(document.getElementById('consulting-hours').value) || 0;
         const config = configs.consulting[tier];
         const calculatedPrice = config.price * hours;
-        const calculatedCOGS = config.cogs * hours;
         totalRevenue += calculatedPrice;
-        totalCOGS += calculatedCOGS;
 
         const execPartner = document.getElementById('consulting-partner-exec').value;
-        addExecutionFee(execPartner, config.execFee * hours);
+        processServiceTasks('consulting', calculatedPrice, config.cogs * hours, execPartner, config.execFee * hours);
 
         invoiceItems.push({ label: `${config.label} (${hours} Hours)`, price: calculatedPrice });
     }
@@ -635,12 +730,10 @@ function calculateQuotation() {
         const students = parseInt(document.getElementById('academy-students').value) || 0;
         const config = configs.academy[tier];
         const calculatedPrice = config.price * students;
-        const calculatedCOGS = config.cogs * students;
         totalRevenue += calculatedPrice;
-        totalCOGS += calculatedCOGS;
 
         const execPartner = document.getElementById('academy-partner-exec').value;
-        addExecutionFee(execPartner, config.execFee * students);
+        processServiceTasks('academy', calculatedPrice, config.cogs * students, execPartner, config.execFee * students);
 
         invoiceItems.push({ label: `${config.label} (${students} Students)`, price: calculatedPrice });
     }
