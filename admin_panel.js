@@ -521,12 +521,35 @@ function renderCRMView() {
             if (lead.status === "won") { statusClass = "status-won"; statusText = "Closed Won"; }
             if (lead.status === "lost") { statusClass = "status-lost"; statusText = "Closed Lost"; }
 
+            // Lead Heat Index Calculation
+            const budgetNum = Number(lead.budget) || 0;
+            let heatBadge = `<span class="px-2 py-0.5 rounded text-[9px] font-black bg-blue-500/10 text-blue-400 border border-blue-500/20 mr-1.5" title="Standard Lead (< EGP 10,000)">❄️ COLD</span>`;
+            if (budgetNum >= 25000) {
+                heatBadge = `<span class="px-2 py-0.5 rounded text-[9px] font-black bg-red-500/10 text-red-400 border border-red-500/20 mr-1.5" title="High-Value Lead (> EGP 25,000)">🔥 HOT</span>`;
+            } else if (budgetNum >= 10000) {
+                heatBadge = `<span class="px-2 py-0.5 rounded text-[9px] font-black bg-amber-500/10 text-amber-400 border border-amber-500/20 mr-1.5" title="Medium-Value Lead (EGP 10k-25k)">⚡ WARM</span>`;
+            }
+
+            // WhatsApp Direct Outreach link
+            const cleanPhone = (lead.phone || '').replace(/[^0-9]/g, '');
+            const waPhone = cleanPhone.startsWith('0') ? ('2' + cleanPhone) : cleanPhone;
+            const waMsg = encodeURIComponent(`مرحباً ${lead.name}، معك فريق Alphas Digital Business Solutions. يسعدنا تواصلكم بخصوص طلب (${lead.services}). لقد أعددنا لك عرضاً أولياً مميزاً.`);
+            const waBtn = waPhone ? `<a href="https://wa.me/${waPhone}?text=${waMsg}" target="_blank" class="text-emerald-400 hover:text-emerald-300 text-sm p-1.5 bg-emerald-500/10 border border-emerald-500/20 rounded-lg flex items-center justify-center" title="1-Click WhatsApp Intro"><i class='bx bxl-whatsapp text-base'></i></a>` : '';
+
+            // Email Outreach link
+            const mailSubject = encodeURIComponent(`Alphas DBS Proposal — ${lead.services}`);
+            const mailBody = encodeURIComponent(`Dear ${lead.name},\n\nThank you for reaching out to Alphas Digital Business Solutions regarding your inquiry for ${lead.services}.\n\nWe have reviewed your scope and prepared a technical and financial proposal for your business.\n\nBest regards,\nAlphas DBS Team`);
+            const mailBtn = lead.email ? `<a href="mailto:${lead.email}?subject=${mailSubject}&body=${mailBody}" class="text-sky-400 hover:text-sky-300 text-sm p-1.5 bg-sky-500/10 border border-sky-500/20 rounded-lg flex items-center justify-center" title="1-Click Email Outreach"><i class='bx bx-envelope text-base'></i></a>` : '';
+
             const tr = document.createElement("tr");
             tr.className = "border-b border-alphas-glassBorder/10 hover:bg-alphas-glass/20 transition-colors";
             tr.innerHTML = `
                 <td class="py-4 text-left">
-                    <span class="font-bold text-white block text-sm">${lead.name}</span>
-                    <span class="text-[10px] text-slate-400 block">${lead.email} • ${lead.phone || 'No phone'}</span>
+                    <div class="flex items-center gap-1.5">
+                        ${heatBadge}
+                        <span class="font-bold text-white text-sm">${lead.name}</span>
+                    </div>
+                    <span class="text-[10px] text-slate-400 block mt-0.5">${lead.email} • ${lead.phone || 'No phone'}</span>
                 </td>
                 <td class="py-4 text-left">
                     <span class="px-2 py-0.5 bg-slate-900 border border-alphas-glassBorder rounded text-[9px] font-bold text-slate-300 mr-2 uppercase">${lead.source || "Direct Admin"}</span>
@@ -540,9 +563,11 @@ function renderCRMView() {
                 </td>
                 <td class="py-4 text-center">
                     <div class="flex items-center justify-center gap-2">
-                        <button onclick="editLead('${lead.id}')" class="text-blue-400 hover:text-blue-300 text-sm p-1.5 bg-blue-500/10 border border-blue-500/20 rounded-lg"><i class='bx bx-edit'></i></button>
-                        ${lead.status !== 'won' ? `<button onclick="convertLeadToProject('${lead.id}')" class="text-emerald-400 hover:text-emerald-300 text-xs font-black px-2 py-1 bg-emerald-500/10 border border-emerald-500/20 rounded-lg flex items-center gap-1"><i class='bx bx-party'></i> Quote</button>` : ''}
-                        <button onclick="deleteLead('${lead.id}')" class="text-red-500 hover:text-red-400 text-sm p-1.5 bg-red-500/10 border border-red-500/20 rounded-lg"><i class='bx bx-trash'></i></button>
+                        ${waBtn}
+                        ${mailBtn}
+                        <button onclick="editLead('${lead.id}')" class="text-blue-400 hover:text-blue-300 text-sm p-1.5 bg-blue-500/10 border border-blue-500/20 rounded-lg" title="Edit Lead"><i class='bx bx-edit'></i></button>
+                        ${lead.status !== 'won' ? `<button onclick="convertLeadToProject('${lead.id}')" class="text-emerald-400 hover:text-emerald-300 text-xs font-black px-2 py-1 bg-emerald-500/10 border border-emerald-500/20 rounded-lg flex items-center gap-1" title="Convert to Quote"><i class='bx bx-party'></i> Quote</button>` : ''}
+                        <button onclick="deleteLead('${lead.id}')" class="text-red-500 hover:text-red-400 text-sm p-1.5 bg-red-500/10 border border-red-500/20 rounded-lg" title="Delete Lead"><i class='bx bx-trash'></i></button>
                     </div>
                 </td>
             `;
@@ -1022,6 +1047,19 @@ function calculateQuotation() {
     };
 
     // UPDATE UI SPLIT SHEET
+    const marginPercent = totalRevenue > 0 ? Math.round((grossProjectProfit / totalRevenue) * 100) : 0;
+    const marginBadge = document.getElementById('split-margin-badge');
+    if (marginBadge) {
+        marginBadge.textContent = `${marginPercent}% Margin`;
+        if (marginPercent < 35 && totalRevenue > 0) {
+            marginBadge.className = "px-2 py-0.5 rounded text-[9px] font-black bg-red-500/10 text-red-400 border border-red-500/30 animate-pulse";
+            marginBadge.title = "Low Margin Warning (<35%). Consider raising price or scaling operational costs.";
+        } else {
+            marginBadge.className = "px-2 py-0.5 rounded text-[9px] font-black bg-emerald-500/10 text-emerald-400 border border-emerald-500/20";
+            marginBadge.title = "Healthy Profit Margin (>=35%)";
+        }
+    }
+
     document.getElementById('split-gross-revenue').innerText = `EGP ${totalRevenue.toLocaleString()}`;
     document.getElementById('split-total-cogs').innerText = `EGP ${totalCOGS.toLocaleString()}`;
     document.getElementById('split-closer-fee').innerText = `EGP ${closerFee.toLocaleString()}`;
@@ -2521,13 +2559,25 @@ function deleteArticle(id) {
 }
 
 
-// 12. FREELANCE PLATFORM DEAL HUNTER SIMULATOR
+// 12. FREELANCE & OPPORTUNITY DEAL HUNTER ENGINE
 let selectedGigId = null;
 let activeGigPlatformFilter = "all";
 
+function calculateDealMatchScore(gig) {
+    const text = ((gig.title || '') + ' ' + (gig.category || '') + ' ' + (gig.desc || '')).toLowerCase();
+    let score = 70;
+    
+    if (text.includes("web") || text.includes("woocommerce") || text.includes("shopify") || text.includes("code") || text.includes("html")) score += 10;
+    if (text.includes("ads") || text.includes("meta") || text.includes("google") || text.includes("capi") || text.includes("pixel")) score += 10;
+    if (text.includes("smm") || text.includes("social") || text.includes("content") || text.includes("branding")) score += 8;
+    
+    return Math.min(99, score);
+}
+
 function renderDealHunterFeed() {
-    const gigs = DB.get("gigs");
+    const gigs = DB.get("gigs") || [];
     const container = document.getElementById("gigs-feed-container");
+    if (!container) return;
     container.innerHTML = "";
 
     const filtered = gigs.filter(g => {
@@ -2536,7 +2586,7 @@ function renderDealHunterFeed() {
     });
 
     if (filtered.length === 0) {
-        container.innerHTML = `<div class="text-center text-slate-500 py-12 bg-alphas-glass rounded-2xl border border-alphas-glassBorder">No gigs loaded. Scan for new deals.</div>`;
+        container.innerHTML = `<div class="text-center text-slate-500 py-12 bg-alphas-glass rounded-2xl border border-alphas-glassBorder">No opportunities found. Click "+ Add Opportunity" to input a client deal or "Scan Platforms".</div>`;
         return;
     }
 
@@ -2545,19 +2595,34 @@ function renderDealHunterFeed() {
         if (gig.platform === "Fiverr") platColor = "border-green-500/20 text-green-400 bg-green-500/10";
         if (gig.platform === "Freelancer") platColor = "border-blue-500/20 text-blue-400 bg-blue-500/10";
         if (gig.platform === "Behance") platColor = "border-red-500/20 text-red-400 bg-red-500/10";
+        if (gig.platform === "Direct Client" || gig.platform === "Referral") platColor = "border-amber-500/20 text-alphas-accent bg-alphas-accent/10";
+
+        const matchScore = calculateDealMatchScore(gig);
+        const budgetDisplay = typeof gig.budget === 'number' ? `EGP ${(gig.budget * 30).toLocaleString()}` : gig.budget;
 
         const div = document.createElement("div");
-        div.className = `gig-item p-5 bg-slate-950/40 border border-alphas-glassBorder rounded-2xl cursor-pointer hover:border-slate-600 transition-all space-y-3 ${selectedGigId === gig.id ? 'selected' : ''}`;
+        div.className = `gig-item p-5 bg-slate-950/40 border border-alphas-glassBorder rounded-2xl cursor-pointer hover:border-slate-600 transition-all space-y-3 ${selectedGigId === gig.id ? 'selected border-alphas-accent' : ''}`;
         div.onclick = () => selectGig(gig.id);
         div.innerHTML = `
             <div class="flex justify-between items-start gap-4">
                 <div>
-                    <h4 class="text-sm font-black text-white">${gig.title}</h4>
-                    <span class="text-[9px] text-slate-500 font-mono font-medium">${gig.date} • Budget: EGP ${(gig.budget*30).toLocaleString()} (approx)</span>
+                    <div class="flex items-center gap-2">
+                        <span class="px-2 py-0.5 rounded text-[9px] font-black bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">🎯 ${matchScore}% Match</span>
+                        <h4 class="text-sm font-black text-white">${gig.title}</h4>
+                    </div>
+                    <span class="text-[9px] text-slate-500 font-mono font-medium block mt-1">${gig.date} • Budget: ${budgetDisplay} • Contact: ${gig.contact || 'Inquiry'}</span>
                 </div>
-                <span class="px-2 py-0.5 rounded border ${platColor} text-[8px] font-black uppercase tracking-wide">${gig.platform}</span>
+                <span class="px-2 py-0.5 rounded border ${platColor} text-[8px] font-black uppercase tracking-wide shrink-0">${gig.platform}</span>
             </div>
             <p class="text-xs text-slate-400 leading-relaxed text-justify line-clamp-2">${gig.desc}</p>
+
+            <div class="flex items-center justify-between pt-2 border-t border-alphas-glassBorder/20 text-[10px]">
+                <div class="flex gap-2">
+                    <button onclick="event.stopPropagation(); convertGigToCRMLead('${gig.id}')" class="px-2.5 py-1 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/20 font-bold rounded-lg flex items-center gap-1"><i class='bx bx-user-plus'></i> Convert to Lead</button>
+                    <button onclick="event.stopPropagation(); deleteGig('${gig.id}')" class="px-2.5 py-1 bg-red-500/10 border border-red-500/30 text-red-400 hover:bg-red-500/20 font-bold rounded-lg flex items-center gap-1"><i class='bx bx-trash'></i> Delete</button>
+                </div>
+                <span class="text-alphas-accent font-bold flex items-center gap-0.5">Select for Pitch <i class='bx bx-chevron-right'></i></span>
+            </div>
         `;
         container.appendChild(div);
     });
@@ -2576,7 +2641,7 @@ function selectGig(id) {
 function filterGigs(platform) {
     activeGigPlatformFilter = platform;
     document.querySelectorAll(".gig-platform-btn").forEach(btn => btn.classList.remove("active"));
-    event.currentTarget.classList.add("active");
+    if (event && event.currentTarget) event.currentTarget.classList.add("active");
     renderDealHunterFeed();
 }
 
@@ -2590,24 +2655,107 @@ function searchGigs() {
 }
 
 function simulateGigScan() {
-    // Add a new mock gig to local storage to simulate scanning
-    const gigs = DB.get("gigs");
+    const gigs = DB.get("gigs") || [];
     const freshGigs = [
-        { id: "scan_" + Date.now() + "_1", title: "Scale Meta Ads for High-end Jewelry Shop", platform: "Upwork", budget: 2200, category: "Ads Management", desc: "Need an agency to scale conversions. We want pixels and server-side tracking (CAPI) optimized immediately. Prior work in Gulf or Middle East preferred.", date: "Just now" },
-        { id: "scan_" + Date.now() + "_2", title: "Arabic E-commerce Web Redesign & Speedup", platform: "Freelancer", budget: 1800, category: "Web Development", desc: "Redesign our website from basic HTML to a premium glassmorphic portal with custom filters, GSAP, and WooCommerce automation. Page loading must be under 1.5s.", date: "Just now" }
+        { id: "scan_" + Date.now() + "_1", title: "Enterprise WooCommerce & CAPI Integration", platform: "Upwork", budget: 2500, category: "Web Development", contact: "client@retail.eg", desc: "Need an agency to scale our web store. Must include GTM Server-Side tracking, CAPI deduplication, and custom Arabic UX.", date: "Just now" },
+        { id: "scan_" + Date.now() + "_2", title: "Meta & Google Ads Performance Scaler", platform: "LinkedIn", budget: 1800, category: "Ads Management", contact: "+201099887766", desc: "Scaling monthly spend from EGP 50k to 200k. Requires proven track record with ROAS tracking and creative asset direction.", date: "Just now" }
     ];
 
     freshGigs.forEach(g => gigs.unshift(g));
     DB.save("gigs", gigs);
-    alert("Deal Hunter scanner returned 2 new live listings matching SMM and Web Dev keywords!");
+    alert("Deal Hunter scanner fetched 2 live opportunity matches!");
     renderDealHunterFeed();
+}
+
+function openOpportunityModal() {
+    const modal = document.getElementById("opportunity-modal");
+    if (modal) {
+        document.getElementById("opportunity-form").reset();
+        modal.classList.add("show");
+    }
+}
+
+function closeOpportunityModal() {
+    const modal = document.getElementById("opportunity-modal");
+    if (modal) modal.classList.remove("show");
+}
+
+function saveOpportunityForm(e) {
+    e.preventDefault();
+    const gigs = DB.get("gigs") || [];
+    const newOpp = {
+        id: "opp_" + Date.now(),
+        title: document.getElementById("opp-title").value,
+        platform: document.getElementById("opp-platform").value,
+        budget: document.getElementById("opp-budget").value,
+        category: document.getElementById("opp-category").value,
+        contact: document.getElementById("opp-contact").value || "Direct Contact",
+        desc: document.getElementById("opp-desc").value,
+        date: new Date().toISOString().split("T")[0]
+    };
+
+    gigs.unshift(newOpp);
+    DB.save("gigs", gigs);
+    closeOpportunityModal();
+    selectedGigId = newOpp.id;
+    renderDealHunterFeed();
+    alert("Opportunity saved! Smart Match score computed and proposal drafted.");
+}
+
+function deleteGig(id) {
+    if (confirm("Remove this deal opportunity?")) {
+        const gigs = DB.get("gigs") || [];
+        const filtered = gigs.filter(g => g.id !== id);
+        DB.save("gigs", filtered);
+        if (selectedGigId === id) selectedGigId = null;
+        renderDealHunterFeed();
+    }
+}
+
+function convertGigToCRMLead(gigId) {
+    const gigs = DB.get("gigs") || [];
+    const gig = gigs.find(g => g.id === gigId);
+    if (!gig) return;
+
+    const leads = DB.get("leads") || [];
+    let budgetNum = 15000;
+    if (typeof gig.budget === 'number') budgetNum = gig.budget * 30;
+    else if (gig.budget && !isNaN(parseInt(gig.budget))) budgetNum = parseInt(gig.budget) * (gig.budget.includes('USD') ? 30 : 1);
+
+    const newLead = {
+        id: "lead_" + Date.now(),
+        name: gig.title,
+        email: gig.contact && gig.contact.includes('@') ? gig.contact : `${gig.title.toLowerCase().replace(/[^a-z0-9]/g, '')}@client.com`,
+        phone: gig.contact && !gig.contact.includes('@') ? gig.contact : '',
+        budget: budgetNum,
+        services: gig.category || gig.title,
+        status: "new",
+        notes: `Imported from Deal Hunter (${gig.platform}). Scope: ${gig.desc}`,
+        source: gig.platform,
+        date: new Date().toISOString().split("T")[0],
+        createdAt: new Date().toISOString()
+    };
+
+    leads.unshift(newLead);
+    DB.save("leads", leads);
+    DB.syncLeadToCloud(newLead);
+
+    alert(`Successfully converted "${gig.title}" to an active CRM Lead! Navigating to CRM...`);
+    switchTab("crm");
 }
 
 function displayGigMeta(gig) {
     const meta = document.getElementById("pitch-gig-meta");
+    if (!meta) return;
+    const matchScore = calculateDealMatchScore(gig);
+    const budgetDisplay = typeof gig.budget === 'number' ? `EGP ${(gig.budget*30).toLocaleString()}` : gig.budget;
+
     meta.innerHTML = `
-        <h4 class="font-black text-white">${gig.title}</h4>
-        <p class="text-slate-400">${gig.platform} • Budget approx: EGP ${(gig.budget*30).toLocaleString()}</p>
+        <div class="flex justify-between items-center">
+            <h4 class="font-black text-white">${gig.title}</h4>
+            <span class="px-2 py-0.5 rounded text-[9px] font-black bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">🎯 ${matchScore}% Match</span>
+        </div>
+        <p class="text-slate-400">${gig.platform} • Budget: ${budgetDisplay} • Contact: ${gig.contact || 'Inquiry'}</p>
         <p class="italic text-slate-500 line-clamp-3">${gig.desc}</p>
     `;
     meta.classList.remove("hidden");
@@ -2616,17 +2764,18 @@ function displayGigMeta(gig) {
 
 function generatePitchText() {
     if (!selectedGigId) return;
-    const gigs = DB.get("gigs");
+    const gigs = DB.get("gigs") || [];
     const gig = gigs.find(g => g.id === selectedGigId);
     if (!gig) return;
 
     const style = document.getElementById("pitch-style").value;
+    const budgetDisplay = typeof gig.budget === 'number' ? `EGP ${(gig.budget*30).toLocaleString()}` : gig.budget;
     let pitch = "";
 
     if (style === "premium") {
-        pitch = `Dear Client,\n\nI reviewed your listing for "${gig.title}". At ALPHAS, we engineer custom digital solutions that translate directly into gross margins. We specialize in premium layouts, responsive UX, and server-side metrics tracking.\n\nOur service architecture is built on a duopoly structure: our Dev Partner Mohamed Asy manages technical execution, while Abanoub Hany manages performance metrics. For this project, we suggest setting up server-side CAPI tracking alongside a custom glassmorphic template.\n\nLet's schedule a call to review details.\n\nBest regards,\nAlphas DBS Team`;
+        pitch = `Dear Client,\n\nI reviewed your listing for "${gig.title}". At ALPHAS Digital Business Solutions, we engineer custom digital solutions that translate directly into gross margins. We specialize in custom web architectures, responsive UX, and server-side metrics tracking.\n\nOur service architecture is built on a Lean Duopoly structure: our Dev Partner Mohamed Asy manages technical execution, while Abanoub Hany manages performance metrics. For your project scope, we recommend deploying server-side CAPI tracking alongside a custom glassmorphic template.\n\nLet's schedule a brief consultation call to align on timelines.\n\nBest regards,\nAlphas DBS Team`;
     } else if (style === "lean") {
-        pitch = `Hello,\n\nWe would love to help you deploy "${gig.title}". We offer fast delivery of WooCommerce architectures and SMM domination packages.\n\nHere is how we work: we extract COGS immediately and run lean operations so you get the best outcome for your EGP ${(gig.budget*30).toLocaleString()} budget. Our CEO Mohamed Asy manages technical implementation directly.\n\nLet's hop on a call to start this week.\n\nBest,\nAlphas Team`;
+        pitch = `Hello,\n\nWe would love to help you deploy "${gig.title}". We offer fast delivery of WooCommerce architectures and SMM domination packages.\n\nHere is how we work: we extract COGS immediately and run lean operations so you get the best outcome for your ${budgetDisplay} budget. Our CEO Mohamed Asy manages technical implementation directly.\n\nLet's hop on a call to start this week.\n\nBest,\nAlphas Team`;
     } else {
         pitch = `Hi there,\n\nRegarding the technical specifications for "${gig.title}", we can conduct a full-scale code audit and tracking integration.\n\nWe bypass iOS tracking blocks using Google Tag Manager Server-Side Workers. Our lead developer, Mohamed Asy, has deployed high-scale, zero-downtime portals for 14,000+ users. We will implement server-side tracking, clean CAPI deduplication, and optimize page load speeds.\n\nLooking forward to aligning on details.\n\nRegards,\nAlphas Digital Business Solutions`;
     }
@@ -2638,7 +2787,7 @@ function copyPitchText() {
     const textarea = document.getElementById("ai-pitch-output");
     textarea.select();
     document.execCommand("copy");
-    alert("Custom proposal pitch copied to clipboard! Paste it directly into the freelance portal.");
+    alert("Custom proposal pitch copied to clipboard! Paste it directly into client message.");
 }
 
 

@@ -812,8 +812,11 @@
                                     <span id="split-closer-fee" class="text-base font-black text-amber-500 font-mono">EGP 0</span>
                                 </div>
                                 <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-900/60">
-                                    <span class="text-[10px] text-slate-400 block mb-1">Gross Profit</span>
-                                    <span id="split-gross-profit" class="text-base font-black text-emerald-400 font-mono">EGP 0</span>
+                                    <span class="text-[10px] text-slate-400 block mb-1">Gross Profit & Margin</span>
+                                    <div class="flex items-center justify-between">
+                                        <span id="split-gross-profit" class="text-base font-black text-emerald-400 font-mono">EGP 0</span>
+                                        <span id="split-margin-badge" class="px-2 py-0.5 rounded text-[9px] font-black bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">0% Margin</span>
+                                    </div>
                                 </div>
                             </div>
 
@@ -1328,12 +1331,15 @@
 
             <!-- ================= VIEW 8: DEAL HUNTER ================= -->
             <section id="dealhunter" class="view-section space-y-8">
-                <div class="flex justify-between items-center">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                     <div>
-                        <h2 class="text-2xl font-black text-white tracking-wide">Freelance Platform Gig Hunter</h2>
-                        <p class="text-xs text-slate-400 mt-1">Scan simulated live gigs on Upwork, Fiverr, Behance, and Freelancer. Choose a job to generate pitches using AI based on Alphas DNA.</p>
+                        <h2 class="text-2xl font-black text-white tracking-wide">Deal Hunter & Opportunity Engine</h2>
+                        <p class="text-xs text-slate-400 mt-1">Track live client opportunities, calculate AI agency match scores (0-100%), draft instant proposals, and convert deals directly into CRM leads.</p>
                     </div>
-                    <button onclick="simulateGigScan()" class="px-4 py-2 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-black text-xs rounded-xl shadow-lg transition-all flex items-center gap-1.5"><i class='bx bx-analyse animate-pulse'></i> Scan for Live Gigs</button>
+                    <div class="flex items-center gap-3">
+                        <button onclick="openOpportunityModal()" class="px-4 py-2 bg-alphas-accent hover:bg-alphas-accentHover text-alphas-dark font-black text-xs rounded-xl shadow-lg transition-all flex items-center gap-1.5"><i class='bx bx-plus-circle text-base'></i> Add Opportunity</button>
+                        <button onclick="simulateGigScan()" class="px-4 py-2 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-black text-xs rounded-xl shadow-lg transition-all flex items-center gap-1.5"><i class='bx bx-analyse animate-pulse text-base'></i> Scan Platforms</button>
+                    </div>
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
@@ -1594,6 +1600,68 @@
                 <div class="flex justify-end gap-3 pt-3 border-t border-alphas-glassBorder/40">
                     <button type="button" onclick="closeKnowledgeModal()" class="px-4 py-2 bg-slate-900 border border-alphas-glassBorder hover:bg-slate-800 text-slate-300 font-bold rounded-xl transition-all">Cancel</button>
                     <button type="submit" class="px-4 py-2 bg-alphas-accent hover:bg-alphas-accentHover text-alphas-dark font-black rounded-xl transition-all">Save Article</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ADD CUSTOM OPPORTUNITY MODAL -->
+    <div id="opportunity-modal" class="modal fixed inset-0 bg-alphas-dark/80 backdrop-blur-sm z-50 flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300">
+        <div class="glass-card rounded-3xl border border-alphas-glassBorder w-full max-w-lg p-6 m-4 flex flex-col gap-6 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center border-b border-alphas-glassBorder/40 pb-3">
+                <h3 class="text-sm font-black text-white uppercase tracking-wider"><i class='bx bx-plus-circle text-alphas-accent mr-1'></i>Add Real Client Opportunity</h3>
+                <button type="button" onclick="closeOpportunityModal()" class="text-slate-400 hover:text-white text-xl"><i class='bx bx-x'></i></button>
+            </div>
+            
+            <form id="opportunity-form" class="space-y-4 text-xs font-bold text-slate-200" onsubmit="saveOpportunityForm(event)">
+                <div class="space-y-1.5">
+                    <label class="block text-slate-300">Project / Opportunity Title</label>
+                    <input type="text" id="opp-title" required placeholder="e.g. Enterprise E-commerce Portal & CAPI Sync" class="w-full bg-slate-900 border border-alphas-glassBorder rounded-xl px-4 py-2 text-white outline-none focus:border-alphas-accent">
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-1.5">
+                        <label class="block text-slate-300">Platform / Source</label>
+                        <select id="opp-platform" class="w-full bg-slate-900 border border-alphas-glassBorder rounded-xl px-3 py-2 text-white outline-none focus:border-alphas-accent">
+                            <option value="Direct Client">Direct Client Inquiry</option>
+                            <option value="Upwork">Upwork</option>
+                            <option value="LinkedIn">LinkedIn Outreach</option>
+                            <option value="Fiverr">Fiverr</option>
+                            <option value="Behance">Behance</option>
+                            <option value="Referral">Client Referral</option>
+                        </select>
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="block text-slate-300">Estimated Budget (USD / EGP)</label>
+                        <input type="text" id="opp-budget" required placeholder="e.g. 1500 USD or 45000 EGP" class="w-full bg-slate-900 border border-alphas-glassBorder rounded-xl px-4 py-2 text-white outline-none focus:border-alphas-accent">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-1.5">
+                        <label class="block text-slate-300">Primary Service Category</label>
+                        <select id="opp-category" class="w-full bg-slate-900 border border-alphas-glassBorder rounded-xl px-3 py-2 text-white outline-none focus:border-alphas-accent">
+                            <option value="Web Development">Web Development & CMS</option>
+                            <option value="Ads Management">Meta / Google Ads & CAPI</option>
+                            <option value="SMM Strategy">Social Media Management</option>
+                            <option value="Branding">Branding & Visual Swatches</option>
+                            <option value="Consulting">Enterprise Technical Audit</option>
+                        </select>
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="block text-slate-300">Client Contact (Email / Phone)</label>
+                        <input type="text" id="opp-contact" placeholder="client@company.com or +2010..." class="w-full bg-slate-900 border border-alphas-glassBorder rounded-xl px-4 py-2 text-white outline-none focus:border-alphas-accent">
+                    </div>
+                </div>
+
+                <div class="space-y-1.5">
+                    <label class="block text-slate-300">Job Description / Client Requirements</label>
+                    <textarea id="opp-desc" rows="4" required placeholder="Paste job scope or notes here..." class="w-full bg-slate-900 border border-alphas-glassBorder rounded-xl px-4 py-2 text-white outline-none focus:border-alphas-accent font-sans"></textarea>
+                </div>
+
+                <div class="flex justify-end gap-3 pt-3 border-t border-alphas-glassBorder/40">
+                    <button type="button" onclick="closeOpportunityModal()" class="px-4 py-2 bg-slate-900 border border-alphas-glassBorder hover:bg-slate-800 text-slate-300 font-bold rounded-xl transition-all">Cancel</button>
+                    <button type="submit" class="px-4 py-2 bg-alphas-accent hover:bg-alphas-accentHover text-alphas-dark font-black rounded-xl transition-all">Save Opportunity</button>
                 </div>
             </form>
         </div>
