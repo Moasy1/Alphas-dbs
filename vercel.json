@@ -1,0 +1,31 @@
+{
+  "version": 2,
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "routes": [
+    {
+      "src": "/admin",
+      "dest": "/admin_panel.html"
+    },
+    {
+      "src": "/admin_panel",
+      "dest": "/admin_panel.html"
+    },
+    {
+      "src": "/service-web",
+      "dest": "/service-web.html"
+    },
+    {
+      "src": "/service-smm",
+      "dest": "/service-smm.html"
+    },
+    {
+      "src": "/service-media",
+      "dest": "/service-media.html"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
+  ]
+}

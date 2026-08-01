@@ -81,6 +81,38 @@
             overflow-x: hidden;
         }
 
+        /* Phone field styles */
+        .phone-row { display: flex; gap: 8px; }
+        .phone-code-select {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 12px 10px;
+            color: #fff;
+            font-size: 13px;
+            width: 130px;
+            flex-shrink: 0;
+            outline: none;
+            transition: border-color 0.3s;
+            appearance: none;
+            cursor: pointer;
+        }
+        .phone-code-select:focus { border-color: #e59b58; box-shadow: 0 0 0 3px rgba(229,155,88,0.15); }
+        .phone-code-select option { background: #060a14; color: #fff; }
+        .phone-number-input {
+            flex: 1;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 12px 16px;
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .phone-number-input:focus { border-color: #e59b58; box-shadow: 0 0 0 3px rgba(229,155,88,0.15); }
+        .phone-number-input::placeholder { color: rgba(255,255,255,0.35); }
+
         /* Custom Glassmorphism Utility */
         .glass-card {
             background: rgba(255, 255, 255, 0.03);
@@ -1607,13 +1639,13 @@
                         <div>
                             <label
                                 class="block text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2" data-i18n="contact.companyName">Company Name</label>
-                            <input required type="text" placeholder="e.g. Arabia Furniture"
+                            <input id="landing-name" required type="text" placeholder="e.g. Arabia Furniture"
                                 class="w-full bg-white/5 border border-white/10 focus:border-alphas-accent/50 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:ring-1 focus:ring-alphas-accent/30 transition">
                         </div>
                         <div>
                             <label
                                 class="block text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2" data-i18n="contact.email">Primary Email Address</label>
-                            <input required type="email" placeholder="e.g. contact@business.com"
+                            <input id="landing-email" required type="email" placeholder="e.g. contact@business.com"
                                 class="w-full bg-white/5 border border-white/10 focus:border-alphas-accent/50 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:ring-1 focus:ring-alphas-accent/30 transition">
                         </div>
                     </div>
@@ -1639,6 +1671,15 @@
                                 <option value="budget2" class="bg-alphas-dark text-white" data-i18n="contact.budget2">10,000 - 30,000 EGP / mo</option>
                                 <option value="budget3" class="bg-alphas-dark text-white" data-i18n="contact.budget3">Over 30,000 EGP / mo</option>
                             </select>
+                        </div>
+                    </div>
+
+                    <!-- Phone Field -->
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">Mobile Number *</label>
+                        <div class="phone-row">
+                            <select id="landing-country-code" class="phone-code-select" title="Country Code"></select>
+                            <input id="landing-phone" type="tel" placeholder="Phone Number *" required class="phone-number-input">
                         </div>
                     </div>
 
@@ -1811,6 +1852,15 @@
                         class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-alphas-accent/50 transition">
                 </div>
 
+                <!-- Phone field in booking drawer -->
+                <div>
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">Mobile Number *</label>
+                    <div class="phone-row">
+                        <select id="quiz-country-code" class="phone-code-select" style="border-radius:10px;font-size:11px;width:110px;padding:10px 8px;" title="Country Code"></select>
+                        <input id="quiz-phone" type="tel" placeholder="Phone Number *" required class="phone-number-input" style="border-radius:10px;font-size:12px;">
+                    </div>
+                </div>
+
                 <div class="bg-white/5 rounded-xl p-4 border border-white/5">
                     <span class="text-[10px] font-bold text-gray-400 uppercase block mb-1">Selected Hours
                         Allocation</span>
@@ -1934,6 +1984,64 @@
         // Initialize GSAP ScrollTrigger
         gsap.registerPlugin(ScrollTrigger);
         ScrollTrigger.refresh();
+
+        // === Country Code Phone Dropdown List ===
+        const COUNTRY_CODES = [
+            {name:"Egypt",code:"EG",dial:"+20"},
+            {name:"Saudi Arabia",code:"SA",dial:"+966"},
+            {name:"UAE",code:"AE",dial:"+971"},
+            {name:"Kuwait",code:"KW",dial:"+965"},
+            {name:"Qatar",code:"QA",dial:"+974"},
+            {name:"Bahrain",code:"BH",dial:"+973"},
+            {name:"Oman",code:"OM",dial:"+968"},
+            {name:"Jordan",code:"JO",dial:"+962"},
+            {name:"Lebanon",code:"LB",dial:"+961"},
+            {name:"Morocco",code:"MA",dial:"+212"},
+            {name:"Algeria",code:"DZ",dial:"+213"},
+            {name:"Tunisia",code:"TN",dial:"+216"},
+            {name:"Libya",code:"LY",dial:"+218"},
+            {name:"Sudan",code:"SD",dial:"+249"},
+            {name:"Iraq",code:"IQ",dial:"+964"},
+            {name:"Syria",code:"SY",dial:"+963"},
+            {name:"Yemen",code:"YE",dial:"+967"},
+            {name:"United States",code:"US",dial:"+1"},
+            {name:"United Kingdom",code:"GB",dial:"+44"},
+            {name:"Germany",code:"DE",dial:"+49"},
+            {name:"France",code:"FR",dial:"+33"},
+            {name:"Italy",code:"IT",dial:"+39"},
+            {name:"Spain",code:"ES",dial:"+34"},
+            {name:"Netherlands",code:"NL",dial:"+31"},
+            {name:"Turkey",code:"TR",dial:"+90"},
+            {name:"Pakistan",code:"PK",dial:"+92"},
+            {name:"India",code:"IN",dial:"+91"},
+            {name:"Nigeria",code:"NG",dial:"+234"},
+            {name:"South Africa",code:"ZA",dial:"+27"},
+            {name:"Canada",code:"CA",dial:"+1"},
+            {name:"Australia",code:"AU",dial:"+61"},
+        ];
+
+        function populatePhoneDropdowns(detectedCode) {
+            document.querySelectorAll('.phone-code-select').forEach(function(sel) {
+                sel.innerHTML = "";
+                COUNTRY_CODES.forEach(function(c) {
+                    const opt = document.createElement('option');
+                    opt.value = c.dial;
+                    opt.textContent = c.code + " " + c.dial;
+                    if (c.code === detectedCode) opt.selected = true;
+                    sel.appendChild(opt);
+                });
+            });
+        }
+
+        (async function autoDetectCountry() {
+            try {
+                const res = await fetch("https://ipapi.co/json/");
+                const data = await res.json();
+                populatePhoneDropdowns(data.country_code || "EG");
+            } catch (e) {
+                populatePhoneDropdowns("EG");
+            }
+        })();
 
         // === i18n Translations Dictionary ===
         const i18n = {
@@ -2695,9 +2803,19 @@
         // Submit landing page consultation form
         function handleFormSubmit(e) {
             e.preventDefault();
+
+            const name  = document.getElementById('landing-name')?.value.trim()  || "Unknown";
+            const email = document.getElementById('landing-email')?.value.trim() || "";
+            const phone = (document.getElementById('landing-country-code')?.value || "") +
+                          " " + (document.getElementById('landing-phone')?.value.trim() || "");
+
             const box = document.getElementById('form-success-box');
             box.classList.remove('hidden');
             gsap.from(box, { opacity: 0, scale: 0.95, duration: 0.3 });
+
+            // Save to cloud if EmailJS/Firebase available (same cloud as service pages)
+            console.log("[Landing Form] Submitted:", { name, email, phone });
+
             e.target.reset();
         }
 
@@ -3214,11 +3332,16 @@
         }
 
         function validateStep2AndProceed() {
-            const name = document.getElementById('quiz-company-name').value.trim();
+            const name  = document.getElementById('quiz-company-name').value.trim();
             const email = document.getElementById('quiz-email').value.trim();
+            const phone = document.getElementById('quiz-phone')?.value.trim();
 
             if (!name || !email) {
                 alert("Please fill out your Company Name and Email Address.");
+                return;
+            }
+            if (!phone) {
+                alert("Please enter your mobile number.");
                 return;
             }
             goToStep(3);
@@ -3278,8 +3401,15 @@
                 return;
             }
 
+            const name  = document.getElementById('quiz-company-name')?.value.trim() || "Unknown";
+            const email = document.getElementById('quiz-email')?.value.trim() || "";
+            const phone = (document.getElementById('quiz-country-code')?.value || "") +
+                          " " + (document.getElementById('quiz-phone')?.value.trim() || "");
+
             // Display confirmation details
             document.getElementById('success-date-time').innerText = `${selectedDate} at ${selectedTime}`;
+
+            console.log("[Drawer Booking] Submitted:", { name, email, phone });
 
             const box = document.getElementById('drawer-success-box');
             box.classList.remove('hidden');

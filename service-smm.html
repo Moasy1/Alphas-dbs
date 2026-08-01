@@ -78,6 +78,24 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
     <!-- EmailJS SDK -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <style>
+        .phone-row { display: flex; gap: 8px; }
+        .phone-code-select {
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px; padding: 12px 10px; color: #fff; font-size: 13px;
+            width: 130px; flex-shrink: 0; outline: none; transition: border-color 0.3s;
+            appearance: none; cursor: pointer;
+        }
+        .phone-code-select:focus { border-color: #e59b58; }
+        .phone-code-select option { background: #060a14; color: #fff; }
+        .phone-number-input {
+            flex: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px; padding: 12px 16px; color: #fff; font-size: 14px;
+            outline: none; transition: border-color 0.3s;
+        }
+        .phone-number-input:focus { border-color: #e59b58; }
+        .phone-number-input::placeholder { color: rgba(255,255,255,0.35); }
+    </style>
     <script>
         const _fbApp = firebase.initializeApp({
             apiKey: "AIzaSyDO3o9HVBEdrwaz2ByTvveNzuclF0DrgmU",
@@ -99,6 +117,7 @@
                 await emailjs.send("service_dz397n6", "template_a874ju6", {
                     company_name: lead.name     || "Unknown",
                     client_email: lead.email    || "—",
+                    client_phone: lead.phone    || "—",
                     service_type: lead.services || "—",
                     budget:       lead.budget ? "EGP " + Number(lead.budget).toLocaleString() : "—",
                     message:      lead.notes    || "—",
@@ -108,6 +127,44 @@
                 console.log("[Alphas CRM] Email sent");
             } catch (err) { console.error("[Alphas CRM] EmailJS:", err); }
         }
+
+        const COUNTRY_CODES = [
+            {name:"Egypt",code:"EG",dial:"+20"},{name:"Saudi Arabia",code:"SA",dial:"+966"},
+            {name:"UAE",code:"AE",dial:"+971"},{name:"Kuwait",code:"KW",dial:"+965"},
+            {name:"Qatar",code:"QA",dial:"+974"},{name:"Bahrain",code:"BH",dial:"+973"},
+            {name:"Oman",code:"OM",dial:"+968"},{name:"Jordan",code:"JO",dial:"+962"},
+            {name:"Lebanon",code:"LB",dial:"+961"},{name:"Morocco",code:"MA",dial:"+212"},
+            {name:"Algeria",code:"DZ",dial:"+213"},{name:"Tunisia",code:"TN",dial:"+216"},
+            {name:"Libya",code:"LY",dial:"+218"},{name:"Sudan",code:"SD",dial:"+249"},
+            {name:"Iraq",code:"IQ",dial:"+964"},{name:"Syria",code:"SY",dial:"+963"},
+            {name:"Yemen",code:"YE",dial:"+967"},{name:"United States",code:"US",dial:"+1"},
+            {name:"United Kingdom",code:"GB",dial:"+44"},{name:"Germany",code:"DE",dial:"+49"},
+            {name:"France",code:"FR",dial:"+33"},{name:"Italy",code:"IT",dial:"+39"},
+            {name:"Spain",code:"ES",dial:"+34"},{name:"Netherlands",code:"NL",dial:"+31"},
+            {name:"Turkey",code:"TR",dial:"+90"},{name:"Pakistan",code:"PK",dial:"+92"},
+            {name:"India",code:"IN",dial:"+91"},{name:"Nigeria",code:"NG",dial:"+234"},
+            {name:"South Africa",code:"ZA",dial:"+27"},{name:"Canada",code:"CA",dial:"+1"},
+            {name:"Australia",code:"AU",dial:"+61"},
+        ];
+        function populatePhoneDropdowns(detectedCode) {
+            document.querySelectorAll('.phone-code-select').forEach(function(sel) {
+                sel.innerHTML = "";
+                COUNTRY_CODES.forEach(function(c) {
+                    const opt = document.createElement('option');
+                    opt.value = c.dial; opt.textContent = c.code + " " + c.dial;
+                    if (c.code === detectedCode) opt.selected = true;
+                    sel.appendChild(opt);
+                });
+            });
+        }
+        async function autoDetectCountry() {
+            try {
+                const res = await fetch("https://ipapi.co/json/");
+                const data = await res.json();
+                populatePhoneDropdowns(data.country_code || "EG");
+            } catch (e) { populatePhoneDropdowns("EG"); }
+        }
+        autoDetectCountry();
     </script>
 
     <style>
@@ -493,9 +550,13 @@
             <div class="glass-card p-10 rounded-3xl border border-white/10">
                 <h3 class="text-2xl font-bold text-white uppercase mb-6 text-center">Request Social Media & Marketing Consultation</h3>
                 <form class="space-y-4" onsubmit="handleFormSubmit(event)">
-                    <input type="text" placeholder="Your Name" class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-alphas-accent outline-none transition">
-                    <input type="email" placeholder="Your Email" class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-alphas-accent outline-none transition">
-                    <textarea placeholder="Project Details" rows="4" class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-alphas-accent outline-none transition"></textarea>
+                    <input id="consult-name" type="text" placeholder="Your Name *" required class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-alphas-accent outline-none transition">
+                    <input id="consult-email" type="email" placeholder="Your Email *" required class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-alphas-accent outline-none transition">
+                    <div class="phone-row">
+                        <select id="consult-country-code" class="phone-code-select" title="Country Code"></select>
+                        <input id="consult-phone" type="tel" placeholder="Phone Number *" required class="phone-number-input">
+                    </div>
+                    <textarea id="consult-notes" placeholder="Project Details" rows="4" class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-alphas-accent outline-none transition"></textarea>
                     <button type="submit" class="w-full bg-alphas-accent text-white font-bold py-4 rounded-lg hover:bg-alphas-accentHover transition-colors shadow-gold-glow">Submit Request</button>
                 </form>
             </div>
@@ -1242,29 +1303,29 @@
         // Submit landing page consultation form
         function handleFormSubmit(e) {
             e.preventDefault();
-            
-            const form = e.target;
-            const inputs = form.querySelectorAll('input');
-            const name = inputs[0] ? inputs[0].value.trim() : "Unknown";
-            const email = inputs[1] ? inputs[1].value.trim() : "";
-            const projectDetails = form.querySelector('textarea') ? form.querySelector('textarea').value.trim() : "";
-            
+
+            const name  = document.getElementById('consult-name')?.value.trim()  || "Unknown";
+            const email = document.getElementById('consult-email')?.value.trim() || "";
+            const phone = (document.getElementById('consult-country-code')?.value || "") +
+                          " " + (document.getElementById('consult-phone')?.value.trim() || "");
+            const notes = document.getElementById('consult-notes')?.value.trim()  || "";
+
             const newLead = {
                 id: "lead_" + Date.now(),
                 name: name,
                 email: email,
-                phone: "",
+                phone: phone.trim(),
                 status: "new",
-                budget: 15000, // SMM package default budget
+                budget: 15000,
                 services: "Social Media & Branding",
-                notes: projectDetails,
+                notes: notes,
                 date: new Date().toISOString().split("T")[0]
             };
 
             saveLeadToCloud(newLead, "service-smm.html - Consult Form");
 
             showToast("Consultation Request Submitted Successfully!");
-            form.reset();
+            e.target.reset();
         }
 
         let currentLang = 'en';
@@ -1825,7 +1886,25 @@
                 return;
             }
 
-            document.getElementById('success-date-time').innerText = `${selectedDate} at ${selectedTime}`;
+            // Collect all form data from the quiz steps
+            const companyName = document.getElementById('quiz-company-name')?.value.trim() || "Unknown";
+            const clientEmail = document.getElementById('quiz-email')?.value.trim() || "—";
+            const bottleneck = document.getElementById('form-selected-bottleneck')?.value || "—";
+            const hours = document.getElementById('form-selected-hours')?.value || "—";
+            const scheduledDateTime = `${selectedDate} at ${selectedTime}`;
+
+            const bookingLead = {
+                name: companyName,
+                email: clientEmail,
+                services: "Social Media & Branding",
+                budget: 15000,
+                notes: `Bottleneck: ${bottleneck} | Hours: ${hours} | Scheduled: ${scheduledDateTime}`,
+                date: new Date().toISOString().split("T")[0]
+            };
+
+            saveLeadToCloud(bookingLead, "service-smm.html - Booking Drawer");
+
+            document.getElementById('success-date-time').innerText = scheduledDateTime;
 
             const box = document.getElementById('drawer-success-box');
             box.classList.remove('hidden');

@@ -140,6 +140,7 @@ const seedGigs = [
 class DatabaseManager {
     constructor() {
         this.init();
+        setTimeout(() => this.initCloudSync(), 500);
     }
 
     init() {
@@ -151,6 +152,50 @@ class DatabaseManager {
         if (!localStorage.getItem("alphas_gigs")) localStorage.setItem("alphas_gigs", JSON.stringify(seedGigs));
     }
 
+    initCloudSync() {
+        if (typeof window === "undefined" || !window.alphasDb) return;
+        const db = window.alphasDb;
+
+        try {
+            db.collection("leads").onSnapshot(snapshot => {
+                const cloudLeads = snapshot.docs.map(doc => {
+                    const data = doc.data();
+                    return {
+                        id: doc.id,
+                        name: data.name || "Unknown Lead",
+                        email: data.email || "—",
+                        phone: data.phone || "—",
+                        budget: Number(data.budget) || 0,
+                        services: data.services || data.service_type || "General Inquiry",
+                        status: data.status || "new",
+                        notes: data.notes || data.message || "",
+                        date: data.date || (data.createdAt ? data.createdAt.split("T")[0] : new Date().toISOString().split("T")[0]),
+                        source: data.source || "Website Form",
+                        createdAt: data.createdAt || new Date().toISOString()
+                    };
+                });
+
+                if (cloudLeads.length > 0) {
+                    const localLeads = this.get("leads") || [];
+                    const mergedMap = new Map();
+                    localLeads.forEach(l => mergedMap.set(l.id, l));
+                    cloudLeads.forEach(cl => mergedMap.set(cl.id, cl));
+                    
+                    const mergedLeads = Array.from(mergedMap.values());
+                    mergedLeads.sort((a, b) => new Date(b.createdAt || b.date) - new Date(a.createdAt || a.date));
+                    localStorage.setItem("alphas_leads", JSON.stringify(mergedLeads));
+                    
+                    if (typeof renderCRMView === "function") renderCRMView();
+                    this.updateGlobalAnalytics();
+                }
+            }, err => {
+                console.warn("[Alphas DB] Cloud sync listener warning:", err);
+            });
+        } catch (err) {
+            console.error("[Alphas DB] Error initializing cloud listeners:", err);
+        }
+    }
+
     get(key) {
         return JSON.parse(localStorage.getItem(`alphas_${key}`));
     }
@@ -160,10 +205,24 @@ class DatabaseManager {
         this.updateGlobalAnalytics();
     }
 
+    syncLeadToCloud(lead) {
+        if (typeof window !== "undefined" && window.alphasDb && lead && lead.id) {
+            window.alphasDb.collection("leads").doc(lead.id).set({
+                ...lead,
+                createdAt: lead.createdAt || new Date().toISOString()
+            }, { merge: true }).catch(err => console.error("[Alphas DB] Cloud lead sync error:", err));
+        }
+    }
+
+    deleteLeadFromCloud(leadId) {
+        if (typeof window !== "undefined" && window.alphasDb && leadId) {
+            window.alphasDb.collection("leads").doc(leadId).delete().catch(err => console.error("[Alphas DB] Cloud lead delete error:", err));
+        }
+    }
+
     updateGlobalAnalytics() {
-        // Updates KPI cards and charts
-        renderDashboardView();
-        updateCRMStats();
+        if (typeof renderDashboardView === "function") renderDashboardView();
+        if (typeof updateCRMStats === "function") updateCRMStats();
     }
 }
 
@@ -522,12 +581,13 @@ function saveLeadForm(e) {
 
     if (id) {
         const index = leads.findIndex(l => l.id === id);
-        leads[index] = formData;
+        if (index !== -1) leads[index] = formData;
     } else {
         leads.push(formData);
     }
 
     DB.save("leads", leads);
+    DB.syncLeadToCloud(formData);
     closeLeadModal();
     renderCRMView();
 }
@@ -537,6 +597,7 @@ function deleteLead(id) {
         const leads = DB.get("leads");
         const filtered = leads.filter(l => l.id !== id);
         DB.save("leads", filtered);
+        DB.deleteLeadFromCloud(id);
         renderCRMView();
     }
 }
