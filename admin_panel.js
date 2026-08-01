@@ -531,107 +531,55 @@ function convertLeadToProject(id) {
 // 7. QUOTATION MAKER & LEDGER SPLIT ENGINE
 let currentCalcState = {};
 
-// Default Tier Tasks Registry (Service ID -> Tier ID -> Tasks)
+// Canonical Service Tasks Breakdown Registry (40% Execution Total)
+const canonicalServiceTasksMap = {
+    web: [
+        { id: "tw_1", name: "Web Dev & Architecture Lead", assignee: "asy", percentage: 22 },
+        { id: "tw_2", name: "UI/UX & Custom E-Commerce Flow", assignee: "asy", percentage: 10 },
+        { id: "tw_3", name: "Server-Side Tracking & Gateway Integration", assignee: "asy", percentage: 8 }
+    ],
+    ads: [
+        { id: "ta_1", name: "Media Buying Execution & Campaign Ops", assignee: "abanoub", percentage: 20 },
+        { id: "ta_2", name: "Server-Side Tracking & Pixel CAPI Setup", assignee: "asy", percentage: 12 },
+        { id: "ta_3", name: "Ad Creatives & Dynamic Formats", assignee: "freelancer", percentage: 8 }
+    ],
+    smm: [
+        { id: "ts_1", name: "Graphic Design & Visual Assets", assignee: "freelancer", percentage: 18 },
+        { id: "ts_2", name: "Marketing Strategy & Copywriting", assignee: "abanoub", percentage: 12 },
+        { id: "ts_3", name: "Video Reels & Motion Editing", assignee: "freelancer", percentage: 10 }
+    ],
+    mgmt: [
+        { id: "tm_1", name: "Catalog & Inventory Flow Sync", assignee: "asy", percentage: 18 },
+        { id: "tm_2", name: "Staging, Backup & Speed Optimization", assignee: "asy", percentage: 12 },
+        { id: "tm_3", name: "Checkout Flow & Security Audit", assignee: "asy", percentage: 10 }
+    ],
+    consulting: [
+        { id: "tc_1", name: "Business Audit & Funnel Diagnostics", assignee: "asy", percentage: 22 },
+        { id: "tc_2", name: "Growth Strategy & Scaling Roadmap", assignee: "abanoub", percentage: 18 }
+    ],
+    academy: [
+        { id: "tac_1", name: "Curriculum & Course Materials Setup", assignee: "asy", percentage: 20 },
+        { id: "tac_2", name: "Live Workshops & Team Training", assignee: "asy", percentage: 20 }
+    ]
+};
+
 const defaultTierTasksMap = {
-    web: {
-        starter: [
-            { id: "tw_s1", name: "UI/UX Wireframing & Layout", assignee: "asy", percentage: 15 },
-            { id: "tw_s2", name: "WordPress / CMS Engine Setup", assignee: "asy", percentage: 15 },
-            { id: "tw_s3", name: "Speed & Mobile Optimization", assignee: "asy", percentage: 5 }
-        ],
-        essential: [
-            { id: "tw_e1", name: "Custom Theme Architecture & Figma", assignee: "asy", percentage: 15 },
-            { id: "tw_e2", name: "WooCommerce & Gateway Setup", assignee: "asy", percentage: 12 },
-            { id: "tw_e3", name: "GSAP Animations & Micro-Interactions", assignee: "freelancer", percentage: 8 }
-        ],
-        ecommerce: [
-            { id: "tw_ec1", name: "Headless / Custom Woo API Arch", assignee: "asy", percentage: 15 },
-            { id: "tw_ec2", name: "Custom ERP & Logistics Webhooks", assignee: "asy", percentage: 10 },
-            { id: "tw_ec3", name: "Motion Animations (GSAP)", assignee: "freelancer", percentage: 8 },
-            { id: "tw_ec4", name: "Server-Side GTM & Pixel CAPI", assignee: "abanoub", percentage: 7 }
-        ]
-    },
-    mgmt: {
-        bronze: [
-            { id: "tm_b1", name: "Weekly Security & Plugin Maintenance", assignee: "asy", percentage: 20 },
-            { id: "tm_b2", name: "Product Catalog Updates (25 items)", assignee: "asy", percentage: 15 }
-        ],
-        silver: [
-            { id: "tm_s1", name: "Technical SEO & Schema Markup", assignee: "asy", percentage: 18 },
-            { id: "tm_s2", name: "Core Web Vitals Optimization", assignee: "asy", percentage: 12 },
-            { id: "tm_s3", name: "Monthly Content & Inventory Sync", assignee: "abanoub", percentage: 10 }
-        ],
-        gold: [
-            { id: "tm_g1", name: "24/7 Store Monitoring & Uptime Ops", assignee: "asy", percentage: 15 },
-            { id: "tm_g2", name: "Custom Feature Requests & AB Testing", assignee: "asy", percentage: 15 },
-            { id: "tm_g3", name: "CRO & Funnel Conversion Tuning", assignee: "abanoub", percentage: 10 }
-        ]
-    },
-    smm: {
-        kickstart: [
-            { id: "ts_k1", name: "Monthly Content Calendar & Copy", assignee: "abanoub", percentage: 20 },
-            { id: "ts_k2", name: "Graphic Design (12 Static Posts)", assignee: "freelancer", percentage: 15 }
-        ],
-        growth: [
-            { id: "ts_g1", name: "Omnichannel Content Strategy", assignee: "abanoub", percentage: 18 },
-            { id: "ts_g2", name: "Reels & Short-Form Video Editing", assignee: "freelancer", percentage: 12 },
-            { id: "ts_g3", name: "Community Moderation & Engagement", assignee: "abanoub", percentage: 10 }
-        ],
-        domination: [
-            { id: "ts_d1", name: "Full Brand Voice & Campaign Strategy", assignee: "abanoub", percentage: 15 },
-            { id: "ts_d2", name: "High-Production Video Reels & Motion", assignee: "freelancer", percentage: 15 },
-            { id: "ts_d3", name: "Influencer Outreach & UGC Ops", assignee: "abanoub", percentage: 10 }
-        ]
-    },
-    ads: {
-        starter: [
-            { id: "ta_s1", name: "Meta/Google Campaign Setup", assignee: "abanoub", percentage: 20 },
-            { id: "ta_s2", name: "Ad Copy & Audience Targeting", assignee: "abanoub", percentage: 15 }
-        ],
-        essential: [
-            { id: "ta_e1", name: "Multi-Channel Ad Architecture", assignee: "abanoub", percentage: 18 },
-            { id: "ta_e2", name: "Ad Motion Creatives & Visual Testing", assignee: "freelancer", percentage: 12 },
-            { id: "ta_e3", name: "Weekly Optimization & Bidding", assignee: "abanoub", percentage: 10 }
-        ],
-        ecommerce: [
-            { id: "ta_ec1", name: "Full Meta & Google Merchant Sync", assignee: "abanoub", percentage: 15 },
-            { id: "ta_ec2", name: "Server-Side Tracking & CAPI", assignee: "asy", percentage: 10 },
-            { id: "ta_ec3", name: "Dynamic Product Ad Creatives", assignee: "freelancer", percentage: 10 },
-            { id: "ta_ec4", name: "ROAS & Budget Scaling Ops", assignee: "abanoub", percentage: 10 }
-        ]
-    },
-    consulting: {
-        technical: [
-            { id: "tc_t1", name: "Codebase Security & Architecture Audit", assignee: "asy", percentage: 25 }
-        ],
-        growth: [
-            { id: "tc_g1", name: "Funnel Analytics & CRO Blueprint", assignee: "abanoub", percentage: 25 }
-        ],
-        enterprise: [
-            { id: "tc_ent1", name: "C-Suite Strategic Transformation Session", assignee: "shared", percentage: 30 }
-        ]
-    },
-    academy: {
-        woocommerce: [
-            { id: "tac_w1", name: "WooCommerce Dev Workshop Curriculum", assignee: "asy", percentage: 25 }
-        ],
-        mediabuying: [
-            { id: "tac_m1", name: "CAPI & Media Tracking Masterclass", assignee: "abanoub", percentage: 25 }
-        ],
-        crm: [
-            { id: "tac_c1", name: "Sales Pipeline Automation Workshop", assignee: "abanoub", percentage: 25 }
-        ]
-    }
+    web: { starter: canonicalServiceTasksMap.web, essential: canonicalServiceTasksMap.web, ecommerce: canonicalServiceTasksMap.web },
+    mgmt: { bronze: canonicalServiceTasksMap.mgmt, silver: canonicalServiceTasksMap.mgmt, gold: canonicalServiceTasksMap.mgmt },
+    smm: { kickstart: canonicalServiceTasksMap.smm, growth: canonicalServiceTasksMap.smm, domination: canonicalServiceTasksMap.smm },
+    ads: { starter: canonicalServiceTasksMap.ads, essential: canonicalServiceTasksMap.ads, ecommerce: canonicalServiceTasksMap.ads },
+    consulting: { technical: canonicalServiceTasksMap.consulting, growth: canonicalServiceTasksMap.consulting, enterprise: canonicalServiceTasksMap.consulting },
+    academy: { woocommerce: canonicalServiceTasksMap.academy, mediabuying: canonicalServiceTasksMap.academy, crm: canonicalServiceTasksMap.academy }
 };
 
 // Dynamic Task Breakdown State Schema
 let serviceTasksState = {
-    web: JSON.parse(JSON.stringify(defaultTierTasksMap.web.ecommerce)),
-    mgmt: JSON.parse(JSON.stringify(defaultTierTasksMap.mgmt.bronze)),
-    smm: JSON.parse(JSON.stringify(defaultTierTasksMap.smm.growth)),
-    ads: JSON.parse(JSON.stringify(defaultTierTasksMap.ads.ecommerce)),
-    consulting: JSON.parse(JSON.stringify(defaultTierTasksMap.consulting.technical)),
-    academy: JSON.parse(JSON.stringify(defaultTierTasksMap.academy.woocommerce))
+    web: JSON.parse(JSON.stringify(canonicalServiceTasksMap.web)),
+    mgmt: JSON.parse(JSON.stringify(canonicalServiceTasksMap.mgmt)),
+    smm: JSON.parse(JSON.stringify(canonicalServiceTasksMap.smm)),
+    ads: JSON.parse(JSON.stringify(canonicalServiceTasksMap.ads)),
+    consulting: JSON.parse(JSON.stringify(canonicalServiceTasksMap.consulting)),
+    academy: JSON.parse(JSON.stringify(canonicalServiceTasksMap.academy))
 };
 
 function handleSelectChange(selectId) {

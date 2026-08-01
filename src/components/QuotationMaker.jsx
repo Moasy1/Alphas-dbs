@@ -2,91 +2,67 @@ import React, { useState, useMemo } from 'react';
 import { Plus, Trash2, Layers, Calculator, UserCheck, PieChart, Info, RefreshCw, Edit3, AlertTriangle, CheckCircle2 } from 'lucide-react';
 
 /**
- * ALPHAS OS - Quotation Maker & Financial Split Engine v3.7
+ * ALPHAS OS - Quotation Maker & Financial Split Engine v3.8
  * 
- * Business Rule Enforced:
- * Task Execution costs are limited to 40% max of service revenue to preserve a 60% gross margin.
+ * Enforces Canonical 40% Service Execution Breakdown Architecture:
+ * 1. Web Engineering & Stores (40% Total):
+ *    - Web Dev & Architecture Lead (Asy) - 22%
+ *    - UI/UX & Custom E-Commerce Flow (Asy) - 10%
+ *    - Server-Side Tracking & Gateway Integration (Asy) - 8%
+ * 
+ * 2. Media Buying & Ads (40% Total):
+ *    - Media Buying Execution & Campaign Ops (Abanoub) - 20%
+ *    - Server-Side Tracking & Pixel CAPI Setup (Asy) - 12%
+ *    - Ad Creatives & Dynamic Formats (Freelancer) - 8%
+ * 
+ * 3. Social Media Marketing (SMM) (40% Total):
+ *    - Graphic Design & Visual Assets (Freelancer) - 18%
+ *    - Marketing Strategy & Copywriting (Abanoub) - 12%
+ *    - Video Reels & Motion Editing (Freelancer) - 10%
+ * 
+ * 4. Store Support & Management (40% Total):
+ *    - Catalog & Inventory Flow Sync (Asy) - 18%
+ *    - Staging, Backup & Speed Optimization (Asy) - 12%
+ *    - Checkout Flow & Security Audit (Asy) - 10%
+ * 
+ * 5. Strategic Consulting (40% Total):
+ *    - Business Audit & Funnel Diagnostics (Asy) - 22%
+ *    - Growth Strategy & Scaling Roadmap (Abanoub) - 18%
+ * 
+ * 6. Corporate Academy Training (40% Total):
+ *    - Curriculum & Course Materials Setup (Asy) - 20%
+ *    - Live Workshops & Team Training (Asy) - 20%
  */
 
-export const DEFAULT_TIER_TASKS = {
-  web_engineering: {
-    starter: [
-      { id: "t_web_s1", name: "UI/UX Wireframing & Layout", assignee: "Asy", percentage: 15 },
-      { id: "t_web_s2", name: "WordPress / CMS Engine Setup", assignee: "Asy", percentage: 15 },
-      { id: "t_web_s3", name: "Speed & Mobile Optimization", assignee: "Asy", percentage: 10 }
-    ],
-    essential: [
-      { id: "t_web_e1", name: "Custom Theme Architecture & Figma", assignee: "Asy", percentage: 15 },
-      { id: "t_web_e2", name: "WooCommerce & Gateway Setup", assignee: "Asy", percentage: 15 },
-      { id: "t_web_e3", name: "GSAP Animations & Micro-Interactions", assignee: "Editor/Freelancer", percentage: 10 }
-    ],
-    ecommerce: [
-      { id: "t_web_ec1", name: "Headless / Custom Woo API Architecture", assignee: "Asy", percentage: 15 },
-      { id: "t_web_ec2", name: "Custom ERP & Logistics Webhooks", assignee: "Asy", percentage: 10 },
-      { id: "t_web_ec3", name: "High-Performance Motion Graphics (GSAP)", assignee: "Editor/Freelancer", percentage: 8 },
-      { id: "t_web_ec4", name: "Server-Side GTM & Pixel Conversion API", assignee: "Abanoub", percentage: 7 }
-    ]
-  },
-  store_management: {
-    bronze: [
-      { id: "t_mgmt_b1", name: "Weekly Security & Plugin Maintenance", assignee: "Asy", percentage: 22 },
-      { id: "t_mgmt_b2", name: "Product Catalog Updates (25 items)", assignee: "Asy", percentage: 18 }
-    ],
-    silver: [
-      { id: "t_mgmt_s1", name: "Technical SEO & Schema Markup Audit", assignee: "Asy", percentage: 18 },
-      { id: "t_mgmt_s2", name: "Core Web Vitals & Server Optimization", assignee: "Asy", percentage: 12 },
-      { id: "t_mgmt_s3", name: "Monthly Content & Inventory Sync", assignee: "Abanoub", percentage: 10 }
-    ],
-    gold: [
-      { id: "t_mgmt_g1", name: "24/7 Store Monitoring & Uptime Ops", assignee: "Asy", percentage: 15 },
-      { id: "t_mgmt_g2", name: "Custom Feature Requests & AB Testing", assignee: "Asy", percentage: 15 },
-      { id: "t_mgmt_g3", name: "CRO & Funnel Conversion Tuning", assignee: "Abanoub", percentage: 10 }
-    ]
-  },
-  social_media: {
-    kickstart: [
-      { id: "t_smm_k1", name: "Monthly Content Calendar & Copywriting", assignee: "Abanoub", percentage: 22 },
-      { id: "t_smm_k2", name: "Graphic Design (12 Static Posts)", assignee: "Editor/Freelancer", percentage: 18 }
-    ],
-    growth: [
-      { id: "t_smm_g1", name: "Omnichannel Content Strategy & Copy", assignee: "Abanoub", percentage: 18 },
-      { id: "t_smm_g2", name: "Short-Form Video / Reels Editing", assignee: "Editor/Freelancer", percentage: 12 },
-      { id: "t_smm_g3", name: "Community Moderation & Engagement", assignee: "Abanoub", percentage: 10 }
-    ],
-    domination: [
-      { id: "t_smm_d1", name: "Full Brand Voice & Campaign Strategy", assignee: "Abanoub", percentage: 15 },
-      { id: "t_smm_d2", name: "High-Production Video Reels & Motion", assignee: "Editor/Freelancer", percentage: 15 },
-      { id: "t_smm_d3", name: "Influencer Outreach & UGC Ops", assignee: "Abanoub", percentage: 10 }
-    ]
-  },
-  media_buying: {
-    starter: [
-      { id: "t_ads_s1", name: "Meta/Google Ads Campaign Setup", assignee: "Abanoub", percentage: 25 },
-      { id: "t_ads_s2", name: "Ad Copy & Audience Targeting", assignee: "Abanoub", percentage: 15 }
-    ],
-    essential: [
-      { id: "t_ads_e1", name: "Multi-Channel Ad Architecture", assignee: "Abanoub", percentage: 18 },
-      { id: "t_ads_e2", name: "Ad Motion Creatives & Visual Testing", assignee: "Editor/Freelancer", percentage: 12 },
-      { id: "t_ads_e3", name: "Weekly Optimization & Bidding", assignee: "Abanoub", percentage: 10 }
-    ],
-    ecommerce: [
-      { id: "t_ads_ec1", name: "Full Meta & Google Merchant Sync", assignee: "Abanoub", percentage: 15 },
-      { id: "t_ads_ec2", name: "Server-Side Tracking & CAPI Integration", assignee: "Asy", percentage: 10 },
-      { id: "t_ads_ec3", name: "Dynamic Product Ad Motion Creatives", assignee: "Editor/Freelancer", percentage: 10 },
-      { id: "t_ads_ec4", name: "ROAS & Budget Scaling Ops", assignee: "Abanoub", percentage: 5 }
-    ]
-  },
-  consulting: {
-    technical: [
-      { id: "t_cons_t1", name: "Codebase Security & Architecture Audit", assignee: "Asy", percentage: 40 }
-    ],
-    growth: [
-      { id: "t_cons_g1", name: "Funnel Analytics & CRO Blueprint", assignee: "Abanoub", percentage: 40 }
-    ],
-    enterprise: [
-      { id: "t_cons_ent1", name: "C-Suite Strategic Transformation Session", assignee: "Shared", percentage: 40 }
-    ]
-  }
+export const CANONICAL_SERVICE_TASKS = {
+  web_engineering: [
+    { id: "t_web_1", name: "Web Dev & Architecture Lead", assignee: "Asy", percentage: 22 },
+    { id: "t_web_2", name: "UI/UX & Custom E-Commerce Flow", assignee: "Asy", percentage: 10 },
+    { id: "t_web_3", name: "Server-Side Tracking & Gateway Integration", assignee: "Asy", percentage: 8 }
+  ],
+  media_buying: [
+    { id: "t_ads_1", name: "Media Buying Execution & Campaign Ops", assignee: "Abanoub", percentage: 20 },
+    { id: "t_ads_2", name: "Server-Side Tracking & Pixel CAPI Setup", assignee: "Asy", percentage: 12 },
+    { id: "t_ads_3", name: "Ad Creatives & Dynamic Formats", assignee: "Editor/Freelancer", percentage: 8 }
+  ],
+  social_media: [
+    { id: "t_smm_1", name: "Graphic Design & Visual Assets", assignee: "Editor/Freelancer", percentage: 18 },
+    { id: "t_smm_2", name: "Marketing Strategy & Copywriting", assignee: "Abanoub", percentage: 12 },
+    { id: "t_smm_3", name: "Video Reels & Motion Editing", assignee: "Editor/Freelancer", percentage: 10 }
+  ],
+  store_management: [
+    { id: "t_mgmt_1", name: "Catalog & Inventory Flow Sync", assignee: "Asy", percentage: 18 },
+    { id: "t_mgmt_2", name: "Staging, Backup & Speed Optimization", assignee: "Asy", percentage: 12 },
+    { id: "t_mgmt_3", name: "Checkout Flow & Security Audit", assignee: "Asy", percentage: 10 }
+  ],
+  consulting: [
+    { id: "t_cons_1", name: "Business Audit & Funnel Diagnostics", assignee: "Asy", percentage: 22 },
+    { id: "t_cons_2", name: "Growth Strategy & Scaling Roadmap", assignee: "Abanoub", percentage: 18 }
+  ],
+  academy: [
+    { id: "t_acad_1", name: "Curriculum & Course Materials Setup", assignee: "Asy", percentage: 20 },
+    { id: "t_acad_2", name: "Live Workshops & Team Training", assignee: "Asy", percentage: 20 }
+  ]
 };
 
 const INITIAL_SERVICES = [
@@ -102,7 +78,7 @@ const INITIAL_SERVICES = [
       { id: "essential", name: "Essential CMS Development", price: 23000 },
       { id: "ecommerce", name: "Ecommerce Web & Custom Integrations", price: 34500 }
     ],
-    tasks: DEFAULT_TIER_TASKS.web_engineering.ecommerce
+    tasks: CANONICAL_SERVICE_TASKS.web_engineering
   },
   {
     serviceId: "store_management",
@@ -116,7 +92,7 @@ const INITIAL_SERVICES = [
       { id: "silver", name: "Silver Support & SEO", price: 8625 },
       { id: "gold", name: "Gold Full-Service Ops", price: 11500 }
     ],
-    tasks: DEFAULT_TIER_TASKS.store_management.bronze
+    tasks: CANONICAL_SERVICE_TASKS.store_management
   },
   {
     serviceId: "social_media",
@@ -130,7 +106,7 @@ const INITIAL_SERVICES = [
       { id: "growth", name: "SMM Growth Plan", price: 8280 },
       { id: "domination", name: "SMM Domination Package", price: 11500 }
     ],
-    tasks: DEFAULT_TIER_TASKS.social_media.growth
+    tasks: CANONICAL_SERVICE_TASKS.social_media
   },
   {
     serviceId: "media_buying",
@@ -144,7 +120,7 @@ const INITIAL_SERVICES = [
       { id: "essential", name: "Essential Multi-channel Campaigns", price: 11500 },
       { id: "ecommerce", name: "Ecommerce Full Meta/Google Sync", price: 17250 }
     ],
-    tasks: DEFAULT_TIER_TASKS.media_buying.ecommerce
+    tasks: CANONICAL_SERVICE_TASKS.media_buying
   },
   {
     serviceId: "consulting",
@@ -158,7 +134,21 @@ const INITIAL_SERVICES = [
       { id: "growth", name: "Growth & CRO Optimization (10 hrs)", price: 17250 },
       { id: "enterprise", name: "Enterprise Strategy Session (10 hrs)", price: 23000 }
     ],
-    tasks: DEFAULT_TIER_TASKS.consulting.technical
+    tasks: CANONICAL_SERVICE_TASKS.consulting
+  },
+  {
+    serviceId: "academy",
+    name: "Corporate Academy Training",
+    icon: "graduation-cap",
+    isEnabled: false,
+    executionPaidTo: "Asy",
+    selectedTierId: "woocommerce",
+    tiers: [
+      { id: "woocommerce", name: "WooCommerce Website Setup (5 Students)", price: 14375 },
+      { id: "mediabuying", name: "Media Buying Tracking (5 Students)", price: 14375 },
+      { id: "crm", name: "CRM Pipeline Automation (5 Students)", price: 14375 }
+    ],
+    tasks: CANONICAL_SERVICE_TASKS.academy
   }
 ];
 
@@ -179,7 +169,7 @@ export default function QuotationMaker() {
     setServices((prev) =>
       prev.map((s) => {
         if (s.serviceId !== serviceId) return s;
-        const defaultTasks = DEFAULT_TIER_TASKS[serviceId]?.[tierId] || [];
+        const defaultTasks = CANONICAL_SERVICE_TASKS[serviceId] || [];
         return {
           ...s,
           selectedTierId: tierId,
@@ -215,7 +205,7 @@ export default function QuotationMaker() {
     setServices((prev) =>
       prev.map((s) => {
         if (s.serviceId !== serviceId) return s;
-        const defaultTasks = DEFAULT_TIER_TASKS[serviceId]?.[s.selectedTierId] || [];
+        const defaultTasks = CANONICAL_SERVICE_TASKS[serviceId] || [];
         return {
           ...s,
           tasks: defaultTasks.map((t) => ({ ...t, id: `t_${Date.now()}_${Math.random().toString(36).substr(2, 4)}` }))
@@ -321,9 +311,9 @@ export default function QuotationMaker() {
           <div>
             <div className="flex items-center gap-2">
               <span className="bg-blue-500/10 text-blue-400 text-xs font-mono font-bold px-2.5 py-1 rounded-md border border-blue-500/20">
-                ALPHAS OS v3.7
+                ALPHAS OS v3.8
               </span>
-              <span className="text-slate-400 text-xs uppercase tracking-widest font-semibold">40% Execution Cap • 60% Gross Margin Architecture</span>
+              <span className="text-slate-400 text-xs uppercase tracking-widest font-semibold">Canonical 40% Service Execution Architecture</span>
             </div>
             <h1 className="text-2xl md:text-3xl font-extrabold text-white mt-1">Quotation Maker</h1>
           </div>
@@ -364,7 +354,7 @@ export default function QuotationMaker() {
                 Core Pillars & Task Breakdown
               </h2>
               <span className="text-xs text-emerald-400 font-mono font-bold bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full">
-                40% Execution Limit Enforced
+                40% Execution Cap Preserved
               </span>
             </div>
 
@@ -454,7 +444,7 @@ export default function QuotationMaker() {
                           <div className="flex flex-wrap items-center justify-between gap-2">
                             <div className="flex items-center gap-2">
                               <span className="text-[11px] font-bold uppercase tracking-wider text-slate-300">
-                                Execution Tasks (Max 40% Total)
+                                Service Task Breakdown
                               </span>
                               <span className={`text-[10px] font-mono px-2 py-0.5 rounded-md font-bold flex items-center gap-1 ${
                                 isOverCap
@@ -471,7 +461,7 @@ export default function QuotationMaker() {
                                 type="button"
                                 onClick={() => handleResetDefaultTasks(service.serviceId)}
                                 className="text-[10px] bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 rounded-lg px-2 py-1 font-semibold flex items-center gap-1 transition-all"
-                                title="Reset tasks to default 40% allocation template"
+                                title="Reset tasks to canonical 40% template"
                               >
                                 <RefreshCw className="w-3 h-3" /> Reset Defaults
                               </button>
@@ -489,7 +479,7 @@ export default function QuotationMaker() {
                           {isOverCap && (
                             <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-2 text-[10px] text-red-300 flex items-center gap-2">
                               <AlertTriangle className="w-4 h-4 text-red-400 flex-shrink-0" />
-                              <span>Warning: Task execution cost ({totalTaskPercent}%) exceeds the 40% limit! Profits will fall below the required 60% gross margin.</span>
+                              <span>Warning: Execution cost ({totalTaskPercent}%) exceeds the 40% limit! Gross margin will drop below 60%.</span>
                             </div>
                           )}
 
@@ -615,7 +605,7 @@ export default function QuotationMaker() {
                   <h2 className="text-base font-extrabold text-white">DUO SPLIT STATEMENT</h2>
                 </div>
                 <span className="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono font-bold px-2 py-0.5 rounded-full">
-                  60% PROFIT MARGIN MODEL
+                  60% MARGIN ENGINE
                 </span>
               </div>
 
@@ -631,11 +621,11 @@ export default function QuotationMaker() {
 
                 <div className="flex justify-between items-center py-2 border-b border-slate-800/60">
                   <div className="flex items-center gap-1.5">
-                    <span className="text-slate-400">COGS (Max 40% Execution)</span>
+                    <span className="text-slate-400">COGS (Canonical 40% Execution)</span>
                     <div className="group relative cursor-pointer">
                       <Info className="w-3.5 h-3.5 text-slate-500" />
                       <div className="hidden group-hover:block absolute left-0 bottom-6 w-56 p-2 bg-slate-950 border border-slate-800 text-[10px] text-slate-300 rounded-lg shadow-xl z-20 font-sans">
-                        Task costs are limited to 40% max per service package revenue.
+                        Task costs are capped at 40% per service package revenue.
                       </div>
                     </div>
                   </div>
