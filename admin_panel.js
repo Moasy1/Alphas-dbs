@@ -156,6 +156,7 @@ class DatabaseManager {
         if (typeof window === "undefined" || !window.alphasDb) return;
         const db = window.alphasDb;
 
+        // 1. Real-time Leads Listener
         try {
             db.collection("leads").onSnapshot(snapshot => {
                 const cloudLeads = snapshot.docs.map(doc => {
@@ -185,14 +186,57 @@ class DatabaseManager {
                     mergedLeads.sort((a, b) => new Date(b.createdAt || b.date) - new Date(a.createdAt || a.date));
                     localStorage.setItem("alphas_leads", JSON.stringify(mergedLeads));
                     
-                    if (typeof renderCRMView === "function") renderCRMView();
                     this.updateGlobalAnalytics();
                 }
             }, err => {
-                console.warn("[Alphas DB] Cloud sync listener warning:", err);
+                console.warn("[Alphas DB] Cloud leads sync warning:", err);
             });
         } catch (err) {
-            console.error("[Alphas DB] Error initializing cloud listeners:", err);
+            console.error("[Alphas DB] Error listening to cloud leads:", err);
+        }
+
+        // 2. Real-time Projects Listener
+        try {
+            db.collection("projects").onSnapshot(snapshot => {
+                const cloudProjects = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                if (cloudProjects.length > 0) {
+                    const localProjects = this.get("projects") || [];
+                    const mergedMap = new Map();
+                    localProjects.forEach(p => mergedMap.set(p.id, p));
+                    cloudProjects.forEach(cp => mergedMap.set(cp.id, cp));
+                    
+                    const mergedProjects = Array.from(mergedMap.values());
+                    localStorage.setItem("alphas_projects", JSON.stringify(mergedProjects));
+                    
+                    this.updateGlobalAnalytics();
+                }
+            }, err => {
+                console.warn("[Alphas DB] Cloud projects sync warning:", err);
+            });
+        } catch (err) {
+            console.error("[Alphas DB] Error listening to cloud projects:", err);
+        }
+
+        // 3. Real-time Invoices Listener
+        try {
+            db.collection("invoices").onSnapshot(snapshot => {
+                const cloudInvoices = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                if (cloudInvoices.length > 0) {
+                    const localInvoices = this.get("invoices") || [];
+                    const mergedMap = new Map();
+                    localInvoices.forEach(inv => mergedMap.set(inv.id, inv));
+                    cloudInvoices.forEach(ci => mergedMap.set(ci.id, ci));
+                    
+                    const mergedInvoices = Array.from(mergedMap.values());
+                    localStorage.setItem("alphas_invoices", JSON.stringify(mergedInvoices));
+                    
+                    this.updateGlobalAnalytics();
+                }
+            }, err => {
+                console.warn("[Alphas DB] Cloud invoices sync warning:", err);
+            });
+        } catch (err) {
+            console.error("[Alphas DB] Error listening to cloud invoices:", err);
         }
     }
 
@@ -203,11 +247,24 @@ class DatabaseManager {
     save(key, data) {
         localStorage.setItem(`alphas_${key}`, JSON.stringify(data));
         this.updateGlobalAnalytics();
+
+        // Auto Sync to Cloud Firestore
+        if (typeof window !== "undefined" && window.alphasDb && Array.isArray(data)) {
+            if (key === "leads" || key === "projects" || key === "invoices") {
+                const db = window.alphasDb;
+                data.forEach(item => {
+                    if (item && item.id) {
+                        db.collection(key).doc(String(item.id)).set(item, { merge: true })
+                          .catch(err => console.warn(`[Alphas DB] Firestore write error for ${key}:`, err));
+                    }
+                });
+            }
+        }
     }
 
     syncLeadToCloud(lead) {
         if (typeof window !== "undefined" && window.alphasDb && lead && lead.id) {
-            window.alphasDb.collection("leads").doc(lead.id).set({
+            window.alphasDb.collection("leads").doc(String(lead.id)).set({
                 ...lead,
                 createdAt: lead.createdAt || new Date().toISOString()
             }, { merge: true }).catch(err => console.error("[Alphas DB] Cloud lead sync error:", err));
@@ -216,13 +273,16 @@ class DatabaseManager {
 
     deleteLeadFromCloud(leadId) {
         if (typeof window !== "undefined" && window.alphasDb && leadId) {
-            window.alphasDb.collection("leads").doc(leadId).delete().catch(err => console.error("[Alphas DB] Cloud lead delete error:", err));
+            window.alphasDb.collection("leads").doc(String(leadId)).delete().catch(err => console.error("[Alphas DB] Cloud lead delete error:", err));
         }
     }
 
     updateGlobalAnalytics() {
         if (typeof renderDashboardView === "function") renderDashboardView();
+        if (typeof renderCRMView === "function") renderCRMView();
         if (typeof updateCRMStats === "function") updateCRMStats();
+        if (typeof renderProjectBoard === "function") renderProjectBoard();
+        if (typeof renderInvoicesLedger === "function") renderInvoicesLedger();
     }
 }
 
