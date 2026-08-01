@@ -693,6 +693,20 @@ function renderServiceTaskRows(serviceId) {
     const container = document.getElementById(`tasks-container-${serviceId}`);
     if (!container) return;
     const tasks = serviceTasksState[serviceId] || [];
+    
+    // Update 40% execution cap status badge
+    const statusBadge = document.getElementById(`tasks-status-${serviceId}`);
+    const totalPercent = tasks.reduce((sum, t) => sum + (parseFloat(t.percentage) || 0), 0);
+    if (statusBadge) {
+        if (totalPercent > 40) {
+            statusBadge.className = "text-[9px] font-mono px-1.5 py-0.5 rounded-md font-bold bg-red-500/20 text-red-400 border border-red-500/30";
+            statusBadge.innerText = `⚠️ ${totalPercent}% Exceeds 40% Max`;
+        } else {
+            statusBadge.className = "text-[9px] font-mono px-1.5 py-0.5 rounded-md font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20";
+            statusBadge.innerText = `${totalPercent}% / 40% Max`;
+        }
+    }
+
     container.innerHTML = "";
     if (tasks.length === 0) {
         container.innerHTML = `<p class="text-[10px] text-slate-500 italic py-1">No custom task breakdown added. Default tier costs will apply.</p>`;
@@ -711,7 +725,7 @@ function renderServiceTaskRows(serviceId) {
                 <option value="freelancer" ${task.assignee === 'freelancer' ? 'selected' : ''}>Freelancer</option>
             </select>
             <div class="flex items-center gap-0.5">
-                <input type="number" min="0" max="100" value="${task.percentage}" oninput="updateTaskField('${serviceId}', '${task.id}', 'percentage', this.value)" class="w-12 bg-slate-900 border border-alphas-glassBorder rounded-lg px-1 py-1 text-[11px] text-white text-center font-bold font-mono outline-none">
+                <input type="number" min="0" max="40" value="${task.percentage}" oninput="updateTaskField('${serviceId}', '${task.id}', 'percentage', this.value)" class="w-12 bg-slate-900 border border-alphas-glassBorder rounded-lg px-1 py-1 text-[11px] text-white text-center font-bold font-mono outline-none">
                 <span class="text-[10px] text-slate-400 font-bold">%</span>
             </div>
             <div class="w-24 text-right pr-1">

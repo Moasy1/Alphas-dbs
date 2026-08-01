@@ -1,28 +1,24 @@
 import React, { useState, useMemo } from 'react';
-import { Plus, Trash2, Layers, Calculator, UserCheck, PieChart, Info, RefreshCw, Edit3 } from 'lucide-react';
+import { Plus, Trash2, Layers, Calculator, UserCheck, PieChart, Info, RefreshCw, Edit3, AlertTriangle, CheckCircle2 } from 'lucide-react';
 
 /**
- * ALPHAS OS - Quotation Maker & Financial Split Engine v3.6
+ * ALPHAS OS - Quotation Maker & Financial Split Engine v3.7
  * 
- * Features:
- * - Dynamic Service Tiers / Bundles with editable prices
- * - Default Task Breakdowns per Service Tier with assigned roles and percentage shares (%)
- * - Add/Remove custom task rows & percentage adjustments
- * - Dynamic COGS (Expenses) calculation: Task Costs + Physical Overhead + Fixed Costs
- * - Automated Duo Split Statement metrics cascade (Revenue, COGS, Closer 15%, Profit, Capital Reserve 25%, 50/50 Partner Payouts)
+ * Business Rule Enforced:
+ * Task Execution costs are limited to 40% max of service revenue to preserve a 60% gross margin.
  */
 
 export const DEFAULT_TIER_TASKS = {
   web_engineering: {
     starter: [
-      { id: "t_web_s1", name: "UI/UX Wireframing & Responsive Layout", assignee: "Asy", percentage: 15 },
-      { id: "t_web_s2", name: "WordPress / CMS Core Engine Setup", assignee: "Asy", percentage: 15 },
-      { id: "t_web_s3", name: "Speed & Mobile Optimization", assignee: "Asy", percentage: 5 }
+      { id: "t_web_s1", name: "UI/UX Wireframing & Layout", assignee: "Asy", percentage: 15 },
+      { id: "t_web_s2", name: "WordPress / CMS Engine Setup", assignee: "Asy", percentage: 15 },
+      { id: "t_web_s3", name: "Speed & Mobile Optimization", assignee: "Asy", percentage: 10 }
     ],
     essential: [
-      { id: "t_web_e1", name: "Custom Theme Architecture & Figma Conversion", assignee: "Asy", percentage: 15 },
-      { id: "t_web_e2", name: "WooCommerce & Gateway Integration", assignee: "Asy", percentage: 12 },
-      { id: "t_web_e3", name: "GSAP Animations & Micro-Interactions", assignee: "Editor/Freelancer", percentage: 8 }
+      { id: "t_web_e1", name: "Custom Theme Architecture & Figma", assignee: "Asy", percentage: 15 },
+      { id: "t_web_e2", name: "WooCommerce & Gateway Setup", assignee: "Asy", percentage: 15 },
+      { id: "t_web_e3", name: "GSAP Animations & Micro-Interactions", assignee: "Editor/Freelancer", percentage: 10 }
     ],
     ecommerce: [
       { id: "t_web_ec1", name: "Headless / Custom Woo API Architecture", assignee: "Asy", percentage: 15 },
@@ -33,8 +29,8 @@ export const DEFAULT_TIER_TASKS = {
   },
   store_management: {
     bronze: [
-      { id: "t_mgmt_b1", name: "Weekly Security & Plugin Maintenance", assignee: "Asy", percentage: 20 },
-      { id: "t_mgmt_b2", name: "Product Catalog Updates (Up to 25 items)", assignee: "Asy", percentage: 15 }
+      { id: "t_mgmt_b1", name: "Weekly Security & Plugin Maintenance", assignee: "Asy", percentage: 22 },
+      { id: "t_mgmt_b2", name: "Product Catalog Updates (25 items)", assignee: "Asy", percentage: 18 }
     ],
     silver: [
       { id: "t_mgmt_s1", name: "Technical SEO & Schema Markup Audit", assignee: "Asy", percentage: 18 },
@@ -49,46 +45,46 @@ export const DEFAULT_TIER_TASKS = {
   },
   social_media: {
     kickstart: [
-      { id: "t_smm_k1", name: "Monthly Content Calendar & Copywriting", assignee: "Abanoub", percentage: 20 },
-      { id: "t_smm_k2", name: "Graphic Design (12 Static Posts)", assignee: "Editor/Freelancer", percentage: 15 }
+      { id: "t_smm_k1", name: "Monthly Content Calendar & Copywriting", assignee: "Abanoub", percentage: 22 },
+      { id: "t_smm_k2", name: "Graphic Design (12 Static Posts)", assignee: "Editor/Freelancer", percentage: 18 }
     ],
     growth: [
-      { id: "t_smm_g1", name: "Omnichannel Content Strategy & Copywriting", assignee: "Abanoub", percentage: 18 },
+      { id: "t_smm_g1", name: "Omnichannel Content Strategy & Copy", assignee: "Abanoub", percentage: 18 },
       { id: "t_smm_g2", name: "Short-Form Video / Reels Editing", assignee: "Editor/Freelancer", percentage: 12 },
-      { id: "t_smm_g3", name: "Community Management & Moderation", assignee: "Abanoub", percentage: 10 }
+      { id: "t_smm_g3", name: "Community Moderation & Engagement", assignee: "Abanoub", percentage: 10 }
     ],
     domination: [
       { id: "t_smm_d1", name: "Full Brand Voice & Campaign Strategy", assignee: "Abanoub", percentage: 15 },
       { id: "t_smm_d2", name: "High-Production Video Reels & Motion", assignee: "Editor/Freelancer", percentage: 15 },
-      { id: "t_smm_d3", name: "Influencer Outreach & UGC Management", assignee: "Abanoub", percentage: 10 }
+      { id: "t_smm_d3", name: "Influencer Outreach & UGC Ops", assignee: "Abanoub", percentage: 10 }
     ]
   },
   media_buying: {
     starter: [
-      { id: "t_ads_s1", name: "Meta/Google Ads Campaign Setup", assignee: "Abanoub", percentage: 20 },
+      { id: "t_ads_s1", name: "Meta/Google Ads Campaign Setup", assignee: "Abanoub", percentage: 25 },
       { id: "t_ads_s2", name: "Ad Copy & Audience Targeting", assignee: "Abanoub", percentage: 15 }
     ],
     essential: [
-      { id: "t_ads_e1", name: "Multi-Channel Ad Architecture (Meta/TikTok/Google)", assignee: "Abanoub", percentage: 18 },
+      { id: "t_ads_e1", name: "Multi-Channel Ad Architecture", assignee: "Abanoub", percentage: 18 },
       { id: "t_ads_e2", name: "Ad Motion Creatives & Visual Testing", assignee: "Editor/Freelancer", percentage: 12 },
-      { id: "t_ads_e3", name: "Weekly Campaign Optimization & Bidding", assignee: "Abanoub", percentage: 10 }
+      { id: "t_ads_e3", name: "Weekly Optimization & Bidding", assignee: "Abanoub", percentage: 10 }
     ],
     ecommerce: [
       { id: "t_ads_ec1", name: "Full Meta & Google Merchant Sync", assignee: "Abanoub", percentage: 15 },
       { id: "t_ads_ec2", name: "Server-Side Tracking & CAPI Integration", assignee: "Asy", percentage: 10 },
-      { id: "t_ads_ec3", name: "Dynamic Product Ad (DPA) Motion Creatives", assignee: "Editor/Freelancer", percentage: 10 },
-      { id: "t_ads_ec4", name: "Scaling & ROAS Budget Optimization", assignee: "Abanoub", percentage: 10 }
+      { id: "t_ads_ec3", name: "Dynamic Product Ad Motion Creatives", assignee: "Editor/Freelancer", percentage: 10 },
+      { id: "t_ads_ec4", name: "ROAS & Budget Scaling Ops", assignee: "Abanoub", percentage: 5 }
     ]
   },
   consulting: {
     technical: [
-      { id: "t_cons_t1", name: "Codebase Security & Architecture Audit", assignee: "Asy", percentage: 25 }
+      { id: "t_cons_t1", name: "Codebase Security & Architecture Audit", assignee: "Asy", percentage: 40 }
     ],
     growth: [
-      { id: "t_cons_g1", name: "Funnel Analytics & CRO Blueprint", assignee: "Abanoub", percentage: 25 }
+      { id: "t_cons_g1", name: "Funnel Analytics & CRO Blueprint", assignee: "Abanoub", percentage: 40 }
     ],
     enterprise: [
-      { id: "t_cons_ent1", name: "C-Suite Strategic Transformation Session", assignee: "Shared", percentage: 30 }
+      { id: "t_cons_ent1", name: "C-Suite Strategic Transformation Session", assignee: "Shared", percentage: 40 }
     ]
   }
 };
@@ -173,14 +169,12 @@ export default function QuotationMaker() {
   const [physicalMerchandiseOverhead, setPhysicalMerchandiseOverhead] = useState(0);
   const [fixedDirectCosts, setFixedDirectCosts] = useState(0);
 
-  // Toggle Service Active State
   const handleToggleService = (serviceId) => {
     setServices((prev) =>
       prev.map((s) => (s.serviceId === serviceId ? { ...s, isEnabled: !s.isEnabled } : s))
     );
   };
 
-  // Change Service Package Tier & Automatically Load Default Tasks for Tier
   const handleTierChange = (serviceId, tierId) => {
     setServices((prev) =>
       prev.map((s) => {
@@ -195,7 +189,6 @@ export default function QuotationMaker() {
     );
   };
 
-  // Edit Tier Package Price directly
   const handleTierPriceChange = (serviceId, tierId, newPrice) => {
     setServices((prev) =>
       prev.map((s) => {
@@ -206,14 +199,6 @@ export default function QuotationMaker() {
     );
   };
 
-  // Edit Execution Paid To
-  const handleExecutionPaidToChange = (serviceId, assignee) => {
-    setServices((prev) =>
-      prev.map((s) => (s.serviceId === serviceId ? { ...s, executionPaidTo: assignee } : s))
-    );
-  };
-
-  // Add Dynamic Task Row
   const handleAddTask = (serviceId) => {
     const newTask = {
       id: `t_${Date.now()}_${Math.random().toString(36).substr(2, 4)}`,
@@ -226,7 +211,6 @@ export default function QuotationMaker() {
     );
   };
 
-  // Reset Tasks to Default for Current Tier
   const handleResetDefaultTasks = (serviceId) => {
     setServices((prev) =>
       prev.map((s) => {
@@ -240,7 +224,6 @@ export default function QuotationMaker() {
     );
   };
 
-  // Update Task Row Details
   const handleUpdateTask = (serviceId, taskId, field, value) => {
     setServices((prev) =>
       prev.map((s) => {
@@ -253,7 +236,6 @@ export default function QuotationMaker() {
     );
   };
 
-  // Remove Task Row
   const handleRemoveTask = (serviceId, taskId) => {
     setServices((prev) =>
       prev.map((s) => {
@@ -339,9 +321,9 @@ export default function QuotationMaker() {
           <div>
             <div className="flex items-center gap-2">
               <span className="bg-blue-500/10 text-blue-400 text-xs font-mono font-bold px-2.5 py-1 rounded-md border border-blue-500/20">
-                ALPHAS OS v3.6
+                ALPHAS OS v3.7
               </span>
-              <span className="text-slate-400 text-xs uppercase tracking-widest font-semibold">Service Bundles & Task Allocation Engine</span>
+              <span className="text-slate-400 text-xs uppercase tracking-widest font-semibold">40% Execution Cap • 60% Gross Margin Architecture</span>
             </div>
             <h1 className="text-2xl md:text-3xl font-extrabold text-white mt-1">Quotation Maker</h1>
           </div>
@@ -379,27 +361,30 @@ export default function QuotationMaker() {
             <div className="flex items-center justify-between">
               <h2 className="text-sm font-black uppercase tracking-wider text-slate-300 flex items-center gap-2">
                 <Layers className="w-4 h-4 text-blue-500" />
-                Core Pillars, Bundles & Tasks
+                Core Pillars & Task Breakdown
               </h2>
-              <span className="text-xs text-slate-400 font-mono">
-                {financialSummary.processedServices.filter(s => s.isEnabled).length} Services Active
+              <span className="text-xs text-emerald-400 font-mono font-bold bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full">
+                40% Execution Limit Enforced
               </span>
             </div>
 
             <div className="space-y-4">
               {financialSummary.processedServices.map((service) => {
                 const totalTaskPercent = service.tasks.reduce((sum, t) => sum + (Number(t.percentage) || 0), 0);
+                const isOverCap = totalTaskPercent > 40;
 
                 return (
                   <div
                     key={service.serviceId}
                     className={`p-4 rounded-2xl border transition-all ${
                       service.isEnabled
-                        ? "bg-slate-900/60 border-blue-500/40 shadow-lg shadow-blue-500/5"
+                        ? isOverCap
+                          ? "bg-slate-900/60 border-red-500/50 shadow-lg shadow-red-500/5"
+                          : "bg-slate-900/60 border-blue-500/40 shadow-lg shadow-blue-500/5"
                         : "bg-slate-900/20 border-slate-800/80 opacity-70"
                     }`}
                   >
-                    {/* Service Title Bar */}
+                    {/* Service Header Bar */}
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <div className={`w-8 h-8 rounded-xl flex items-center justify-center ${
@@ -428,15 +413,15 @@ export default function QuotationMaker() {
                       </label>
                     </div>
 
-                    {/* Expandable Bundle & Task Sub-panel */}
+                    {/* Expandable Sub-panel */}
                     {service.isEnabled && (
                       <div className="mt-4 pt-3 border-t border-slate-800/60 space-y-4">
                         
-                        {/* Bundle Selector & Custom Pricing Input */}
+                        {/* Bundle Selector & Custom Price Input */}
                         <div className="grid grid-cols-1 sm:grid-cols-12 gap-3 items-end">
                           <div className="sm:col-span-7">
                             <label className="block text-[10px] uppercase font-bold text-slate-400 mb-1">
-                              Bundle / Package Tier
+                              Bundle Tier
                             </label>
                             <select
                               value={service.selectedTierId}
@@ -453,7 +438,7 @@ export default function QuotationMaker() {
 
                           <div className="sm:col-span-5">
                             <label className="block text-[10px] uppercase font-bold text-slate-400 mb-1 flex items-center gap-1">
-                              <Edit3 className="w-3 h-3 text-blue-400" /> Bundle Price (EGP)
+                              <Edit3 className="w-3 h-3 text-blue-400" /> Package Price (EGP)
                             </label>
                             <input
                               type="number"
@@ -464,19 +449,20 @@ export default function QuotationMaker() {
                           </div>
                         </div>
 
-                        {/* Task Breakdown Drawer Sub-panel */}
+                        {/* Task Breakdown Sub-panel Drawer */}
                         <div className="bg-slate-950/80 border border-slate-800 rounded-xl p-3.5 space-y-3">
                           <div className="flex flex-wrap items-center justify-between gap-2">
                             <div className="flex items-center gap-2">
                               <span className="text-[11px] font-bold uppercase tracking-wider text-slate-300">
-                                Default Tasks & Percentage Allocations
+                                Execution Tasks (Max 40% Total)
                               </span>
-                              <span className={`text-[10px] font-mono px-2 py-0.5 rounded-md font-bold ${
-                                totalTaskPercent > 100
+                              <span className={`text-[10px] font-mono px-2 py-0.5 rounded-md font-bold flex items-center gap-1 ${
+                                isOverCap
                                   ? "bg-red-500/20 text-red-400 border border-red-500/30"
-                                  : "bg-blue-500/10 text-blue-400 border border-blue-500/20"
+                                  : "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
                               }`}>
-                                {totalTaskPercent}% Allocated
+                                {isOverCap ? <AlertTriangle className="w-3 h-3 text-red-400" /> : <CheckCircle2 className="w-3 h-3 text-emerald-400" />}
+                                {totalTaskPercent}% / 40% Max
                               </span>
                             </div>
 
@@ -485,7 +471,7 @@ export default function QuotationMaker() {
                                 type="button"
                                 onClick={() => handleResetDefaultTasks(service.serviceId)}
                                 className="text-[10px] bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 rounded-lg px-2 py-1 font-semibold flex items-center gap-1 transition-all"
-                                title="Reset tasks to default template for selected tier"
+                                title="Reset tasks to default 40% allocation template"
                               >
                                 <RefreshCw className="w-3 h-3" /> Reset Defaults
                               </button>
@@ -499,10 +485,18 @@ export default function QuotationMaker() {
                             </div>
                           </div>
 
+                          {/* Over-Cap Warning Banner */}
+                          {isOverCap && (
+                            <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-2 text-[10px] text-red-300 flex items-center gap-2">
+                              <AlertTriangle className="w-4 h-4 text-red-400 flex-shrink-0" />
+                              <span>Warning: Task execution cost ({totalTaskPercent}%) exceeds the 40% limit! Profits will fall below the required 60% gross margin.</span>
+                            </div>
+                          )}
+
                           {/* Dynamic Task Rows */}
                           {service.tasks.length === 0 ? (
                             <p className="text-[11px] text-slate-500 italic text-center py-2">
-                              No tasks defined. Click "+ Add Task" or "Reset Defaults" to populate tasks.
+                              No tasks defined. Click "+ Add Task" or "Reset Defaults".
                             </p>
                           ) : (
                             <div className="space-y-2">
@@ -545,7 +539,7 @@ export default function QuotationMaker() {
                                     <input
                                       type="number"
                                       min="0"
-                                      max="100"
+                                      max="40"
                                       placeholder="%"
                                       value={task.percentage}
                                       onChange={(e) =>
@@ -621,7 +615,7 @@ export default function QuotationMaker() {
                   <h2 className="text-base font-extrabold text-white">DUO SPLIT STATEMENT</h2>
                 </div>
                 <span className="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono font-bold px-2 py-0.5 rounded-full">
-                  LIVE CASCADE
+                  60% PROFIT MARGIN MODEL
                 </span>
               </div>
 
@@ -637,11 +631,11 @@ export default function QuotationMaker() {
 
                 <div className="flex justify-between items-center py-2 border-b border-slate-800/60">
                   <div className="flex items-center gap-1.5">
-                    <span className="text-slate-400">COGS (Expenses)</span>
+                    <span className="text-slate-400">COGS (Max 40% Execution)</span>
                     <div className="group relative cursor-pointer">
                       <Info className="w-3.5 h-3.5 text-slate-500" />
                       <div className="hidden group-hover:block absolute left-0 bottom-6 w-56 p-2 bg-slate-950 border border-slate-800 text-[10px] text-slate-300 rounded-lg shadow-xl z-20 font-sans">
-                        Sum of all active service task costs + physical overhead.
+                        Task costs are limited to 40% max per service package revenue.
                       </div>
                     </div>
                   </div>
@@ -658,7 +652,7 @@ export default function QuotationMaker() {
                 </div>
 
                 <div className="flex justify-between items-center py-2 border-b border-slate-800/60 bg-slate-950/60 px-3 rounded-xl border border-slate-800">
-                  <span className="text-slate-300 font-bold">Gross Project Profit</span>
+                  <span className="text-slate-300 font-bold">Gross Project Profit (~60%)</span>
                   <span className="text-sm font-extrabold text-emerald-400">
                     EGP {financialSummary.grossProfit.toLocaleString()}
                   </span>
