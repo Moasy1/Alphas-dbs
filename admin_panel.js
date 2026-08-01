@@ -14,9 +14,9 @@ const businessConfigs = {
         gold: { label: "Gold Full-Service Management", price: 11500, cogs: 6300, execFee: 2625, execPartner: 'asy' }
     },
     smm: {
-        kickstart: { label: "Social Media Kickstart", price: 5175, cogs: 2362.5, execFee: 892.5, execPartner: 'abanoub' },
-        growth: { label: "Social Media Growth Plan", price: 8280, cogs: 2887.5, execFee: 1050, execPartner: 'abanoub' },
-        domination: { label: "Social Media Domination Package", price: 11500, cogs: 4200, execFee: 1575, execPartner: 'abanoub' }
+        kickstart: { label: "Social Media Kickstart", price: 7245, cogs: 2898, execFee: 1014.3, execPartner: 'abanoub' },
+        growth: { label: "Social Media Growth Plan", price: 11592, cogs: 4636.8, execFee: 1622.88, execPartner: 'abanoub' },
+        domination: { label: "Social Media Domination Package", price: 16100, cogs: 6440, execFee: 2254, execPartner: 'abanoub' }
     },
     ads: {
         starter: { label: "Starter Ads Meta/Google Campaign", price: 5750, cogs: 2625, execFee: 1575, execPartner: 'abanoub' },
@@ -554,35 +554,40 @@ function convertLeadToProject(id) {
 // 7. QUOTATION MAKER & LEDGER SPLIT ENGINE
 let currentCalcState = {};
 
-// Canonical Service Tasks Breakdown Registry (40% Execution Total)
+// Canonical Service Tasks Breakdown Registry v4.1 (40% Execution Total)
 const canonicalServiceTasksMap = {
     web: [
-        { id: "tw_1", name: "Web Dev & Architecture Lead", assignee: "asy", percentage: 22 },
-        { id: "tw_2", name: "UI/UX & Custom E-Commerce Flow", assignee: "asy", percentage: 10 },
-        { id: "tw_3", name: "Server-Side Tracking & Gateway Integration", assignee: "asy", percentage: 8 }
+        { id: "tw_1", name: "Web Architecture & Custom Development", assignee: "asy", percentage: 22 },
+        { id: "tw_2", name: "UI/UX Wireframing & Asset Design", assignee: "freelancer", percentage: 10 },
+        { id: "tw_3", name: "Domain, Staging Hosting, SSL & Plugins", assignee: "shared", percentage: 4 },
+        { id: "tw_4", name: "QA, Speed Optimization & Gateway Integration", assignee: "asy", percentage: 4 }
     ],
     ads: [
-        { id: "ta_1", name: "Media Buying Execution & Campaign Ops", assignee: "abanoub", percentage: 20 },
-        { id: "ta_2", name: "Server-Side Tracking & Pixel CAPI Setup", assignee: "asy", percentage: 12 },
-        { id: "ta_3", name: "Ad Creatives & Dynamic Formats", assignee: "freelancer", percentage: 8 }
+        { id: "ta_1", name: "Campaign Strategy, Audience & Media Buying", assignee: "abanoub", percentage: 20 },
+        { id: "ta_2", name: "Server-Side Pixel (CAPI), GTM & Analytics", assignee: "asy", percentage: 10 },
+        { id: "ta_3", name: "Ad Copywriting, Creatives & Motion Visuals", assignee: "freelancer", percentage: 6 },
+        { id: "ta_4", name: "Analytics Tools & Research Software", assignee: "shared", percentage: 4 }
     ],
     smm: [
-        { id: "ts_1", name: "Graphic Design & Visual Assets", assignee: "freelancer", percentage: 18 },
-        { id: "ts_2", name: "Marketing Strategy & Copywriting", assignee: "abanoub", percentage: 12 },
-        { id: "ts_3", name: "Video Reels & Motion Editing", assignee: "freelancer", percentage: 10 }
+        { id: "ts_1", name: "Graphic Design, Reels & Video Production", assignee: "freelancer", percentage: 20 },
+        { id: "ts_2", name: "Content Strategy, Angles & Copywriting", assignee: "abanoub", percentage: 14 },
+        { id: "ts_3", name: "AI Automation & Scheduling Platforms", assignee: "shared", percentage: 6 }
     ],
     mgmt: [
-        { id: "tm_1", name: "Catalog & Inventory Flow Sync", assignee: "asy", percentage: 18 },
-        { id: "tm_2", name: "Staging, Backup & Speed Optimization", assignee: "asy", percentage: 12 },
-        { id: "tm_3", name: "Checkout Flow & Security Audit", assignee: "asy", percentage: 10 }
+        { id: "tm_1", name: "Security Audits, Staging Backups & Core Updates", assignee: "asy", percentage: 16 },
+        { id: "tm_2", name: "Catalog Management & Inventory Operations", assignee: "shared", percentage: 14 },
+        { id: "tm_3", name: "On-Page SEO & Content Maintenance", assignee: "abanoub", percentage: 6 },
+        { id: "tm_4", name: "Uptime Monitoring & Server Tools", assignee: "shared", percentage: 4 }
     ],
     consulting: [
-        { id: "tc_1", name: "Business Audit & Funnel Diagnostics", assignee: "asy", percentage: 22 },
-        { id: "tc_2", name: "Growth Strategy & Scaling Roadmap", assignee: "abanoub", percentage: 18 }
+        { id: "tc_1", name: "Diagnostic Session & Leadership", assignee: "shared", percentage: 30 },
+        { id: "tc_2", name: "Strategic Roadmap, Blueprint & Action Plan", assignee: "shared", percentage: 8 },
+        { id: "tc_3", name: "Diagnostic Software & Audit Tools", assignee: "shared", percentage: 2 }
     ],
     academy: [
-        { id: "tac_1", name: "Curriculum & Course Materials Setup", assignee: "asy", percentage: 20 },
-        { id: "tac_2", name: "Live Workshops & Team Training", assignee: "asy", percentage: 20 }
+        { id: "tac_1", name: "Live Workshop Instruction & Delivery", assignee: "shared", percentage: 26 },
+        { id: "tac_2", name: "Courseware & Curriculum Preparation", assignee: "shared", percentage: 10 },
+        { id: "tac_3", name: "LMS Platform, Badges & Certification", assignee: "shared", percentage: 4 }
     ]
 };
 

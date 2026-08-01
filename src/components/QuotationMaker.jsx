@@ -2,48 +2,57 @@ import React, { useState, useMemo } from 'react';
 import { Plus, Trash2, Layers, Calculator, UserCheck, PieChart, Info, RefreshCw, Edit3, AlertTriangle, CheckCircle2, Menu, X, Lock, Check } from 'lucide-react';
 
 /**
- * ALPHAS OS - Quotation Maker & Financial Split Engine v4.0 (Mobile UX Optimized)
+ * ALPHAS OS - Service Design & Financial Architecture Specification v4.1
  * 
- * Mobile-First UX Improvements:
- * 1. Responsive Grids & Stacking (single-column on mobile, dynamic px-3 sm:px-6)
- * 2. Mobile Navigation Drawer (slide-over Sheet triggered by hamburger icon)
- * 3. Touch-Friendly Controls (min-h-[44px] touch targets, text-base on mobile to prevent iOS zoom-in)
- * 4. Task Breakdown Table -> Mobile Card Adaptation
- * 5. Sticky Bottom Viewport Action Bar (Real-time totals & Lock Deal CTA with backdrop-blur)
+ * Version: 4.1 (Active Production Specification)
+ * Entity: ALPHAS - Digital Business Solutions
+ * Architecture Standard: Lean Duopoly Financial Split & 40% Execution Cost Cap
+ * 
+ * Financial Breakdown Rules:
+ * 1. 40% Max COGS Task Execution Cap
+ * 2. 15% Sales Closer Fee
+ * 3. 45% Gross Operating Profit Pool ($100% - 40% - 15% = 45%$)
+ * 4. 25% Capital Reserve Rule
+ * 5. 50/50 Distributable Net Profit Split
  */
 
-export const CANONICAL_SERVICE_TASKS = {
+export const CANONICAL_SERVICE_TASKS_V41 = {
   web_engineering: [
-    { id: "t_web_1", name: "Web Dev & Architecture Lead", assignee: "Asy", percentage: 22 },
-    { id: "t_web_2", name: "UI/UX & Custom E-Commerce Flow", assignee: "Asy", percentage: 10 },
-    { id: "t_web_3", name: "Server-Side Tracking & Gateway Integration", assignee: "Asy", percentage: 8 }
+    { id: "t_web_1", name: "Web Architecture & Custom Development", assignee: "Asy", percentage: 22 },
+    { id: "t_web_2", name: "UI/UX Wireframing & Asset Design", assignee: "Editor/Freelancer", percentage: 10 },
+    { id: "t_web_3", name: "Domain, Staging Hosting, SSL & Plugins", assignee: "Overhead", percentage: 4 },
+    { id: "t_web_4", name: "QA, Speed Optimization & Gateway Integration", assignee: "Asy", percentage: 4 }
   ],
   media_buying: [
-    { id: "t_ads_1", name: "Media Buying Execution & Campaign Ops", assignee: "Abanoub", percentage: 20 },
-    { id: "t_ads_2", name: "Server-Side Tracking & Pixel CAPI Setup", assignee: "Asy", percentage: 12 },
-    { id: "t_ads_3", name: "Ad Creatives & Dynamic Formats", assignee: "Editor/Freelancer", percentage: 8 }
+    { id: "t_ads_1", name: "Campaign Strategy, Audience & Media Buying", assignee: "Abanoub", percentage: 20 },
+    { id: "t_ads_2", name: "Server-Side Pixel (CAPI), GTM & Analytics", assignee: "Asy", percentage: 10 },
+    { id: "t_ads_3", name: "Ad Copywriting, Creatives & Motion Visuals", assignee: "Editor/Freelancer", percentage: 6 },
+    { id: "t_ads_4", name: "Analytics Tools & Research Software", assignee: "Overhead", percentage: 4 }
   ],
   social_media: [
-    { id: "t_smm_1", name: "Graphic Design & Visual Assets", assignee: "Editor/Freelancer", percentage: 18 },
-    { id: "t_smm_2", name: "Marketing Strategy & Copywriting", assignee: "Abanoub", percentage: 12 },
-    { id: "t_smm_3", name: "Video Reels & Motion Editing", assignee: "Editor/Freelancer", percentage: 10 }
+    { id: "t_smm_1", name: "Graphic Design, Reels & Video Production", assignee: "Editor/Freelancer", percentage: 20 },
+    { id: "t_smm_2", name: "Content Strategy, Angles & Copywriting", assignee: "Abanoub", percentage: 14 },
+    { id: "t_smm_3", name: "AI Automation & Scheduling Platforms", assignee: "Overhead", percentage: 6 }
   ],
   store_management: [
-    { id: "t_mgmt_1", name: "Catalog & Inventory Flow Sync", assignee: "Asy", percentage: 18 },
-    { id: "t_mgmt_2", name: "Staging, Backup & Speed Optimization", assignee: "Asy", percentage: 12 },
-    { id: "t_mgmt_3", name: "Checkout Flow & Security Audit", assignee: "Asy", percentage: 10 }
+    { id: "t_mgmt_1", name: "Security Audits, Staging Backups & Core Updates", assignee: "Asy", percentage: 16 },
+    { id: "t_mgmt_2", name: "Catalog Management & Inventory Operations", assignee: "Operations", percentage: 14 },
+    { id: "t_mgmt_3", name: "On-Page SEO & Content Maintenance", assignee: "Abanoub", percentage: 6 },
+    { id: "t_mgmt_4", name: "Uptime Monitoring & Server Maintenance Tools", assignee: "Overhead", percentage: 4 }
   ],
   consulting: [
-    { id: "t_cons_1", name: "Business Audit & Funnel Diagnostics", assignee: "Asy", percentage: 22 },
-    { id: "t_cons_2", name: "Growth Strategy & Scaling Roadmap", assignee: "Abanoub", percentage: 18 }
+    { id: "t_cons_1", name: "Diagnostic Session & Technical/Growth Leadership", assignee: "Shared", percentage: 30 },
+    { id: "t_cons_2", name: "Strategic Roadmap, Blueprint & Action Plan", assignee: "Lead Consultant", percentage: 8 },
+    { id: "t_cons_3", name: "Diagnostic Software & Audit Tools", assignee: "Overhead", percentage: 2 }
   ],
   academy: [
-    { id: "t_acad_1", name: "Curriculum & Course Materials Setup", assignee: "Asy", percentage: 20 },
-    { id: "t_acad_2", name: "Live Workshops & Team Training", assignee: "Asy", percentage: 20 }
+    { id: "t_acad_1", name: "Live Workshop Instruction & Technical Delivery", assignee: "Shared", percentage: 26 },
+    { id: "t_acad_2", name: "Courseware, Exercises & Curriculum Preparation", assignee: "Instructors", percentage: 10 },
+    { id: "t_acad_3", name: "LMS Platform, Digital Badges & Certification", assignee: "Overhead", percentage: 4 }
   ]
 };
 
-const INITIAL_SERVICES = [
+const INITIAL_SERVICES_V41 = [
   {
     serviceId: "web_engineering",
     name: "Web Engineering & Stores",
@@ -56,7 +65,7 @@ const INITIAL_SERVICES = [
       { id: "essential", name: "Essential CMS Development", price: 23000 },
       { id: "ecommerce", name: "Ecommerce Web & Custom Integrations", price: 34500 }
     ],
-    tasks: CANONICAL_SERVICE_TASKS.web_engineering
+    tasks: CANONICAL_SERVICE_TASKS_V41.web_engineering
   },
   {
     serviceId: "store_management",
@@ -70,7 +79,7 @@ const INITIAL_SERVICES = [
       { id: "silver", name: "Silver Support & SEO", price: 8625 },
       { id: "gold", name: "Gold Full-Service Ops", price: 11500 }
     ],
-    tasks: CANONICAL_SERVICE_TASKS.store_management
+    tasks: CANONICAL_SERVICE_TASKS_V41.store_management
   },
   {
     serviceId: "social_media",
@@ -80,11 +89,11 @@ const INITIAL_SERVICES = [
     executionPaidTo: "Abanoub",
     selectedTierId: "growth",
     tiers: [
-      { id: "kickstart", name: "SMM Kickstart", price: 5175 },
-      { id: "growth", name: "SMM Growth Plan", price: 8280 },
-      { id: "domination", name: "SMM Domination Package", price: 11500 }
+      { id: "kickstart", name: "SMM Kickstart", price: 7245 },
+      { id: "growth", name: "SMM Growth Plan", price: 11592 },
+      { id: "domination", name: "SMM Domination Package", price: 16100 }
     ],
-    tasks: CANONICAL_SERVICE_TASKS.social_media
+    tasks: CANONICAL_SERVICE_TASKS_V41.social_media
   },
   {
     serviceId: "media_buying",
@@ -98,7 +107,7 @@ const INITIAL_SERVICES = [
       { id: "essential", name: "Essential Multi-channel Campaigns", price: 11500 },
       { id: "ecommerce", name: "Ecommerce Full Meta/Google Sync", price: 17250 }
     ],
-    tasks: CANONICAL_SERVICE_TASKS.media_buying
+    tasks: CANONICAL_SERVICE_TASKS_V41.media_buying
   },
   {
     serviceId: "consulting",
@@ -112,7 +121,7 @@ const INITIAL_SERVICES = [
       { id: "growth", name: "Growth & CRO Optimization (10 hrs)", price: 17250 },
       { id: "enterprise", name: "Enterprise Strategy Session (10 hrs)", price: 23000 }
     ],
-    tasks: CANONICAL_SERVICE_TASKS.consulting
+    tasks: CANONICAL_SERVICE_TASKS_V41.consulting
   },
   {
     serviceId: "academy",
@@ -126,14 +135,14 @@ const INITIAL_SERVICES = [
       { id: "mediabuying", name: "Media Buying Tracking (5 Students)", price: 14375 },
       { id: "crm", name: "CRM Pipeline Automation (5 Students)", price: 14375 }
     ],
-    tasks: CANONICAL_SERVICE_TASKS.academy
+    tasks: CANONICAL_SERVICE_TASKS_V41.academy
   }
 ];
 
 export default function QuotationMaker() {
   const [clientName, setClientName] = useState("مؤسسة البزنس الطموح");
   const [closerPartner, setCloserPartner] = useState("asy");
-  const [services, setServices] = useState(INITIAL_SERVICES);
+  const [services, setServices] = useState(INITIAL_SERVICES_V41);
   const [physicalMerchandiseOverhead, setPhysicalMerchandiseOverhead] = useState(0);
   const [fixedDirectCosts, setFixedDirectCosts] = useState(0);
   
@@ -152,7 +161,7 @@ export default function QuotationMaker() {
     setServices((prev) =>
       prev.map((s) => {
         if (s.serviceId !== serviceId) return s;
-        const defaultTasks = CANONICAL_SERVICE_TASKS[serviceId] || [];
+        const defaultTasks = CANONICAL_SERVICE_TASKS_V41[serviceId] || [];
         return {
           ...s,
           selectedTierId: tierId,
@@ -188,7 +197,7 @@ export default function QuotationMaker() {
     setServices((prev) =>
       prev.map((s) => {
         if (s.serviceId !== serviceId) return s;
-        const defaultTasks = CANONICAL_SERVICE_TASKS[serviceId] || [];
+        const defaultTasks = CANONICAL_SERVICE_TASKS_V41[serviceId] || [];
         return {
           ...s,
           tasks: defaultTasks.map((t) => ({ ...t, id: `t_${Date.now()}_${Math.random().toString(36).substr(2, 4)}` }))
@@ -223,7 +232,7 @@ export default function QuotationMaker() {
     setTimeout(() => setIsDealLocked(false), 3000);
   };
 
-  // Real-time Financial Cascade
+  // Real-time Financial Cascade (v4.1 Matrix)
   const financialSummary = useMemo(() => {
     let grossRevenue = 0;
     let totalTaskCosts = 0;
@@ -265,9 +274,9 @@ export default function QuotationMaker() {
 
     const totalCOGS = totalTaskCosts + Number(physicalMerchandiseOverhead) + Number(fixedDirectCosts);
     const closerFee = grossRevenue * 0.15;
-    const grossProfit = Math.max(0, grossRevenue - totalCOGS - closerFee);
-    const capitalReserve = grossProfit * 0.25;
-    const netDistributableProfit = grossProfit - capitalReserve;
+    const grossOperatingProfit = Math.max(0, grossRevenue - totalCOGS - closerFee);
+    const capitalReserve = grossOperatingProfit * 0.25;
+    const netDistributableProfit = grossOperatingProfit - capitalReserve;
     const profitSharePerPartner = netDistributableProfit * 0.50;
 
     const asyCloserFee = closerPartner === 'asy' ? closerFee : 0;
@@ -279,7 +288,7 @@ export default function QuotationMaker() {
       totalTaskCosts,
       totalCOGS,
       closerFee,
-      grossProfit,
+      grossOperatingProfit,
       capitalReserve,
       netDistributableProfit,
       profitSharePerPartner,
@@ -305,13 +314,13 @@ export default function QuotationMaker() {
           </button>
           <div>
             <span className="text-[10px] font-mono font-bold bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-md">
-              ALPHAS OS v4.0
+              ALPHAS OS v4.1
             </span>
             <h1 className="text-sm sm:text-base font-extrabold text-white leading-tight">Quotation Maker</h1>
           </div>
         </div>
 
-        {/* Header Actions */}
+        {/* Desktop Header Actions */}
         <div className="hidden sm:flex items-center gap-3">
           <div className="bg-slate-900 border border-slate-800 rounded-xl px-3 py-1.5 flex items-center gap-2 min-h-[44px]">
             <span className="text-xs text-slate-400">Client:</span>
@@ -340,13 +349,11 @@ export default function QuotationMaker() {
       {/* Slide-over Mobile Navigation Drawer */}
       {isMobileMenuOpen && (
         <div className="fixed inset-0 z-50 flex">
-          {/* Backdrop */}
           <div
             className="fixed inset-0 bg-black/70 backdrop-blur-sm transition-opacity"
             onClick={() => setIsMobileMenuOpen(false)}
           />
 
-          {/* Drawer Sidebar Content */}
           <div className="relative w-4/5 max-w-xs bg-slate-950 border-r border-slate-800 p-5 flex flex-col justify-between z-10 space-y-6">
             <div className="space-y-6">
               <div className="flex items-center justify-between border-b border-slate-800 pb-4">
@@ -364,7 +371,6 @@ export default function QuotationMaker() {
                 </button>
               </div>
 
-              {/* Mobile Menu Links */}
               <nav className="space-y-2">
                 {[
                   { id: "overview", label: "Executive Dashboard", icon: Layers },
@@ -392,7 +398,7 @@ export default function QuotationMaker() {
             </div>
 
             <div className="border-t border-slate-800 pt-4 text-center">
-              <p className="text-[11px] font-mono text-slate-500">ALPHAS Operating System v4.0</p>
+              <p className="text-[11px] font-mono text-slate-500">ALPHAS Digital Business Solutions v4.1</p>
             </div>
           </div>
         </div>
@@ -401,7 +407,7 @@ export default function QuotationMaker() {
       {/* Main Container */}
       <main className="max-w-7xl mx-auto px-3 sm:px-6 md:px-8 pt-4 md:pt-8 space-y-6">
         
-        {/* Mobile Header Inputs (Client & Closer) */}
+        {/* Mobile Header Inputs */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:hidden bg-slate-900/60 p-3.5 rounded-2xl border border-slate-800">
           <div>
             <label className="block text-[11px] font-bold uppercase text-slate-400 mb-1">Client Name</label>
@@ -433,7 +439,7 @@ export default function QuotationMaker() {
             <div className="flex items-center justify-between">
               <h2 className="text-xs sm:text-sm font-black uppercase tracking-wider text-slate-300 flex items-center gap-2">
                 <Layers className="w-4 h-4 text-blue-500" />
-                Core Services & Tasks
+                Core Pillars & Services
               </h2>
               <span className="text-[11px] sm:text-xs text-emerald-400 font-mono font-bold bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded-full">
                 40% Execution Cap
@@ -474,7 +480,6 @@ export default function QuotationMaker() {
                         </div>
                       </div>
 
-                      {/* Touch-Friendly Toggle Switch */}
                       <label className="relative inline-flex items-center cursor-pointer min-h-[44px] min-w-[44px] justify-end">
                         <input
                           type="checkbox"
@@ -490,7 +495,7 @@ export default function QuotationMaker() {
                     {service.isEnabled && (
                       <div className="mt-4 pt-3.5 border-t border-slate-800/60 space-y-4">
                         
-                        {/* Bundle Selector & Package Price */}
+                        {/* Bundle Selector & Price */}
                         <div className="grid grid-cols-1 sm:grid-cols-12 gap-3 items-end">
                           <div className="sm:col-span-7">
                             <label className="block text-[10px] uppercase font-bold text-slate-400 mb-1">
@@ -511,7 +516,7 @@ export default function QuotationMaker() {
 
                           <div className="sm:col-span-5">
                             <label className="block text-[10px] uppercase font-bold text-slate-400 mb-1 flex items-center gap-1">
-                              <Edit3 className="w-3 h-3 text-blue-400" /> Bundle Price (EGP)
+                              <Edit3 className="w-3 h-3 text-blue-400" /> Package Price (EGP)
                             </label>
                             <input
                               type="number"
@@ -527,7 +532,7 @@ export default function QuotationMaker() {
                           <div className="flex flex-wrap items-center justify-between gap-2">
                             <div className="flex items-center gap-2">
                               <span className="text-[11px] font-bold uppercase tracking-wider text-slate-300">
-                                Service Tasks
+                                Canonical Task Breakdown
                               </span>
                               <span className={`text-[10px] font-mono px-2 py-0.5 rounded-md font-bold flex items-center gap-1 ${
                                 isOverCap
@@ -544,9 +549,9 @@ export default function QuotationMaker() {
                                 type="button"
                                 onClick={() => handleResetDefaultTasks(service.serviceId)}
                                 className="text-[10px] bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 rounded-lg px-2 py-1.5 font-semibold flex items-center gap-1 min-h-[36px]"
-                                title="Reset tasks to default template"
+                                title="Reset tasks to canonical v4.1 template"
                               >
-                                <RefreshCw className="w-3 h-3" /> Reset
+                                <RefreshCw className="w-3 h-3" /> Reset v4.1
                               </button>
                               <button
                                 type="button"
@@ -566,17 +571,17 @@ export default function QuotationMaker() {
                             </div>
                           )}
 
-                          {/* Dynamic Task Rows (Mobile Cards + Desktop Table) */}
+                          {/* Dynamic Task Rows */}
                           {service.tasks.length === 0 ? (
                             <p className="text-[11px] text-slate-500 italic text-center py-2">
-                              No tasks defined. Click "+ Add Task" or "Reset".
+                              No tasks defined. Click "+ Add Task" or "Reset v4.1".
                             </p>
                           ) : (
                             <div className="space-y-2.5">
                               {service.tasks.map((task) => (
                                 <div key={task.id} className="bg-slate-900/90 rounded-xl p-2.5 sm:p-2 border border-slate-800/80 space-y-2 sm:space-y-0 sm:grid sm:grid-cols-12 sm:gap-2 sm:items-center">
                                   
-                                  {/* Task Name (Mobile: Full Width | Desktop: 5 cols) */}
+                                  {/* Task Name (5 cols) */}
                                   <div className="sm:col-span-5">
                                     <input
                                       type="text"
@@ -589,9 +594,8 @@ export default function QuotationMaker() {
                                     />
                                   </div>
 
-                                  {/* Mobile Wrapper for Role, Percentage & EGP Output */}
+                                  {/* Assignee & Percentage & EGP Output */}
                                   <div className="grid grid-cols-12 gap-2 items-center sm:contents">
-                                    {/* Assignee (6 cols on Mobile | 3 cols Desktop) */}
                                     <div className="col-span-6 sm:col-span-3">
                                       <select
                                         value={task.assignee}
@@ -600,14 +604,17 @@ export default function QuotationMaker() {
                                         }
                                         className="w-full bg-slate-950 border border-slate-800 rounded-lg px-2 py-2 text-base sm:text-xs text-slate-300 outline-none focus:border-blue-500 min-h-[40px] sm:min-h-[32px]"
                                       >
-                                        <option value="Asy">Asy</option>
-                                        <option value="Abanoub">Abanoub</option>
-                                        <option value="Shared">Shared</option>
-                                        <option value="Editor/Freelancer">Freelancer</option>
+                                        <option value="Asy">Mohamed Asy</option>
+                                        <option value="Abanoub">Abanoub Hany</option>
+                                        <option value="Shared">Shared Leadership</option>
+                                        <option value="Editor/Freelancer">External Creative</option>
+                                        <option value="Operations">Ops Specialist</option>
+                                        <option value="Overhead">Technical Overhead</option>
+                                        <option value="Lead Consultant">Lead Consultant</option>
+                                        <option value="Instructors">Instructors</option>
                                       </select>
                                     </div>
 
-                                    {/* Percentage (3 cols on Mobile | 2 cols Desktop) */}
                                     <div className="col-span-3 sm:col-span-2 flex items-center gap-1">
                                       <input
                                         type="number"
@@ -623,7 +630,6 @@ export default function QuotationMaker() {
                                       <span className="text-xs font-bold text-slate-400">%</span>
                                     </div>
 
-                                    {/* Calculated Cost & Delete (3 cols on Mobile | 2 cols Desktop) */}
                                     <div className="col-span-3 sm:col-span-2 flex items-center justify-between pl-1">
                                       <span className="text-xs font-mono font-bold text-emerald-400">
                                         EGP {Math.round(task.calculatedCost).toLocaleString()}
@@ -655,11 +661,11 @@ export default function QuotationMaker() {
             <div className="p-3.5 sm:p-4 bg-slate-900/40 border border-slate-800 rounded-2xl space-y-3">
               <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
                 <Calculator className="w-4 h-4 text-amber-400" />
-                Physical Overhead & Direct Expenses
+                Digital Infrastructure & Direct Expenses
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 <div>
-                  <label className="block text-[11px] text-slate-400 mb-1">Physical Merchandise Overhead (EGP)</label>
+                  <label className="block text-[11px] text-slate-400 mb-1">Physical Swatch / Merchandise Overhead (EGP)</label>
                   <input
                     type="number"
                     value={physicalMerchandiseOverhead}
@@ -668,7 +674,7 @@ export default function QuotationMaker() {
                   />
                 </div>
                 <div>
-                  <label className="block text-[11px] text-slate-400 mb-1">Fixed Direct Costs (EGP)</label>
+                  <label className="block text-[11px] text-slate-400 mb-1">Fixed Infrastructure Direct Costs (EGP)</label>
                   <input
                     type="number"
                     value={fixedDirectCosts}
@@ -687,10 +693,10 @@ export default function QuotationMaker() {
               <div className="flex items-center justify-between pb-3.5 border-b border-slate-800">
                 <div className="flex items-center gap-2">
                   <PieChart className="w-5 h-5 text-emerald-400" />
-                  <h2 className="text-sm sm:text-base font-extrabold text-white">DUO SPLIT STATEMENT</h2>
+                  <h2 className="text-sm sm:text-base font-extrabold text-white">DUO SPLIT STATEMENT v4.1</h2>
                 </div>
                 <span className="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono font-bold px-2 py-0.5 rounded-full">
-                  60% MARGIN
+                  45% PROFIT POOL
                 </span>
               </div>
 
@@ -698,7 +704,7 @@ export default function QuotationMaker() {
               <div className="space-y-2.5 font-mono text-xs">
                 
                 <div className="flex justify-between items-center py-2 border-b border-slate-800/60">
-                  <span className="text-slate-400">Gross Revenue</span>
+                  <span className="text-slate-400">Gross Revenue (100%)</span>
                   <span className="text-sm font-bold text-white">
                     EGP {financialSummary.grossRevenue.toLocaleString()}
                   </span>
@@ -706,11 +712,11 @@ export default function QuotationMaker() {
 
                 <div className="flex justify-between items-center py-2 border-b border-slate-800/60">
                   <div className="flex items-center gap-1.5">
-                    <span className="text-slate-400">COGS (Max 40% Exec)</span>
+                    <span className="text-slate-400">Total Direct COGS (Max 40%)</span>
                     <div className="group relative cursor-pointer">
                       <Info className="w-3.5 h-3.5 text-slate-500" />
                       <div className="hidden group-hover:block absolute left-0 bottom-6 w-56 p-2 bg-slate-950 border border-slate-800 text-[10px] text-slate-300 rounded-lg shadow-xl z-20 font-sans">
-                        Execution task costs capped at 40% max per service package.
+                        Task execution costs strictly capped at 40% max per service tier.
                       </div>
                     </div>
                   </div>
@@ -720,21 +726,21 @@ export default function QuotationMaker() {
                 </div>
 
                 <div className="flex justify-between items-center py-2 border-b border-slate-800/60">
-                  <span className="text-slate-400">Closer Sales Fee (15%)</span>
+                  <span className="text-slate-400">Sales Closer Fee (15%)</span>
                   <span className="text-sm font-bold text-blue-400">
                     EGP {financialSummary.closerFee.toLocaleString()}
                   </span>
                 </div>
 
                 <div className="flex justify-between items-center py-2 border-b border-slate-800/60 bg-slate-950/60 px-3 rounded-xl border border-slate-800">
-                  <span className="text-slate-300 font-bold">Gross Project Profit (~60%)</span>
+                  <span className="text-slate-300 font-bold">Gross Operating Profit (45%)</span>
                   <span className="text-sm font-extrabold text-emerald-400">
-                    EGP {financialSummary.grossProfit.toLocaleString()}
+                    EGP {financialSummary.grossOperatingProfit.toLocaleString()}
                   </span>
                 </div>
 
                 <div className="flex justify-between items-center py-2 border-b border-slate-800/60">
-                  <span className="text-slate-400">Capital Reserve (25%)</span>
+                  <span className="text-slate-400">Capital Reserve (25% of Ops Profit)</span>
                   <span className="text-sm font-bold text-slate-400">
                     EGP {financialSummary.capitalReserve.toLocaleString()}
                   </span>
@@ -748,7 +754,7 @@ export default function QuotationMaker() {
                 </div>
 
                 <div className="flex justify-between items-center py-2 text-slate-400">
-                  <span>50/50 Partner Profit Share</span>
+                  <span>50/50 Partner Net Profit Split</span>
                   <span className="font-bold text-white">
                     EGP {financialSummary.profitSharePerPartner.toLocaleString()} / partner
                   </span>
@@ -759,13 +765,13 @@ export default function QuotationMaker() {
               <div className="space-y-3 pt-2">
                 <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
                   <UserCheck className="w-4 h-4 text-blue-400" />
-                  Partner Net Payout Breakdown
+                  Partner Net Payout Summary
                 </h3>
 
                 {/* Mohamed Asy Card */}
                 <div className="p-3.5 bg-slate-950/80 border border-blue-500/30 rounded-2xl space-y-2">
                   <div className="flex justify-between items-center">
-                    <span className="text-xs font-bold text-blue-300">Mohamed Asy</span>
+                    <span className="text-xs font-bold text-blue-300">Mohamed Asy (CEO & Dev)</span>
                     <span className="text-sm font-mono font-extrabold text-blue-400">
                       EGP {financialSummary.asyTotalPayout.toLocaleString()}
                     </span>
@@ -777,10 +783,10 @@ export default function QuotationMaker() {
                   </div>
                 </div>
 
-                {/* Abanoub Card */}
+                {/* Abanoub Hany Card */}
                 <div className="p-3.5 bg-slate-950/80 border border-purple-500/30 rounded-2xl space-y-2">
                   <div className="flex justify-between items-center">
-                    <span className="text-xs font-bold text-purple-300">Abanoub</span>
+                    <span className="text-xs font-bold text-purple-300">Abanoub Hany (COO & Media)</span>
                     <span className="text-sm font-mono font-extrabold text-purple-400">
                       EGP {financialSummary.abanoubTotalPayout.toLocaleString()}
                     </span>
@@ -792,10 +798,10 @@ export default function QuotationMaker() {
                   </div>
                 </div>
 
-                {/* External Freelancers / Third Parties */}
+                {/* External Task Allocations */}
                 {Object.keys(financialSummary.customTaskEarnings).length > 0 && (
                   <div className="p-3.5 bg-slate-950/60 border border-slate-800 rounded-2xl space-y-2">
-                    <span className="text-[11px] font-bold text-amber-400 block">External Task Payouts (COGS)</span>
+                    <span className="text-[11px] font-bold text-amber-400 block">External & Overhead Allocations (COGS)</span>
                     {Object.entries(financialSummary.customTaskEarnings).map(([assignee, amount]) => (
                       <div key={assignee} className="flex justify-between text-xs font-mono">
                         <span className="text-slate-400">{assignee}:</span>
