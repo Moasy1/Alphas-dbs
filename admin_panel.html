@@ -81,6 +81,13 @@
                 </a>
             </li>
             <li>
+                <a href="#" class="nav-link flex items-center px-4 py-3 text-slate-400 hover:text-white rounded-xl transition-all duration-200 gap-3" data-target="salesforecast">
+                    <i class='bx bx-trending-up text-xl text-emerald-400'></i>
+                    <span class="text-sm font-semibold">Sales Forecast & Targets</span>
+                    <span class="ml-auto bg-emerald-500/20 text-emerald-400 text-[9px] font-bold px-1.5 py-0.5 rounded border border-emerald-500/30">v4.1</span>
+                </a>
+            </li>
+            <li>
                 <a href="#" class="nav-link flex items-center px-4 py-3 text-slate-400 hover:text-white rounded-xl transition-all duration-200 gap-3" data-target="projects">
                     <i class='bx bx-task text-xl'></i>
                     <span class="text-sm font-semibold">Project Tracker</span>
@@ -962,6 +969,161 @@
                             <button onclick="printProposal()" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white text-xs font-black rounded-xl transition-all shadow-md flex items-center gap-2">
                                 <i class="fa-solid fa-print"></i> Print Proposal / Send to Client
                             </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= VIEW 3.5: SALES FORECASTING & TARGETS ================= -->
+            <section id="salesforecast" class="view-section space-y-8">
+                <!-- Header Card -->
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-slate-900/60 p-6 rounded-3xl border border-alphas-glassBorder">
+                    <div>
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="px-2.5 py-0.5 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-full text-[10px] font-black uppercase tracking-wider">
+                                ALPHAS OS v4.1 ENGINE
+                            </span>
+                            <span class="text-xs text-slate-400 font-bold uppercase tracking-wider">Sales Intelligence</span>
+                        </div>
+                        <h2 class="text-2xl font-black text-white">Sales Forecasting & Target Tracker</h2>
+                        <p class="text-xs text-slate-400 mt-1">Real-time revenue target gauges, pipeline probabilities, and Version 4.1 profit pool projections.</p>
+                    </div>
+
+                    <!-- Target Setting Input -->
+                    <div class="bg-slate-950/80 border border-alphas-glassBorder rounded-2xl p-4 flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-blue-600/20 text-blue-400 flex items-center justify-center text-xl font-bold">
+                            <i class="fa-solid fa-bullseye"></i>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Monthly Target Revenue</span>
+                            <div class="flex items-center gap-1">
+                                <span class="text-xs text-slate-400 font-mono font-bold">EGP</span>
+                                <input type="number" id="forecast-target-revenue" value="250000" oninput="updateSalesForecastEngine()" class="bg-transparent text-lg font-mono font-black text-white outline-none w-32 focus:border-b focus:border-blue-500">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Target Progress Gauge & Key Metrics -->
+                <div class="bg-slate-900/60 border border-alphas-glassBorder rounded-3xl p-6 space-y-6">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div>
+                            <h3 class="text-sm font-black text-white uppercase tracking-wider flex items-center gap-2">
+                                <i class="fa-solid fa-chart-line text-emerald-400"></i> Monthly Target Attainment Gauge
+                            </h3>
+                            <p class="text-xs text-slate-400 mt-0.5">Based on Closed Deals + Stage-Weighted Pipeline Revenue.</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span id="forecast-attainment-percent" class="text-2xl font-mono font-black text-emerald-400">0%</span>
+                            <span id="forecast-target-label" class="text-xs text-slate-400">of EGP 250,000</span>
+                        </div>
+                    </div>
+
+                    <!-- Progress Bar -->
+                    <div class="w-full bg-slate-950 h-4 rounded-full border border-alphas-glassBorder overflow-hidden p-0.5">
+                        <div id="forecast-progress-bar" class="h-full bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-400 rounded-full transition-all duration-700 w-[0%]"></div>
+                    </div>
+
+                    <!-- 4 Summary Stat Badges -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="bg-slate-950/70 p-4 rounded-2xl border border-slate-900">
+                            <span class="text-[10px] text-slate-400 font-bold uppercase block mb-1">Closed Deals (This Mo.)</span>
+                            <span id="forecast-closed-revenue" class="text-lg font-mono font-black text-white">EGP 0</span>
+                        </div>
+                        <div class="bg-slate-950/70 p-4 rounded-2xl border border-slate-900">
+                            <span class="text-[10px] text-slate-400 font-bold uppercase block mb-1">Weighted Pipeline</span>
+                            <span id="forecast-weighted-pipeline" class="text-lg font-mono font-black text-emerald-400">EGP 0</span>
+                        </div>
+                        <div class="bg-slate-950/70 p-4 rounded-2xl border border-slate-900">
+                            <span class="text-[10px] text-slate-400 font-bold uppercase block mb-1">Target Operating Profit (45%)</span>
+                            <span id="forecast-target-ops-profit" class="text-lg font-mono font-black text-blue-400">EGP 112,500</span>
+                        </div>
+                        <div class="bg-slate-950/70 p-4 rounded-2xl border border-slate-900">
+                            <span class="text-[10px] text-slate-400 font-bold uppercase block mb-1">Target Partner Net Payout</span>
+                            <span id="forecast-target-partner-payout" class="text-lg font-mono font-black text-purple-400">EGP 42,188 / partner</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pipeline Table & Add Opportunity Form -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    <!-- Left: Pipeline Table (8 Cols) -->
+                    <div class="lg:col-span-8 bg-slate-900/60 border border-alphas-glassBorder rounded-3xl p-6 space-y-4">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-sm font-black text-white uppercase tracking-wider flex items-center gap-2">
+                                <i class="fa-solid fa-list-check text-blue-400"></i> Active Sales Opportunities
+                            </h3>
+                            <span id="forecast-unweighted-total" class="text-xs font-mono text-slate-400 bg-slate-950 px-3 py-1 rounded-xl border border-alphas-glassBorder">Unweighted Total: EGP 0</span>
+                        </div>
+                        <div id="forecast-pipeline-list" class="space-y-3"></div>
+                    </div>
+
+                    <!-- Right: Add Deal Form (4 Cols) -->
+                    <div class="lg:col-span-4 bg-slate-950/60 border border-alphas-glassBorder rounded-3xl p-6 space-y-4">
+                        <h3 class="text-sm font-black text-white uppercase tracking-wider flex items-center gap-2">
+                            <i class="fa-solid fa-plus text-blue-400"></i> Add Sales Opportunity
+                        </h3>
+                        <form id="forecast-add-form" onsubmit="addForecastOpportunity(event)" class="space-y-3">
+                            <div class="space-y-1">
+                                <label class="block text-[11px] font-bold text-slate-300 uppercase">Client / Opportunity</label>
+                                <input type="text" id="opp-client" placeholder="Client Name" required class="w-full bg-slate-900 border border-alphas-glassBorder rounded-xl px-3 py-2 text-xs text-white outline-none focus:border-blue-500 min-h-[44px]">
+                            </div>
+                            <div class="space-y-1">
+                                <label class="block text-[11px] font-bold text-slate-300 uppercase">Service Pillar</label>
+                                <select id="opp-pillar" class="w-full bg-slate-900 border border-alphas-glassBorder rounded-xl px-3 py-2 text-xs font-bold text-slate-200 outline-none min-h-[44px]">
+                                    <option value="Web Engineering">Web Engineering & Stores</option>
+                                    <option value="Media Buying & Ads">Media Buying & Ads</option>
+                                    <option value="Social Media Marketing">Social Media Marketing (SMM)</option>
+                                    <option value="Store Management">Store Support & Management</option>
+                                    <option value="Strategic Consulting">Strategic Consulting</option>
+                                    <option value="Corporate Academy">Corporate Academy Training</option>
+                                </select>
+                            </div>
+                            <div class="grid grid-cols-2 gap-2">
+                                <div class="space-y-1">
+                                    <label class="block text-[11px] font-bold text-slate-300 uppercase">Deal Value (EGP)</label>
+                                    <input type="number" id="opp-value" value="23000" min="1000" class="w-full bg-slate-900 border border-alphas-glassBorder rounded-xl px-3 py-2 text-xs font-mono font-bold text-white outline-none min-h-[44px]">
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="block text-[11px] font-bold text-slate-300 uppercase">Closer (15%)</label>
+                                    <select id="opp-closer" class="w-full bg-slate-900 border border-alphas-glassBorder rounded-xl px-3 py-2 text-xs font-bold text-blue-400 outline-none min-h-[44px]">
+                                        <option value="asy">Mohamed Asy</option>
+                                        <option value="abanoub">Abanoub</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="submit" class="w-full py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 min-h-[44px]">
+                                <i class="fa-solid fa-plus"></i> Add to Sales Pipeline
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Financial Target Cascade Matrix v4.1 -->
+                <div class="bg-slate-900/60 border border-alphas-glassBorder rounded-3xl p-6 space-y-4">
+                    <h3 class="text-sm font-black text-white uppercase tracking-wider flex items-center gap-2">
+                        <i class="fa-solid fa-pie-chart text-emerald-400"></i> Version 4.1 Financial Target Cascade Matrix
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-xs font-mono">
+                        <div class="bg-slate-950/80 p-4 rounded-2xl border border-slate-900 space-y-1">
+                            <span class="text-[10px] text-slate-400 font-bold uppercase block">COGS Execution Cap (40%)</span>
+                            <span id="matrix-target-cogs" class="text-base font-bold text-amber-400">EGP 100,000</span>
+                            <span class="text-[10px] text-slate-500 block font-sans">Task execution & tool costs</span>
+                        </div>
+                        <div class="bg-slate-950/80 p-4 rounded-2xl border border-slate-900 space-y-1">
+                            <span class="text-[10px] text-slate-400 font-bold uppercase block">Sales Closer Fee (15%)</span>
+                            <span id="matrix-target-closer" class="text-base font-bold text-blue-400">EGP 37,500</span>
+                            <span class="text-[10px] text-slate-500 block font-sans">Top-line deal closer commission</span>
+                        </div>
+                        <div class="bg-slate-950/80 p-4 rounded-2xl border border-slate-900 space-y-1">
+                            <span class="text-[10px] text-slate-400 font-bold uppercase block">Operating Profit Pool (45%)</span>
+                            <span id="matrix-target-ops-profit" class="text-base font-bold text-emerald-400">EGP 112,500</span>
+                            <span class="text-[10px] text-slate-500 block font-sans">100% Revenue - 40% COGS - 15% Fee</span>
+                        </div>
+                        <div class="bg-slate-950/80 p-4 rounded-2xl border border-slate-900 space-y-1">
+                            <span class="text-[10px] text-slate-400 font-bold uppercase block">Capital Reserve Pool (25%)</span>
+                            <span id="matrix-target-reserve" class="text-base font-bold text-purple-400">EGP 28,125</span>
+                            <span class="text-[10px] text-slate-500 block font-sans">25% of Gross Operating Profit</span>
                         </div>
                     </div>
                 </div>

@@ -179,6 +179,7 @@ document.addEventListener("DOMContentLoaded", () => {
     populateCloserSelect();
     ['web', 'mgmt', 'smm', 'ads', 'consulting', 'academy'].forEach(s => renderServiceTaskRows(s));
     calculateQuotation();
+    updateSalesForecastEngine();
     renderProjectBoard();
     renderInvoicesLedger();
     renderCMSView();
@@ -233,6 +234,7 @@ function initNavigation() {
             // Trigger updates on tab click
             if (target === "dashboard") renderDashboardView();
             if (target === "crm") renderCRMView();
+            if (target === "salesforecast") updateSalesForecastEngine();
             if (target === "projects") renderProjectBoard();
             if (target === "invoices") renderInvoicesLedger();
             if (target === "cms") renderCMSView();
@@ -2594,4 +2596,158 @@ function runGlobalSearch() {
         // Auto navigate to active records for other sections
         alert(`Global Search: Query "${query}" matched. Try searching in CRM, Invoices, or Deal Hunter tabs!`);
     }
+}
+
+// 15. SALES FORECASTING & TARGETS ENGINE (v4.1)
+let forecastPipelineDeals = [
+    { id: "opp_1", client: "مؤسسة البزنس الطموح", pillar: "Web Engineering", value: 34500, stage: "Negotiation", probability: 80, closer: "asy" },
+    { id: "opp_2", client: "شركة الأفق للتجارة", pillar: "Media Buying & Ads", value: 17250, stage: "Proposal Sent", probability: 50, closer: "abanoub" },
+    { id: "opp_3", client: "براند النخبة للأزياء", pillar: "Social Media Marketing", value: 11592, stage: "Qualified Lead", probability: 30, closer: "abanoub" },
+    { id: "opp_4", client: "مجموعة الشروق الطبية", pillar: "Store Management", value: 11500, stage: "Contract Sent", probability: 90, closer: "asy" },
+    { id: "opp_5", client: "أكاديمية المستقبل", pillar: "Corporate Academy", value: 14375, stage: "Proposal Sent", probability: 50, closer: "asy" }
+];
+
+function updateSalesForecastEngine() {
+    const targetRevenueInput = document.getElementById("forecast-target-revenue");
+    const targetRevenue = parseFloat(targetRevenueInput ? targetRevenueInput.value : 250000) || 250000;
+
+    let unweightedTotal = 0;
+    let weightedTotal = 0;
+
+    forecastPipelineDeals.forEach(deal => {
+        unweightedTotal += deal.value;
+        weightedTotal += deal.value * (deal.probability / 100);
+    });
+
+    const closedRevenue = 115000;
+    const totalProjected = closedRevenue + weightedTotal;
+    const attainmentPercent = Math.min(100, Math.round((totalProjected / targetRevenue) * 100));
+
+    const attainmentElem = document.getElementById("forecast-attainment-percent");
+    if (attainmentElem) attainmentElem.innerText = `${attainmentPercent}%`;
+
+    const labelElem = document.getElementById("forecast-target-label");
+    if (labelElem) labelElem.innerText = `of EGP ${targetRevenue.toLocaleString()}`;
+
+    const progressBar = document.getElementById("forecast-progress-bar");
+    if (progressBar) progressBar.style.width = `${attainmentPercent}%`;
+
+    const closedElem = document.getElementById("forecast-closed-revenue");
+    if (closedElem) closedElem.innerText = `EGP ${closedRevenue.toLocaleString()}`;
+
+    const weightedElem = document.getElementById("forecast-weighted-pipeline");
+    if (weightedElem) weightedElem.innerText = `EGP ${Math.round(weightedTotal).toLocaleString()}`;
+
+    const unweightedElem = document.getElementById("forecast-unweighted-total");
+    if (unweightedElem) unweightedElem.innerText = `Unweighted Total: EGP ${unweightedTotal.toLocaleString()}`;
+
+    // Target Financial Cascade Matrix v4.1 (45% Ops Profit, 25% Reserve, 50% Profit Split)
+    const targetCogs = targetRevenue * 0.40;
+    const targetCloser = targetRevenue * 0.15;
+    const targetOpsProfit = targetRevenue * 0.45;
+    const targetReserve = targetOpsProfit * 0.25;
+    const targetDistributable = targetOpsProfit - targetReserve;
+    const targetPartnerPayout = targetDistributable * 0.50;
+
+    const opsProfitElem = document.getElementById("forecast-target-ops-profit");
+    if (opsProfitElem) opsProfitElem.innerText = `EGP ${Math.round(targetOpsProfit).toLocaleString()}`;
+
+    const partnerPayoutElem = document.getElementById("forecast-target-partner-payout");
+    if (partnerPayoutElem) partnerPayoutElem.innerText = `EGP ${Math.round(targetPartnerPayout).toLocaleString()} / partner`;
+
+    const matrixCogs = document.getElementById("matrix-target-cogs");
+    if (matrixCogs) matrixCogs.innerText = `EGP ${Math.round(targetCogs).toLocaleString()}`;
+
+    const matrixCloser = document.getElementById("matrix-target-closer");
+    if (matrixCloser) matrixCloser.innerText = `EGP ${Math.round(targetCloser).toLocaleString()}`;
+
+    const matrixOps = document.getElementById("matrix-target-ops-profit");
+    if (matrixOps) matrixOps.innerText = `EGP ${Math.round(targetOpsProfit).toLocaleString()}`;
+
+    const matrixReserve = document.getElementById("matrix-target-reserve");
+    if (matrixReserve) matrixReserve.innerText = `EGP ${Math.round(targetReserve).toLocaleString()}`;
+
+    renderSalesForecastPipelineList();
+}
+
+function renderSalesForecastPipelineList() {
+    const listContainer = document.getElementById("forecast-pipeline-list");
+    if (!listContainer) return;
+
+    listContainer.innerHTML = "";
+    if (forecastPipelineDeals.length === 0) {
+        listContainer.innerHTML = `<p class="text-xs text-slate-500 italic py-4 text-center">No active pipeline opportunities added yet.</p>`;
+        return;
+    }
+
+    forecastPipelineDeals.forEach(deal => {
+        const weightedVal = Math.round(deal.value * (deal.probability / 100));
+        const item = document.createElement("div");
+        item.className = "bg-slate-950/90 p-4 rounded-2xl border border-alphas-glassBorder space-y-3 sm:space-y-0 sm:flex sm:items-center sm:justify-between";
+        item.innerHTML = `
+            <div class="space-y-1">
+                <div class="flex items-center gap-2">
+                    <span class="text-xs font-bold text-white">${deal.client}</span>
+                    <span class="text-[9px] bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-md font-semibold">${deal.pillar}</span>
+                </div>
+                <p class="text-[11px] text-slate-400 font-mono">Deal Value: EGP ${deal.value.toLocaleString()} | Closer: <strong class="text-slate-200">${deal.closer === 'asy' ? 'Mohamed Asy' : 'Abanoub Hany'}</strong></p>
+            </div>
+            <div class="flex items-center gap-3 justify-between sm:justify-end">
+                <div class="flex items-center gap-1.5">
+                    <span class="text-[11px] text-slate-400">Probability:</span>
+                    <select onchange="updateForecastProbability('${deal.id}', this.value)" class="bg-slate-900 border border-alphas-glassBorder rounded-lg px-2 py-1 text-xs font-bold text-blue-400 outline-none min-h-[36px]">
+                        <option value="20" ${deal.probability === 20 ? 'selected' : ''}>20% Lead</option>
+                        <option value="50" ${deal.probability === 50 ? 'selected' : ''}>50% Proposal</option>
+                        <option value="80" ${deal.probability === 80 ? 'selected' : ''}>80% Negotiation</option>
+                        <option value="90" ${deal.probability === 90 ? 'selected' : ''}>90% Contract</option>
+                        <option value="100" ${deal.probability === 100 ? 'selected' : ''}>100% Won</option>
+                    </select>
+                </div>
+                <div class="text-right">
+                    <span class="text-[10px] text-slate-400 block font-mono">Weighted</span>
+                    <span class="text-xs font-mono font-bold text-emerald-400">EGP ${weightedVal.toLocaleString()}</span>
+                </div>
+                <button type="button" onclick="deleteForecastOpportunity('${deal.id}')" class="text-red-400 hover:text-red-300 p-2 rounded-lg hover:bg-red-500/10 min-h-[36px] min-w-[36px] flex items-center justify-center" title="Remove Deal">
+                    <i class='bx bx-trash text-base'></i>
+                </button>
+            </div>
+        `;
+        listContainer.appendChild(item);
+    });
+}
+
+function updateForecastProbability(id, prob) {
+    const deal = forecastPipelineDeals.find(d => d.id === id);
+    if (deal) {
+        deal.probability = parseInt(prob) || 50;
+        updateSalesForecastEngine();
+    }
+}
+
+function deleteForecastOpportunity(id) {
+    forecastPipelineDeals = forecastPipelineDeals.filter(d => d.id !== id);
+    updateSalesForecastEngine();
+}
+
+function addForecastOpportunity(event) {
+    event.preventDefault();
+    const client = document.getElementById("opp-client").value;
+    const pillar = document.getElementById("opp-pillar").value;
+    const value = parseFloat(document.getElementById("opp-value").value) || 23000;
+    const closer = document.getElementById("opp-closer").value;
+
+    if (!client) return;
+
+    forecastPipelineDeals.push({
+        id: "opp_" + Date.now(),
+        client,
+        pillar,
+        value,
+        stage: "Proposal Sent",
+        probability: 50,
+        closer
+    });
+
+    document.getElementById("opp-client").value = "";
+    updateSalesForecastEngine();
 }
