@@ -187,6 +187,28 @@ document.addEventListener("DOMContentLoaded", () => {
     updateBackupView();
 });
 
+function toggleMobileSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.getElementById('mobile-sidebar-overlay');
+    if (sidebar) {
+        sidebar.classList.toggle('sidebar-open');
+    }
+    if (overlay) {
+        overlay.classList.toggle('hidden');
+    }
+}
+
+function closeMobileSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.getElementById('mobile-sidebar-overlay');
+    if (sidebar) {
+        sidebar.classList.remove('sidebar-open');
+    }
+    if (overlay) {
+        overlay.classList.add('hidden');
+    }
+}
+
 function initNavigation() {
     const navLinks = document.querySelectorAll(".nav-link");
     const sections = document.querySelectorAll(".view-section");
@@ -195,6 +217,7 @@ function initNavigation() {
     navLinks.forEach(link => {
         link.addEventListener("click", (e) => {
             e.preventDefault();
+            closeMobileSidebar();
             const target = link.getAttribute("data-target");
 
             navLinks.forEach(l => l.classList.remove("active"));

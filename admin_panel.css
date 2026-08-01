@@ -243,3 +243,45 @@
         display: none !important;
     }
 }
+
+/* Mobile Responsive Drawer & Layout Rules */
+@media (max-width: 1023px) {
+    .sidebar {
+        transform: translateX(-100%);
+        box-shadow: 4px 0 25px rgba(0, 0, 0, 0.7);
+        z-index: 60 !important;
+    }
+    
+    .sidebar.sidebar-open {
+        transform: translateX(0) !important;
+    }
+    
+    main {
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+
+    header {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+}
+
+@media (min-width: 1024px) {
+    .sidebar {
+        transform: translateX(0) !important;
+    }
+}
+
+/* Touch Target Enforcements for Mobile (<768px) */
+@media (max-width: 767px) {
+    button, select, input[type="text"], input[type="number"] {
+        min-height: 44px !important;
+        font-size: 14px !important;
+    }
+    .nav-link {
+        min-height: 48px !important;
+    }
+}
+
+
