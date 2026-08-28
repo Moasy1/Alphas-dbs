@@ -1,0 +1,345 @@
+/* ==========================================================================
+   ALPHAS DIGITAL x SYLVA (LIVING GREEN & LIQUID METAL) DESIGN SYSTEM
+   Integrated with UI/UX Pro Max Design Intelligence Standards
+   ========================================================================== */
+
+:root {
+    --sylva-bg: #060a14;
+    --sylva-navy: #0a1122;
+    --sylva-surface: rgba(10, 17, 34, 0.7);
+    --sylva-emerald: #10b981;
+    --sylva-emerald-glow: rgba(16, 185, 129, 0.25);
+    --sylva-gold: #e59b58;
+    --sylva-gold-light: #f5d6b8;
+    --sylva-gold-glow: rgba(229, 155, 88, 0.3);
+    --sylva-glass: rgba(255, 255, 255, 0.035);
+    --sylva-glass-border: rgba(255, 255, 255, 0.09);
+    --sylva-glass-border-hover: rgba(229, 155, 88, 0.4);
+    --sylva-text-main: #f8fafc;
+    --sylva-text-muted: #94a3b8;
+}
+
+/* --------------------------------------------------------------------------
+   1. Typography & Global Luxury Defaults
+   -------------------------------------------------------------------------- */
+body {
+    background-color: var(--sylva-bg);
+    color: var(--sylva-text-main);
+    font-family: 'Cairo', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+}
+
+/* Gradient Heading Shimmer */
+.sylva-gradient-text {
+    background: linear-gradient(135deg, #ffffff 0%, #f5d6b8 50%, #e59b58 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+.sylva-emerald-gradient-text {
+    background: linear-gradient(135deg, #ffffff 0%, #6ee7b7 50%, #10b981 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+/* --------------------------------------------------------------------------
+   2. Liquid Metal & Sylva Glassmorphism
+   -------------------------------------------------------------------------- */
+.sylva-glass {
+    background: rgba(10, 17, 34, 0.65);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--sylva-glass-border);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45), inset 0 1px 1px 0 rgba(255, 255, 255, 0.12);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Dynamic Spotlight Glow on Cards */
+.sylva-spotlight {
+    position: relative;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--sylva-glass-border);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4), inset 0 1px 1px 0 rgba(255, 255, 255, 0.08);
+    transition: border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
+                box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: default;
+}
+
+.sylva-spotlight::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+        450px circle at var(--mouse-x, -500px) var(--mouse-y, -500px),
+        rgba(229, 155, 88, 0.13),
+        transparent 65%
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.sylva-spotlight::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    border: 1px solid rgba(229, 155, 88, 0.4);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    z-index: 2;
+    mask: radial-gradient(
+        250px circle at var(--mouse-x, -500px) var(--mouse-y, -500px),
+        black,
+        transparent
+    );
+    -webkit-mask: radial-gradient(
+        250px circle at var(--mouse-x, -500px) var(--mouse-y, -500px),
+        black,
+        transparent
+    );
+}
+
+.sylva-spotlight:hover::before,
+.sylva-spotlight:hover::after {
+    opacity: 1;
+}
+
+.sylva-spotlight:hover {
+    border-color: rgba(229, 155, 88, 0.35);
+    box-shadow: 0 16px 40px 0 rgba(0, 0, 0, 0.5), 0 0 25px 0 rgba(229, 155, 88, 0.1);
+    transform: translateY(-4px);
+}
+
+/* --------------------------------------------------------------------------
+   3. Liquid Metal Badges & Live Status Indicators
+   -------------------------------------------------------------------------- */
+.sylva-pill-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 16px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 9999px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.2), 0 4px 16px rgba(0, 0, 0, 0.25);
+    color: #f8fafc;
+}
+
+/* Luminous Living Green Pulse Dot */
+.sylva-live-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--sylva-emerald);
+    box-shadow: 0 0 10px var(--sylva-emerald);
+    position: relative;
+    display: inline-block;
+}
+
+.sylva-live-dot::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    border: 1.5px solid var(--sylva-emerald);
+    animation: sylvaPulse 2s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+}
+
+@keyframes sylvaPulse {
+    0% {
+        transform: scale(0.8);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(2.2);
+        opacity: 0;
+    }
+}
+
+/* Gold Pulse Dot */
+.sylva-gold-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--sylva-gold);
+    box-shadow: 0 0 10px var(--sylva-gold);
+    position: relative;
+    display: inline-block;
+}
+
+.sylva-gold-dot::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    border: 1.5px solid var(--sylva-gold);
+    animation: sylvaPulse 2s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+}
+
+/* --------------------------------------------------------------------------
+   4. Liquid Metal CTA Buttons
+   -------------------------------------------------------------------------- */
+.sylva-btn-primary {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #e59b58 0%, #c97e3a 100%);
+    color: #060a14;
+    font-weight: 700;
+    font-size: 15px;
+    padding: 14px 28px;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(229, 155, 88, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    border: none;
+}
+
+.sylva-btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: transform 0.6s ease;
+}
+
+.sylva-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(229, 155, 88, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.6);
+    background: linear-gradient(135deg, #f5d6b8 0%, #e59b58 100%);
+}
+
+.sylva-btn-primary:hover::before {
+    transform: translateX(200%);
+}
+
+.sylva-btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: #f8fafc;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 14px 28px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+}
+
+.sylva-btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--sylva-gold);
+    color: var(--sylva-gold-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 15px rgba(229, 155, 88, 0.2);
+}
+
+/* --------------------------------------------------------------------------
+   5. Floating Ambient Glow Meshes
+   -------------------------------------------------------------------------- */
+.sylva-ambient-glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.45;
+    animation: ambientBreathe 10s ease-in-out infinite alternate;
+}
+
+.sylva-glow-emerald {
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.3) 0%, transparent 70%);
+}
+
+.sylva-glow-gold {
+    background: radial-gradient(circle, rgba(229, 155, 88, 0.35) 0%, transparent 70%);
+}
+
+.sylva-glow-navy {
+    background: radial-gradient(circle, rgba(30, 58, 138, 0.4) 0%, transparent 70%);
+}
+
+@keyframes ambientBreathe {
+    0% {
+        transform: scale(0.9) translate(0, 0);
+        opacity: 0.35;
+    }
+    50% {
+        transform: scale(1.15) translate(20px, -20px);
+        opacity: 0.55;
+    }
+    100% {
+        transform: scale(1) translate(-15px, 15px);
+        opacity: 0.4;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   6. 3D Perspective Card Tilt
+   -------------------------------------------------------------------------- */
+.sylva-3d-wrap {
+    perspective: 1200px;
+    transform-style: preserve-3d;
+}
+
+.sylva-3d-card {
+    transform-style: preserve-3d;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+}
+
+/* --------------------------------------------------------------------------
+   7. Accessibility & Performance Guardrails
+   -------------------------------------------------------------------------- */
+.cursor-pointer {
+    cursor: pointer;
+}
+
+:focus-visible {
+    outline: 2px solid var(--sylva-gold) !important;
+    outline-offset: 2px !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    .sylva-spotlight::before,
+    .sylva-spotlight::after {
+        display: none !important;
+    }
+}

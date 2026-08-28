@@ -69,6 +69,9 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- Sylva Living Green & UI/UX Pro Max Design System -->
+    <link rel="stylesheet" href="sylva-effects.css">
+    
     <!-- GSAP & ScrollTrigger Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -470,12 +473,34 @@
     </div>
 
     <!-- HERO SECTION -->
-    <section class="relative min-h-[70vh] flex items-center pt-32 pb-20 overflow-hidden">
-        <div class="max-w-7xl mx-auto px-6 relative z-10 text-center">
-            <h1 class="text-4xl md:text-6xl font-black font-display text-white uppercase tracking-tight mb-6">
-                Media Buying Service
+    <section class="relative min-h-[75vh] flex items-center pt-32 pb-20 overflow-hidden">
+        <!-- Interactive Sylva Particle Canvas -->
+        <canvas id="particle-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
+        
+        <!-- Ambient Glowing Lights -->
+        <div class="sylva-ambient-glow sylva-glow-emerald w-[500px] h-[500px] -top-32 -left-32"></div>
+        <div class="sylva-ambient-glow sylva-glow-gold w-[600px] h-[600px] -bottom-32 -right-32"></div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10 text-center flex flex-col items-center">
+            <div class="sylva-pill-badge mb-6 cursor-default">
+                <span class="sylva-live-dot"></span>
+                <span>Performance Media Buying &bull; ROAS Optimization</span>
+            </div>
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-black font-display text-white uppercase tracking-tight mb-6 max-w-4xl">
+                DOMINATE ACQUISITION WITH <span class="sylva-gradient-text">DATA-DRIVEN MEDIA</span>
             </h1>
-            <p class="text-xl text-alphas-accent font-semibold uppercase">Optimized ad spend & conversions</p>
+            <p class="text-lg md:text-xl text-gray-300 font-medium max-w-2xl mb-8">
+                Targeted Paid Advertising, Google Ads, Meta Ads, and omnichannel funnel scaling with maximized return on ad spend.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4">
+                <button onclick="toggleConsultation(true)" class="sylva-btn-primary group">
+                    <span>Audit Ad Spend</span>
+                    <i class="fa-solid fa-arrow-right text-xs transition-transform group-hover:translate-x-1"></i>
+                </button>
+                <a href="#workflow" class="sylva-btn-secondary">
+                    View Funnel Model
+                </a>
+            </div>
         </div>
     </section>
 
@@ -2017,6 +2042,8 @@
             switchLanguage(savedLang);
         }
     </script>
+    <!-- Sylva Living Green & Pro Max Engine -->
+    <script src="sylva-engine.js"></script>
 </body>
 
 </html>

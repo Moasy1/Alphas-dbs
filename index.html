@@ -69,6 +69,9 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- Sylva Living Green & UI/UX Pro Max Design System -->
+    <link rel="stylesheet" href="sylva-effects.css">
+    
     <!-- GSAP & ScrollTrigger Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -465,13 +468,14 @@
         <div class="max-w-7xl mx-auto px-6 w-full relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <!-- Left copy column -->
             <div class="lg:col-span-7 flex flex-col items-start text-start hero-text">
-                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-alphas-accent/10 border border-alphas-accent/20 text-alphas-accent text-xs font-semibold uppercase tracking-wider mb-6 hover:bg-alphas-accent/20 transition-all cursor-default">
-                    <span class="w-2 h-2 rounded-full bg-alphas-accent animate-pulse"></span>
+                <div class="sylva-pill-badge mb-6 cursor-default">
+                    <span class="sylva-live-dot"></span>
                     <span data-i18n="hero.badge">Alpha Level Strategy</span>
+                    <span class="text-xs text-alphas-goldLight/70 font-mono hidden sm:inline">&bull; 2026 Ready</span>
                 </div>
                 <h1 class="text-4xl md:text-6xl lg:text-[72px] font-black font-display leading-[1.05] text-white uppercase tracking-tight mb-6" data-i18n="hero.title">
                     WE SCALE <br>
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-alphas-accent via-alphas-goldLight to-alphas-accent drop-shadow-[0_0_35px_rgba(229,155,88,0.25)] tracking-wide">
+                    <span class="sylva-gradient-text drop-shadow-[0_0_35px_rgba(229,155,88,0.35)] tracking-wide">
                         DIGITAL REVENUES
                     </span><br>
                     FOR AMBITIOUS BRANDS.
@@ -486,11 +490,12 @@
 
                 <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto hero-actions">
                     <button onclick="toggleConsultation(true)"
-                        class="text-center bg-alphas-accent hover:bg-alphas-accentHover text-white font-medium px-8 py-4 rounded-full transition-all duration-300 shadow-gold-glow flex items-center justify-center gap-3">
-                        <span data-i18n="hero.cta">Book Free Consultation & Audit <i class="fa-solid fa-arrow-right text-xs"></i></span>
+                        class="sylva-btn-primary group">
+                        <span data-i18n="hero.cta">Book Free Consultation & Audit</span>
+                        <i class="fa-solid fa-arrow-right text-xs transition-transform group-hover:translate-x-1"></i>
                     </button>
                     <a href="#about"
-                        class="text-center px-8 py-4 rounded-full border border-white/20 text-gray-300 hover:text-white hover:border-alphas-accent/80 hover:shadow-gold-glow transition-all duration-300 flex items-center justify-center" data-i18n="hero.learnMore">Learn More
+                        class="sylva-btn-secondary" data-i18n="hero.learnMore">Learn More
                     </a>
                 </div>
             </div>
@@ -3086,6 +3091,8 @@
             switchLanguage(savedLang);
         }
     </script>
+    <!-- Sylva Living Green & Pro Max Engine -->
+    <script src="sylva-engine.js"></script>
 </body>
 
 </html>

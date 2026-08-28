@@ -24,14 +24,14 @@ const businessConfigs = {
         ecommerce: { label: "Ecommerce Full Meta/Google Merchant Sync", price: 17250, cogs: 7875, execFee: 3150, execPartner: 'abanoub' }
     },
     consulting: {
-        technical: { label: "Technical & Code Architecture Consulting", price: 1725, cogs: 0, execFee: 1000, execPartner: 'asy' },
-        growth: { label: "Growth & Conversion Optimization Consulting", price: 1725, cogs: 0, execFee: 1000, execPartner: 'abanoub' },
-        enterprise: { label: "Enterprise Strategy & Transformation Session", price: 2300, cogs: 525, execFee: 315, execPartner: 'shared' }
+        technical: { label: "Technical & Code Architecture Consulting", price: 17250, cogs: 6900, execFee: 5175, execPartner: 'asy' },
+        growth: { label: "Growth & Conversion Optimization Consulting", price: 17250, cogs: 6900, execFee: 5175, execPartner: 'abanoub' },
+        enterprise: { label: "Enterprise Strategy & Transformation Session", price: 23000, cogs: 9200, execFee: 6900, execPartner: 'shared' }
     },
     academy: {
-        woocommerce: { label: "Custom WooCommerce Website Training", price: 2875, cogs: 525, execFee: 315, execPartner: 'asy' },
-        mediabuying: { label: "Media Buying & Server-Side Tracking Course", price: 2875, cogs: 525, execFee: 315, execPartner: 'abanoub' },
-        crm: { label: "CRM & Sales Pipeline Automation Training", price: 2875, cogs: 525, execFee: 315, execPartner: 'abanoub' }
+        woocommerce: { label: "Custom WooCommerce Website Training", price: 14375, cogs: 5750, execFee: 3737.5, execPartner: 'asy' },
+        mediabuying: { label: "Media Buying & Server-Side Tracking Course", price: 14375, cogs: 5750, execFee: 3737.5, execPartner: 'abanoub' },
+        crm: { label: "CRM & Sales Pipeline Automation Training", price: 14375, cogs: 5750, execFee: 3737.5, execPartner: 'abanoub' }
     },
     swatches: {
         cards: {
