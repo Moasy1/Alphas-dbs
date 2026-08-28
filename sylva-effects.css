@@ -318,7 +318,78 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   7. Accessibility & Performance Guardrails
+   7. Aceternity Moving Gradient Border
+   -------------------------------------------------------------------------- */
+.moving-gradient-border {
+    position: relative;
+    padding: 1.5px;
+    border-radius: 20px;
+    background: linear-gradient(90deg, #e59b58, #10b981, #6366f1, #e59b58);
+    background-size: 300% 300%;
+    animation: movingBorder 6s linear infinite;
+    overflow: hidden;
+}
+
+@keyframes movingBorder {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.moving-gradient-border > .moving-border-inner {
+    background: rgba(6, 10, 20, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 18.5px;
+    height: 100%;
+    width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   8. ThreeUI / Aceternity Lamp & Aurora Glow Cone
+   -------------------------------------------------------------------------- */
+.sylva-lamp-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.sylva-lamp-cone {
+    position: absolute;
+    top: -80px;
+    width: 600px;
+    height: 250px;
+    background: conic-gradient(from 180deg at 50% 0%, transparent 65deg, rgba(229, 155, 88, 0.22) 90deg, rgba(16, 185, 129, 0.2) 120deg, transparent 155deg);
+    filter: blur(40px);
+    opacity: 0.8;
+    transform-origin: top center;
+    animation: lampShift 8s ease-in-out infinite alternate;
+}
+
+@keyframes lampShift {
+    0% { transform: scaleX(0.9) rotate(-3deg); opacity: 0.7; }
+    100% { transform: scaleX(1.1) rotate(3deg); opacity: 0.95; }
+}
+
+/* --------------------------------------------------------------------------
+   9. Animata Live Metric Ticker Capsule
+   -------------------------------------------------------------------------- */
+.sylva-metric-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 18px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 9999px;
+    backdrop-filter: blur(16px);
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.15), 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* --------------------------------------------------------------------------
+   10. Accessibility & Performance Guardrails
    -------------------------------------------------------------------------- */
 .cursor-pointer {
     cursor: pointer;
@@ -339,7 +410,8 @@ body {
         scroll-behavior: auto !important;
     }
     .sylva-spotlight::before,
-    .sylva-spotlight::after {
+    .sylva-spotlight::after,
+    .moving-gradient-border {
         display: none !important;
     }
 }
