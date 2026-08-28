@@ -147,6 +147,38 @@
         let isRunning = true;
         document.addEventListener('visibilitychange', () => {
             isRunning = !document.hidden;
+        // Click Shockwave Burst
+        const shockwaves = [];
+        window.addEventListener('click', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            shockwaves.push({
+                x: e.clientX - rect.left,
+                y: e.clientY - rect.top,
+                radius: 5,
+                maxRadius: 160,
+                alpha: 0.8,
+                color: Math.random() > 0.5 ? '229, 155, 88' : '16, 185, 129'
+            });
+        });
+
+        // Meteor Streaks
+        const meteors = [];
+        function maybeSpawnMeteor() {
+            if (Math.random() < 0.02 && meteors.length < 3) {
+                meteors.push({
+                    x: Math.random() * width + 200,
+                    y: -50,
+                    length: Math.random() * 80 + 60,
+                    speed: Math.random() * 5 + 6,
+                    angle: Math.PI / 4 + (Math.random() - 0.5) * 0.2,
+                    alpha: 0.7
+                });
+            }
+        }
+
+        let isRunning = true;
+        document.addEventListener('visibilitychange', () => {
+            isRunning = !document.hidden;
             if (isRunning) requestAnimationFrame(render);
         });
 
@@ -180,6 +212,50 @@
                 p.draw();
             });
 
+            // Render Shockwaves
+            for (let i = shockwaves.length - 1; i >= 0; i--) {
+                const sw = shockwaves[i];
+                sw.radius += 4;
+                sw.alpha -= 0.02;
+                if (sw.alpha <= 0 || sw.radius >= sw.maxRadius) {
+                    shockwaves.splice(i, 1);
+                    continue;
+                }
+                ctx.beginPath();
+                ctx.arc(sw.x, sw.y, sw.radius, 0, Math.PI * 2);
+                ctx.strokeStyle = `rgba(${sw.color}, ${sw.alpha})`;
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            }
+
+            // Render Meteors
+            maybeSpawnMeteor();
+            for (let i = meteors.length - 1; i >= 0; i--) {
+                const m = meteors[i];
+                m.x -= Math.cos(m.angle) * m.speed;
+                m.y += Math.sin(m.angle) * m.speed;
+                m.alpha -= 0.008;
+
+                if (m.y > height + 100 || m.x < -100 || m.alpha <= 0) {
+                    meteors.splice(i, 1);
+                    continue;
+                }
+
+                const tailX = m.x + Math.cos(m.angle) * m.length;
+                const tailY = m.y - Math.sin(m.angle) * m.length;
+
+                const grad = ctx.createLinearGradient(m.x, m.y, tailX, tailY);
+                grad.addColorStop(0, `rgba(245, 214, 184, ${m.alpha})`);
+                grad.addColorStop(1, 'rgba(229, 155, 88, 0)');
+
+                ctx.beginPath();
+                ctx.moveTo(m.x, m.y);
+                ctx.lineTo(tailX, tailY);
+                ctx.strokeStyle = grad;
+                ctx.lineWidth = 1.5;
+                ctx.stroke();
+            }
+
             requestAnimationFrame(render);
         }
 
@@ -190,7 +266,7 @@
     // 3. 3D Card & Mockup Gyroscope Tilt
     // --------------------------------------------------------------------------
     function initTiltEffects() {
-        const tiltCards = document.querySelectorAll('.browser-mockup, .sylva-3d-card');
+        const tiltCards = document.querySelectorAll('.browser-mockup, .sylva-3d-card, .moving-gradient-border');
         
         tiltCards.forEach(card => {
             const wrapper = card.closest('.mockup-perspective-wrapper') || card.parentElement;
@@ -201,14 +277,14 @@
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
 
-                const rotateY = -10 + ((x / rect.width) * 20);
-                const rotateX = 8 - ((y / rect.height) * 16);
+                const rotateY = -8 + ((x / rect.width) * 16);
+                const rotateX = 6 - ((y / rect.height) * 12);
 
-                card.style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg) scale(1.02)`;
+                card.style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg) scale(1.01)`;
             });
 
             wrapper.addEventListener('mouseleave', () => {
-                card.style.transform = `rotateY(-10deg) rotateX(6deg) scale(1)`;
+                card.style.transform = `rotateY(0deg) rotateX(0deg) scale(1)`;
             });
         });
     }
@@ -234,13 +310,51 @@
     }
 
     // --------------------------------------------------------------------------
-    // 5. Initialize Everything on DOM Load
+    // 5. Live Number Counter Animator
+    // --------------------------------------------------------------------------
+    function initCounters() {
+        const counters = document.querySelectorAll('[data-sylva-counter]');
+        if (!counters.length) return;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    const target = parseFloat(el.getAttribute('data-sylva-counter')) || 0;
+                    const suffix = el.getAttribute('data-sylva-suffix') || '';
+                    const prefix = el.getAttribute('data-sylva-prefix') || '';
+                    let current = 0;
+                    const duration = 1500;
+                    const stepTime = 25;
+                    const totalSteps = duration / stepTime;
+                    const stepVal = target / totalSteps;
+
+                    const timer = setInterval(() => {
+                        current += stepVal;
+                        if (current >= target) {
+                            current = target;
+                            clearInterval(timer);
+                        }
+                        el.textContent = `${prefix}${Math.floor(current).toLocaleString()}${suffix}`;
+                    }, stepTime);
+
+                    observer.unobserve(el);
+                }
+            });
+        }, { threshold: 0.2 });
+
+        counters.forEach(c => observer.observe(c));
+    }
+
+    // --------------------------------------------------------------------------
+    // 6. Initialize Everything on DOM Load
     // --------------------------------------------------------------------------
     function init() {
         initSpotlights();
         initSylvaCanvas();
         initTiltEffects();
         initMagneticButtons();
+        initCounters();
     }
 
     if (document.readyState === 'loading') {
@@ -254,6 +368,7 @@
             initSpotlights();
             initTiltEffects();
             initMagneticButtons();
+            initCounters();
         }
     };
 })();
