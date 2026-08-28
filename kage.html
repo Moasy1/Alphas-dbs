@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALPHAS - Kage Cinematic Experience | Digital Business Solutions</title>
+
+    <!-- SEO & Social OpenGraph Tags -->
+    <meta name="description"
+        content="The Kage Cinematic Experience of ALPHAS. Scale digital revenues with high-performance web engineering, data-driven SMM, and conversion architecture.">
+    <meta property="og:title" content="ALPHAS - Kage Cinematic Experience">
+    <meta property="og:description"
+        content="A storytelling journey through ALPHAS digital business solutions, high-performance web engineering, and brand scale.">
+    <meta property="og:image" content="Logo.png">
+    <meta property="og:type" content="website">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        kage: {
+                            dark: '#04060a',
+                            surface: '#080d1a',
+                            gold: '#e59b58',
+                            goldLight: '#f5d6b8',
+                            goldGlow: 'rgba(229, 155, 88, 0.3)',
+                            crimson: '#dc2626',
+                            glass: 'rgba(255, 255, 255, 0.03)',
+                            border: 'rgba(255, 255, 255, 0.08)'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Cairo', 'sans-serif'],
+                        display: ['Cairo', 'sans-serif'],
+                        kanji: ['serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Cinzel:wght@600;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- GSAP & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <!-- Firebase SDK (v10 compat) -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    
+    <!-- Sylva Living Design System -->
+    <link rel="stylesheet" href="sylva-effects.css">
+
+    <style>
+        body {
+            background-color: #04060a;
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+
+        /* Cinematic Kage Typography */
+        .cinematic-heading {
+            font-family: 'Cinzel', 'Cairo', serif;
+            letter-spacing: 0.08em;
+        }
+
+        /* Kage Golden Torii Ray Overlay */
+        .kage-ray {
+            background: linear-gradient(180deg, rgba(229, 155, 88, 0.15) 0%, rgba(229, 155, 88, 0) 100%);
+            filter: blur(50px);
+            pointer-events: none;
+        }
+
+        /* Chapter Navigation HUD */
+        .chapter-hud {
+            position: fixed;
+            left: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 40;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .chapter-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.75rem;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .chapter-link:hover,
+        .chapter-link.active {
+            color: #e59b58;
+            transform: translateX(4px);
+        }
+
+        .chapter-indicator {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .chapter-link.active .chapter-indicator {
+            background: #e59b58;
+            box-shadow: 0 0 12px #e59b58;
+            transform: scale(1.6);
+        }
+
+        /* Kanji Chapter Watermark */
+        .kanji-watermark {
+            font-family: serif;
+            position: absolute;
+            right: 5%;
+            top: 10%;
+            font-size: 14rem;
+            font-weight: 900;
+            color: rgba(229, 155, 88, 0.03);
+            pointer-events: none;
+            user-select: none;
+            line-height: 1;
+            z-index: 0;
+        }
+
+        /* Dynamic calendar booking styles */
+        .date-cell:not(.disabled):hover {
+            background: rgba(229, 155, 88, 0.2);
+            border-color: #e59b58;
+            color: #fff;
+        }
+        .date-cell.selected {
+            background: #e59b58 !important;
+            border-color: #e59b58 !important;
+            color: #04060a !important;
+            font-weight: 700;
+        }
+        .time-slot:hover {
+            background: rgba(229, 155, 88, 0.2);
+            border-color: #e59b58;
+            color: white;
+        }
+        .time-slot.selected {
+            background: #e59b58 !important;
+            border-color: #e59b58 !important;
+            color: #04060a !important;
+            font-weight: bold;
+        }
+
+        /* Language Switcher */
+        html[lang="en"] .lang-ar { display: none !important; }
+        html[lang="ar"] .lang-en { display: none !important; }
+    </style>
+
+    <script>
+        // ---- Firebase Init ----
+        const _fbApp = firebase.initializeApp({
+            apiKey: "AIzaSyDO3o9HVBEdrwaz2ByTvveNzuclF0DrgmU",
+            authDomain: "alphas-crm.firebaseapp.com",
+            projectId: "alphas-crm",
+            storageBucket: "alphas-crm.firebasestorage.app",
+            messagingSenderId: "193528333253",
+            appId: "1:193528333253:web:5b48cce98545ce3ff541ac"
+        });
+        const _db = firebase.firestore();
+        emailjs.init("ipL5F66kuu0jUAOL0");
+
+        async function saveLeadToCloud(lead, source) {
+            const record = { ...lead, source: source, createdAt: new Date().toISOString() };
+            try {
+                await _db.collection("leads").add(record);
+                console.log("[Alphas CRM] Lead saved to Firestore");
+            } catch (err) { console.error("[Alphas CRM] Firestore:", err); }
+            try {
+                await emailjs.send("service_dz397n6", "template_a874ju6", {
+                    company_name: lead.name     || "Unknown",
+                    client_email: lead.email    || "—",
+                    service_type: lead.services || "—",
+                    budget:       lead.budget ? "EGP " + Number(lead.budget).toLocaleString() : "—",
+                    message:      lead.notes    || "—",
+                    source_page:  source,
+                    submitted_at: new Date().toLocaleString("en-EG", { timeZone: "Africa/Cairo" })
+                });
+                console.log("[Alphas CRM] Email notification sent");
+            } catch (err) { console.error("[Alphas CRM] EmailJS:", err); }
+        }
+    </script>
+</head>
+
+<body class="font-sans antialiased selection:bg-kage-gold selection:text-black">
+
+    <!-- Ambient Embers & Stardust Canvas -->
+    <canvas id="kage-canvas" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
+
+    <!-- Kage Atmospheric Background Glows -->
+    <div class="fixed inset-0 pointer-events-none -z-50 overflow-hidden">
+        <div class="kage-ray absolute top-0 left-1/2 -translate-x-1/2 w-[80vw] h-[60vh]"></div>
+        <div class="absolute top-[20%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-amber-600/5 blur-[160px]"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[60vw] h-[60vw] rounded-full bg-blue-900/10 blur-[180px]"></div>
+    </div>
+
+    <!-- Chapter Navigation HUD (Desktop) -->
+    <aside class="chapter-hud hidden xl:flex">
+        <a href="#chapter-1" class="chapter-link active" id="hud-c1">
+            <span class="chapter-indicator"></span>
+            <span>I. GENESIS &bull; 始</span>
+        </a>
+        <a href="#chapter-2" class="chapter-link" id="hud-c2">
+            <span class="chapter-indicator"></span>
+            <span>II. SANCTUM &bull; 構</span>
+        </a>
+        <a href="#chapter-3" class="chapter-link" id="hud-c3">
+            <span class="chapter-indicator"></span>
+            <span>III. MASTERY &bull; 技</span>
+        </a>
+        <a href="#chapter-4" class="chapter-link" id="hud-c4">
+            <span class="chapter-indicator"></span>
+            <span>IV. RELICS &bull; 跡</span>
+        </a>
+        <a href="#chapter-5" class="chapter-link" id="hud-c5">
+            <span class="chapter-indicator"></span>
+            <span>V. COUNCIL &bull; 契</span>
+        </a>
+    </aside>
+
+    <!-- Header Navigation -->
+    <header class="fixed top-0 left-0 w-full z-50 glass-nav border-b border-white/5 backdrop-blur-2xl bg-kage-dark/80">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#chapter-1" class="flex items-center gap-3 group">
+                <div class="relative w-11 h-11 flex items-center justify-center">
+                    <img src="Logo.png" alt="ALPHAS Logo" class="w-full h-full object-contain">
+                </div>
+                <div class="flex flex-col leading-none">
+                    <span class="text-xl font-bold cinematic-heading tracking-widest text-white uppercase group-hover:text-kage-gold transition">ALPHAS</span>
+                    <span class="text-[9px] tracking-[0.3em] text-kage-gold uppercase">KAGE STORYTELLING</span>
+                </div>
+            </a>
+
+            <!-- Menu Links -->
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="#chapter-1" class="text-sm font-medium text-gray-300 hover:text-kage-gold transition">Genesis</a>
+                <a href="#chapter-2" class="text-sm font-medium text-gray-300 hover:text-kage-gold transition">Sanctum</a>
+                <a href="#chapter-3" class="text-sm font-medium text-gray-300 hover:text-kage-gold transition">Mastery</a>
+                <a href="#chapter-4" class="text-sm font-medium text-gray-300 hover:text-kage-gold transition">Relics</a>
+                <a href="index.html" class="text-xs font-semibold px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-gray-300 hover:text-white transition">
+                    <i class="fa-solid fa-arrow-left text-[10px] mr-1"></i> Classic View
+                </a>
+                <button onclick="switchLanguage('ar')" class="lang-switch-btn px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white/5 border border-white/10 text-white hover:bg-kage-gold hover:text-black transition">العربية</button>
+            </nav>
+
+            <!-- CTA -->
+            <div class="flex items-center gap-4">
+                <button onclick="toggleConsultation(true)" class="sylva-btn-primary py-2.5 px-5 text-xs rounded-full">
+                    <span>Enter Council</span>
+                    <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- =========================================================================
+         CHAPTER I: GENESIS (The Temple Gates)
+         ========================================================================= -->
+    <section id="chapter-1" class="relative min-h-screen flex items-center pt-32 pb-24 overflow-hidden">
+        <div class="kanji-watermark">始</div>
+
+        <!-- ThreeUI / Aceternity Lamp Glow Cone -->
+        <div class="sylva-lamp-wrapper absolute top-0 left-0">
+            <div class="sylva-lamp-cone"></div>
+        </div>
+
+        <div class="max-w-6xl mx-auto px-6 relative z-10 w-full text-center flex flex-col items-center">
+            <div class="sylva-pill-badge mb-8 cursor-default">
+                <span class="sylva-live-dot"></span>
+                <span>CHAPTER I &bull; THE GATES OF ALPHAS</span>
+                <span class="text-xs text-kage-goldLight/70 font-mono hidden sm:inline">&bull; 2026</span>
+            </div>
+
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-black cinematic-heading text-white uppercase tracking-tight mb-8 leading-[1.08] max-w-5xl">
+                WE SCALE <br>
+                <span class="sylva-gradient-text drop-shadow-[0_0_40px_rgba(229,155,88,0.4)]">
+                    DIGITAL REVENUES
+                </span><br>
+                FOR AMBITIOUS BRANDS.
+            </h1>
+
+            <p class="text-lg md:text-xl font-display font-semibold tracking-wider text-gray-300 uppercase mb-4 flex items-center gap-3">
+                <span class="text-kage-gold" data-sylva-counter="300" data-sylva-suffix="+">300+</span> SUCCESSFUL PROJECTS &bull; 
+                <span class="text-emerald-400" data-sylva-counter="95" data-sylva-suffix="%">95%</span> CLIENT GROWTH RATE
+            </p>
+
+            <p class="text-sm md:text-base text-gray-400 font-medium max-w-2xl mb-10">
+                High-Performance UI/UX <span class="text-kage-gold/60 mx-2">|</span> Advanced Automation <span class="text-kage-gold/60 mx-2">|</span> Scalable E-Commerce Architectures.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-5">
+                <button onclick="toggleConsultation(true)" class="sylva-btn-primary text-base px-8 py-4">
+                    <span>Book Free Consultation & Audit</span>
+                    <i class="fa-solid fa-arrow-right text-xs"></i>
+                </button>
+                <a href="#chapter-2" class="sylva-btn-secondary text-base px-8 py-4">
+                    Descend into the Sanctum
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         CHAPTER II: THE SANCTUM (About & Structure)
+         ========================================================================= -->
+    <section id="chapter-2" class="relative min-h-screen flex items-center py-28 overflow-hidden bg-kage-surface/50 border-y border-white/5">
+        <div class="kanji-watermark">構</div>
+
+        <div class="max-w-6xl mx-auto px-6 relative z-10 w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <!-- Left Card: The Pitch -->
+            <div class="lg:col-span-5">
+                <div class="moving-gradient-border">
+                    <div class="moving-border-inner p-8 text-start relative">
+                        <span class="text-xs font-bold text-kage-gold uppercase tracking-widest mb-3 block">CHAPTER II &bull; THE INNER SANCTUM</span>
+                        <h3 class="text-2xl font-bold cinematic-heading text-white mb-4 uppercase">Alpha Business Growth</h3>
+                        <p class="text-sm text-gray-300 leading-relaxed mb-6">
+                            "Ambitious companies looking to take their success to the next level need more than standard tactics. They require structural transformation based on market-tested formulas."
+                        </p>
+                        <div class="p-4 rounded-xl bg-white/5 border border-white/10 flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-kage-gold flex items-center justify-center text-black font-bold">
+                                <i class="fa-solid fa-gem"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold text-white uppercase">Profitable Strategy</h4>
+                                <p class="text-[11px] text-gray-400">Custom tailored execution pathways.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Narrative Copy -->
+            <div class="lg:col-span-7 text-start">
+                <div class="flex items-center gap-2 text-kage-gold text-xs font-bold uppercase mb-4 tracking-widest">
+                    <span class="w-6 h-0.5 bg-kage-gold"></span> WHO IS ALPHAS?
+                </div>
+                <h2 class="text-3xl md:text-5xl font-extrabold cinematic-heading text-white uppercase mb-6 leading-tight">
+                    We build highly scalable <br>digital operations
+                </h2>
+                <p class="text-gray-300 text-base md:text-lg leading-relaxed mb-6">
+                    Alphas is the perfect solution for ambitious companies looking to take their success to the next level. With over <strong class="text-kage-gold">300 successful projects</strong> spanning 5+ years of operational excellence, our unified team of certified professionals has the background required to define, develop, and scale profitable business blueprints.
+                </p>
+                <p class="text-gray-400 text-sm md:text-base leading-relaxed mb-8">
+                    Whether starting from a brand refresh, shifting target cohorts, or establishing robust customized e-commerce systems, we handle the technical design layers so you can focus entirely on operations.
+                </p>
+                <div class="flex items-center gap-8 border-t border-white/10 pt-6">
+                    <div>
+                        <span class="text-3xl font-black text-kage-gold" data-sylva-counter="5" data-sylva-suffix="+ Years">5+ Years</span>
+                        <span class="block text-xs text-gray-400 uppercase mt-1">Excellence</span>
+                    </div>
+                    <div class="border-l border-white/10 pl-8">
+                        <span class="text-3xl font-black text-emerald-400" data-sylva-counter="100" data-sylva-suffix="% Quality">100%</span>
+                        <span class="block text-xs text-gray-400 uppercase mt-1">Delivery</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         CHAPTER III: MASTERY (The Craft & Services)
+         ========================================================================= -->
+    <section id="chapter-3" class="relative min-h-screen py-28 overflow-hidden">
+        <div class="kanji-watermark">技</div>
+
+        <div class="max-w-6xl mx-auto px-6 relative z-10 w-full text-center">
+            <div class="sylva-pill-badge mb-6 cursor-default">
+                <span class="sylva-live-dot"></span>
+                <span>CHAPTER III &bull; THE THREE DISCIPLINES</span>
+            </div>
+            <h2 class="text-3xl md:text-5xl font-black cinematic-heading text-white uppercase mb-14">
+                Core Scalable Pillars
+            </h2>
+
+            <!-- Three Pillars Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-start">
+                <!-- Pillar 1 -->
+                <div class="sylva-spotlight p-8 flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-kage-gold text-xl mb-6">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white uppercase mb-3">Web Architecture & E-Commerce</h3>
+                        <p class="text-xs text-gray-400 leading-relaxed mb-6">
+                            Next-generation storefronts, lightning-fast Next.js/Shopify architectures, and conversion-optimized checkout funnels.
+                        </p>
+                    </div>
+                    <a href="service-web.html" class="text-xs font-bold text-kage-gold hover:text-white transition flex items-center gap-2">
+                        <span>Explore Discipline</span> <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                    </a>
+                </div>
+
+                <!-- Pillar 2 -->
+                <div class="sylva-spotlight p-8 flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-xl mb-6">
+                            <i class="fa-solid fa-bullhorn"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white uppercase mb-3">Social Intelligence & SMM</h3>
+                        <p class="text-xs text-gray-400 leading-relaxed mb-6">
+                            Data-driven brand growth, algorithmic creative positioning, and multi-channel audience conversion across META, TikTok & LinkedIn.
+                        </p>
+                    </div>
+                    <a href="service-smm.html" class="text-xs font-bold text-emerald-400 hover:text-white transition flex items-center gap-2">
+                        <span>Explore Discipline</span> <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                    </a>
+                </div>
+
+                <!-- Pillar 3 -->
+                <div class="sylva-spotlight p-8 flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 text-xl mb-6">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white uppercase mb-3">Performance Media Buying</h3>
+                        <p class="text-xs text-gray-400 leading-relaxed mb-6">
+                            Maximized ROAS, precision ad spend allocation, predictive attribution tracking, and scalable acquisition engines.
+                        </p>
+                    </div>
+                    <a href="service-media.html" class="text-xs font-bold text-blue-400 hover:text-white transition flex items-center gap-2">
+                        <span>Explore Discipline</span> <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         CHAPTER IV: RELICS (Showcase & Case Studies)
+         ========================================================================= -->
+    <section id="chapter-4" class="relative min-h-screen py-28 overflow-hidden bg-kage-surface/30 border-y border-white/5">
+        <div class="kanji-watermark">跡</div>
+
+        <div class="max-w-6xl mx-auto px-6 relative z-10 w-full text-center">
+            <div class="sylva-pill-badge mb-6 cursor-default">
+                <span class="sylva-live-dot"></span>
+                <span>CHAPTER IV &bull; HALL OF PROVEN MASTERY</span>
+            </div>
+            <h2 class="text-3xl md:text-5xl font-black cinematic-heading text-white uppercase mb-14">
+                Featured Works & Relics
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-start">
+                <!-- Relic 1 -->
+                <div class="sylva-spotlight p-8 group">
+                    <div class="h-48 rounded-xl overflow-hidden bg-slate-900 mb-6 relative">
+                        <img src="showcase_images/dr_nutrition.png" alt="Dr Nutrition" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <span class="absolute top-3 left-3 bg-kage-gold text-black text-[10px] uppercase font-black px-3 py-1 rounded-full">E-Commerce</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white uppercase mb-2">Dr Nutrition (JNP)</h3>
+                    <p class="text-xs text-gray-400 leading-relaxed mb-4">
+                        Multi-currency high-speed Shopify architecture specializing in health & nutrition supplements with custom checkout optimizations.
+                    </p>
+                    <button onclick="toggleConsultation(true)" class="text-xs font-bold text-kage-gold flex items-center gap-1.5">
+                        <span>Request Architecture Review</span> <i class="fa-solid fa-arrow-right text-[9px]"></i>
+                    </button>
+                </div>
+
+                <!-- Relic 2 -->
+                <div class="sylva-spotlight p-8 group">
+                    <div class="h-48 rounded-xl overflow-hidden bg-slate-900 mb-6 relative">
+                        <img src="showcase_images/lia_academy.png" alt="London Innovation Academy" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <span class="absolute top-3 left-3 bg-emerald-500 text-black text-[10px] uppercase font-black px-3 py-1 rounded-full">Education</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white uppercase mb-2">London Innovation Academy (LIA)</h3>
+                    <p class="text-xs text-gray-400 leading-relaxed mb-4">
+                        Custom LMS digital campus with automated student onboarding, high-throughput media streaming, and certificate generation.
+                    </p>
+                    <button onclick="toggleConsultation(true)" class="text-xs font-bold text-emerald-400 flex items-center gap-1.5">
+                        <span>Request Architecture Review</span> <i class="fa-solid fa-arrow-right text-[9px]"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="mt-12">
+                <a href="alphas_portfolio_landing_page.html" class="sylva-btn-secondary px-8 py-3 text-xs">
+                    View Complete 300+ Relics Catalog
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         CHAPTER V: THE COUNCIL (Consultation & Audit)
+         ========================================================================= -->
+    <section id="chapter-5" class="relative min-h-screen flex items-center py-28 overflow-hidden">
+        <div class="kanji-watermark">契</div>
+
+        <div class="max-w-4xl mx-auto px-6 relative z-10 w-full text-center">
+            <div class="sylva-pill-badge mb-6 cursor-default">
+                <span class="sylva-live-dot"></span>
+                <span>CHAPTER V &bull; ENTER THE COUNCIL</span>
+            </div>
+            <h2 class="text-3xl md:text-6xl font-black cinematic-heading text-white uppercase mb-6 leading-tight">
+                Claim Your Strategic Blueprint
+            </h2>
+            <p class="text-gray-300 text-base md:text-lg max-w-xl mx-auto mb-10">
+                Unlock actionable architecture audits, funnel diagnostics, and tailored scaling roadmaps with our executive team.
+            </p>
+
+            <div class="moving-gradient-border max-w-2xl mx-auto">
+                <div class="moving-border-inner p-10 text-start">
+                    <form onsubmit="handleKageSubmit(event)" class="flex flex-col gap-5">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-300 uppercase mb-2">Company Name</label>
+                            <input id="kage-company" type="text" required placeholder="e.g. Acme Corp" 
+                                class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:border-kage-gold outline-none transition">
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-xs font-bold text-gray-300 uppercase mb-2">Email Address</label>
+                                <input id="kage-email" type="email" required placeholder="ceo@company.com" 
+                                    class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:border-kage-gold outline-none transition">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-300 uppercase mb-2">Primary Objective</label>
+                                <select id="kage-service" class="w-full bg-[#080d1a] border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:border-kage-gold outline-none transition">
+                                    <option value="Web & E-Commerce">Web Engineering & E-Commerce</option>
+                                    <option value="Social Media Marketing">Social Media & Brand Growth</option>
+                                    <option value="Media Buying">Media Buying & Paid Scale</option>
+                                    <option value="Full Duopoly">Full Duopoly Operations</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="sylva-btn-primary w-full py-4 text-sm mt-3">
+                            <span>Request Executive Audit</span>
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                        <div id="kage-success" class="hidden text-center text-xs font-bold text-emerald-400 pt-3">
+                            <i class="fa-solid fa-check-circle mr-1"></i> Request dispatched to ALPHAS CRM. We will reach out shortly.
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-white/5 bg-kage-dark text-center text-xs text-gray-500">
+        <p>&copy; 2026 ALPHAS Digital Business Solutions. All rights reserved &bull; Kage Cinematic Edition.</p>
+    </footer>
+
+    <!-- Floating Live Pill -->
+    <div onclick="toggleConsultation(true)" 
+        class="fixed bottom-6 right-6 z-40 sylva-pill-badge bg-kage-dark/95 border border-kage-gold/40 shadow-2xl backdrop-blur-xl px-4 py-2.5 flex items-center gap-3 cursor-pointer hover:scale-105 transition-transform group">
+        <span class="sylva-live-dot"></span>
+        <span class="text-xs text-white font-bold tracking-wide">Council Active</span>
+        <i class="fa-solid fa-arrow-right text-[10px] text-kage-gold transition-transform group-hover:translate-x-1"></i>
+    </div>
+
+    <!-- Scripts -->
+    <script src="sylva-engine.js"></script>
+    <script>
+        // Kage Ember Canvas Simulation
+        (function() {
+            const canvas = document.getElementById('kage-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let w = canvas.width = window.innerWidth;
+            let h = canvas.height = window.innerHeight;
+
+            window.addEventListener('resize', () => {
+                w = canvas.width = window.innerWidth;
+                h = canvas.height = window.innerHeight;
+            });
+
+            const embers = Array.from({ length: 45 }, () => ({
+                x: Math.random() * w,
+                y: Math.random() * h,
+                size: Math.random() * 2 + 0.8,
+                speedY: -(Math.random() * 0.5 + 0.2),
+                speedX: (Math.random() - 0.5) * 0.3,
+                alpha: Math.random() * 0.6 + 0.2,
+                gold: Math.random() > 0.3
+            }));
+
+            function draw() {
+                ctx.clearRect(0, 0, w, h);
+                embers.forEach(e => {
+                    e.y += e.speedY;
+                    e.x += e.speedX;
+                    if (e.y < 0) { e.y = h + 10; e.x = Math.random() * w; }
+                    ctx.beginPath();
+                    ctx.arc(e.x, e.y, e.size, 0, Math.PI * 2);
+                    ctx.fillStyle = e.gold ? `rgba(229, 155, 88, ${e.alpha})` : `rgba(245, 214, 184, ${e.alpha * 0.8})`;
+                    ctx.shadowBlur = e.size * 4;
+                    ctx.shadowColor = '#e59b58';
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                });
+                requestAnimationFrame(draw);
+            }
+            draw();
+        })();
+
+        // Active Chapter HUD Observer
+        const hudSections = document.querySelectorAll('section[id^="chapter-"]');
+        const hudLinks = document.querySelectorAll('.chapter-link');
+        window.addEventListener('scroll', () => {
+            let current = 'chapter-1';
+            hudSections.forEach(sec => {
+                const top = sec.offsetTop - 300;
+                if (window.scrollY >= top) current = sec.id;
+            });
+            hudLinks.forEach(link => {
+                link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
+            });
+        });
+
+        // Kage Lead Dispatcher
+        async function handleKageSubmit(e) {
+            e.preventDefault();
+            const company = document.getElementById('kage-company').value.trim();
+            const email = document.getElementById('kage-email').value.trim();
+            const service = document.getElementById('kage-service').value;
+
+            const newLead = {
+                id: "kage_" + Date.now(),
+                name: company,
+                email: email,
+                services: service,
+                notes: "Dispatched from Kage Cinematic Experience",
+                source: "kage.html",
+                createdAt: new Date().toISOString()
+            };
+
+            await saveLeadToCloud(newLead, "kage.html");
+            document.getElementById('kage-success').classList.remove('hidden');
+            e.target.reset();
+        }
+
+        function toggleConsultation(open) {
+            const council = document.getElementById('chapter-5');
+            if (council) council.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
